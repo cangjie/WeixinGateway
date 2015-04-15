@@ -9,13 +9,15 @@
 <%@ Import Namespace="System.Net" %>
 <script runat="server">
 
-    public string token = "999uuucnweixin";
+    public string token = "bakeryweixin";
     public string validResult = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (valid())
         {
+            //Response.Write(Request["echostr"].Trim());
+            //Response.End();
             Stream s = Request.InputStream;
             XmlDocument xmlD = new XmlDocument();
             xmlD.Load(s);

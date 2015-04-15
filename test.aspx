@@ -9,6 +9,12 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim());
+        conn.Open();
+        conn.Close();
+    conn.Dispose();
+        
+        
         ReceivedMessage receiveMsg = new ReceivedMessage();
         receiveMsg.to = "gh_7c0c5cc0906a";
         receiveMsg.from = "oqrMvt8K6cwKt5T1yAavEylbJaRs";
