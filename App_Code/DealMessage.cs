@@ -116,6 +116,9 @@ public class DealMessage
             case "二维码":
                 repliedMessage = CreateQrCodeReplyMessage(receivedMessage, repliedMessage);
                 break;
+            case "trx" :
+                //repliedMessage = CreateQrCodeReplyMessage(receivedMessage, repliedMessage);
+                break;
             default:
                 break;
         }

@@ -9,6 +9,14 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        Dictionary<string, KeyValuePair<SqlDbType, object>> d = new Dictionary<string, KeyValuePair<SqlDbType, object>>();
+
+
+        d.Add("@id", new KeyValuePair<SqlDbType, object>(SqlDbType.Int, 1));
+        
+       
+        
         SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim());
         conn.Open();
         conn.Close();
