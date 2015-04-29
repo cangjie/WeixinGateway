@@ -30,6 +30,8 @@ public class Util
 
     public static string conStr = "";
 
+    public static string imageUrl = "";
+
     public static string UploadImageToWeixin(string path, string token)
     {
         List<FormItem> list = new List<FormItem>();
@@ -71,7 +73,7 @@ public class Util
         req.ContentType = "raw";
         //Stream streamReq = req.GetRequestStream();
         StreamWriter sw = new StreamWriter(req.GetRequestStream());
-        sw.Write("{\"expire_seconds\": 1800, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\":" + scene.ToString().PadLeft(32,'0') + "}}}");
+        sw.Write("{\"expire_seconds\": 1800, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\":" + scene.ToString().PadLeft(32, '0') + "}}}");
         sw.Close();
         sw = null;
 
@@ -88,12 +90,20 @@ public class Util
         req.Abort();
         req = null;
 
-        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(strTicketJson);
-        object v;
-        json.TryGetValue("ticket", out v);
-        token = v.ToString();
-        return token;
+        try
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(strTicketJson);
+            object v;
+            json.TryGetValue("ticket", out v);
+            token = v.ToString();
+            return token;
+        }
+        catch
+        {
+
+            return strTicketJson;
+        }
     }
 
     public static byte[] GetQrCodeByTicket(string ticket)
@@ -243,6 +253,41 @@ public class Util
             + "<Url><![CDATA[http://www.luqinwenda.com/index.php?app=public&mod=LandingPage&act=Landing&url=" + urlId.ToString() + "&openid=" + openId + "&time=" + timeStamp + "&code=" + GetMd5(openId+timeStamp+key) + "]]></Url>"
             + "</item>";
         return xmlStr;
+    }
+
+    public static void GetProductNews(string type, RepliedMessage repliedMessage)
+    {
+        SqlDataAdapter da = new SqlDataAdapter(" select * from OilDetail where OilDetail_type = '" + type.Replace("'", "") + "'   order by  oildetail_right desc ", Util.conStr);
+        DataTable dt = new DataTable();
+        da.Fill(dt);
+        da.Dispose();
+        int newsCount = 10;
+        RepliedMessage.news[] newsArr = new RepliedMessage.news[newsCount];
+        newsArr[0] = new RepliedMessage.news();
+        newsArr[0].description = "单方精油";
+        newsArr[0].title = "dōTERRA每一种单方精油都提供了原植物中最精萃的成分。";
+        newsArr[0].picUrl = Util.imageUrl + "/products/singleoils.jpg";
+        newsArr[0].url = System.Configuration.ConfigurationSettings.AppSettings["website_root_url"].Trim()
+            + "/list_essential.aspx";
+        for (int i = 0; i < newsCount - 2; i++)
+        {
+            newsArr[i + 1] = new RepliedMessage.news();
+            newsArr[i + 1].title = dt.Rows[i]["oildetail_name"].ToString().Trim() + ":" + dt.Rows[i]["oildetail_smell"].ToString().Trim();
+            newsArr[i + 1].description = dt.Rows[i]["oildetail_body"].ToString().Trim();
+            newsArr[i + 1].picUrl = Util.imageUrl + "/products/" + dt.Rows[i]["oildetail_plantimg"].ToString().Trim();
+            newsArr[i + 1].url = System.Configuration.ConfigurationSettings.AppSettings["website_root_url"].Trim()
+                +"/show_essential.aspx?id=" + dt.Rows[i]["oildetail_id"].ToString().Trim();
+        }
+
+        newsArr[newsCount - 1] = new RepliedMessage.news();
+        newsArr[newsCount - 1].title = "查看所有单方精油";
+        newsArr[newsCount - 1].picUrl = Util.imageUrl + "/products/clove.jpg";
+        newsArr[newsCount - 1].description = "";
+        newsArr[newsCount - 1].url = System.Configuration.ConfigurationSettings.AppSettings["website_root_url"].Trim()
+            + "/list_essential.aspx";
+
+        repliedMessage.newsContent = newsArr;
+
     }
 
     public static string GetMenuBaomingHit()
@@ -485,5 +530,43 @@ public class Util
         }
         dt.Dispose();
         da.Dispose();
+    }
+
+    public static void GetSubcribeWelcomeMessage(ReceivedMessage receivedMessage, RepliedMessage repliedMessage)
+    {
+        repliedMessage.from = receivedMessage.to;
+        repliedMessage.to = receivedMessage.from;
+        repliedMessage.type = "text";
+        repliedMessage.content = "欢迎加入doTERRA大家庭！将你遇到的亚健康问题发送给这个微信公众号，系统将会自动为你查询解决方案。你只要在这里，勤学勤问勤分享，你的亚健康状态就可以得到很大的改善。我们坚信，通过群防群治是可以战胜亚健康的！";
+        //return repliedMessage;
+    }
+
+    public static void SearchKeyword(ReceivedMessage receivedMessage, RepliedMessage repliedMessage)
+    {
+        string keyword = receivedMessage.content;
+        SqlDataAdapter da = new SqlDataAdapter(" select * from ProblemIndex where problem like '%" + keyword.Replace("'", "").Trim() + "%'  ", Util.conStr);
+        DataTable dt = new DataTable();
+        da.Fill(dt);
+        da.Dispose();
+        string content = "";
+        for (int i = 0; i < dt.Rows.Count; i++)
+        { 
+            int j = i+1;
+            content = content + "问题" + j.ToString() + ":" + dt.Rows[i]["problem"].ToString().Trim() + "\r\n";
+            if (!dt.Rows[i]["aromatic"].ToString().Trim().Equals(""))
+            {
+                content = "    " + content + dt.Rows[i]["aromatic"].ToString().Trim() + "\r\n";
+            }
+            if (!dt.Rows[i]["topical"].ToString().Trim().Equals(""))
+            {
+                content = "    " + content + dt.Rows[i]["topical"].ToString().Trim() + "\r\n";
+            }
+            if (!dt.Rows[i]["internal"].ToString().Trim().Equals(""))
+            {
+                content = "    " + content + dt.Rows[i]["internal"].ToString().Trim() + "\r\n";
+            }
+        }
+        repliedMessage.type = "text";
+        repliedMessage.content = content;
     }
 }

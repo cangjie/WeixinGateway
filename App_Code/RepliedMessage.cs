@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Xml;
 using System.Net;
 using System.IO;
+using System.Web.Script.Serialization;
 
 /// <summary>
 /// Summary description for RepliedMessage
@@ -77,7 +78,7 @@ public class RepliedMessage
         dt.Dispose();
     }
 
-    public void SendAsServiceMessage()
+    public int SendAsServiceMessage()
     {
         string url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + Util.GetToken();
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
@@ -87,8 +88,18 @@ public class RepliedMessage
         sw.Write(jsonFormatData);
         sw.Close();
         HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        Stream s = res.GetResponseStream();
+        StreamReader sr = new StreamReader(s);
+        string str = sr.ReadToEnd();
+        sr.Close();
+        s.Close();
         res.Close();
         req.Abort();
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(str);
+        object v;
+        json.TryGetValue("errcode", out v);
+        return int.Parse(v.ToString());
     }
 
     public news[] newsContent
@@ -123,14 +134,17 @@ public class RepliedMessage
             messageCount = value.Length;
             foreach (news n in value)
             {
-                contentStr = contentStr + "<item>"
-                    + "<Title><![CDATA[" + n.title.Trim() + "]]></Title>"
-                    + "<Description><![CDATA[" + n.description.Trim() + "]]></Description>"
-                    + "<PicUrl><![CDATA[" + n.picUrl.Trim() + "]]></PicUrl>"
-                    + "<Url><![CDATA[" + n.url + "]]></Url>"
-                    + "</item>";
+                //n.title = ((n.title == null) ? "" : n.title.Trim());
+
+                contentStr = contentStr + "<item>";
+                contentStr = contentStr + "<Title><![CDATA[" + ((n.title==null)?"": n.title.Trim()) + "]]></Title>";
+                contentStr = contentStr + "<Description><![CDATA[" + ((n.description==null)?"":n.description.Trim()) + "]]></Description>";
+                contentStr = contentStr + "<PicUrl><![CDATA[" + ((n.picUrl==null)? "" : n.picUrl.Trim()) + "]]></PicUrl>";
+                contentStr = contentStr + "<Url><![CDATA[" +   ((n.url==null)?"":n.url.Trim()) + "]]></Url>";
+                contentStr = contentStr + "</item>";
             }
             content = contentStr;
+            type = "news";
         }
     }
 

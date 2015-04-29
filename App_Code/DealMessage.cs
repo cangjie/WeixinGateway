@@ -55,17 +55,11 @@ public class DealMessage
         repliedMessage.rootId = receivedMessage.id.Trim();
         switch (receivedMessage.eventKey.Trim())
         {
-            case "PINGTAI":
-                repliedMessage.content = Util.GetMenuWodeHit(receivedMessage.from, "http://weixin.luqinwenda.com/dingyue/images/1.jpg"
-                                , 1, "卢勤问答平台", "这里是卢勤问答平台，你可以在这里浏览和评论他人的提问。");
-                repliedMessage.messageCount = 1;
-                repliedMessage.type = "news";
+            case "DANFANG":
+                Util.GetProductNews("单方", repliedMessage);
                 break;
-            case "TIWEN":
-                repliedMessage.content = Util.GetMenuWodeHit(receivedMessage.from, "http://weixin.luqinwenda.com/dingyue/images/3.jpg"
-                                , 3, "快速提问", "点击进入快速提问，把你的问题提出来，卢勤老师帮你排忧解难。");
-                repliedMessage.messageCount = 1;
-                repliedMessage.type = "news";
+            case "FUFANG":
+                Util.GetProductNews("复方", repliedMessage);
                 break;
             case "WENDA":
                 repliedMessage.content = Util.GetMenuWodeHit(receivedMessage.from, "http://weixin.luqinwenda.com/dingyue/images/2.jpg"
@@ -98,9 +92,16 @@ public class DealMessage
     public static RepliedMessage DealCommonEventMessage(ReceivedMessage receivedMessage)
     {
         RepliedMessage repliedMessage = new RepliedMessage();
+        repliedMessage.from = receivedMessage.to;
+        repliedMessage.to = receivedMessage.from;
+        repliedMessage.rootId = receivedMessage.id;
         if (receivedMessage.eventKey.ToLower().Trim().StartsWith("http://www.luqinwenda.com/index.php?app=public&mod=landingpage"))
         {
             Util.DealLandingRequest(receivedMessage.from);
+        }
+        if (receivedMessage.userEvent.Trim().ToLower().Equals("subscribe"))
+        {
+            Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
         }
         return repliedMessage;
     }
@@ -114,15 +115,22 @@ public class DealMessage
         switch (receivedMessage.content.Trim().ToLower())
         { 
             case "二维码":
-                repliedMessage = CreateQrCodeReplyMessage(receivedMessage, repliedMessage);
+                CreateQrCodeReplyMessage(receivedMessage, repliedMessage);
+                break;
+            case "单方":
+                Util.GetProductNews("单方", repliedMessage);
                 break;
             default:
+                if (receivedMessage.type.Trim().Equals("text"))
+                {
+                    Util.SearchKeyword(receivedMessage, repliedMessage);
+                }
                 break;
         }
         return repliedMessage;
     }
 
-    public static RepliedMessage CreateQrCodeReplyMessage(ReceivedMessage receivedMessage, RepliedMessage repliedMessage)
+    public static void CreateQrCodeReplyMessage(ReceivedMessage receivedMessage, RepliedMessage repliedMessage)
     {
         string token = Util.GetToken();
         long scene = long.Parse(Util.GetInviteCode(receivedMessage.to.Trim()));
@@ -134,7 +142,7 @@ public class DealMessage
         repliedMessage.messageCount = 1;
         repliedMessage.type = "image";
         repliedMessage.content = mediaId;
-        return repliedMessage;
+        //return repliedMessage;
     }
 
 }
