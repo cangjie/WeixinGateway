@@ -432,6 +432,45 @@ public class Util
         return id.ToString();
     }
 
+    public static long GetInviteCode(string openId, string type)
+    {
+        long inviteCode = 0;
+        SqlConnection conn = new SqlConnection(Util.conStr);
+        SqlCommand cmd = new SqlCommand(" select qr_invite_list_id from qr_invite_list where qr_invite_list_type = @type and qr_invite_list_owner = @owner ", conn);
+        cmd.Parameters.Add("@type", SqlDbType.VarChar);
+        cmd.Parameters.Add("@owner", SqlDbType.VarChar);
+        cmd.Parameters["@type"].Value = type.Trim();
+        cmd.Parameters["@owner"].Value = openId.Trim();
+        conn.Open();
+        SqlDataReader reader = cmd.ExecuteReader();
+        if (reader.Read())
+        {
+            inviteCode = reader.GetInt64(0);
+        }
+        reader.Close();
+        if (inviteCode == 0)
+        {
+            cmd.CommandText = " insert into qr_invite_list (qr_invite_list_type,qr_invite_list_owner) "
+                + " values ( @type , @owner) ";
+            int i = cmd.ExecuteNonQuery();
+            if (i == 1)
+            {
+                cmd.CommandText = " select max(qr_invite_list_id) from qr_invite_list ";
+                reader = cmd.ExecuteReader();
+                if (reader.Read())
+                    inviteCode = reader.GetInt64(0);
+                reader.Close();
+            }
+        }
+        conn.Close();
+        cmd.Parameters.Clear();
+        cmd.Dispose();
+        conn.Dispose();
+        return inviteCode;
+    }
+
+    
+
     public static int GetQrCode(string eventKey)
     {
         int qrCode = 0;
