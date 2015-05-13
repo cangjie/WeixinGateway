@@ -28,7 +28,40 @@ public class Util
 
     protected static DateTime tokenTime = DateTime.MinValue;
 
+    public static string GetSafeRequestValue(HttpRequest request, string parameterName, string defaultValue)
+    {
+        return ((request[parameterName] == null) ? defaultValue : request[parameterName].Trim()).Replace("'","");
+    }
+
     public static string conStr = "";
+
+
+    public static string GetWebContent(string url, string method, string content, string contentType)
+    {
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+        req.Method = method.Trim();
+        req.ContentType = contentType;
+        if (!content.Trim().Equals(""))
+        {
+            StreamWriter sw = new StreamWriter(req.GetRequestStream());
+            sw.Write(content);
+            sw.Close();
+        }
+        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        Stream s = res.GetResponseStream();
+        StreamReader sr = new StreamReader(s);
+        string str = sr.ReadToEnd();
+        sr.Close();
+        s.Close();
+        res.Close();
+        req.Abort();
+        return str;
+    }
+
+    public static string GetWebContent(string url)
+    {
+        return GetWebContent(url, "GET", "", "html/text");
+    }
 
     public static string UploadImageToWeixin(string path, string token)
     {
