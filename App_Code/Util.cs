@@ -66,6 +66,46 @@ public class Util
         return mediaId;
     }
 
+    public static string GetQrCodeTicket(string token, long scene)
+    {
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + token);
+        req.Method = "post";
+        req.ContentType = "raw";
+        //Stream streamReq = req.GetRequestStream();
+        StreamWriter sw = new StreamWriter(req.GetRequestStream());
+        sw.Write("{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\":{\"scene_id\": " + scene.ToString() + "}}}");
+        sw.Close();
+        sw = null;
+
+        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        Stream s = res.GetResponseStream();
+        StreamReader sr = new StreamReader(s);
+        string strTicketJson = sr.ReadToEnd();
+        sr.Close();
+        s.Close();
+        sr = null;
+        s = null;
+        res.Close();
+        res = null;
+        req.Abort();
+        req = null;
+
+        try
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(strTicketJson);
+            object v;
+            json.TryGetValue("ticket", out v);
+            token = v.ToString();
+            return token;
+        }
+        catch
+        {
+
+            return strTicketJson;
+        }
+    }
+
     public static string GetQrCodeTicketTemp(string token, long scene)
     {
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + token);
