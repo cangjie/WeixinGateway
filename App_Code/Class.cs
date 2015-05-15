@@ -21,6 +21,32 @@ public class Class:ObjectHelper
     public Class(int id)
     {
         tableName = "classes";
+
+        DataTable dt = DBHelper.GetDataTable(" select * from classes where [id] = " + id.ToString());
+
+        if (dt.Rows.Count > 0)
+        {
+            _fields = dt.Rows[0];
+        }
+        else
+        {
+            throw new Exception("not found");
+        }
+
+    }
+
+    public bool UnRegist(string openId)
+    {
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[2];
+        parameters[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("class_id",
+            new KeyValuePair<SqlDbType, object>(SqlDbType.Int, _fields["id"].ToString().Trim()));
+        parameters[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("weixin_open_id",
+            new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, openId));
+        int i = DBHelper.DeleteData("class_regist", parameters);
+        if (i == 1)
+            return true;
+        else
+            return false;
     }
 
     public bool Regist(string openId)
@@ -62,20 +88,7 @@ public class Class:ObjectHelper
         return openIdArr;
     }
 
-    public bool UnRegist(string openId)
-    {
-        bool ret = true;
-        SqlConnection conn = new SqlConnection(Util.conStr);
-        SqlCommand cmd = new SqlCommand(" delete class_regist where class_id = " + ID.ToString() + " and weixin_open_id = '" + openId + "' ",conn);
-        conn.Open();
-        int i = cmd.ExecuteNonQuery();
-        conn.Close();
-        cmd.Dispose();
-        conn.Dispose();
-        if (i <= 0)
-            ret = false;
-        return ret;
-    }
+    
 
     public int ID
     {
@@ -98,6 +111,14 @@ public class Class:ObjectHelper
         get
         {
             return GetRegistedWeixinOpenId().Length;
+        }
+    }
+
+    public DateTime BeginTime
+    {
+        get
+        {
+            return DateTime.Parse(_fields["begin_time"].ToString().Trim());
         }
     }
 }

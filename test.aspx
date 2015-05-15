@@ -11,9 +11,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string call = "http://trx.999uuu.cn/users_test.aspx?id=test&value=2";
-        callBack = callBack + "?type=1&redirect_url=" + Server.UrlEncode(call);
-        callBack = Server.UrlEncode(callBack);
+        string openId = WeixinUser.CheckToken("044d8678dbc82fc2ae4e2f8680c49b8449d2da7e72ed5325494202bba809c8c232e8cd55");
+        
     }
 </script>
 

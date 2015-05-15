@@ -18,6 +18,31 @@ public class DBHelper
 		//
 	}
 
+    public static int DeleteData(string tableName, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters)
+    {
+        if (parameters.Length == 0)
+            return 0;
+        SqlConnection conn = new SqlConnection(Util.conStr.Trim());
+        SqlCommand cmd = new SqlCommand();
+        string whereClause = "";
+        foreach (KeyValuePair<string, KeyValuePair<SqlDbType, object>> parameter in parameters)
+        {
+            whereClause = whereClause + "and " + parameter.Key.Trim() + "  = @" + parameter.Key.Trim() + "  ";
+            cmd.Parameters.Add("@" + parameter.Key.Trim(), parameter.Value.Key);
+            cmd.Parameters["@" + parameter.Key.Trim()].Value = parameter.Value.Value;
+        }
+        whereClause = whereClause.Remove(0, 3);
+
+        cmd.CommandText = " delete " + tableName.Trim() + " where  " + whereClause;
+        cmd.Connection = conn;
+        conn.Open();
+        int i = cmd.ExecuteNonQuery();
+        conn.Close();
+        cmd.Dispose();
+        conn.Dispose();
+        return i;
+    }
+
     public static int InsertData(string tableName, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters)
     {
         SqlConnection conn = new SqlConnection(Util.conStr.Trim());

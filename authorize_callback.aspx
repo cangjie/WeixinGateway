@@ -60,8 +60,9 @@
         string openId = GetOpenId(code);
         string callBack = Request["callback"].Trim();
         callBack = Server.UrlDecode(callBack);
-        string token = WeixinUser.CreateToken(openId);
+        string token = WeixinUser.CreateToken(openId,DateTime.Now.AddMinutes(100));
         Session["token"] = token;
+        //Response.Write(token);
         Response.Redirect(callBack);
     }
 </script>

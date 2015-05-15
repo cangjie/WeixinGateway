@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Data.SqlClient;
 
 /// <summary>
 /// Summary description for User
@@ -57,6 +58,14 @@ public class WeixinUser : ObjectHelper
         }
 
 	}
+
+    public string OpenId
+    {
+        get
+        {
+            return _fields["open_id"].ToString().Trim();
+        }
+    }
     
     public int VipLevel
     {
@@ -70,19 +79,42 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
-            return bool.Parse(_fields["is_admin"].ToString().Trim());
+            if (_fields["is_admin"].ToString().Trim().Equals("1"))
+                return true;
+            else
+                return false;
+            //return bool.Parse(_fields["is_admin"].ToString().Trim());
         }
     }
 
-    public static string GetToken(string openId)
+    public static string CheckToken(string token)
     {
-        
-        return "";
+        DataTable dt = DBHelper.GetDataTable(" select * from m_token where expire > getdate() and isvalid = 1 and token = '" + token.Trim().Replace("'", "").Trim() + "'  ");
+        string ret = "";
+        if (dt.Rows.Count > 0)
+            ret = dt.Rows[0]["open_id"].ToString().Trim();
+        dt.Dispose();
+        return ret;
     }
 
-    public static string CreateToken(string openId)
+    public static string CreateToken(string openId, DateTime expireDate)
     {
-        return "";
+        string stringWillBeToken = openId.Trim() + Util.GetLongTimeStamp(DateTime.Now)
+            + Util.GetLongTimeStamp(expireDate)
+            + (new Random()).Next(10000).ToString().PadLeft(4, '0');
+        string token = Util.GetMd5(stringWillBeToken) + Util.GetSHA1(stringWillBeToken);
+
+        SqlConnection conn = new SqlConnection(Util.conStr);
+        SqlCommand cmd = new SqlCommand(" update m_token set isvalid = 0 where open_id = '" + openId.Trim() + "'  ", conn);
+        conn.Open();
+        cmd.ExecuteNonQuery();
+        cmd.CommandText = " insert m_token (token,isvalid,expire,open_id) values  ('" + token.Trim() + "' "
+            + " , 1 , '" + expireDate.ToString() + "' , '" + openId.Trim() + "' ) ";
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        cmd.Dispose();
+        conn.Dispose();
+        return token;
     }
 
     public static string GetOpenIdByToken(string token)
