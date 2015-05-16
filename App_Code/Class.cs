@@ -11,12 +11,7 @@ public class Class:ObjectHelper
 {
 
 
-	public Class()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
+	
 
     public Class(int id)
     {
@@ -33,6 +28,11 @@ public class Class:ObjectHelper
             throw new Exception("not found");
         }
 
+    }
+
+    public Class()
+    {
+        tableName = "classes";
     }
 
     public bool UnRegist(string openId)
@@ -121,4 +121,23 @@ public class Class:ObjectHelper
             return DateTime.Parse(_fields["begin_time"].ToString().Trim());
         }
     }
+
+    public static Class[] GetClasses(DateTime start, DateTime end)
+    {
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters
+            = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[2];
+        parameters[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("@start",
+            new KeyValuePair<SqlDbType, object>(SqlDbType.DateTime, start));
+        parameters[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("@end",
+            new KeyValuePair<SqlDbType,object>(SqlDbType.DateTime, end));
+        DataTable dt = DBHelper.GetDataTable(" select * from classes where begin_time > @start and begin_time < @end ", parameters);
+        Class[] classArray = new Class[dt.Rows.Count];
+        for(int i = 0 ; i < classArray.Length ; i++)
+        {
+            classArray[i] = new Class();
+            classArray[i]._fields = dt.Rows[i];
+        }
+        return classArray;
+    }
+
 }
