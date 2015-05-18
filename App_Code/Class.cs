@@ -58,7 +58,15 @@ public class Class:ObjectHelper
             SqlCommand cmd = new SqlCommand(" insert into class_regist (class_id,weixin_open_id) values(" + ID.ToString() + ",'"
                 + openId.Trim() + "'  ) ", conn);
             conn.Open();
-            int i = cmd.ExecuteNonQuery();
+            int i = 0;
+            try
+            {
+                i = cmd.ExecuteNonQuery();
+            }
+            catch
+            { 
+            
+            }
             conn.Close();
             cmd.Dispose();
             conn.Dispose();
@@ -88,7 +96,19 @@ public class Class:ObjectHelper
         return openIdArr;
     }
 
-    
+    public bool IsJoin(string opneId)
+    {
+        bool joined = false;
+        foreach (string s in GetRegistedWeixinOpenId())
+        {
+            if (s.Trim().Equals(opneId))
+            {
+                joined = true;
+                break;
+            }
+        }
+        return joined;
+    }
 
     public int ID
     {
@@ -114,6 +134,23 @@ public class Class:ObjectHelper
         }
     }
 
+   
+    public string Title
+    {
+        get
+        {
+            return _fields["title"].ToString().Trim();
+        }
+    }
+
+    public string Teacher
+    {
+        get
+        {
+            return _fields["teacher"].ToString().Trim();
+        }
+    }
+
     public DateTime BeginTime
     {
         get
@@ -121,6 +158,15 @@ public class Class:ObjectHelper
             return DateTime.Parse(_fields["begin_time"].ToString().Trim());
         }
     }
+
+    public string Memo
+    {
+        get
+        {
+            return _fields["memo"].ToString().Trim();
+        }
+    }
+
 
     public static Class[] GetClasses(DateTime start, DateTime end)
     {

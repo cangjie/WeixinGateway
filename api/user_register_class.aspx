@@ -5,10 +5,10 @@
     {
        // WeixinUser u = new WeixinUser("ocTHCuPdHRCPZrcJb2qWOE_EYjeI");
 
-        string token = Util.GetSafeRequestValue(Request, "token", "ebe87ff510d46b80b4af894916609ab3d5554178f894b4a030acc8c6fa9f5e98866a4bcb");
+        string token = Util.GetSafeRequestValue(Request, "token", " a871cb97eb550ca5cc3f4c3c5ab473639e7a67e655deaf1caa050b4d0191e4edc489974a");
         string openId = Util.GetSafeRequestValue(Request, "openid", "ocTHCuPdHRCPZrcJb2qWOE_EYjeI");
         string strClassId = Util.GetSafeRequestValue(Request, "classid", "1");
-        string action = Util.GetSafeRequestValue(Request, "action", "unregister");
+        string action = Util.GetSafeRequestValue(Request, "action", "register");
 
         string tokenOpenId = WeixinUser.CheckToken(token);
         Class currentClass = new Class(int.Parse(strClassId));
@@ -28,7 +28,14 @@
                         case "register":
                             if (currentClass.TotalPersonNumber > currentClass.RegistedPersonNumber)
                             {
-                                currentClass.Regist(user.OpenId.Trim());
+                                if (currentClass.Regist(user.OpenId.Trim()))
+                                {
+                                    msg = "";
+                                }
+                                else
+                                {
+                                    msg = "报名失败";
+                                }
                             }
                             else
                                 msg = "报名满了";
@@ -36,7 +43,14 @@
                         case "unregister":
                             if (currentClass.BeginTime > DateTime.Now.AddHours(4))
                             {
-                                currentClass.UnRegist(user.OpenId.Trim());
+                                if (currentClass.UnRegist(user.OpenId.Trim()))
+                                {
+                                    msg = "";
+                                }
+                                else
+                                {
+                                    msg = "取消失败";
+                                }
                             }
                             else
                                 msg = "时间晚了";
@@ -56,10 +70,16 @@
                 switch (action)
                 {
                     case "register":
-                        currentClass.Regist(user.OpenId.Trim());
+                        if (currentClass.Regist(user.OpenId.Trim()))
+                            msg = "";
+                        else
+                            msg = "报名失败";
                         break;
                     case "unregister":
-                        currentClass.UnRegist(user.OpenId.Trim());
+                        if (currentClass.UnRegist(user.OpenId.Trim()))
+                            msg = "";
+                        else
+                            msg = "取消失败";
                         break;
                     default:
                         msg = "没有操作";

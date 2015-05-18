@@ -3,26 +3,46 @@
 
 <script runat="server">
 
+    public Class[] classArray;
+
+    public string token = "";
+
+    public string openId = "";
+    
     protected void Page_Load(object sender, EventArgs e)
     {
-        //Authorize();
+        Authorize();
+        classArray = GetClass();
         
+        
+    }
+
+    public Class[] GetClass()
+    {
+        DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
+        DateTime end = DateTime.Parse(DateTime.Now.AddDays(7).ToShortDateString());
+        Class[] classArr = Class.GetClasses(start, end);
+        return classArr;
     }
 
     public void Authorize()
     {
-        string token = Session["token"] == null ? "" : Session["token"].ToString();
+        token = Session["token"] == null ? "" : Session["token"].ToString();
         if (token.Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback="
                 + Server.UrlEncode(Request.Url.ToString().Trim()), true);
         }
-        string openId = WeixinUser.CheckToken(token);
+        openId = WeixinUser.CheckToken(token);
         if (openId.Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback="
                 + Server.UrlEncode(Request.Url.ToString().Trim()), true);
-        } 
+        }
+        token = Session["token"].ToString().Trim();
+        openId = WeixinUser.CheckToken(token);
+
+        
     }
 </script>
 
@@ -50,47 +70,103 @@
             font-size: medium;
         }
     </style>
+    <script type="text/javascript" >
+
+        var token = "<%=token%>";
+        var open_id = "<%=openId%>";
+
+
+        function confirm_class(cls_id, action)
+        {
+            //alert("token=" + token+ "&opneid=" + open_id+ "&classid=" + cls_id + "&action=" + action);
+            var ajax_url = "../api/user_register_class.aspx?token=" + token + "&openid=" + open_id
+                + "&classid=" + cls_id + "&action=" + ((action == "1") ? "unregister" : "register");
+            alert(ajax_url);
+            $.ajax({
+                type: "get",
+                url: ajax_url,
+                success: function (data, status) {
+                    //alert(data["status"]);
+                    //alert(status);
+                    var dataObject = eval("(" + data + ")");
+                    if (dataObject.status == "0") {
+                        alert("NB");
+                    }
+                    else {
+                        alert(dataObject.message);
+                    }
+                },
+                error: function (request, status, err) {
+                    alert(request + status + err);
+                }
+
+            });
+        }
+
+       
+
+    </script>
 </head>
 <body>
 
 
     <div id="root" style="padding:20px 20px 20px 20px" >
-
+        
+        <%
+            for(int i = 0 ; i < classArray.Length ; i++)
+            {
+                Class currentClass = classArray[i];
+                bool joined = currentClass.IsJoin(openId);
+                
+             %>
 
         <div style="border:1px solid #BEBEBE;padding: 5px" >
-            <div class="auto-style1"><strong>礼拜二中午TRX</strong></div>
-            <div style="background-color: #CCCCCC" class="auto-style5">教练：糖果&nbsp;&nbsp;&nbsp;&nbsp;时间：<span class="gr">2015-5-19 12:00</span></div>
-            <div class="auto-style3">备注信息 备注信息 备注信息 备注信息 备注信息 备注信息 备注信息</div>
+            <div class="auto-style1"><strong><%=currentClass.Title.Trim() %></strong></div>
+            <div style="background-color: #CCCCCC" class="auto-style5">教练：<%=currentClass.Teacher.Trim() %>&nbsp;&nbsp;&nbsp;&nbsp;时间：<span class="gr"><%=currentClass.BeginTime.ToShortDateString() %> <%=currentClass.BeginTime.Hour.ToString() %>:<%=currentClass.BeginTime.Minute.ToString() %></span></div>
+            <div class="auto-style3"><%=currentClass.Memo.Trim() %></div>
             <br />
             <div>
-                <button data-toggle="modal" data-target="#modal-switch-0" class="btn btn-default"  > 点 击 报 名</button>
+                <button data-toggle="modal" data-target="#modal-switch-<%=currentClass.ID.ToString() %>" class="btn btn-default" onclick="confirm_class('<%=currentClass.ID %>', '<%= ((joined)? "1" : "0")  %>')"  > <%if (!joined) { %>点 击 报 名<%} else {%>取 消 报 名<%} %></button>
                 <div>
                     <p class="auto-style3">一起参加的同学：</p>
                     <table style="border:none">
                         <tr>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
                         </tr>
                         <tr>
-                            <td class="auto-style4" >苍杰</td>
-                            <td class="auto-style4" >苍杰</td>
-                            <td class="auto-style4" >苍杰</td>
-                            <td class="auto-style4" >苍杰</td>
-                            <td class="auto-style4" >苍杰</td>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
                         </tr>
-
+                        <tr>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                        </tr>
                     </table>
 
                 </div>
-                <div id="modal-switch-0" tabindex="-1" role="dialog" aria-labelledby="modal-switch-label" class="modal fade">
+                <div id="modal-switch-<%=currentClass.ID.ToString() %>" tabindex="-1" role="dialog" aria-labelledby="modal-switch-label" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <div id="modal-switch-label-0" class="modal-title">Title-0</div>
+                                <div id="modal-switch-label-<%=currentClass.ID.ToString() %>" class="modal-title">Title-<%=currentClass.ID.ToString() %></div>
                             </div>
                             <div class="modal-body">
                                 <div class="switch switch-small">
@@ -102,57 +178,11 @@
                 </div>
             </div>
         </div>
-
-        
         <br />
-
-                <div style="border:1px solid #BEBEBE;padding: 5px" >
-            <div class="auto-style1"><strong>礼拜二中午TRX</strong></div>
-            <div style="background-color: #CCCCCC" class="auto-style5">教练：糖果&nbsp;&nbsp;&nbsp;&nbsp;时间：<span class="gr">2015-5-19 12:00</span></div>
-            <div class="auto-style3">备注信息 备注信息 备注信息 备注信息 备注信息 备注信息 备注信息</div>
-            <br />
-            <div>
-                <button data-toggle="modal" data-target="#modal-switch-1" class="btn btn-default"  > 点 击 报 名</button>
-                <div>
-                    <p class="auto-style3">一起参加的同学：</p>
-                    <table style="border:none">
-                        <tr>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
-                            <td width="60" ><img src="http://wx.qlogo.cn/mmopen/lYeXJEq4yBXCBkz392CNewFrcqo63Oas4rsFmGlib1kAntRhsQHTMkUoJnUU4IQgcusEJEvcL61PCtbhCZIlTs1iaXUn24bumN/0" style="width:50px;height:50px" /></td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style4" >苍杰</td>
-                            <td class="auto-style4" >苍杰</td>
-                            <td class="auto-style4" >苍杰</td>
-                            <td class="auto-style4" >苍杰</td>
-                            <td class="auto-style4" >苍杰</td>
-                        </tr>
-
-                    </table>
-
-                </div>
-                <div id="modal-switch-1" tabindex="-1" role="dialog" aria-labelledby="modal-switch-label" class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <div id="modal-switch-label-1" class="modal-title">Title-1</div>
-                            </div>
-                            <div class="modal-body">
-                                <div class="switch switch-small">
-                                    <input type="checkbox" checked />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+        <%
+        }
+             %>
+       
 
     </div>
     
@@ -164,6 +194,7 @@
     <script src="docs/js/highlight.js"></script>
     <script src="dist/js/bootstrap-switch.js"></script>
     <script src="docs/js/main.js"></script>
+        
 </body>
 
 </html>
