@@ -87,6 +87,22 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public string HeadImage
+    {
+        get
+        {
+            return _fields["head_image"].ToString().Trim();
+        }
+    }
+
+    public string Nick
+    {
+        get
+        {
+            return _fields["nick"].ToString().Trim();
+        }
+    }
+
     public static string CheckToken(string token)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from m_token where expire > getdate() and isvalid = 1 and token = '" + token.Trim().Replace("'", "").Trim() + "'  ");

@@ -49,6 +49,21 @@ public class Class:ObjectHelper
             return false;
     }
 
+    public bool CanCancel
+    {
+        get
+        {
+            if (BeginTime - DateTime.Now >= new TimeSpan(4, 0, 0))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
     public bool Regist(string openId)
     {
         bool ret = true;

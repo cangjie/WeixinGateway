@@ -75,13 +75,17 @@
         var token = "<%=token%>";
         var open_id = "<%=openId%>";
 
+        function refresh() {
+            //alert("aa");
+            window.location.reload();
+        }
 
         function confirm_class(cls_id, action)
         {
             //alert("token=" + token+ "&opneid=" + open_id+ "&classid=" + cls_id + "&action=" + action);
             var ajax_url = "../api/user_register_class.aspx?token=" + token + "&openid=" + open_id
                 + "&classid=" + cls_id + "&action=" + ((action == "1") ? "unregister" : "register");
-            alert(ajax_url);
+            //alert(ajax_url);
             $.ajax({
                 type: "get",
                 url: ajax_url,
@@ -90,10 +94,14 @@
                     //alert(status);
                     var dataObject = eval("(" + data + ")");
                     if (dataObject.status == "0") {
-                        alert("NB");
+                        //alert("NB");
                     }
                     else {
-                        alert(dataObject.message);
+                        //alert(dataObject.message);
+                        var divTitle = document.getElementById("modal-switch-label-" + cls_id);
+                        divTitle.innerText = "操作错误";
+                        var pDetail = document.getElementById("modal-body-" + cls_id);
+                        pDetail.innerText = dataObject.message;
                     }
                 },
                 error: function (request, status, err) {
@@ -117,46 +125,113 @@
             {
                 Class currentClass = classArray[i];
                 bool joined = currentClass.IsJoin(openId);
+                string[] openIdArr = currentClass.GetRegistedWeixinOpenId();
+                
                 
              %>
 
         <div style="border:1px solid #BEBEBE;padding: 5px" >
             <div class="auto-style1"><strong><%=currentClass.Title.Trim() %></strong></div>
-            <div style="background-color: #CCCCCC" class="auto-style5">教练：<%=currentClass.Teacher.Trim() %>&nbsp;&nbsp;&nbsp;&nbsp;时间：<span class="gr"><%=currentClass.BeginTime.ToShortDateString() %> <%=currentClass.BeginTime.Hour.ToString() %>:<%=currentClass.BeginTime.Minute.ToString() %></span></div>
+            <div style="background-color: #CCCCCC" class="auto-style5">教练：<%=currentClass.Teacher.Trim() %>&nbsp;&nbsp;&nbsp;&nbsp;时间：<span class="gr"><%=currentClass.BeginTime.ToShortDateString() %> <%=currentClass.BeginTime.Hour.ToString() %>:<%=currentClass.BeginTime.Minute.ToString().PadLeft(2,'0') %></span></div>
+             <div class="auto-style3">名额：<%=currentClass.TotalPersonNumber.ToString() %>人 已报：<%=currentClass.RegistedPersonNumber.ToString() %>人</div>
             <div class="auto-style3"><%=currentClass.Memo.Trim() %></div>
             <br />
             <div>
-                <button data-toggle="modal" data-target="#modal-switch-<%=currentClass.ID.ToString() %>" class="btn btn-default" onclick="confirm_class('<%=currentClass.ID %>', '<%= ((joined)? "1" : "0")  %>')"  > <%if (!joined) { %>点 击 报 名<%} else {%>取 消 报 名<%} %></button>
+                <button data-toggle="modal" <%
+                    if ((!joined && currentClass.TotalPersonNumber<= currentClass.RegistedPersonNumber) || (joined && !currentClass.CanCancel))
+                    {
+                    %>
+                     disabled 
+                    <%
+                    }
+                     %> data-target="#modal-switch-<%=currentClass.ID.ToString() %>" class="btn btn-default" onclick="confirm_class('<%=currentClass.ID %>', '<%= ((joined)? "1" : "0")  %>')"  > <%if (!joined) { %>点 击 报 名<%} else {%>取 消 报 名<%} %></button>
                 <div>
                     <p class="auto-style3">一起参加的同学：</p>
                     <table style="border:none">
                         <tr>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                            <%
+                                for(int j = 0 ; j < 5 ; j++)
+                                {
+                                    if (j < openIdArr.Length )
+                                    {
+                                        WeixinUser user = new WeixinUser(openIdArr[j]);
+                                        
+                                 %>
+                            <td width="60" ><img  src="<%=user.HeadImage.Trim() %>" style="width:50px;height:50px;" /></td>
+                            <%
+                            }
+                            else
+                            {
+                                    %>
+                            <td width="60" >&nbsp;</td>
+                            <%
+                                    }
+                            }
+                                 %>
                         </tr>
                         <tr>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                            <%
+                                for(int j = 0 ; j < 5 ; j++)
+                                {
+                                    if (j < openIdArr.Length )
+                                    {
+                                        WeixinUser user = new WeixinUser(openIdArr[j]);
+                                        
+                                 %>
+                            <td class="auto-style4" ><p ><%=user.Nick.Trim() %></p></td>
+                            <%
+                            }
+                            else
+                            {
+                                    %>
+                            <td class="auto-style4" ><p >&nbsp;</p></td>
+                            <%
+                                    }
+                                    }
+                                 %>
                         </tr>
                         <tr>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
-                            <td width="60" ><img class="join_head_icon_<%=currentClass.ID.ToString() %>" src="" style="width:50px;height:50px;display:none" /></td>
+                        <%
+                                for(int j = 0 ; j < 5 ; j++)
+                                {
+                                    if (j+5 < openIdArr.Length )
+                                    {
+                                        WeixinUser user = new WeixinUser(openIdArr[j+5]);
+                                        
+                                 %>
+                            <td width="60" ><img  src="<%=user.HeadImage.Trim() %>" style="width:50px;height:50px;" /></td>
+                            <%
+                            }
+                            else
+                            {
+                                    %>
+                            <td width="60" >&nbsp;</td>
+                            <%
+                                    }
+                            }
+                                 %>
                         </tr>
                         <tr>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
-                            <td class="auto-style4" ><p class="join_name_<%=currentClass.ID.ToString() %>" ></p></td>
+                         <%
+                                for(int j = 0 ; j < 5 ; j++)
+                                {
+                                    if (j+5 < openIdArr.Length )
+                                    {
+                                        WeixinUser user = new WeixinUser(openIdArr[j+5]);
+                                        
+                                 %>
+                            <td class="auto-style4" ><p ><%=user.Nick.Trim() %></p></td>
+                            <%
+                            }
+                            else
+                            {
+                                    %>
+                            <td class="auto-style4" ><p >&nbsp;</p></td>
+                            <%
+                                    }
+                                    }
+                                 %>
+                        
                         </tr>
                     </table>
 
@@ -165,13 +240,31 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <div id="modal-switch-label-<%=currentClass.ID.ToString() %>" class="modal-title">Title-<%=currentClass.ID.ToString() %></div>
+                                <!--button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button-->
+                                <div id="modal-switch-label-<%=currentClass.ID.ToString() %>" class="modal-title"><%if (!joined) {%>您的报名已经成功<%} else  {%>您的取消已经成功<%} %></div>
                             </div>
-                            <div class="modal-body">
-                                <div class="switch switch-small">
+                            <div class="modal-body" >
+                                <!--div class="switch switch-small">
                                     <input type="checkbox" checked />
-                                </div>
+                                </div-->
+                                <p id="modal-body-<%=currentClass.ID %>" >
+                                <%
+                if (joined)
+                { 
+                %>
+                                您已经成功取消了 <%=currentClass.Title.Trim() %> 的预约。
+                                <%
+                }
+                else
+                {
+                %>
+                                您成功预约了 <%=currentClass.Title.Trim() %>，课程的时间是 <%=currentClass.BeginTime.ToShortDateString() %> 
+                                <%=currentClass.BeginTime.Hour.ToString() + ":"+currentClass.BeginTime.Minute.ToString().PadLeft(2,'0') %>。
+                                如您临时有变动，请在上课前4小时取消。
+                                <%
+                }
+                                     %></p>
+                                <br /><button type="button" data-dismiss="modal"  class="btn btn-default" onclick="refresh()" >我 知 道 了</button>
                             </div>
                         </div>
                     </div>
