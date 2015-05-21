@@ -18,6 +18,48 @@ public class DBHelper
 		//
 	}
 
+    public static int UpdateData(string tableName, 
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] updateParameters,
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] keyParameters)
+    {
+        SqlCommand cmd = new SqlCommand();
+
+        string setClause = "";
+        foreach (KeyValuePair<string, KeyValuePair<SqlDbType, object>> parameter in updateParameters)
+        {
+            setClause = setClause + ", " + parameter.Key.Trim() + "  = @" + parameter.Key.Trim() + "  ";
+            cmd.Parameters.Add("@" + parameter.Key.Trim(), parameter.Value.Key);
+            cmd.Parameters["@" + parameter.Key.Trim()].Value = parameter.Value.Value;
+        }
+        if (setClause.StartsWith(","))
+            setClause = setClause.Remove(0, 1);
+
+        string whereClause = "";
+        foreach (KeyValuePair<string, KeyValuePair<SqlDbType, object>> parameter in keyParameters)
+        {
+            whereClause = whereClause + "and " + parameter.Key.Trim() + "  = @" + parameter.Key.Trim() + "  ";
+            cmd.Parameters.Add("@" + parameter.Key.Trim(), parameter.Value.Key);
+            cmd.Parameters["@" + parameter.Key.Trim()].Value = parameter.Value.Value;
+        }
+        if (whereClause.StartsWith("and"))
+            whereClause = whereClause.Remove(0, 3);
+
+        cmd.CommandText = " update " + tableName.Trim() + "  set " + setClause.Trim() + "  where " + whereClause.Trim();
+
+        SqlConnection conn = new SqlConnection(Util.conStr.Trim());
+        cmd.Connection = conn;
+
+        conn.Open();
+        int i = cmd.ExecuteNonQuery();
+        conn.Close();
+
+        cmd.Parameters.Clear();
+        cmd.Dispose();
+        conn.Dispose();
+
+        return i;
+    }
+
     public static int DeleteData(string tableName, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters)
     {
         if (parameters.Length == 0)
@@ -31,7 +73,8 @@ public class DBHelper
             cmd.Parameters.Add("@" + parameter.Key.Trim(), parameter.Value.Key);
             cmd.Parameters["@" + parameter.Key.Trim()].Value = parameter.Value.Value;
         }
-        whereClause = whereClause.Remove(0, 3);
+        if (whereClause.StartsWith("and"))
+            whereClause = whereClause.Remove(0, 3);
 
         cmd.CommandText = " delete " + tableName.Trim() + " where  " + whereClause;
         cmd.Connection = conn;

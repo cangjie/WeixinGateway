@@ -8,19 +8,21 @@
     public string token = "";
 
     public string openId = "";
+
+    public WeixinUser user;
     
     protected void Page_Load(object sender, EventArgs e)
     {
         Authorize();
         classArray = GetClass();
-        
+        user = new WeixinUser(openId);
         
     }
 
     public Class[] GetClass()
     {
         DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
-        DateTime end = DateTime.Parse(DateTime.Now.AddDays(7).ToShortDateString());
+        DateTime end = DateTime.Parse(DateTime.Now.AddDays(8).ToShortDateString());
         Class[] classArr = Class.GetClasses(start, end);
         return classArr;
     }
@@ -138,7 +140,9 @@
             <br />
             <div>
                 <button data-toggle="modal" <%
-                    if ((!joined && currentClass.TotalPersonNumber<= currentClass.RegistedPersonNumber) || (joined && !currentClass.CanCancel))
+                    if ((!joined && currentClass.TotalPersonNumber<= currentClass.RegistedPersonNumber) 
+                        || (joined && !currentClass.CanCancel)
+                        || user.VipLevel ==0)
                     {
                     %>
                      disabled 
@@ -154,10 +158,10 @@
                                 {
                                     if (j < openIdArr.Length )
                                     {
-                                        WeixinUser user = new WeixinUser(openIdArr[j]);
+                                        WeixinUser currentUser = new WeixinUser(openIdArr[j]);
                                         
                                  %>
-                            <td width="60" ><img  src="<%=user.HeadImage.Trim() %>" style="width:50px;height:50px;" /></td>
+                            <td width="60" ><img  src="<%=currentUser.HeadImage.Trim() %>" style="width:50px;height:50px;" /></td>
                             <%
                             }
                             else
@@ -175,10 +179,10 @@
                                 {
                                     if (j < openIdArr.Length )
                                     {
-                                        WeixinUser user = new WeixinUser(openIdArr[j]);
+                                        WeixinUser currentUser = new WeixinUser(openIdArr[j]);
                                         
                                  %>
-                            <td class="auto-style4" ><p ><%=user.Nick.Trim() %></p></td>
+                            <td class="auto-style4" ><p ><%=currentUser.Nick.Trim() %></p></td>
                             <%
                             }
                             else
@@ -196,10 +200,10 @@
                                 {
                                     if (j+5 < openIdArr.Length )
                                     {
-                                        WeixinUser user = new WeixinUser(openIdArr[j+5]);
+                                        WeixinUser currentUser = new WeixinUser(openIdArr[j + 5]);
                                         
                                  %>
-                            <td width="60" ><img  src="<%=user.HeadImage.Trim() %>" style="width:50px;height:50px;" /></td>
+                            <td width="60" ><img  src="<%=currentUser.HeadImage.Trim() %>" style="width:50px;height:50px;" /></td>
                             <%
                             }
                             else
@@ -217,10 +221,10 @@
                                 {
                                     if (j+5 < openIdArr.Length )
                                     {
-                                        WeixinUser user = new WeixinUser(openIdArr[j+5]);
+                                        WeixinUser currentUser = new WeixinUser(openIdArr[j + 5]);
                                         
                                  %>
-                            <td class="auto-style4" ><p ><%=user.Nick.Trim() %></p></td>
+                            <td class="auto-style4" ><p ><%=currentUser.Nick.Trim() %></p></td>
                             <%
                             }
                             else

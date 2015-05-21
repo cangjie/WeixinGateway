@@ -5,9 +5,9 @@
     {
        // WeixinUser u = new WeixinUser("ocTHCuPdHRCPZrcJb2qWOE_EYjeI");
 
-        string token = Util.GetSafeRequestValue(Request, "token", " a871cb97eb550ca5cc3f4c3c5ab473639e7a67e655deaf1caa050b4d0191e4edc489974a");
+        string token = Util.GetSafeRequestValue(Request, "token", " 2140628dfa739e8f08ec92a5d9f094f9a52f90eccf9bc27f6da2931fc014a038502e6e68");
         string openId = Util.GetSafeRequestValue(Request, "openid", "ocTHCuPdHRCPZrcJb2qWOE_EYjeI");
-        string strClassId = Util.GetSafeRequestValue(Request, "classid", "1");
+        string strClassId = Util.GetSafeRequestValue(Request, "classid", "4");
         string action = Util.GetSafeRequestValue(Request, "action", "register");
 
         string tokenOpenId = WeixinUser.CheckToken(token);
@@ -65,25 +65,28 @@
                     msg = "没有权限";
                 }
             }
-            if (operateUser.IsAdmin)
+            else
             {
-                switch (action)
+                if (operateUser.IsAdmin)
                 {
-                    case "register":
-                        if (currentClass.Regist(user.OpenId.Trim()))
-                            msg = "";
-                        else
-                            msg = "报名失败";
-                        break;
-                    case "unregister":
-                        if (currentClass.UnRegist(user.OpenId.Trim()))
-                            msg = "";
-                        else
-                            msg = "取消失败";
-                        break;
-                    default:
-                        msg = "没有操作";
-                        break;
+                    switch (action)
+                    {
+                        case "register":
+                            if (currentClass.Regist(user.OpenId.Trim()))
+                                msg = "";
+                            else
+                                msg = "报名失败";
+                            break;
+                        case "unregister":
+                            if (currentClass.UnRegist(user.OpenId.Trim()))
+                                msg = "";
+                            else
+                                msg = "取消失败";
+                            break;
+                        default:
+                            msg = "没有操作";
+                            break;
+                    }
                 }
             }
             

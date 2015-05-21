@@ -10,7 +10,14 @@ using System.Data.SqlClient;
 /// </summary>
 public class WeixinUser : ObjectHelper
 {
-    
+    public WeixinUser()
+    {
+        tableName = "users";
+        primaryKeyName = "open_id";
+        //primaryKeyValue = openId.Trim();
+    }
+
+
 	public WeixinUser(string openId)
 	{
         tableName = "users";
@@ -48,6 +55,12 @@ public class WeixinUser : ObjectHelper
 
                 if (i == 0)
                     throw new Exception("not inserted");
+                else
+                {
+                    dt.Dispose();
+                    dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
+                    _fields = dt.Rows[0];
+                }
 
 
             }
@@ -72,6 +85,21 @@ public class WeixinUser : ObjectHelper
         get
         {
             return int.Parse(_fields["vip_level"].ToString().Trim());
+        }
+        set
+        {
+            KeyValuePair<string, KeyValuePair<SqlDbType, object>> vipLevel
+                = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("vip_level",
+                    new KeyValuePair<SqlDbType, object>(SqlDbType.Int, (object)value));
+            KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] updateDataArr
+                = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] { vipLevel };
+            KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] keyDataArr
+                = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] {
+                    new KeyValuePair<string , KeyValuePair<SqlDbType, object>>( "open_id",
+                        new KeyValuePair<SqlDbType,object>(SqlDbType.VarChar, _fields["open_id"]))};
+            int i = DBHelper.UpdateData(tableName.Trim(), updateDataArr, keyDataArr);
+            if (i == 0)
+                throw new Exception("update failed");
         }
     }
 
@@ -101,6 +129,18 @@ public class WeixinUser : ObjectHelper
         {
             return _fields["nick"].ToString().Trim();
         }
+    }
+
+    public static WeixinUser[] GetAllUsers()
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from users order by crt desc ");
+        WeixinUser[] usersArr = new WeixinUser[dt.Rows.Count];
+        for (int i = 0; i < usersArr.Length; i++)
+        {
+            usersArr[i] = new WeixinUser();
+            usersArr[i]._fields = dt.Rows[i];
+        }
+        return usersArr;
     }
 
     public static string CheckToken(string token)
