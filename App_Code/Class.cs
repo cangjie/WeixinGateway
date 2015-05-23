@@ -172,6 +172,21 @@ public class Class:ObjectHelper
         {
             return DateTime.Parse(_fields["begin_time"].ToString().Trim());
         }
+        set
+        {
+            KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] paramDataUpdateArr 
+                = new KeyValuePair<string,KeyValuePair<SqlDbType,object>>[1]
+                {new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("begin_time",
+                    new KeyValuePair<SqlDbType, object>(SqlDbType.DateTime, (object)value))};
+            KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] paramPrimaryKey 
+                = new KeyValuePair<string,KeyValuePair<SqlDbType,object>>[1]
+                {new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("id",
+                    new KeyValuePair<SqlDbType, object>(SqlDbType.Int, _fields["id"]))};
+            int i = DBHelper.UpdateData(tableName,paramDataUpdateArr,paramPrimaryKey);
+            if (i <= 0)
+                throw new Exception("Can't Updated");
+                
+        }
     }
 
     public string Memo

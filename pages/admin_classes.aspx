@@ -4,6 +4,52 @@
 
 <script runat="server">
 
+    public Class[] classArray;
+
+    public string token = "";
+
+    public string openId = "";
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        Authorize();
+        classArray = GetClass();
+    }
+
+    public Class[] GetClass()
+    {
+        DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
+        DateTime end = DateTime.Parse(DateTime.Now.AddDays(14).ToShortDateString());
+        Class[] classArr = Class.GetClasses(start, end);
+        return classArr;
+    }
+
+    public void Authorize()
+    {
+        token = Session["token"] == null ? "" : Session["token"].ToString();
+        if (token.Trim().Equals(""))
+        {
+            Response.Redirect("../authorize.aspx?callback="
+                + Server.UrlEncode(Request.Url.ToString().Trim()), true);
+        }
+        openId = WeixinUser.CheckToken(token);
+        if (openId.Trim().Equals(""))
+        {
+            Response.Redirect("../authorize.aspx?callback="
+                + Server.UrlEncode(Request.Url.ToString().Trim()), true);
+        }
+        token = Session["token"].ToString().Trim();
+        openId = WeixinUser.CheckToken(token);
+
+        if (!(new WeixinUser(openId)).IsAdmin)
+        {
+            Response.Write("没有权限");
+            Response.End();
+        }
+
+
+    }
+    
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,7 +64,6 @@
     <link href="docs/css/main.css" rel="stylesheet"/>
 </head>
 <body>
-    <form id="form1" runat="server">
     <div>
     <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -28,7 +73,27 @@
                 </ul>
             </div>
         </nav>
+        <br />
+        <br />
+        <ul class="list-group">
+            <% foreach(Class cls in classArray )
+               {%>
+            <li class="list-group-item" style="height:50px" >
+                <a href ="admin_class_detail.aspx?id=<%=cls.ID.ToString() %>" >
+                <%=cls.Title.Trim() %>
+                    </a>
+                <button data-toggle="modal"  class="btn btn-default badge" aria-label="right align"  ><%=cls.RegistedPersonNumber.ToString() %></button> 
+                
+            </li>
+            <%
+            }
+                 %>
+        </ul>
     </div>
-    </form>
+         <script type="text/javascript" src="docs/js/jquery.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="docs/js/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="docs/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="docs/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    
 </body>
 </html>
