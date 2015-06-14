@@ -95,6 +95,37 @@ public class Class:ObjectHelper
         return ret;
     }
 
+    public bool Regist(string openId, int num)
+    {
+        bool ret = true;
+        if (TotalPersonNumber >= RegistedPersonNumber + num )
+        {
+            SqlConnection conn = new SqlConnection(Util.conStr);
+            SqlCommand cmd = new SqlCommand(" insert into class_regist (class_id,weixin_open_id,num) values(" + ID.ToString() + ",'"
+                + openId.Trim() + "' , " + num.ToString().Trim() + " ) ", conn);
+            conn.Open();
+            int i = 0;
+            try
+            {
+                i = cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            conn.Close();
+            cmd.Dispose();
+            conn.Dispose();
+            if (i <= 0)
+                ret = false;
+        }
+        else
+        {
+            ret = false;
+        }
+        return ret;
+    }
+
     public string[] GetRegistedWeixinOpenId()
     {
         string sql = " select * from class_regist where class_id = " + ID.ToString();
@@ -109,6 +140,12 @@ public class Class:ObjectHelper
         }
         dt.Dispose();
         return openIdArr;
+    }
+
+    public DataTable GetRegistedTable()
+    {
+        DataTable dt = DBHelper.GetDataTable(" select weixin_open_id , num , crt from  class_regist where class_id = " + ID.ToString());
+        return dt;
     }
 
     public bool IsJoin(string opneId)
@@ -145,7 +182,13 @@ public class Class:ObjectHelper
     {
         get
         {
-            return GetRegistedWeixinOpenId().Length;
+            int ret = 0;
+            DataTable dt = DBHelper.GetDataTable(" select sum(num) from class_regist where class_id = " + ID.ToString());
+            if (dt.Rows.Count > 0 && !dt.Rows[0][0].ToString().Equals(""))
+                ret = int.Parse(dt.Rows[0][0].ToString());
+            return ret;
+
+            //return GetRegistedWeixinOpenId().Length;
         }
     }
 
@@ -206,7 +249,7 @@ public class Class:ObjectHelper
             new KeyValuePair<SqlDbType, object>(SqlDbType.DateTime, start));
         parameters[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("@end",
             new KeyValuePair<SqlDbType,object>(SqlDbType.DateTime, end));
-        DataTable dt = DBHelper.GetDataTable(" select * from classes where begin_time > @start and begin_time < @end ", parameters);
+        DataTable dt = DBHelper.GetDataTable(" select * from classes where begin_time > @start and begin_time < @end  order by begin_time ", parameters);
         Class[] classArray = new Class[dt.Rows.Count];
         for(int i = 0 ; i < classArray.Length ; i++)
         {

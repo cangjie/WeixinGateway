@@ -150,6 +150,7 @@
             $.ajax({
                 url:url,
                 type: "get",
+                async:false,
                 success: function (data, status) {
                     var dataObject = eval("(" + data + ")");
                     if (dataObject.status != "0") {
@@ -163,10 +164,11 @@
             //alert(open_id);
             var url = "../api/user_register_class.aspx?token=<%=token%>&openid=" + open_id
                 + "&classid=<%=classId%>&action=unregister";
-            alert(url);
+            //alert(url);
             $.ajax({
                 url: url,
                 type: "get",
+                async:false,
                 success: function (data, status) {
                     window.location.reload();
                 }

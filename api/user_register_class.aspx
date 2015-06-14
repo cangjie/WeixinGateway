@@ -5,10 +5,11 @@
     {
        // WeixinUser u = new WeixinUser("ocTHCuPdHRCPZrcJb2qWOE_EYjeI");
 
-        string token = Util.GetSafeRequestValue(Request, "token", " 2140628dfa739e8f08ec92a5d9f094f9a52f90eccf9bc27f6da2931fc014a038502e6e68");
+        string token = Util.GetSafeRequestValue(Request, "token", " 5c803e0e060fef127483fefe2c3d4247c842cb42ae9e08014428670871111a819b078a0e");
         string openId = Util.GetSafeRequestValue(Request, "openid", "ocTHCuPdHRCPZrcJb2qWOE_EYjeI");
-        string strClassId = Util.GetSafeRequestValue(Request, "classid", "4");
-        string action = Util.GetSafeRequestValue(Request, "action", "register");
+        string strClassId = Util.GetSafeRequestValue(Request, "classid", "19");
+        string action = Util.GetSafeRequestValue(Request, "action", "unregister");
+        int num = int.Parse(Util.GetSafeRequestValue(Request, "num", "0"));
 
         string tokenOpenId = WeixinUser.CheckToken(token);
         Class currentClass = new Class(int.Parse(strClassId));
@@ -28,7 +29,7 @@
                         case "register":
                             if (currentClass.TotalPersonNumber > currentClass.RegistedPersonNumber)
                             {
-                                if (currentClass.Regist(user.OpenId.Trim()))
+                                if (currentClass.Regist(user.OpenId.Trim(),num))
                                 {
                                     msg = "";
                                 }
