@@ -42,7 +42,7 @@
                                 msg = "报名满了";
                             break;
                         case "unregister":
-                            if (currentClass.BeginTime > DateTime.Now.AddHours(4))
+                            if (currentClass.CanCancel)
                             {
                                 if (currentClass.UnRegist(user.OpenId.Trim()))
                                 {

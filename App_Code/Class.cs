@@ -53,7 +53,7 @@ public class Class:ObjectHelper
     {
         get
         {
-            if (BeginTime - DateTime.Now >= new TimeSpan(4, 0, 0))
+            if (DateTime.Now < DateTime.Parse(_fields["cancel_time"].ToString()))
             {
                 return true;
             }

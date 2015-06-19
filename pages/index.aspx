@@ -312,7 +312,7 @@
                 %>
                                 您即将预约 <%=currentClass.Title.Trim() %>，课程的时间是 <%=currentClass.BeginTime.ToShortDateString() %> 
                                 <%=currentClass.BeginTime.Hour.ToString() + ":"+currentClass.BeginTime.Minute.ToString().PadLeft(2,'0') %>。
-                                如您临时有变动，请在上课前4小时取消。我还要替<input id="reg_num_<%=currentClass.ID.ToString() %>" value="0"  style="width:40px" />个朋友报名。
+                                如您临时有变动，请在<%=currentClass._fields["cancel_time"].ToString().Trim() %>前取消。我还要替<input id="reg_num_<%=currentClass.ID.ToString() %>" value="0"  style="width:40px" />个朋友报名。
                                   
 
                                     
