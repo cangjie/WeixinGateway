@@ -144,7 +144,7 @@ public class Class:ObjectHelper
 
     public DataTable GetRegistedTable()
     {
-        DataTable dt = DBHelper.GetDataTable(" select weixin_open_id , num , crt from  class_regist where class_id = " + ID.ToString());
+        DataTable dt = DBHelper.GetDataTable(" select weixin_open_id , num , crt from  class_regist where class_id = " + ID.ToString() + "  order by crt " );
         return dt;
     }
 
