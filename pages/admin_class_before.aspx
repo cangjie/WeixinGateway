@@ -18,8 +18,8 @@
 
     public Class[] GetClass()
     {
-        DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
-        DateTime end = DateTime.Parse(DateTime.Now.AddDays(14).ToShortDateString());
+        DateTime end = DateTime.Parse(DateTime.Now.ToShortDateString());
+        DateTime start = DateTime.Parse(DateTime.Now.AddDays(-60).ToShortDateString());
         Class[] classArr = Class.GetClasses(start, end);
         return classArr;
     }
@@ -53,7 +53,7 @@
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
@@ -69,8 +69,8 @@
             <div class="container">
                 <ul class="nav nav-pills">
                     <li role="presentation" ><a href="admin_users.aspx">会员</a></li>
-                    <li role="presentation" class="active" ><a href="#">课程</a></li>
-                    <li role="presentation"  ><a href="admin_class_before.aspx" >过课</a></li>
+                    <li role="presentation"  ><a href="admin_classes.aspx">课程</a></li>
+                    <li role="presentation" class="active"  ><a href="#" >过课</a></li>
                 </ul>
             </div>
         </nav>

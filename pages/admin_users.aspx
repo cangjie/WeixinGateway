@@ -61,6 +61,7 @@
                 <ul class="nav nav-pills">
                     <li role="presentation" class="active"><a href="#">会员</a></li>
                     <li role="presentation"><a href="admin_classes.aspx">课程</a></li>
+                    <li role="presentation"  ><a href="admin_class_before.aspx" >过课</a></li>
                 </ul>
             </div>
         </nav>
