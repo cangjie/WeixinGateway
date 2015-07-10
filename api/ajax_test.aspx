@@ -3,7 +3,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write("{\"status\":1}");
+        Response.Write("{\"status\":0}");
     }
     
 </script>
