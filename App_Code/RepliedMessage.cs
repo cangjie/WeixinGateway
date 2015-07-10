@@ -140,6 +140,7 @@ public class RepliedMessage
         {
             string json = "{";
             json = json + "\"touser\":\"" + to.Trim() + "\",";
+            json = json + "\"fromuser\":\"" + from.Trim() + "\",";
             json = json + "\"msgtype\":\"" + type.Trim() + "\",";
             json = json + "\"" + type.Trim() + "\":{";
             switch (type.Trim().ToLower())
