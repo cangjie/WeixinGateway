@@ -51,6 +51,60 @@ public class Util
 
     public static string conStr = "";
 
+    public static string GetSimpleJsonValueByKey(string jsonStr, string key)
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
+        object v;
+        json.TryGetValue(key, out v);
+        return v.ToString();
+    }
+
+    public static string GetSortedArrayString(string str)
+    {
+        string[] strArr = str.Split('&');
+        Array.Sort(strArr);
+        return String.Join("&", strArr);
+    }
+
+    public static string ConverXmlDocumentToStringPair(XmlDocument xmlD)
+    {
+        XmlNodeList nl = xmlD.ChildNodes[0].ChildNodes;
+        string str = "";
+        foreach (XmlNode n in nl)
+        {
+            str = str + "&" + n.Name.Trim() + "=" + n.InnerText.Trim();
+        }
+        str = str.Remove(0, 1);
+        return str;
+    }
+
+    public static string GetNonceString(int length)
+    {
+        string chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+        char[] charsArr = chars.ToCharArray();
+        int charsCount = chars.Length;
+        string str = "";
+        Random rnd = new Random();
+        for (int i = 0; i < length - 1; i++)
+        {
+            str = str + charsArr[rnd.Next(charsCount)].ToString();
+        }
+        return str;
+    }
+
+    public static string GetMd5Sign(string KeyPairStringWillBeSigned, string key)
+    {
+        string str = GetSortedArrayString(KeyPairStringWillBeSigned);
+        System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+        byte[] bArr = md5.ComputeHash(Encoding.UTF8.GetBytes(str + "&key=" + key.Trim()));
+        string ret = "";
+        foreach (byte b in bArr)
+        {
+            ret = ret + b.ToString("x").PadLeft(2, '0').ToUpper();
+        }
+        return ret;
+    }
 
     public static string GetWebContent(string url, string method, string content, string contentType)
     {
