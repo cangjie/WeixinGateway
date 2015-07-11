@@ -22,12 +22,32 @@
     public string shaStrOri = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+
+
+        
         
         appId = System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim();
         appSecret = System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"].Trim();
         mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
+
+        string userToken = ((Session["user_token"] == null) ? "" : Session["user_token"].ToString().Trim());
+        string openId = WeixinUser.CheckToken(userToken).Trim();
+        //openId = "";
+        if (openId.Trim().Equals(""))
+        {
+            
+            Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("payment/payment.aspx?" + Request.QueryString.ToString().Trim() ), true);
+        }
+        else
+        {
+            Response.Write(Request["payment_callback"]);
+            Response.End();
+        }
+       
         
         
+        
+        /*
         
         if (!IsPostBack)
         {
@@ -73,6 +93,7 @@
                 
             }
         }
+         */ 
     }
 
     
