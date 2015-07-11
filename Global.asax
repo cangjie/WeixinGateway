@@ -6,7 +6,9 @@
     {
         // Code that runs on application startup
         Util.conStr = System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim();
-
+        System.Threading.ThreadStart threadStart = new System.Threading.ThreadStart(ServiceMessage.SendScheduleMessage);
+        ServiceMessage.sendThread = new System.Threading.Thread(threadStart);
+        ServiceMessage.sendThread.Start();
         
         
     }

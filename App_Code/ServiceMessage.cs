@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Threading;
 /// <summary>
 /// Summary description for ServiceMessage
 /// </summary>
@@ -15,6 +16,8 @@ public class ServiceMessage
     public string imageUrl = "";
     public string voiceUrl = "";
     public RepliedMessage.news[] newsArray;
+
+    public static Thread sendThread;
 
 
     public ServiceMessage(string jsonStr)
@@ -77,4 +80,13 @@ public class ServiceMessage
         repliedMessage.hasSent = true;
         return RepliedMessage.AddRepliedMessage(repliedMessage);
     }
+
+    public static void SendScheduleMessage()
+    {
+        for (; true; )
+        {
+            System.Threading.Thread.Sleep(60000);
+        }
+    }
+
 }
