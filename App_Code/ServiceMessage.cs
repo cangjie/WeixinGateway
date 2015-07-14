@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Threading;
+using System.Data;
 /// <summary>
 /// Summary description for ServiceMessage
 /// </summary>
@@ -18,6 +19,8 @@ public class ServiceMessage
     public RepliedMessage.news[] newsArray;
 
     public static Thread sendThread;
+
+    public static bool sendingReminder = true;
 
 
     public ServiceMessage(string jsonStr)
@@ -83,8 +86,62 @@ public class ServiceMessage
 
     public static void SendScheduleMessage()
     {
-        for (; true; )
+        for (; sendingReminder ; )
         {
+            DataTable dt = DBHelper.GetDataTable(" select * from reminder_message where scheduled_send_date < getdate() and status = 0 ");
+
+            
+            //beforeSendUpdateParameterPairArr[0].Key = "";
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] keyParameterPairArr
+                = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[1];
+                keyParameterPairArr[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("id",
+                    new KeyValuePair<SqlDbType, object>(SqlDbType.Int, dt.Rows[i]["id"]));
+
+                KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] beforeSendUpdateParameterPairArr
+                    = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[1];
+                beforeSendUpdateParameterPairArr[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("status",
+                    new KeyValuePair<SqlDbType, object>(SqlDbType.Int, (object)1));
+
+                DBHelper.UpdateData("reminder_message", beforeSendUpdateParameterPairArr, keyParameterPairArr);
+
+                RepliedMessage msg = new RepliedMessage();
+                msg.from = System.Configuration.ConfigurationSettings.AppSettings["ori_id"].Trim();
+                msg.to = dt.Rows[i]["open_id"].ToString().Trim();
+                msg.type = "text";
+                msg.content = dt.Rows[i]["content"].ToString().Trim();
+
+                int j = 0;
+
+                //try
+                //{
+                    j = ServiceMessage.SendServiceMessage(new ServiceMessage(msg.jsonFormatData));
+                //}
+                //catch(Exception e)
+                //{ 
+                
+                //}
+
+                object result;
+
+                if (j == 0)
+                    result = (object)-1;
+                else
+                    result = (object)2;
+
+
+
+                KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] afterSendUpdateParameterPairArr
+                    = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[2];
+                afterSendUpdateParameterPairArr[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("status",
+                    new KeyValuePair<SqlDbType, object>(SqlDbType.Int, (object)result));
+                afterSendUpdateParameterPairArr[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("real_send_date",
+                    new KeyValuePair<SqlDbType, object>(SqlDbType.DateTime, (object)DateTime.Now));
+
+                DBHelper.UpdateData("reminder_message", afterSendUpdateParameterPairArr, keyParameterPairArr);
+
+            }
             System.Threading.Thread.Sleep(60000);
         }
     }
