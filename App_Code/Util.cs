@@ -67,6 +67,12 @@ public class Util
         return String.Join("&", strArr);
     }
 
+    public static string GetLongTimeStamp(DateTime currentDateTime)
+    {
+        TimeSpan ts = currentDateTime - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        return Convert.ToInt64(ts.TotalMilliseconds).ToString();
+    }
+
     public static string ConverXmlDocumentToStringPair(XmlDocument xmlD)
     {
         XmlNodeList nl = xmlD.ChildNodes[0].ChildNodes;
@@ -133,11 +139,7 @@ public class Util
         return GetWebContent(url, "GET", "", "html/text");
     }
 
-    public static string GetLongTimeStamp(DateTime currentDateTime)
-    {
-        TimeSpan ts = currentDateTime - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-        return Convert.ToInt64(ts.TotalMilliseconds).ToString();
-    }
+
 
     public static string UploadImageToWeixin(string path, string token)
     {

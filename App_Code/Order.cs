@@ -15,8 +15,8 @@ public class Order
 
 	public Order(string outTradeNo)
 	{
-        SqlDataAdapter da = new SqlDataAdapter(" select * from orders where order_out_trade_no = " 
-            + Int64.Parse(outTradeNo).ToString(), Util.conStr.Trim());
+        SqlDataAdapter da = new SqlDataAdapter(" select * from orders where order_out_trade_no = '" 
+            + outTradeNo.Trim() + "'  ", Util.conStr.Trim());
         DataTable dt = new DataTable();
         da.Fill(dt);
         da.Dispose();
@@ -83,8 +83,8 @@ public class Order
             + " order_product_id , "
             + " order_total_fee , "
             + " order_spbill_create_ip ) "
-            + " values ( "
-            + Int64.Parse(outTradeNo).ToString() + "  , "
+            + " values ( '"
+            + outTradeNo + "'  , "
             + "'" + appId.Trim().Replace("'", "") + "' , "
             + "'" + mchId.Trim().Replace("'", "") + "' , "
             + "'" + nonceStr.Trim().Replace("'", "") + "' , "
