@@ -22,7 +22,7 @@
         {
             WeixinUser operateUser = new WeixinUser(tokenOpenId);
             WeixinUser user = new WeixinUser(openId);
-            if (operateUser.OpenId.Trim().Equals(user.OpenId.Trim()))
+            if (operateUser.OpenId.Trim().Equals(user.OpenId.Trim()) && !operateUser.IsAdmin)
             {
                 if (user.VipLevel > 0)
                 {
