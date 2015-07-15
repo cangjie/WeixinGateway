@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading;
 /// <summary>
 /// Summary description for Class
 /// </summary>
 public class Class:ObjectHelper
 {
 
-
+    //public static Thread classRemindThread;
 	
 
     public Class(int id)

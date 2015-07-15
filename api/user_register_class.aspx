@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" %>
+<%@ Import Namespace="System.Data"%>
+<%@ Import Namespace="System.Data.SqlClient"%>
 <script runat="server">
 
     protected void Page_Load(object sender, EventArgs e)
@@ -32,6 +34,7 @@
                                 if (currentClass.Regist(user.OpenId.Trim(),num))
                                 {
                                     msg = "";
+                                    SendConfirmClassMessage();
                                 }
                                 else
                                 {
@@ -103,4 +106,19 @@
         }
 
     }
+
+    public void SendConfirmClassMessage()
+    {
+        string openId = Util.GetSafeRequestValue(Request, "openid", "ocTHCuPdHRCPZrcJb2qWOE_EYjeI");
+        string strClassId = Util.GetSafeRequestValue(Request, "classid", "19");
+        //"ocTHCuDCNDVo6OMmBFuQMMBWsZE0" "ocTHCuPdHRCPZrcJb2qWOE_EYjeI"
+        Class cls = new Class(int.Parse(strClassId));
+        
+       string content = "您报名的课程：" + cls.Title.Trim() + " 的最后确认时间是：" + cls._fields["cancel_time"].ToString().Trim() 
+                + " 。如果的确有事来不了，请在此时间之前取消。";
+        DateTime cancelTime =  DateTime.Parse(cls._fields["cancel_time"].ToString()).AddHours(-1);
+
+        ReminderMessage.SendRedminderMessage(openId, content, cancelTime);
+    }
+    
 </script>
