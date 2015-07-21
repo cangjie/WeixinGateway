@@ -72,6 +72,50 @@ public class WeixinUser : ObjectHelper
 
     }
 
+
+    public static int RegisterFamily(string school, string major, DateTime checkinDate)
+    {
+        int familyId = 0;
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] familyParameterArray
+            = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[3];
+        familyParameterArray[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("school",
+            new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)school));
+        familyParameterArray[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("major",
+            new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)major));
+        familyParameterArray[2] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("checkin_date",
+            new KeyValuePair<SqlDbType, object>(SqlDbType.DateTime, (object)checkinDate));
+        int i = DBHelper.InsertData("families", familyParameterArray);
+        if (i > 0)
+        {
+            DataTable dt = DBHelper.GetDataTable(" select max([id]) from families ");
+            if (dt.Rows.Count > 0)
+                familyId = int.Parse(dt.Rows[0][0].ToString());
+            dt.Dispose();
+        }
+        return familyId;
+    }
+
+    public  bool RegisterFamilyMember(bool isChild, int familyId, string name)
+    {
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] memberParameterArray
+            = new KeyValuePair<string,KeyValuePair<SqlDbType,object>>[3];
+        memberParameterArray[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("open_id",
+                new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)OpenId.Trim()));
+        memberParameterArray[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("family_id",
+                new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)familyId));
+        memberParameterArray[2] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("name",
+                new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)name));
+        int i = DBHelper.InsertData((isChild ? "children" : "parents"), memberParameterArray);
+        if (i > 0)
+            return true;
+        else
+            return false;
+    }
+
+
+
+    
+
     public string OpenId
     {
         get
@@ -100,6 +144,132 @@ public class WeixinUser : ObjectHelper
             int i = DBHelper.UpdateData(tableName.Trim(), updateDataArr, keyDataArr);
             if (i == 0)
                 throw new Exception("update failed");
+        }
+    }
+
+    public string School
+    {
+        get
+        {
+            string school = "";
+            if (FamilyId > 0)
+            {
+                DataTable dt = DBHelper.GetDataTable(" select * from families where [id] = " + FamilyId);
+                if (dt.Rows.Count > 0)
+                    school = dt.Rows[0]["school"].ToString().Trim();
+                dt.Dispose();
+            }
+            return school;
+        }
+    }
+
+    public string Major
+    {
+        get
+        {
+            string major = "";
+            if (FamilyId > 0)
+            {
+                DataTable dt = DBHelper.GetDataTable(" select * from families where [id] = " + FamilyId);
+                if (dt.Rows.Count > 0)
+                    major = dt.Rows[0]["school"].ToString().Trim();
+                dt.Dispose();
+            }
+            return major;
+        }
+    }
+
+    public DateTime CheckInDate
+    {
+        get
+        {
+            DateTime checkInDate = DateTime.Parse("1900-1-1");
+            if (FamilyId > 0)
+            {
+                DataTable dt = DBHelper.GetDataTable(" select * from families where [id] = " + FamilyId);
+                if (dt.Rows.Count > 0)
+                    checkInDate = DateTime.Parse(dt.Rows[0]["checkin_date"].ToString().Trim());
+                dt.Dispose();
+            }
+            return checkInDate;
+        }
+    }
+
+    public int FamilyId
+    {
+        get
+        {
+            int familyId = 0;
+            string sql = " ";
+            if (IsParent)
+                sql = " select * from parents where open_id = '" + OpenId.Trim() + "'  ";
+            else
+                if (IsChild)
+                    sql = " select * from children where open_id = '" + OpenId.Trim() + "'  ";
+            if (!sql.Trim().Equals(""))
+            {
+                DataTable dt = DBHelper.GetDataTable(sql);
+                if (dt.Rows.Count > 0)
+                {
+                    familyId = int.Parse(dt.Rows[0]["family_id"].ToString().Trim());
+                }
+            }
+            return familyId;
+        }
+    }
+
+    public string Name
+    {
+        get
+        {
+            bool isParent = IsParent;
+            bool isChild = IsChild;
+            if ((!isParent && !isChild) || ( isParent && isChild ))
+                return "";
+            else
+            {
+                string sql = " select * from " + (isParent ? "parents" : "children") + "  where open_id = '" + OpenId.Trim() + "'  ";
+                DataTable dt = DBHelper.GetDataTable(sql);
+                string name = "";
+                if (dt.Rows.Count > 0)
+                    name = dt.Rows[0]["name"].ToString().Trim();
+                dt.Dispose();
+                return name.Trim();
+            }
+        }
+    }
+
+    public bool IsChild
+    {
+        get
+        {
+            DataTable dt = DBHelper.GetDataTable(" select * from children where open_id = '" + OpenId.Trim() + "'  ");
+            bool isChild = true;
+            if (dt.Rows.Count == 0)
+                isChild = false;
+            dt.Dispose();
+            return isChild;
+        }
+    }
+
+    public bool IsParent
+    {
+        get
+        {
+            DataTable dt = DBHelper.GetDataTable(" select * from parents where open_id = '" + OpenId.Trim() + "'  ");
+            bool isParent = true;
+            if (dt.Rows.Count == 0)
+                isParent = false;
+            dt.Dispose();
+            return isParent;
+        }
+    }
+
+    public bool HaveRegisted
+    {
+        get
+        {
+            return (IsChild || IsParent);
         }
     }
 
