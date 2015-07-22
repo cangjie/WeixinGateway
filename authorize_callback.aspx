@@ -58,6 +58,8 @@
         string code = Request["code"].Trim();
         string state = Request["state"].Trim();
         string openId = GetOpenId(code);
+        //Response.Write(openId);
+        //Response.End();
         string callBack = Request["callback"].Trim();
         callBack = Server.UrlDecode(callBack);
         string token = WeixinUser.CreateToken(openId,DateTime.Now.AddMinutes(100));
