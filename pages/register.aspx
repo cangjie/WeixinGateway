@@ -47,22 +47,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
     <title></title>
-    <link href="docs/css/bootstrap.min.css" rel="stylesheet" />
+    <!--link href="docs/css/bootstrap.min.css" rel="stylesheet" /-->
+    <link href="datetime_picker/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+
     <link href="docs/css/highlight.css" rel="stylesheet" />
-    <link href="dist/css/bootstrap-switch.css" rel="stylesheet" />
+    <link href="dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet" />
     <link href="src/docs.min.css" rel="stylesheet" />
     <link href="docs/css/main.css" rel="stylesheet" />
-    <link href="docs/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
+    <!--link href="docs/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" /-->
+    <link href="datetime_picker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
     <script type="text/javascript" >
 
         function register() {
+           
             var role = "child";
             if (!document.getElementById("check-box-role").checked)
                 role = "parent";
             var name = document.getElementById("text-name").value.trim();
             var school = document.getElementById("text-school").value.trim();
             var major = document.getElementById("text-major").value.trim();
-            var checkin_date = document.getElementById("datetimepicker").value.trim();
+            var checkin_date = document.getElementById("dtp_input2").value.trim();
             var ajax_url = "../api/user_register.aspx?token=<%=token%>&name=" + name 
                     + "&school=" + school + "&major=" + major + "&role=" + role;
             $.ajax({
@@ -73,7 +77,7 @@
                     var dataObject = eval("(" + data + ")");
                     if (dataObject.status == "0") {
                         var family_id = dataObject.family_id;
-                        alert(family_id);
+                        window.location.href = "register_member.aspx?family_id="+family_id;
                     }
                 },
                 error: function (request, status, err) {
@@ -115,8 +119,12 @@
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">入学时间：</label>
             <div class="col-sm-10">
-                <input type="text"  value="2016-01-15" id="datetimepicker">
-                 
+                <div style="width:200px;float:left" class="input-group date form_date" data-date="" data-date-format="yyyy MM dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input type="hidden" id="Hidden1" value="" />
             </div>
         </div>
         <div class="form-group">
@@ -126,22 +134,47 @@
             </div>
         </div>
         
+       
+
     </div>
    
-   <script src="docs/js/jquery.min.js"></script>
-    <script src="docs/js/bootstrap.min.js"></script>
+   <!--script src="docs/js/jquery.min.js"></script-->
+    <script type="text/javascript" src="datetime_picker/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
+    <!--script src="docs/js/bootstrap.min.js"></script-->
+    <script type="text/javascript" src="datetime_picker/bootstrap/js/bootstrap.min.js"></script>
     <script src="docs/js/highlight.js"></script>
     <script src="dist/js/bootstrap-switch.js"></script>
     <script src="docs/js/main.js"></script>
-    <script type="text/javascript" src="docs/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="docs/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <!--script type="text/javascript" src="docs/js/bootstrap-datetimepicker.js" charset="UTF-8"></script-->
+    <script type="text/javascript" src="datetime_picker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="datetime_picker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
     
     <script type="text/javascript" >
+
+        $('.form_date').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
 
         $('#datetimepicker').datetimepicker({
             format: 'yyyy-mm-dd',
             minView: 2,
-            autoClose: true
+            language: 'zh-CN',
+
+            weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        
+        forceParse: 0
         });
 
         $('#datetimepicker').datetimepicker().on('changeDate', function(ev){
