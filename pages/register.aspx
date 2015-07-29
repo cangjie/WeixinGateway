@@ -73,7 +73,7 @@
                     var dataObject = eval("(" + data + ")");
                     if (dataObject.status == "0") {
                         var family_id = dataObject.family_id;
-                        window.location.href = "register_member.aspx?family_id="+family_id;
+                        alert(family_id);
                     }
                 },
                 error: function (request, status, err) {
