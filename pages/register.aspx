@@ -49,7 +49,7 @@
     <title></title>
     <link href="docs/css/bootstrap.min.css" rel="stylesheet" />
     <link href="docs/css/highlight.css" rel="stylesheet" />
-    <link href="dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet" />
+    <link href="dist/css/bootstrap-switch.css" rel="stylesheet" />
     <link href="src/docs.min.css" rel="stylesheet" />
     <link href="docs/css/main.css" rel="stylesheet" />
     <link href="docs/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
