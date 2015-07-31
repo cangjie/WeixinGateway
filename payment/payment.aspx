@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" %>
 <%@ Import Namespace="System.Xml" %>
 <%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Data" %>
 <!DOCTYPE html>
 
 <script runat="server">
@@ -54,6 +55,9 @@
         }
        
     }
+    
+    
+    
 
     
 
@@ -81,10 +85,7 @@
         n.InnerText = nonceStr;
         rootXmlNode.AppendChild(n);
 
-
-        n = xmlD.CreateNode(XmlNodeType.Element, "body", "");
-        n.InnerText = Util.GetSafeRequestValue(Request, "body", "test");
-        rootXmlNode.AppendChild(n);
+        
 
         
         
@@ -108,15 +109,22 @@
         n.InnerText = Request.UserHostAddress.Trim();
         rootXmlNode.AppendChild(n);
 
-        n = xmlD.CreateNode(XmlNodeType.Element, "total_fee", "");
-        n.InnerText = Util.GetSafeRequestValue(Request, "total_fee", "1");
+        n = xmlD.CreateNode(XmlNodeType.Element, "product_id", "");
+        int productId = int.Parse(Util.GetSafeRequestValue(Request, "product_id", "-1"));
+        n.InnerText = productId.ToString();
         rootXmlNode.AppendChild(n);
 
-        n = xmlD.CreateNode(XmlNodeType.Element, "product_id", "");
-        n.InnerText = Util.GetSafeRequestValue(Request, "product_id", "-1");
+
+        string body = GetBody(productId);
+        n = xmlD.CreateNode(XmlNodeType.Element, "body", "");
+        n.InnerText = body;
         rootXmlNode.AppendChild(n);
         
         
+        n = xmlD.CreateNode(XmlNodeType.Element, "total_fee", "");
+        n.InnerText = GetPrice(productId).ToString();
+        rootXmlNode.AppendChild(n);
+
         n = xmlD.CreateNode(XmlNodeType.Element, "trade_type", "");
         n.InnerText = "JSAPI";
         rootXmlNode.AppendChild(n);
@@ -178,7 +186,25 @@
         return prepayId.Trim();
     }
 
-    
+    public int GetPrice(int productId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from products where [id] = " + productId.ToString());
+        int price = 0;
+        if (dt.Rows.Count > 0)
+            price = int.Parse(dt.Rows[0]["price"].ToString().Trim());
+        price = price * 630;
+        return price;
+    }
+
+    public string GetBody(int productId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from products where [id] = " + productId.ToString());
+        string body = "";
+        if (dt.Rows.Count > 0)
+            body = dt.Rows[0]["name"].ToString().Trim();
+        
+        return body;
+    }
 
     
     

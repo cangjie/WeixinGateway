@@ -102,7 +102,34 @@ public class DealMessage
         {
             Util.DealLandingRequest(receivedMessage.from);
         }
+        if (receivedMessage.userEvent.Trim().Equals("subscribe"))
+        {
+            string sceneId = receivedMessage.eventKey.Trim().Replace("qrscene_", "");
+            repliedMessage.from = receivedMessage.to.Trim();
+            repliedMessage.to = receivedMessage.from.Trim();
+            DealScan(sceneId, repliedMessage);
+
+        }
+        if (receivedMessage.userEvent.Trim().Equals("SCAN"))
+        {
+            string sceneId = receivedMessage.eventKey.Trim();
+            repliedMessage.from = receivedMessage.to.Trim();
+            repliedMessage.to = receivedMessage.from.Trim();
+            DealScan(sceneId, repliedMessage);
+        }
         return repliedMessage;
+    }
+
+    public static void DealScan(string sceneId, RepliedMessage repliedMessage)
+    {
+        sceneId = sceneId.Trim();
+        if (sceneId.StartsWith("40"))
+        {
+            repliedMessage.type = "text";
+            repliedMessage.content = "<a href=\"http://zouzou.999uuu.cn/pages/register.aspx?family_id=" + int.Parse(sceneId.Substring(2, 5))
+                + "\" >点击这里注册</a>";
+
+        }
     }
 
     public static RepliedMessage DealUserInputMessage(ReceivedMessage receivedMessage)
