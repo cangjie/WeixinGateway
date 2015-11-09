@@ -99,11 +99,25 @@ public class DealMessage
         {
             Util.DealLandingRequest(receivedMessage.from);
         }
+
         if (receivedMessage.userEvent.Trim().ToLower().Equals("subscribe"))
         {
             Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
+
         }
         return repliedMessage;
+    }
+
+    public static void DealScan(string sceneId, RepliedMessage repliedMessage)
+    {
+        sceneId = sceneId.Trim();
+        if (sceneId.StartsWith("40"))
+        {
+            repliedMessage.type = "text";
+            repliedMessage.content = "<a href=\"http://zouzou.999uuu.cn/pages/register.aspx?family_id=" + int.Parse(sceneId.Substring(2, 5))
+                + "\" >点击这里注册</a>";
+
+        }
     }
 
     public static RepliedMessage DealUserInputMessage(ReceivedMessage receivedMessage)
@@ -119,6 +133,9 @@ public class DealMessage
                 break;
             case "单方":
                 Util.GetProductNews("单方", repliedMessage);
+                break;
+            case "trx" :
+                //repliedMessage = CreateQrCodeReplyMessage(receivedMessage, repliedMessage);
                 break;
             default:
                 if (receivedMessage.type.Trim().Equals("text"))
