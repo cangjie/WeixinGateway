@@ -27,6 +27,7 @@ public class Util
     protected static string token = "";
 
     protected static DateTime tokenTime = DateTime.MinValue;
+    public static string conStr = System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim();
 
     public static string GetSHA1(string str)
     {
