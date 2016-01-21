@@ -28,7 +28,7 @@ public class Util
 
     protected static DateTime tokenTime = DateTime.MinValue;
 
-    public static string conStr = "";
+    public static string conStr = System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim();
 
     public static string UploadImageToWeixin(string path, string token)
     {
