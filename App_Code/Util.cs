@@ -66,8 +66,7 @@ public class Util
         return ((request[parameterName] == null) ? defaultValue : request[parameterName].Trim()).Replace("'","");
     }
 
-    public static string conStr = "";
-
+    
 
     public static string GetWebContent(string url, string method, string content, string contentType)
     {
