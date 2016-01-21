@@ -19,9 +19,15 @@
             //Response.Write(Request["echostr"].Trim());
             //Response.End();
             Stream s = Request.InputStream;
+            StreamReader sr = new StreamReader(s);
+
+            File.AppendAllText(Server.MapPath("log/err.txt"), DateTime.Now.ToString() + "\r\n" + sr.ReadToEnd() + "\r\n");
+
+            sr.Close();
+            
             XmlDocument xmlD = new XmlDocument();
             xmlD.Load(s);
-            File.AppendAllText(Server.MapPath("log/err.txt"), DateTime.Now.ToString() + "\r\n" +  xmlD.InnerXml.Trim()+"\r\n");
+            
             ReceivedMessage receiveMessage = new ReceivedMessage(xmlD);
             ReceivedMessage.SaveReceivedMessage(receiveMessage);
             RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(receiveMessage);
