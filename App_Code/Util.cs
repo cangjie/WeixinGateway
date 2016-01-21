@@ -11,7 +11,7 @@ using System.Xml;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
-
+using System.Security.Cryptography;
 /// <summary>
 /// Summary description for Util
 /// </summary>
@@ -28,7 +28,72 @@ public class Util
 
     protected static DateTime tokenTime = DateTime.MinValue;
 
-    public static string conStr = System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim();
+    public static string GetSHA1(string str)
+    {
+        SHA1 sha = SHA1.Create();
+        ASCIIEncoding enc = new ASCIIEncoding();
+        byte[] bArr = enc.GetBytes(str);
+        bArr = sha.ComputeHash(bArr);
+        string validResult = "";
+        for (int i = 0; i < bArr.Length; i++)
+        {
+            validResult = validResult + bArr[i].ToString("x").PadLeft(2, '0');
+        }
+        return validResult.Trim();
+    }
+
+    public static string GetMd5(string str)
+    {
+        System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+        byte[] bArr = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
+        string ret = "";
+        foreach (byte b in bArr)
+        {
+            ret = ret + b.ToString("x").PadLeft(2, '0');
+        }
+        return ret;
+    }
+
+    public static string GetLongTimeStamp(DateTime currentDateTime)
+    {
+        TimeSpan ts = currentDateTime - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        return Convert.ToInt64(ts.TotalMilliseconds).ToString();
+    }
+
+    public static string GetSafeRequestValue(HttpRequest request, string parameterName, string defaultValue)
+    {
+        return ((request[parameterName] == null) ? defaultValue : request[parameterName].Trim()).Replace("'","");
+    }
+
+    public static string conStr = "";
+
+
+    public static string GetWebContent(string url, string method, string content, string contentType)
+    {
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+        req.Method = method.Trim();
+        req.ContentType = contentType;
+        if (!content.Trim().Equals(""))
+        {
+            StreamWriter sw = new StreamWriter(req.GetRequestStream());
+            sw.Write(content);
+            sw.Close();
+        }
+        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        Stream s = res.GetResponseStream();
+        StreamReader sr = new StreamReader(s);
+        string str = sr.ReadToEnd();
+        sr.Close();
+        s.Close();
+        res.Close();
+        req.Abort();
+        return str;
+    }
+
+    public static string GetWebContent(string url)
+    {
+        return GetWebContent(url, "GET", "", "html/text");
+    }
 
     public static string UploadImageToWeixin(string path, string token)
     {
@@ -450,17 +515,7 @@ public class Util
         return j;
     }
 
-    public static string GetMd5(string str)
-    {
-        System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-        byte[] bArr = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
-        string ret = "";
-        foreach (byte b in bArr)
-        {
-            ret = ret + b.ToString("x").PadLeft(2, '0');
-        }
-        return ret;
-    }
+    
 
 
     public static void DealLandingRequest(string openId)
