@@ -9,7 +9,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim());
+        SqlConnection conn = new SqlConnection(Util.conStr);
         conn.Open();
         conn.Close();
     conn.Dispose();
