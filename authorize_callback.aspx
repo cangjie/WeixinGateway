@@ -58,13 +58,16 @@
         string code = Util.GetSafeRequestValue(Request, "code", "011991e1f9087a38af2d965e8f7cfa3A");
         string state = Util.GetSafeRequestValue(Request, "state", "1000");
         string openId = GetOpenId(code);
-        string callBack = Util.GetSafeRequestValue(Request, "callback", "pages/home_page.aspx");
-        callBack = Server.UrlDecode(callBack);
-        string token = WeixinUser.CreateToken(openId,DateTime.Now.AddMinutes(100));
-        Session["user_token"] = token;
-        //WeixinUser user = new WeixinUser(openId);
-        //Response.Write(token);
-        Response.Redirect(callBack, true);
+        if (!openId.Trim().Equals(""))
+        {
+            string callBack = Util.GetSafeRequestValue(Request, "callback", "pages/home_page.aspx");
+            callBack = Server.UrlDecode(callBack);
+            string token = WeixinUser.CreateToken(openId, DateTime.Now.AddMinutes(100));
+            Session["user_token"] = token;
+            //WeixinUser user = new WeixinUser(openId);
+            //Response.Write(token);
+            Response.Redirect(callBack, true);
+        }
     }
 </script>
 
