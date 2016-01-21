@@ -8,7 +8,7 @@
     {
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx", true);
+            Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("/pages/home_page.aspx"), true);
         }
         else
         { 
