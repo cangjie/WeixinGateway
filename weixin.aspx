@@ -20,13 +20,15 @@
             //Response.End();
             Stream s = Request.InputStream;
             StreamReader sr = new StreamReader(s);
-
-            File.AppendAllText(Server.MapPath("log/err.txt"), DateTime.Now.ToString() + "\r\n" + sr.ReadToEnd() + "\r\n");
-
+            string xmlContent = sr.ReadToEnd();
             sr.Close();
             
+            File.AppendAllText(Server.MapPath("log/err.txt"), DateTime.Now.ToString() + "\r\n" + xmlContent + "\r\n");
+
+           
+            
             XmlDocument xmlD = new XmlDocument();
-            xmlD.Load(s);
+            xmlD.LoadXml(xmlContent);
             
             ReceivedMessage receiveMessage = new ReceivedMessage(xmlD);
             ReceivedMessage.SaveReceivedMessage(receiveMessage);
