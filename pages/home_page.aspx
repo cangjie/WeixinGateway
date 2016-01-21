@@ -19,7 +19,7 @@
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl), true);
+            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
     }
 </script>
