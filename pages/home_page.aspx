@@ -8,12 +8,19 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        string currentPageUrl = Server.UrlEncode("/pages/home_page.aspx");
+        
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("/pages/home_page.aspx"), true);
+            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+            
         }
         string userToken = Session["user_token"].ToString();
         openId = WeixinUser.CheckToken(userToken);
+        if (openId.Trim().Equals(""))
+        {
+            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl), true);
+        }
     }
 </script>
 
