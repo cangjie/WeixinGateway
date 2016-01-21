@@ -13,6 +13,7 @@
         conn.Open();
         conn.Close();
     conn.Dispose();
+    Response.End();
         
         
         ReceivedMessage receiveMsg = new ReceivedMessage();
