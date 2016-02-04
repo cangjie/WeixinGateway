@@ -6,6 +6,8 @@
 
     public string openId = "";
 
+    public WeixinUser currentUser;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         string currentPageUrl = Server.UrlEncode("/pages/home_page.aspx");
@@ -21,6 +23,14 @@
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
+
+        currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+
+        if (currentUser._fields["cell_number"].ToString().Trim().Equals(""))
+        {
+            Response.Redirect("register_cell_number.aspx", true);
+        }
+        
     }
 </script>
 
