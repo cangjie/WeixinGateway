@@ -69,7 +69,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">昵称：</p></div>
-                <div class="col-xs-8" ><input type="text" style="width:150px"  /></div>
+                <div class="col-xs-8" ><input class="disabled" type="text" style="width:150px" value="苍杰"  /></div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">手机号：</p></div>
@@ -88,8 +88,8 @@
         var sendValidateSmsButton = document.getElementById("send_validate_sms_button");
         function send_validate_sms_button_on_click()
         {
-            alert("aa");
-            sendValidateSmsButton.textContent = "click";
+            //alert("aa");
+            //sendValidateSmsButton.textContent = "click";
             //sendValidateSmsButton.innerText = "click";
         }
     </script>
