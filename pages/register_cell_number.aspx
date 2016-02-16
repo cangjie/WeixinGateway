@@ -69,7 +69,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">昵称：</p></div>
-                <div class="col-xs-8" ><input class="disabled" type="text" style="width:150px" value="苍杰"  /></div>
+                <div class="col-xs-8" ><input  readonly="yes" type="text" style="width:150px" value="苍杰"  /></div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">手机号：</p></div>
