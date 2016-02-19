@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#"%>
 
 <!DOCTYPE html>
 
@@ -6,14 +6,13 @@
 
     public string headImage = "";
 
-    public WeixinUser currentUser;
-
     public string openId = "";
+
+    public WeixinUser currentUser;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        /*
-        string currentPageUrl = Server.UrlEncode("/pages/register_cell_number.aspx");
+        string currentPageUrl = Server.UrlEncode("/pages/home_page.aspx");
 
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -29,8 +28,13 @@
 
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
-        headImage = currentUser.HeadImage;
-         */ 
+        if (currentUser._fields["cell_number"].ToString().Trim().Equals(""))
+        {
+            Response.Redirect("register_cell_number.aspx", true);
+        }
+        
+        
+        
     }
 </script>
 

@@ -91,6 +91,20 @@ public class Sms
                                      {"status", "int", "0"}};
         int i = DBHelper.InsertData("sms", DBHelper.ConvertStringArryToKeyValuePairArray(insertParameters));
 
+        if (i == 1)
+        {
+            DataTable dt = DBHelper.GetDataTable(" select max([id]) from sms ");
+            if (dt.Rows.Count > 0)
+            {
+                i = int.Parse(dt.Rows[0][0].ToString());
+            }
+            else
+            {
+                i = 0;
+            }
+            dt.Dispose();
+        }
+
         return i;
     }
     /*
@@ -102,8 +116,10 @@ public class Sms
     */
     public static int SendVerifiedSms(string cellNumber)
     {
+
         string verifyCode = CreateRandomCode(6);
-        int smsId = SaveSms(cellNumber, "您的验证码是：" + verifyCode.Trim(), true, verifyCode);
+        //您的验证码为@，请在规定的时间输入。【易龙雪聚】
+        int smsId = SaveSms(cellNumber, "您的验证码为" + verifyCode.Trim() + "，请在规定的时间输入。【易龙雪聚】", true, verifyCode);
         Sms sms = new Sms(smsId);
         sms.Send();
         return smsId;
