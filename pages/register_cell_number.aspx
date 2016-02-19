@@ -73,8 +73,8 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">手机号：</p></div>
-                <div class="col-xs-8" ><input type="text"  style="width:150px" />
-                    <button id="Button1"  type="button"  onclick="send_validate_sms_button_on_click()" class="btn btn-xs btn-primary">获取验证码</button></div>
+                <div class="col-xs-8" ><input type="text" id="cell_number" style="width:150px" />
+                    <button id="btn_get_verify_code"  type="button"  onclick="send_validate_sms_button_on_click()" class="btn btn-xs btn-primary">获取验证码</button></div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">验证码：</p></div>
@@ -88,7 +88,16 @@
         var sendValidateSmsButton = document.getElementById("send_validate_sms_button");
         function send_validate_sms_button_on_click()
         {
-            //$.ajax({}, {});
+            var btnGetVerifyCode = document.getElementById("btn_get_verify_code");
+            btnGetVerifyCode.disabled = true;
+            var cell = document.getElementById("cell_number").value;
+            $.ajax({
+                url: "../api/verify_code_send.aspx",
+                data:{cellnumber:cell},
+                success: function () {
+                    //alert("aa");
+                }
+            });
         }
     </script>
 </body>
