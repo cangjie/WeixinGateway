@@ -116,6 +116,10 @@ public class DealMessage
             case "二维码":
                 repliedMessage = CreateQrCodeReplyMessage(receivedMessage, repliedMessage);
                 break;
+            case "绑定手机":
+                repliedMessage.type = "text";
+                repliedMessage.content = "http://snowmeet.tuyaa.com/pages/register_cell_number.aspx";
+                break;
             default:
                 break;
         }
