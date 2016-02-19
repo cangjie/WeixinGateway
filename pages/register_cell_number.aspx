@@ -88,9 +88,7 @@
         var sendValidateSmsButton = document.getElementById("send_validate_sms_button");
         function send_validate_sms_button_on_click()
         {
-            //alert("aa");
-            //sendValidateSmsButton.textContent = "click";
-            //sendValidateSmsButton.innerText = "click";
+            //$.ajax({}, {});
         }
     </script>
 </body>

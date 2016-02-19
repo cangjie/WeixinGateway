@@ -18,6 +18,40 @@ public class DBHelper
 		//
 	}
 
+    public static SqlDbType GetSqlDbType(string type)
+    {
+        SqlDbType sqlType;
+        switch (type.ToLower())
+        {
+            case "int":
+                sqlType = SqlDbType.Int;
+                break;
+            case "varchar":
+                sqlType = SqlDbType.VarChar;
+                break;
+            case "datetime":
+                sqlType = SqlDbType.DateTime;
+                break;
+            default:
+                sqlType = SqlDbType.VarChar;
+                break;
+        }
+        return sqlType;
+    }
+
+
+    public static KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] ConvertStringArryToKeyValuePairArray(string[,] parameters)
+    {
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parametersKeyValuePairArr
+            = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[parameters.Length / 3];
+        for (int i = 0; i < parameters.Length / 3; i++)
+        {
+            parametersKeyValuePairArr[i] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(parameters[i, 0].Trim(),
+                new KeyValuePair<SqlDbType, object>(GetSqlDbType(parameters[i, 1].Trim()), (object)parameters[i, 2].Trim()));
+        }
+        return parametersKeyValuePairArr;
+    }
+
     public static int UpdateData(string tableName, 
         KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] updateParameters,
         KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] keyParameters)
