@@ -16,6 +16,8 @@
     {
         string currentPageUrl = Server.UrlEncode("/pages/home_page.aspx");
 
+        //Session["user_token"] = "3fc3e61137a7d36cbef5b96e6284a80f6956b62b1be61299b9cf566060aaa0cf74cc9b3c";
+        
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
@@ -30,12 +32,10 @@
 
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
-        if (currentUser._fields["cell_number"].ToString().Trim().Equals(""))
-        {
-            Response.Redirect("register_cell_number.aspx", true);
-        }
+       
+        
 
-        string userInfoJson = Util.GetWebContent(Util.domainName.Trim() + "/get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
+        string userInfoJson = Util.GetWebContent("http://" + Util.domainName.Trim() + "/get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
         headImage = Util.GetSimpleJsonValueByKey(userInfoJson, "headimgurl");
         nick = Util.GetSimpleJsonValueByKey(userInfoJson, "nickname");
         
