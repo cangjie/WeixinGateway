@@ -35,7 +35,7 @@
             Response.Redirect("register_cell_number.aspx", true);
         }
 
-        string userInfoJson = Util.GetWebContent("../get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
+        string userInfoJson = Util.GetWebContent(Util.domainName.Trim() + "/get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
         headImage = Util.GetSimpleJsonValueByKey(userInfoJson, "headimgurl");
         nick = Util.GetSimpleJsonValueByKey(userInfoJson, "nickname");
         
