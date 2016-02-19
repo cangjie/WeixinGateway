@@ -10,6 +10,8 @@
 
     public WeixinUser currentUser;
 
+    public string nick = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         string currentPageUrl = Server.UrlEncode("/pages/home_page.aspx");
@@ -32,8 +34,10 @@
         {
             Response.Redirect("register_cell_number.aspx", true);
         }
-        
-        
+
+        string userInfoJson = Util.GetWebContent("../get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
+        headImage = Util.GetSimpleJsonValueByKey(userInfoJson, "headimgurl");
+        nick = Util.GetSimpleJsonValueByKey(userInfoJson, "nickname");
         
     }
 </script>
@@ -65,7 +69,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-12">
-                    <img style="width:100px;height:100px;" class="center-block img-circle" src="http://wx.qlogo.cn/mmopen/7x284icLTXYVBWetbgKJdELZmtdVwcUYyibhhTicbHDBuRh0a3nL1uwwBHtWrAma0DrdEKmWqrGyNLsWUJeen8G6GBqRf2fSWLK/0" />
+                    <img style="width:100px;height:100px;" class="center-block img-circle" src="<%=headImage %>" />
                 </div>
             </div>
             <div class="row" >
@@ -73,7 +77,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">昵称：</p></div>
-                <div class="col-xs-8" ><input  readonly="yes" type="text" style="width:150px" value="苍杰"  /></div>
+                <div class="col-xs-8" ><input  readonly="yes" type="text" style="width:150px" value="<%=nick %>"  /></div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">手机号：</p></div>

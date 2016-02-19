@@ -515,7 +515,14 @@ public class Util
         return j;
     }
 
-    
+    public static string GetSimpleJsonValueByKey(string jsonStr, string key)
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
+        object v;
+        json.TryGetValue(key, out v);
+        return v.ToString();
+    }
 
 
     public static void DealLandingRequest(string openId)
