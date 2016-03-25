@@ -248,6 +248,7 @@ public class RepliedMessage
             + " '" + repliedMessage.picUrl.Trim().Replace("'", "") + "' ,  "
             + " '" + (repliedMessage.isService ? "1" : "0") + "' , "
             + " '" + (repliedMessage.hasSent ? "1" : "0") + "' )  ";
+        int maxId = 0;
         SqlConnection conn = new SqlConnection(Util.conStr.Trim());
         SqlCommand cmd = new SqlCommand(sqlStr, conn);
         conn.Open();
