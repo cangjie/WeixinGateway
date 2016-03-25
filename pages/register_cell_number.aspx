@@ -16,7 +16,7 @@
     {
         string currentPageUrl = Server.UrlEncode("/pages/home_page.aspx");
 
-        //Session["user_token"] = "3fc3e61137a7d36cbef5b96e6284a80f6956b62b1be61299b9cf566060aaa0cf74cc9b3c";
+        Session["user_token"] = "a8488dfb185d7719b88315b7bcfe5d85cbd7cbbe971d175a4e1079fe22ec5724519eed31";
         
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -31,9 +31,6 @@
         }
 
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
-
-       
-        
 
         string userInfoJson = Util.GetWebContent("http://" + Util.domainName.Trim() + "/get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
         headImage = Util.GetSimpleJsonValueByKey(userInfoJson, "headimgurl");
@@ -86,19 +83,26 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">验证码：</p></div>
-                <div class="col-xs-8" ><input type="text"  style="width:150px" /></div>
+                <div class="col-xs-8" ><input type="text" id="verify_code"  style="width:150px" /></div>
             </div>
             <div class="row" >
-                <div class="col-xs-12 center-block"><button id="send_validate_sms_button" style="width:100px;" type="button"  onclick="send_validate_sms_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button></div>
+                <div class="col-xs-12 center-block"><button id="bind_cell_number_button" style="width:100px;" type="button"  onclick="bind_cell_number_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button></div>
             </div>
         </div>
     <script type="text/javascript" >
         var sendValidateSmsButton = document.getElementById("send_validate_sms_button");
+
+        var last_send_verify_code_seconds = 60;
+
+        var int = 0;
+
         function send_validate_sms_button_on_click()
         {
             var btnGetVerifyCode = document.getElementById("btn_get_verify_code");
             btnGetVerifyCode.disabled = true;
+            var int = setInterval("reset_send_verify_code_button_text()", 1000);
             var cell = document.getElementById("cell_number").value;
+            
             $.ajax({
                 url: "../api/verify_code_send.aspx",
                 data:{cellnumber:cell},
@@ -107,6 +111,42 @@
                 }
             });
         }
+
+
+
+        function reset_send_verify_code_button_text() {
+            var btnGetVerifyCode = document.getElementById("btn_get_verify_code");
+            if (last_send_verify_code_seconds == 0) {
+                btnGetVerifyCode.innerText = "获取验证码";
+                btnGetVerifyCode.disabled = false;
+                clearInterval(int);
+            }
+            else {
+                last_send_verify_code_seconds--;
+                
+                btnGetVerifyCode.innerText = last_send_verify_code_seconds + "s 后重发。";
+            }
+        }
+
+        function bind_cell_number_button_on_click() {
+            var cell = document.getElementById("cell_number").value.trim();
+            var verify_code = document.getElementById("verify_code").value.trim();
+            var token = "<%=Session["user_token"].ToString()%>";
+            $.ajax({
+                url: "../api/verify_code_bind_cell_number.aspx",
+                data: { cellnumber: cell, verifycode: verify_code, token: token },
+                async: false,
+                success: function (msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    if (status == "success" && msg_object.status == 0 && msg_object.result == 1) {
+                        alert("手机绑定成功");
+                    }
+
+                }
+            });
+        }
+
+
     </script>
 </body>
 </html>

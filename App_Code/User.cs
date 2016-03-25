@@ -131,6 +131,21 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public string CellNumber
+    {
+        get
+        {
+            return _fields["cell_number"].ToString().Trim();
+        }
+        set
+        {
+            string[,] updateParameter = { { "cell_number", "varchar", value.Trim() } };
+            string[,] keyParameter = { { "open_id", "varchar", _fields["open_id"].ToString().Trim() } };
+            DBHelper.UpdateData("users", DBHelper.ConvertStringArryToKeyValuePairArray(updateParameter), 
+                DBHelper.ConvertStringArryToKeyValuePairArray(keyParameter));
+        }
+    }
+
     public static WeixinUser[] GetAllUsers()
     {
         DataTable dt = DBHelper.GetDataTable(" select * from users order by crt desc ");

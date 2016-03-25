@@ -127,7 +127,18 @@ public class Sms
 
     public static string CreateRandomCode(int digit)
     {
-        return "123456";
+        return (new Random()).Next(100000, 999999).ToString();
+    }
+
+    public static bool CheckVerifyCode(string cellNumber, string verifyCode)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select top 1 * from sms where cell_number = '" + cellNumber.Trim()
+            + "' and verify_code = '" + verifyCode.Trim() + "' and create_date >= DATEADD(MINUTE,-60,getdate()) ");
+        bool ret = false;
+        if (dt.Rows.Count == 1)
+            ret = true;
+        dt.Dispose();
+        return ret;
     }
 
 }
