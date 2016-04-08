@@ -10,19 +10,9 @@
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        Dictionary<string, KeyValuePair<SqlDbType, object>> d = new Dictionary<string, KeyValuePair<SqlDbType, object>>();
-
-
-        d.Add("@id", new KeyValuePair<SqlDbType, object>(SqlDbType.Int, 1));
+        Response.Write(Util.GetQrCodeTicketTemp(Util.GetToken(), 1111));
         
-       
-        
-        SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim());
-        conn.Open();
-        conn.Close();
-    conn.Dispose();
-        
-        
+        /*
         ReceivedMessage receiveMsg = new ReceivedMessage();
         receiveMsg.to = "gh_7c0c5cc0906a";
         receiveMsg.from = "oqrMvt8K6cwKt5T1yAavEylbJaRs";
@@ -34,7 +24,7 @@
         repliedMessage.id = RepliedMessage.AddRepliedMessage(repliedMessage);
         XmlDocument xmlRet = Util.CreateReplyDocument(repliedMessage.id);
         Response.Write(xmlRet.InnerXml);
-        
+        */
         /*
 
         RepliedMessage.news[] newsArr = new RepliedMessage.news[2];

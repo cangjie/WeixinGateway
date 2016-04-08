@@ -9,7 +9,7 @@
 <%@ Import Namespace="System.Net" %>
 <script runat="server">
 
-    public string token = "zouzouliuxue";
+    public string token = "jingshe";
     public string validResult = "";
 
     protected void Page_Load(object sender, EventArgs e)
@@ -18,20 +18,23 @@
         {
             //Response.Write(Request["echostr"].Trim());
             //Response.End();
+            File.AppendAllText(Server.MapPath("log/err.txt"), DateTime.Now.ToString() + "\tstart...\r\n");
             Stream s = Request.InputStream;
             XmlDocument xmlD = new XmlDocument();
             xmlD.Load(s);
-            File.AppendAllText(Server.MapPath("log/err.txt"), DateTime.Now.ToString() + "\r\n" +  xmlD.InnerXml.Trim()+"\r\n");
+            File.AppendAllText(Server.MapPath("log/err.txt"), DateTime.Now.ToString() + "\t"+xmlD.OuterXml+"\r\n");
             ReceivedMessage receiveMessage = new ReceivedMessage(xmlD);
             ReceivedMessage.SaveReceivedMessage(receiveMessage);
             RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(receiveMessage);
             repliedMessage.id = RepliedMessage.AddRepliedMessage(repliedMessage);
             XmlDocument xmlRet = Util.CreateReplyDocument(repliedMessage.id);
+            File.AppendAllText(Server.MapPath("log/err.txt"), DateTime.Now.ToString() + "\t" + xmlRet.InnerXml + "\r\n");
             Response.Write(xmlRet.InnerXml);
         }
         else
         {
             Response.Write(validResult);
+            File.AppendAllText(Server.MapPath("log/err.txt"), DateTime.Now.ToString() + "\t" + validResult.Trim()+"\r\n");
         }
     }
     
