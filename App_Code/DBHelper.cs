@@ -11,16 +11,65 @@ using System.Collections.Generic;
 /// </summary>
 public class DBHelper
 {
-	public DBHelper()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
+    public DBHelper()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
 
-    public static int UpdateData(string tableName, 
+    public static KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] ConvertStringArryToKeyValuePairArray(string[,] parameters)
+    {
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parametersKeyValuePairArr
+            = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[parameters.Length / 3];
+        for (int i = 0; i < parameters.Length / 3; i++)
+        {
+            parametersKeyValuePairArr[i] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(parameters[i, 0].Trim(),
+                new KeyValuePair<SqlDbType, object>(GetSqlDbType(parameters[i, 1].Trim()), (object)parameters[i, 2].Trim()));
+        }
+        return parametersKeyValuePairArr;
+    }
+
+    public static SqlDbType GetSqlDbType(string type)
+    {
+        SqlDbType sqlType;
+        switch (type.ToLower())
+        {
+            case "int":
+                sqlType = SqlDbType.Int;
+                break;
+            case "varchar":
+                sqlType = SqlDbType.VarChar;
+                break;
+            case "datetime":
+                sqlType = SqlDbType.DateTime;
+                break;
+            case "test":
+                sqlType = SqlDbType.Text;
+                break;
+            default:
+                sqlType = SqlDbType.VarChar;
+                break;
+        }
+        return sqlType;
+    }
+
+    public static int UpdateData(string tableName, string[,] updateParameters, string[,] keyParameters, string connectionString)
+    {
+        return UpdateData(tableName, ConvertStringArryToKeyValuePairArray(updateParameters),
+            ConvertStringArryToKeyValuePairArray(keyParameters), connectionString);
+    }
+
+    public static int UpdateData(string tableName,
         KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] updateParameters,
         KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] keyParameters)
+    {
+        return UpdateData(tableName, updateParameters, keyParameters, Util.conStr);
+    }
+
+    public static int UpdateData(string tableName,
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] updateParameters,
+        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] keyParameters, string connectionString)
     {
         SqlCommand cmd = new SqlCommand();
 
@@ -46,7 +95,7 @@ public class DBHelper
 
         cmd.CommandText = " update " + tableName.Trim() + "  set " + setClause.Trim() + "  where " + whereClause.Trim();
 
-        SqlConnection conn = new SqlConnection(Util.conStr.Trim());
+        SqlConnection conn = new SqlConnection(connectionString.Trim());
         cmd.Connection = conn;
 
         conn.Open();
@@ -60,11 +109,16 @@ public class DBHelper
         return i;
     }
 
-    public static int DeleteData(string tableName, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters)
+    public static int DeleteData(string tableName, string[,] parameters, string connectionString)
+    {
+        return DeleteData(tableName, ConvertStringArryToKeyValuePairArray(parameters), connectionString);
+    }
+
+    public static int DeleteData(string tableName, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters, string connectionString)
     {
         if (parameters.Length == 0)
             return 0;
-        SqlConnection conn = new SqlConnection(Util.conStr.Trim());
+        SqlConnection conn = new SqlConnection(connectionString.Trim());
         SqlCommand cmd = new SqlCommand();
         string whereClause = "";
         foreach (KeyValuePair<string, KeyValuePair<SqlDbType, object>> parameter in parameters)
@@ -86,9 +140,24 @@ public class DBHelper
         return i;
     }
 
+    public static int InsertData(string tableName, string[,] parameters)
+    {
+        return InsertData(tableName, parameters, Util.conStr);
+    }
+
     public static int InsertData(string tableName, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters)
     {
-        SqlConnection conn = new SqlConnection(Util.conStr.Trim());
+        return InsertData(tableName, parameters, Util.conStr);
+    }
+
+    public static int InsertData(string tableName, string[,] parameters, string connectionString)
+    {
+        return InsertData(tableName, ConvertStringArryToKeyValuePairArray(parameters), connectionString);
+    }
+
+    public static int InsertData(string tableName, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters, string connectionString)
+    {
+        SqlConnection conn = new SqlConnection(connectionString.Trim());
         SqlCommand cmd = new SqlCommand();
         string fieldClause = "";
         string valuesClause = "";
@@ -114,22 +183,31 @@ public class DBHelper
         return i;
     }
 
-
     public static DataTable GetDataTable(string sql)
+    {
+        return GetDataTable(sql, Util.conStr);
+    }
+
+    public static DataTable GetDataTable(string sql, string connectionString)
     {
         DataTable dt = new DataTable();
 
-        SqlDataAdapter da = new SqlDataAdapter(sql, Util.conStr);
+        SqlDataAdapter da = new SqlDataAdapter(sql, connectionString.Trim());
         da.Fill(dt);
         da.Dispose();
         return dt;
     }
 
-    public static DataTable GetDataTable(string sql, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] paramArr)
+    public static DataTable GetDataTable(string sql, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] paramAr)
+    {
+        return GetDataTable(sql, paramAr, Util.conStr);
+    }
+
+    public static DataTable GetDataTable(string sql, KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] paramArr, string connectionString)
     {
         DataTable dt = new DataTable();
-        
-        SqlDataAdapter da = new SqlDataAdapter(sql, Util.conStr);
+
+        SqlDataAdapter da = new SqlDataAdapter(sql, connectionString.Trim());
         foreach (KeyValuePair<string, KeyValuePair<SqlDbType, object>> param in paramArr)
         {
             da.SelectCommand.Parameters.Add(param.Key.Trim(), param.Value.Key);
