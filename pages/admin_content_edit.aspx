@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" ValidateRequest="false" %>
 
 <!DOCTYPE html>
 
