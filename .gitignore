@@ -6,6 +6,8 @@
 .project
 .metadata
 
+kind_editor/attached
+
 tmp/
 *.tmp
 *.bak
