@@ -36,8 +36,12 @@
         }
         return dt;
     }
-    
- 
+
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("admin_content_edit.aspx", true);
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -56,7 +60,7 @@
         <table class="auto-style1">
             <tr>
                 <td>
-                    <asp:Button ID="Button1" runat="server" Text="添加文章" />
+                    <asp:Button ID="Button1" runat="server" Text="添加文章" OnClick="Button1_Click" />
                 </td>
             </tr>
             <tr>

@@ -19,6 +19,15 @@ public class Article
 		//
 	}
 
+    public Article(int id)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from article where [id] = " + id.ToString());
+        if (dt.Rows.Count == 1)
+        {
+            _fields = dt.Rows[0];
+        }
+    }
+
     public int ID
     {
         get
@@ -32,6 +41,26 @@ public class Article
         get
         {
             return _fields["title"].ToString().Trim();
+        }
+        set
+        {
+            string[,] updateParameter = new string[,] { { "title", "varchar", value.Trim() } };
+            string[,] keyParameter = new string[,] { { "id", "int", ID.ToString() } };
+            DBHelper.UpdateData("article", updateParameter, keyParameter, Util.conStr.Trim());
+        }
+    }
+
+    public string Content
+    {
+        get
+        {
+            return _fields["content"].ToString().Trim();
+        }
+        set
+        {
+            string[,] updateParameter = new string[,] { { "content", "varchar", value.Trim() } };
+            string[,] keyParameter = new string[,] { { "id", "int", ID.ToString() } };
+            DBHelper.UpdateData("article", updateParameter, keyParameter, Util.conStr.Trim());
         }
     }
 
@@ -47,7 +76,6 @@ public class Article
     {
         string[,] insertData = new string[,] { { "title", "varchar", tile.Trim() }, { "content", "text", content.Trim() } };
         return DBHelper.InsertData("article", insertData, Util.conStr);
-        //DBHelper.InsertData("article", ;
     }
 
     public static Article[] GetList()
