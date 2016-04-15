@@ -4,7 +4,7 @@
 
 <script runat="server">
     
-    public int shareId = 0;
+    public int userId = 0;
     public int articleId = 0;
     public string title = "";
     public string dateString = "2016-4-1";
@@ -24,6 +24,16 @@
         string shaString = "jsapi_ticket=" + ticket.Trim() + "&noncestr=" + nonceStr.Trim()
             + "&timestamp=" + timeStamp.Trim() + "&url=" + Request.Url.ToString().Trim();
         shaParam = Util.GetSHA1(shaString);
+
+        articleId = int.Parse(Util.GetSafeRequestValue(Request, "articleid", "1"));
+
+        userId = int.Parse(Util.GetSafeRequestValue(Request, "userid", "1"));
+
+        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+        { 
+            Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/show_content.aspx?articleid=" 
+                + articleId.ToString() + "&userid=" + userId.ToString()), true);
+        }
 
     }
 </script>
@@ -92,7 +102,8 @@
                     <div class="rich_media_content " id="js_content">
                         
                         <p style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
-                            sdfsdfasdfasdf
+                            sdfsdfasdfasdf<br />
+                            <%=Session["user_token"].ToString().Trim() %>
                         </p>
                     </div>
                     <script type="text/javascript">
