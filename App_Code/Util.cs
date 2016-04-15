@@ -29,6 +29,23 @@ public class Util
     protected static DateTime tokenTime = DateTime.MinValue;
 
     //public static string conStr = "";
+    public static string ticket = string.Empty;
+    public static DateTime ticketTime = DateTime.MinValue;
+    public static string GetTicket()
+    {
+        if (ticketTime == DateTime.MinValue || ticketTime < DateTime.Now)
+        {
+            try
+            {
+                string jsonStrForTicket = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="
+                        + Util.GetToken() + "&type=jsapi", "get", "", "form-data");
+                ticket = Util.GetSimpleJsonValueByKey(jsonStrForTicket, "ticket");
+                ticketTime = DateTime.Now.AddMinutes(10);
+            }
+            catch { }
+        }
+        return ticket;
+    }
 
     public static string GetWebContent(string url)
     {
