@@ -103,7 +103,8 @@
                         
                         <p style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
                             sdfsdfasdfasdf<br />
-                            <%=Session["user_token"].ToString().Trim() %>
+                            <%=Session["user_token"].ToString().Trim() %><br />
+                            <%= WeixinUser.CheckToken(Session["user_token"].ToString()) %>
                         </p>
                     </div>
                     <script type="text/javascript">
