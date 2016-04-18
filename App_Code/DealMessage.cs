@@ -81,6 +81,10 @@ public class DealMessage
                 repliedMessage.content = "18531008530蜜思家小C";
                 repliedMessage.type = "text";
                 break;
+            case "ADDR":
+                repliedMessage.content = "1. 建外SOHO西区16号楼一层1605，电话010-53657956.\r\n2. 海淀区温泉镇东埠头路王庄4号院龙溪农庄，电话18513008530.";
+                repliedMessage.type = "text";
+                break;
             default:
                 break;
         }
