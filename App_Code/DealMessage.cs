@@ -73,6 +73,10 @@ public class DealMessage
                 repliedMessage.messageCount = 1;
                 repliedMessage.type = "news";
                 break;
+            case "ABOUT":
+                receivedMessage.content = "18531008530蜜思家小C";
+                receivedMessage.type = "text";
+                break;
             default:
                 break;
         }
