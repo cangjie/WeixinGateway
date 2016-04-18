@@ -74,8 +74,8 @@ public class DealMessage
                 repliedMessage.type = "news";
                 break;
             case "ABOUT":
-                receivedMessage.content = "18531008530蜜思家小C";
-                receivedMessage.type = "text";
+                repliedMessage.content = "18531008530蜜思家小C";
+                repliedMessage.type = "text";
                 break;
             default:
                 break;
