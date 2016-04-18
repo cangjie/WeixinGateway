@@ -9,7 +9,7 @@
 <%@ Import Namespace="System.Net" %>
 <script runat="server">
 
-    public string token = "jingshe";
+    public string token = "yoghurt";
     public string validResult = "";
 
     protected void Page_Load(object sender, EventArgs e)
