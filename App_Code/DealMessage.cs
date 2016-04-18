@@ -74,6 +74,10 @@ public class DealMessage
                 repliedMessage.type = "news";
                 break;
             case "ABOUT":
+                repliedMessage.content = "选用青海新鲜无污染的牛奶，加入天然老酵母，融入西方先进的奶制品工艺，历经8-10小时自然发酵，口感独特浓稠，入口即化，回味无穷。质朴的包装，纯粹的滋味。";
+                repliedMessage.type = "text";
+                break;
+            case "CONTACT":
                 repliedMessage.content = "18531008530蜜思家小C";
                 repliedMessage.type = "text";
                 break;
