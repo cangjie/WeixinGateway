@@ -4,7 +4,7 @@
 
 <script runat="server">
     
-    public int userId = 0;
+    public string openId = "";
     public int articleId = 0;
     public string title = "";
     public string dateString = "2016-4-1";
@@ -27,13 +27,17 @@
 
         articleId = int.Parse(Util.GetSafeRequestValue(Request, "articleid", "1"));
 
-        userId = int.Parse(Util.GetSafeRequestValue(Request, "userid", "1"));
+        openId = Util.GetSafeRequestValue(Request, "userid", "oUuHnwdEI_wjigglCwuQwwzbGt-M");
 
+        //Session["user_token"] = "b3f973d76bab3026700d488f15b1a1bf959b1124ef3d117573083cd2cba6747dbe76299e";
+        
+        
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         { 
             Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/show_content.aspx?articleid=" 
-                + articleId.ToString() + "&userid=" + userId.ToString()), true);
+                + articleId.ToString() + "&openid=" + openId.ToString()), true);
         }
+        
 
     }
 </script>
@@ -109,6 +113,7 @@
                               
                                %>
                             <%=user.Nick.Trim() %>
+                            <img src="../show_qrcode.aspx?sceneid=<%=user.QrCodeSceneId.ToString() %>" />
                         </p>
                     </div>
                     <script type="text/javascript">

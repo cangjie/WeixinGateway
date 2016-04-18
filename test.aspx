@@ -10,7 +10,9 @@
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        Response.Write(Util.GetQrCodeTicketTemp(Util.GetToken(), 1111));
+        Response.Write(QrCode.GenerateNewQrCode(1, "images/qrcode"));
+        
+        //Response.Write(Util.GetQrCodeTicketTemp(Util.GetToken(), 1111));
         
         /*
         ReceivedMessage receiveMsg = new ReceivedMessage();

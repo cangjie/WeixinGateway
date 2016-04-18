@@ -301,6 +301,28 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public int QrCodeSceneId
+    {
+        get
+        {
+            int currentSceneId = int.Parse(_fields["qr_code_scene"].ToString().Trim());
+            if (currentSceneId == 0)
+            {
+                currentSceneId = QrCode.CreateScene();
+                string[,] updateParameter = new string[,] { { "qr_code_scene", "int", currentSceneId.ToString()} };
+                string[,] keyParameter = new string[,] { { "open_id", "varchar", OpenId.Trim() } };
+                DBHelper.UpdateData("users", updateParameter, keyParameter, Util.conStr.Trim());
+                return currentSceneId;
+
+            }
+            else
+            {
+                return currentSceneId;
+            }
+
+        }
+    }
+
     public static WeixinUser[] GetAllUsers()
     {
         DataTable dt = DBHelper.GetDataTable(" select * from users order by crt desc ");
