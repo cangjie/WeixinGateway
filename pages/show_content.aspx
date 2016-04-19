@@ -31,12 +31,22 @@
         openId = Util.GetSafeRequestValue(Request, "userid", "");
 
         //Session["user_token"] = "b3f973d76bab3026700d488f15b1a1bf959b1124ef3d117573083cd2cba6747dbe76299e";
-        
-        
+
+
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
-        { 
-            Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/show_content.aspx?articleid=" 
+        {
+
+            Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/show_content.aspx?articleid="
                 + articleId.ToString() + "&openid=" + openId.ToString()), true);
+        }
+        else
+        {
+            currentOpenId = WeixinUser.CheckToken(Session["user_token"].ToString());
+            if (currentOpenId.Trim().Equals(""))
+            {
+                Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/show_content.aspx?articleid="
+                + articleId.ToString() + "&openid=" + openId.ToString()), true);
+            }
         }
         
 
@@ -109,7 +119,7 @@
                         <p style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
                             sdfsdfasdfasdf<br />
                             <%=Session["user_token"].ToString().Trim() %><br />
-                            <%currentOpenId = WeixinUser.CheckToken(Session["user_token"].ToString());
+                            <%
                               
                               WeixinUser user = new WeixinUser();
                               
@@ -175,22 +185,40 @@
 
         </div>
     </div>
-
+    <%
+        Article article = new Article(articleId);
+         %>
     <script type="text/javascript" >
 
         var shareUrl = "http://<%=System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
-    %>/pages/show_content.aspx?articleid=<%=articleId.ToString()%>";
-        var shareTitle = "";
-        var shareImage = "";
+    %>/pages/show_content.aspx?articleid=<%=articleId.ToString()%>&userid=<%=currentOpenId%>";
+        var shareTitle = "<%=article.Title.Trim()%>";
+        var shareImage = "<%=article.Image.Trim()%>";
+        
 
         wx.ready(function () {
 
             wx.onMenuShareTimeline({
-
+                title: shareTitle, // 分享标题
+                link: shareLink, // 分享链接
+                imgUrl: shareImg, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                    //shareSuccess();
+                    alert("success");
+                }
             });
 
             wx.onMenuShareAppMessage({
+                title: shareTitle, // 分享标题
+                desc: "", // 分享描述
+                link: shareLink, // 分享链接
+                imgUrl: shareImg, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                    alert("success");
 
+                }
             });
 
         });

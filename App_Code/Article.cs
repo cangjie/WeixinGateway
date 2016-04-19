@@ -28,6 +28,8 @@ public class Article
         }
     }
 
+    
+
     public int ID
     {
         get
@@ -61,6 +63,15 @@ public class Article
             string[,] updateParameter = new string[,] { { "content", "varchar", value.Trim() } };
             string[,] keyParameter = new string[,] { { "id", "int", ID.ToString() } };
             DBHelper.UpdateData("article", updateParameter, keyParameter, Util.conStr.Trim());
+        }
+    }
+
+    public string Image
+    {
+        get
+        {
+            return "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
+                + "/images/getheadimg.jpeg";
         }
     }
 
