@@ -232,7 +232,7 @@
                 imgUrl: shareImage, // 分享图标
                 success: function () {
                     // 用户确认分享后执行的回调函数
-                    alert("success");
+                    //alert("success");
 
                 }
             });
