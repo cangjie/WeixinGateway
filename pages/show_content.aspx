@@ -37,7 +37,7 @@
         {
 
             Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/show_content.aspx?articleid="
-                + articleId.ToString() + "&openid=" + openId.ToString()), true);
+                + articleId.ToString() + "&userid=" + openId.ToString()), true);
         }
         else
         {
@@ -45,7 +45,7 @@
             if (currentOpenId.Trim().Equals(""))
             {
                 Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/show_content.aspx?articleid="
-                + articleId.ToString() + "&openid=" + openId.ToString()), true);
+                + articleId.ToString() + "&userid=" + openId.ToString()), true);
             }
         }
         
