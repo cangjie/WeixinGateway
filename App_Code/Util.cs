@@ -690,7 +690,7 @@ public class Util
         repliedMessage.from = receivedMessage.to;
         repliedMessage.to = receivedMessage.from;
         repliedMessage.type = "text";
-        repliedMessage.content = "欢迎加入doTERRA大家庭！将你遇到的亚健康问题发送给这个微信公众号，系统将会自动为你查询解决方案。你只要在这里，勤学勤问勤分享，你的亚健康状态就可以得到很大的改善。我们坚信，通过群防群治是可以战胜亚健康的！";
+        repliedMessage.content = "欢迎关注！";
         //return repliedMessage;
     }
 
