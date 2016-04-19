@@ -197,7 +197,7 @@
 
         wx.ready(function () {
             alert(shareImage);
-            
+            alert(shareUrl);
             wx.onMenuShareTimeline({
                 title: shareTitle, // 分享标题
                 link: shareLink, // 分享链接
