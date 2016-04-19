@@ -216,8 +216,8 @@
 
             wx.onMenuShareTimeline({
                 title: shareTitle, // 分享标题
-                link: shareLink, // 分享链接
-                imgUrl: shareImg, // 分享图标
+                link: shareUrl, // 分享链接
+                imgUrl: shareImage, // 分享图标
                 success: function () {
                     // 用户确认分享后执行的回调函数
                     //shareSuccess();
