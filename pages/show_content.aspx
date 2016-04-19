@@ -195,23 +195,34 @@
         var shareTitle = "<%=article.Title.Trim()%>";
         var shareImage = "<%=article.Image.Trim()%>";
 
-        wx.ready(function () {
-            alert(shareImage);
-            alert(shareUrl);
-            wx.onMenuShareTimeline({
-                title: shareTitle, // 分享标题
-                link: shareLink, // 分享链接
-                imgUrl: shareImg, // 分享图标
-                success: function () {
-                    // 用户确认分享后执行的回调函数
-                    //shareSuccess();
-                    alert("success");
-                },
-                cancel: function () {
-                    alert("cancel");
-                }
-            });
+       
+        alert(shareImage);
+        alert(shareUrl);
+
+        wx.checkJsApi({
+            jsApiList: [
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage'],
+            success: function (res) {
+                alert(res.checkResult.onMenuShareTimeline);
+            }
+
+        })
+
+        wx.onMenuShareTimeline({
+            title: shareTitle, // 分享标题
+            link: shareLink, // 分享链接
+            imgUrl: shareImg, // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+                //shareSuccess();
+                alert("success");
+            },
+            cancel: function () {
+                alert("cancel");
+            }
         });
+      
         
 
         
