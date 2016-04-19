@@ -196,7 +196,7 @@
         var shareImage = "<%=article.Image.Trim()%>";
 
         wx.ready(function () {
-            alert(shareTitle);
+            alert(shareImage);
             
             wx.onMenuShareTimeline({
                 title: shareTitle, // 分享标题
