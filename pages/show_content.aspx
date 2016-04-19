@@ -194,8 +194,12 @@
     %>/pages/show_content.aspx?articleid=<%=articleId.ToString()%>&userid=<%=currentOpenId%>";
         var shareTitle = "<%=article.Title.Trim()%>";
         var shareImage = "<%=article.Image.Trim()%>";
-        
 
+        wx.ready(function () {
+            alert("aa");
+        });
+        
+        /*
         wx.ready(function () {
 
             wx.onMenuShareTimeline({
@@ -221,7 +225,7 @@
                 }
             });
 
-        });
+        });*/
     </script>
     
      
