@@ -204,7 +204,7 @@
                         'onMenuShareTimeline',
                         'onMenuShareAppMessage'],
             success: function (res) {
-                alert(res.checkResult.onMenuShareTimeline);
+                alert("!"+res.checkResult.onMenuShareTimeline+"!");
             }
 
         })
