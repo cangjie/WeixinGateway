@@ -28,7 +28,7 @@
 
         articleId = int.Parse(Util.GetSafeRequestValue(Request, "articleid", "1"));
 
-        openId = Util.GetSafeRequestValue(Request, "userid", "oUuHnwdEI_wjigglCwuQwwzbGt-M");
+        openId = Util.GetSafeRequestValue(Request, "userid", "");
 
         //Session["user_token"] = "b3f973d76bab3026700d488f15b1a1bf959b1124ef3d117573083cd2cba6747dbe76299e";
         
