@@ -74,7 +74,7 @@
         <script type="text/javascript" >
 
             wx.config({
-                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                 appId: '<%=appId%>', // 必填，公众号的唯一标识
                 timestamp: '<%=timeStamp%>', // 必填，生成签名的时间戳
                 nonceStr: '<%=nonceStr%>', // 必填，生成签名的随机串
@@ -199,7 +199,7 @@
         
 
         wx.ready(function () {
-
+/*
             wx.checkJsApi({
                 jsApiList: [
                             'onMenuShareTimeline',
@@ -209,9 +209,9 @@
                 }
 
             });
-
-            alert(shareImage);
-            alert(shareUrl);
+            */
+            //alert(shareImage);
+            //alert(shareUrl);
 
 
             wx.onMenuShareTimeline({
@@ -221,9 +221,22 @@
                 success: function () {
                     // 用户确认分享后执行的回调函数
                     //shareSuccess();
-                    alert("success");
+                    //alert("success");
                 }
             });
+
+            wx.onMenuShareAppMessage({
+                title: shareTitle, // 分享标题
+                desc: "蜜思手工酸奶", // 分享描述
+                link: shareUrl, // 分享链接
+                imgUrl: shareImage, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                    alert("success");
+
+                }
+            });
+
 
         });
 
