@@ -124,7 +124,7 @@
                         
                         <p style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
                             <%=content %>
-                            长按识别以下二维码关注“蜜思手工酸奶”公众号，即有机会获得免费酸奶，数量有限，赠完为止。
+                            长按识别此二维码关注“蜜思手工酸奶”公众号，即有机会获得免费酸奶，数量有限赠完为止。
                             <%
                               
                               WeixinUser user = new WeixinUser();
