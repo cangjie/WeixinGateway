@@ -10,7 +10,7 @@
     public string title = "";
     public string dateString = "2016-4-1";
     public string content = "";
-
+    
     public string timeStamp = "";
     public string nonceStr = "s4ef6e21d1f0br01sadfasdf23fcw55b93ba9fd";
     public string ticket = "";
@@ -28,6 +28,12 @@
 
         articleId = int.Parse(Util.GetSafeRequestValue(Request, "articleid", "1"));
 
+        Article article = new Article(articleId);
+        title = article.Title.Trim();
+        content = article.Content.Trim();
+        dateString = article.CreateDate.ToShortDateString();
+        
+        
         openId = Util.GetSafeRequestValue(Request, "userid", "");
 
         //Session["user_token"] = "b3f973d76bab3026700d488f15b1a1bf959b1124ef3d117573083cd2cba6747dbe76299e";
@@ -97,10 +103,10 @@
             <div id="page-content">
                 <div class="rich_media_area_primary" id="img-content">
                     <h2 class="rich_media_title" id="activity-name">
-                        【微课堂】回顾：林薇-《培养孩子专注力的秘诀》0414 
+                        <%=title.Trim() %>
                     </h2>
                     <div class="rich_media_meta_list">
-                        						                        <em class="rich_media_meta rich_media_meta_text" id="post-date">2016-04-14</em>
+                        						                        <em class="rich_media_meta rich_media_meta_text" id="post-date"><%=dateString %></em>
 
                                                 <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" id="post-user" href="javascript:void(0);">蜜思手工酸奶</a>
                         <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">蜜思手工酸奶</span>
@@ -117,8 +123,8 @@
                     <div class="rich_media_content " id="js_content">
                         
                         <p style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
-                            sdfsdfasdfasdf<br />
-                            <%=Session["user_token"].ToString().Trim() %><br />
+                            <%=content %>
+                            长按识别以下二维码关注“蜜思手工酸奶”公众号，即有机会获得免费酸奶，数量有限，赠完为止。
                             <%
                               
                               WeixinUser user = new WeixinUser();
@@ -126,24 +132,18 @@
                               WeixinUser currentUser = new WeixinUser(currentOpenId);
                               
                                 if (openId.Trim().Equals(""))
-                                {%>
-                                <img src="../images/qrcode/qrcode.jpg" />
-                                <%}
+                                {%><img src="../images/qrcode/qrcode.jpg" /><%}
                                   else
                                   {
                                     try
                                     {
                                     user = new WeixinUser(openId);
                                    
-                                 %>
-                            <img src="../show_qrcode.aspx?sceneid=<%=user.QrCodeSceneId.ToString() %>" />
-                            <%
+                                 %><img src="../show_qrcode.aspx?sceneid=<%=user.QrCodeSceneId.ToString() %>" /><%
                             }
                             catch
                             {
-                            %>
-                            <img src="../images/qrcode/qrcode.jpg" />
-                            <%
+                            %><img src="../images/qrcode/qrcode.jpg" /><%
                             }
                             } %>
                         </p>
