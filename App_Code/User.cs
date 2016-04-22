@@ -92,7 +92,7 @@ public class WeixinUser : ObjectHelper
             { 
             
             }
-            if (DateTime.Now - updateInfoTime > new TimeSpan(24, 0, 0))
+            if ((DateTime.Now - updateInfoTime > new TimeSpan(24, 0, 0)) || Nick.Trim().Equals("") || HeadImage.Trim().Equals(""))
             {
                 UpdateUserInfo(openId);
             }
