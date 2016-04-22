@@ -122,19 +122,33 @@ public class DealMessage
         switch(receivedMessage.userEvent.Trim().ToLower())
         {
             case "subscribe":
-                Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
-                WeixinUser userSubscribe = new WeixinUser(receivedMessage.from);
-                userSubscribe.Subscribe = true;
-                if (receivedMessage.eventKey.StartsWith("qrscene_"))
+                try
                 {
-                    int sceneId = int.Parse(receivedMessage.eventKey.Replace("qrscene_",""));
+                    Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
+                    WeixinUser userSubscribe = new WeixinUser(receivedMessage.from);
+                    userSubscribe.Subscribe = true;
+                    if (receivedMessage.eventKey.StartsWith("qrscene_"))
+                    {
+                        int sceneId = int.Parse(receivedMessage.eventKey.Replace("qrscene_", ""));
 
-                    userSubscribe.LinkFatherUser(sceneId);
+                        userSubscribe.LinkFatherUser(sceneId);
+                    }
+                }
+                catch
+                { 
+                
                 }
                 break;
             case "unsubscribe":
-                WeixinUser userUnsubscribe = new WeixinUser(receivedMessage.from);
-                userUnsubscribe.Subscribe = false;
+                try
+                {
+                    WeixinUser userUnsubscribe = new WeixinUser(receivedMessage.from);
+                    userUnsubscribe.Subscribe = false;
+                }
+                catch
+                { 
+                
+                }
                 break;
             default:
                 break;
