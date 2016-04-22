@@ -100,6 +100,47 @@ public class WeixinUser : ObjectHelper
 
     }
 
+
+    public void LinkFatherUser(int sceenId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from users where qr_code_scene = " + sceenId.ToString(), Util.conStr);
+        string fatherOpenId = "";
+        if (dt.Rows.Count > 0)
+        {
+            fatherOpenId = dt.Rows[0]["open_id"].ToString().Trim();
+        }
+        string[,] updateParameters = new string[,] { { "father_open_id", "varchar", fatherOpenId.Trim() } };
+        string[,] keyParameters = new string[,] { { "open_id", "varchar", OpenId.Trim() } };
+        DBHelper.UpdateData("users", updateParameters, keyParameters, Util.conStr);
+    }
+
+    public bool Subscribe
+    {
+        get
+        {
+            if (_fields["is_subscribe"].ToString().Equals("0"))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        set
+        {
+            int subscribe = 0;
+            if (value)
+            {
+                subscribe = 1;
+                UpdateUserInfo(OpenId);
+            }
+            string[,] updateParameter = new string[,] { { "is_subscribe", "int", subscribe.ToString() } };
+            string[,] keyParameters = new string[,] { { "open_id", "varchar", OpenId.Trim() } };
+            DBHelper.UpdateData("users", updateParameter, keyParameters, Util.conStr);
+        }
+    }
+
     public static void UpdateUserInfo(string openId)
     {
         string json = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/user/info?access_token="

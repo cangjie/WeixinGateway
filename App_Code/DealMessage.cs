@@ -111,10 +111,36 @@ public class DealMessage
         {
             Util.DealLandingRequest(receivedMessage.from);
         }
+
+        /*
         if (receivedMessage.userEvent.Trim().ToLower().Equals("subscribe"))
         {
             Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
         }
+         */
+ 
+        switch(receivedMessage.userEvent.Trim().ToLower())
+        {
+            case "subscribe":
+                Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
+                WeixinUser userSubscribe = new WeixinUser(receivedMessage.from);
+                userSubscribe.Subscribe = true;
+                if (receivedMessage.eventKey.StartsWith("qrscene_"))
+                {
+                    int sceneId = int.Parse(receivedMessage.eventKey.Replace("qrscene_",""));
+
+                    userSubscribe.LinkFatherUser(sceneId);
+                }
+                break;
+            case "unsubscribe":
+                WeixinUser userUnsubscribe = new WeixinUser(receivedMessage.from);
+                userUnsubscribe.Subscribe = false;
+                break;
+            default:
+                break;
+        }
+
+
         return repliedMessage;
     }
 
