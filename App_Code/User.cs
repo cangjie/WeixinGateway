@@ -31,7 +31,7 @@ public class WeixinUser : ObjectHelper
             + Util.GetToken() + "&openid=" + openId + "&lang=zh_CN");
             if (json.IndexOf("errocde") >= 0)
             {
-                throw new Exception("not found");
+                //throw new Exception("not found");
             }
             else
             {
@@ -83,8 +83,58 @@ public class WeixinUser : ObjectHelper
         else
         {
             _fields = dt.Rows[0];
+            DateTime updateInfoTime = DateTime.MinValue;
+            try
+            {
+                updateInfoTime = DateTime.Parse(_fields["update_time"].ToString());
+            }
+            catch
+            { 
+            
+            }
+            if (DateTime.Now - updateInfoTime > new TimeSpan(24, 0, 0))
+            {
+                UpdateUserInfo(openId);
+            }
         }
 
+    }
+
+    public static void UpdateUserInfo(string openId)
+    {
+        string json = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/user/info?access_token="
+            + Util.GetToken() + "&openid=" + openId + "&lang=zh_CN");
+        if (json.IndexOf("errocde") >= 0)
+        {
+            //throw new Exception("not found");
+        }
+        else
+        {
+            JsonHelper jsonObject = new JsonHelper(json);
+            string nick = "";
+            try
+            {
+                nick = jsonObject.GetValue("nickname");
+            }
+            catch
+            {
+
+            }
+            string headImageUrl = "";
+            try
+            {
+                headImageUrl = jsonObject.GetValue("headimgurl");
+            }
+            catch
+            {
+
+            }
+            string[,] updateParameters = new string[,] { { "nick", "varchar", nick }, 
+                { "head_image", "varchar", headImageUrl }, 
+                {"update_time", "datetime", DateTime.Now.ToString() } };
+            string[,] keyParameters = new string[,] { { "open_id", "varchar", openId.Trim() } };
+            DBHelper.UpdateData("users", updateParameters, keyParameters, Util.conStr);
+        }
     }
 
 
