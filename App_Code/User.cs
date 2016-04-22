@@ -36,9 +36,24 @@ public class WeixinUser : ObjectHelper
             else
             {
                 JsonHelper jsonObject = new JsonHelper(json);
-                string nick = jsonObject.GetValue("nickname");
-                string headImageUrl = jsonObject.GetValue("headimgurl");
-
+                string nick = "";
+                try
+                {
+                    nick = jsonObject.GetValue("nickname");
+                }
+                catch
+                { 
+                
+                }
+                string headImageUrl = "";
+                try
+                {
+                    headImageUrl = jsonObject.GetValue("headimgurl");
+                }
+                catch
+                { 
+                
+                }
                 KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[5];
                 parameters[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
                     "open_id", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)openId));
