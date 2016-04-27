@@ -35,6 +35,9 @@
 
         openId = Util.GetSafeRequestValue(Request, "userid", "");
 
+        
+        
+        
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
 
@@ -50,7 +53,8 @@
                 + articleId.ToString() + "&userid=" + openId.ToString()), true);
             }
         }
-        
+
+        UserAction.AddUserAction(openId.Trim(), articleId.ToString(), currentOpenId, 0, "read");
 
     }
 </script>

@@ -126,6 +126,13 @@ public class UserAction
                             isExists = true;
                         }
                         break;
+                    case "read":
+                        if (currentAction.ObjectId == userAction.ObjectId
+                            && currentAction.ObjectOpenId.Trim().Equals(userAction.ObjectOpenId.Trim()))
+                        {
+                            isExists = true;
+                        }
+                        break;
                     default:
                         isExists = true;
                         break;
