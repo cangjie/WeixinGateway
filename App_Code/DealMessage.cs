@@ -128,7 +128,7 @@ public class DealMessage
 
                         userSubscribe.LinkFatherUser(sceneId);
 
-                        UserAction.AddUserAction(userSubscribe.OpenId, "", userSubscribe.FatherOpenId.Trim(), sceneId, "subscribe");
+                        UserAction.AddUserAction(userSubscribe.FatherOpenId.Trim(), "", userSubscribe.OpenId, sceneId, "subscribe");
                     }
                 }
                 catch
@@ -141,7 +141,7 @@ public class DealMessage
                 {
                     WeixinUser userUnsubscribe = new WeixinUser(receivedMessage.from);
                     userUnsubscribe.Subscribe = false;
-                    UserAction.AddUserAction(userUnsubscribe.OpenId, "", userUnsubscribe.FatherOpenId.Trim(), 0, "unsubscribe");
+                    UserAction.AddUserAction(userUnsubscribe.FatherOpenId.Trim() , "", userUnsubscribe.OpenId, 0, "unsubscribe");
                 }
                 catch
                 { 
