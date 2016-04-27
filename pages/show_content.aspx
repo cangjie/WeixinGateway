@@ -32,12 +32,8 @@
         title = article.Title.Trim();
         content = article.Content.Trim();
         dateString = article.CreateDate.ToShortDateString();
-        
-        
+
         openId = Util.GetSafeRequestValue(Request, "userid", "");
-
-        //Session["user_token"] = "b3f973d76bab3026700d488f15b1a1bf959b1124ef3d117573083cd2cba6747dbe76299e";
-
 
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -73,6 +69,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/images/icon/common/favicon22c41b.ico" />
     <link rel="stylesheet" type="text/css" href="css/css1.css" />
     <link rel="stylesheet" type="text/css" href="css/css2.css" />
+    <script type="text/javascript" src="../js/jquery-1.3.2.min.js" ></script>
     <title></title>
 </head>
 <body id="activity-detail" class="zh_CN mm_appmsg not_in_mm" ontouchstart="" >
@@ -199,20 +196,6 @@
         
 
         wx.ready(function () {
-/*
-            wx.checkJsApi({
-                jsApiList: [
-                            'onMenuShareTimeline',
-                            'onMenuShareAppMessage'],
-                success: function (res) {
-                    alert("!" + res.checkResult.onMenuShareTimeline + "!");
-                }
-
-            });
-            */
-            //alert(shareImage);
-            //alert(shareUrl);
-
 
             wx.onMenuShareTimeline({
                 title: shareTitle, // 分享标题
@@ -220,19 +203,41 @@
                 imgUrl: shareImage, // 分享图标
                 success: function () {
                     // 用户确认分享后执行的回调函数
-                    //shareSuccess();
-                    //alert("success");
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        url: "../api/user_action_register.aspx",
+                        data: {
+                            token: "<%=Session["user_token"].ToString()%>",
+                            actionname: "sharemoment",
+                            articleid: "<%=articleId.ToString()%>",
+                            openid: "<%=openId%>",
+                            sceneid:"0"
+                        }
+                    });
                 }
             });
 
             wx.onMenuShareAppMessage({
                 title: shareTitle, // 分享标题
-                desc: "蜜思手工酸奶", // 分享描述
+                desc: "放我转发朋友圈，你也可以得免费酸奶哦。", // 分享描述
                 link: shareUrl, // 分享链接
                 imgUrl: shareImage, // 分享图标
                 success: function () {
                     // 用户确认分享后执行的回调函数
                     //alert("success");
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        url: "../api/user_action_register.aspx",
+                        data: {
+                            token: "<%=Session["user_token"].ToString()%>",
+                            actionname: "forward",
+                            articleid: "<%=articleId.ToString()%>",
+                            openid: "<%=openId%>",
+                            sceneid: "0"
+                        }
+                    });
 
                 }
             });

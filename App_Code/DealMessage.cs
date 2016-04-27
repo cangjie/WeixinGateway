@@ -112,12 +112,7 @@ public class DealMessage
             Util.DealLandingRequest(receivedMessage.from);
         }
 
-        /*
-        if (receivedMessage.userEvent.Trim().ToLower().Equals("subscribe"))
-        {
-            Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
-        }
-         */
+        
  
         switch(receivedMessage.userEvent.Trim().ToLower())
         {
@@ -132,6 +127,8 @@ public class DealMessage
                         int sceneId = int.Parse(receivedMessage.eventKey.Replace("qrscene_", ""));
 
                         userSubscribe.LinkFatherUser(sceneId);
+
+                        UserAction.AddUserAction(userSubscribe.OpenId, "", userSubscribe.FatherOpenId.Trim(), sceneId, "subscribe");
                     }
                 }
                 catch
@@ -144,6 +141,7 @@ public class DealMessage
                 {
                     WeixinUser userUnsubscribe = new WeixinUser(receivedMessage.from);
                     userUnsubscribe.Subscribe = false;
+                    UserAction.AddUserAction(userUnsubscribe.OpenId, "", userUnsubscribe.FatherOpenId.Trim(), 0, "unsubscribe");
                 }
                 catch
                 { 

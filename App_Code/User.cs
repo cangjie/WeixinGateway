@@ -429,6 +429,14 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public string FatherOpenId
+    {
+        get
+        {
+            return _fields["father_open_id"].ToString().Trim();
+        }
+    }
+
     public static WeixinUser[] GetAllUsers()
     {
         DataTable dt = DBHelper.GetDataTable(" select * from users order by crt desc ");
