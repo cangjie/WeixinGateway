@@ -224,7 +224,7 @@
 
             wx.onMenuShareAppMessage({
                 title: shareTitle, // 分享标题
-                desc: "放我转发朋友圈，你也可以得免费酸奶哦。", // 分享描述
+                desc: "识别最下方二维码，关注公众号后转发或者分享到朋友圈，你也可以得酸奶哦。", // 分享描述
                 link: shareUrl, // 分享链接
                 imgUrl: shareImage, // 分享图标
                 success: function () {
