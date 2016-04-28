@@ -70,8 +70,22 @@ public class Article
     {
         get
         {
-            return "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
-                + "/images/getheadimg.jpeg";
+            if (_fields["image"].ToString().Trim().Equals(""))
+            {
+                return "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
+                    + "/images/getheadimg.jpeg";
+            }
+            else
+            {
+                return "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
+                    + "/" + _fields["image"].ToString().Trim();
+            }
+        }
+        set
+        {
+            string[,] updateParameter = new string[,] { { "image", "varchar", value.Trim() } };
+            string[,] keyParameter = new string[,] { { "id", "int", ID.ToString() } };
+            DBHelper.UpdateData("article", updateParameter, keyParameter, Util.conStr.Trim());
         }
     }
 
@@ -86,7 +100,15 @@ public class Article
     public static int AddArticle(string tile, string content)
     {
         string[,] insertData = new string[,] { { "title", "varchar", tile.Trim() }, { "content", "text", content.Trim() } };
-        return DBHelper.InsertData("article", insertData, Util.conStr);
+        DBHelper.InsertData("article", insertData, Util.conStr);
+        DataTable dt = DBHelper.GetDataTable(" select max([id]) from article  ");
+        int i = 0;
+        if (dt.Rows.Count == 1)
+        {
+            i = int.Parse(dt.Rows[0][0].ToString().Trim());
+        }
+        dt.Dispose();
+        return i;
     }
 
     public static Article[] GetList()

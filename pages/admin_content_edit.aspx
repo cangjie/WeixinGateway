@@ -17,6 +17,7 @@
             else
             {
                 Article article = new Article(id);
+                Image1.ImageUrl = article.Image.Trim();
                 TextBox1.Text = article.Title.Trim();
                 content1.InnerHtml = article.Content.Trim();
                 Button1.Text = "更  新";
@@ -27,16 +28,30 @@
     protected void Button1_Click(object sender, EventArgs e)
     {
         int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "0"));
+        Article article;
         if (id == 0)
         {
-            Article.AddArticle(TextBox1.Text.Trim(), Request.Form["content1"].Trim());
+            id = Article.AddArticle(TextBox1.Text.Trim(), Request.Form["content1"].Trim());
+            article = new Article(id);
+            
         }
         else
         {
-            Article article = new Article(id);
+            article = new Article(id);
             article.Title = TextBox1.Text.Trim();
             article.Content = Request.Form["content1"].Trim();
         }
+        
+        string fileName = Util.GetTimeStamp();
+        string originFileName = FileUpload1.FileName.Trim();
+        string[] originFileNameDotSegmentArray = originFileName.Split('.');
+        string originFileNameExtesion = originFileNameDotSegmentArray[originFileNameDotSegmentArray.Length - 1];
+        fileName = fileName + "." + originFileNameExtesion;
+        string filePathAndName = Server.MapPath("../images/ariticle_logo") + "\\" + fileName.Trim();
+        FileUpload1.SaveAs(filePathAndName);
+        article.Image = "images/ariticle_logo/" + fileName.Trim();
+        
+        
         Response.Redirect("admin_content_list.aspx", true);
     }
 </script>
@@ -91,8 +106,20 @@
                 </td>
             </tr>
             <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
                 <td>
-                    &nbsp;</td>
+                    <asp:FileUpload ID="FileUpload1" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Image ID="Image1" runat="server" Height="100px" Width="100px" />
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
             </tr>
             <tr>
                 <td><textarea id="content1" cols="100" rows="8" style="width:1000px;height:500px;visibility:hidden;" runat="server" ></textarea></td>
