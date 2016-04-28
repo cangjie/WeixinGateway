@@ -4,11 +4,11 @@
 
 <script runat="server">
 
-    public string currentOpenId = "oUuHnwdEI_wjigglCwuQwwzbGt-M";
+    public string currentOpenId = "oUuHnwXMB0fjGSH1CEv8jJDr3CRQ";
     public WeixinUser currentUser;
 
     protected void Page_Load(object sender, EventArgs e)
-    {/*
+    {
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
 
@@ -22,7 +22,7 @@
                 Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/score.aspx"), true);
             }
         }
-      */
+      
         currentUser = new WeixinUser(currentOpenId);
         dg.DataSource = GetData();
         dg.DataBind();

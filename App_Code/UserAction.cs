@@ -40,7 +40,14 @@ public class UserAction
     {
         get
         {
-            return int.Parse(_fileds["action_object"].ToString().Trim());
+            try
+            {
+                return int.Parse(_fileds["action_object"].ToString().Trim());
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 
@@ -89,53 +96,56 @@ public class UserAction
         foreach (object currentActionObject in actionArray)
         {
             UserAction currentAction = (UserAction)currentActionObject;
-            if (!currentAction.OpenId.Equals(userAction.OpenId.Trim()))
+            if (currentAction.Name.Trim().Equals(userAction.Name.Trim()))
             {
-                isExists = true;
-            }
-            else
-            {
-                switch (userAction.Name.Trim().ToLower())
+                if (!currentAction.OpenId.Equals(userAction.OpenId.Trim()))
                 {
-                    case "subscribe":
-                        if (currentAction.ObjectOpenId.Trim().Equals(userAction.ObjectOpenId.Trim()))
-                        {
-                            isExists = true;
-                        }
-                        break;
-                    case "unsubscribe":
-                        WeixinUser user = new WeixinUser(userAction.OpenId.Trim());
-                        if (!user.Subscribe)
-                        {
+                    isExists = true;
+                }
+                else
+                {
+                    switch (userAction.Name.Trim().ToLower())
+                    {
+                        case "subscribe":
                             if (currentAction.ObjectOpenId.Trim().Equals(userAction.ObjectOpenId.Trim()))
                             {
                                 isExists = true;
                             }
-                        }
-                        break;
-                    case "forward":
-                        if (currentAction.ObjectId == userAction.ObjectId
-                            && currentAction.ObjectOpenId.Trim().Equals(currentAction.ObjectOpenId.Trim()))
-                        {
+                            break;
+                        case "unsubscribe":
+                            WeixinUser user = new WeixinUser(userAction.OpenId.Trim());
+                            if (!user.Subscribe)
+                            {
+                                if (currentAction.ObjectOpenId.Trim().Equals(userAction.ObjectOpenId.Trim()))
+                                {
+                                    isExists = true;
+                                }
+                            }
+                            break;
+                        case "forward":
+                            if (currentAction.ObjectId == userAction.ObjectId
+                                && currentAction.ObjectOpenId.Trim().Equals(currentAction.ObjectOpenId.Trim()))
+                            {
+                                isExists = true;
+                            }
+                            break;
+                        case "sharemonent":
+                            if (currentAction.ObjectId == userAction.ObjectId)
+                            {
+                                isExists = true;
+                            }
+                            break;
+                        case "read":
+                            if (currentAction.ObjectId == userAction.ObjectId
+                                && currentAction.ObjectOpenId.Trim().Equals(userAction.ObjectOpenId.Trim()))
+                            {
+                                isExists = true;
+                            }
+                            break;
+                        default:
                             isExists = true;
-                        }
-                        break;
-                    case "sharemonent":
-                        if (currentAction.ObjectId == userAction.ObjectId)
-                        {
-                            isExists = true;
-                        }
-                        break;
-                    case "read":
-                        if (currentAction.ObjectId == userAction.ObjectId
-                            && currentAction.ObjectOpenId.Trim().Equals(userAction.ObjectOpenId.Trim()))
-                        {
-                            isExists = true;
-                        }
-                        break;
-                    default:
-                        isExists = true;
-                        break;
+                            break;
+                    }
                 }
             }
             if (isExists)
