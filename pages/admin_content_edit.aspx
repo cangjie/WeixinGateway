@@ -49,7 +49,7 @@
         fileName = fileName + "." + originFileNameExtesion;
         string filePathAndName = Server.MapPath("../images/article_logo") + "\\" + fileName.Trim();
         FileUpload1.SaveAs(filePathAndName);
-        article.Image = "images/ariticle_logo/" + fileName.Trim();
+        article.Image = "images/article_logo/" + fileName.Trim();
         
         
         Response.Redirect("admin_content_list.aspx", true);
