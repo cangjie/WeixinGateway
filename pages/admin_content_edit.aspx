@@ -47,7 +47,7 @@
         string[] originFileNameDotSegmentArray = originFileName.Split('.');
         string originFileNameExtesion = originFileNameDotSegmentArray[originFileNameDotSegmentArray.Length - 1];
         fileName = fileName + "." + originFileNameExtesion;
-        string filePathAndName = Server.MapPath("../images/ariticle_logo") + "\\" + fileName.Trim();
+        string filePathAndName = Server.MapPath("../images/article_logo") + "\\" + fileName.Trim();
         FileUpload1.SaveAs(filePathAndName);
         article.Image = "images/ariticle_logo/" + fileName.Trim();
         
