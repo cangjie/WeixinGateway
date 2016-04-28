@@ -124,8 +124,8 @@
                     <div class="rich_media_content " id="js_content">
                         
                         <p style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
-                            <%=content %>
-                            长按识别此二维码关注“蜜思手工酸奶”公众号，即有机会获得免费酸奶，数量有限赠完为止。
+                            
+                            <b><font color="red" >长按识别此二维码关注“蜜思手工酸奶”公众号，即有机会获得免费酸奶，数量有限赠完为止。</font></b>
                             <%
                               
                               WeixinUser user = new WeixinUser();
@@ -147,6 +147,7 @@
                             %><img src="../images/qrcode/qrcode.jpg" /><%
                             }
                             } %>
+                            <%=content %>
                         </p>
                     </div>
                     <script type="text/javascript">
