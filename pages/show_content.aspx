@@ -5,7 +5,7 @@
 <script runat="server">
     
     public string openId = "";
-    public string currentOpenId = "";
+    public string currentOpenId = "oUuHnwdEI_wjigglCwuQwwzbGt-M";
     public int articleId = 0;
     public string title = "";
     public string dateString = "2016-4-1";
@@ -26,7 +26,7 @@
             + "&timestamp=" + timeStamp.Trim() + "&url=" + Request.Url.ToString().Trim();
         shaParam = Util.GetSHA1(shaString);
 
-        articleId = int.Parse(Util.GetSafeRequestValue(Request, "articleid", "1"));
+        articleId = int.Parse(Util.GetSafeRequestValue(Request, "articleid", "9"));
 
         Article article = new Article(articleId);
         title = article.Title.Trim();
@@ -35,9 +35,9 @@
 
         openId = Util.GetSafeRequestValue(Request, "userid", "");
 
-        
-        
-        
+
+        Session["user_token"] = "aaa";
+        /*
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
 
@@ -52,7 +52,7 @@
                 Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/show_content.aspx?articleid="
                 + articleId.ToString() + "&userid=" + openId.ToString()), true);
             }
-        }
+        }*/
 
         UserAction.AddUserAction(openId.Trim(), articleId.ToString(), currentOpenId, 0, "read");
 
@@ -123,7 +123,7 @@
                     
                     <div class="rich_media_content " id="js_content">
                         
-                        <p style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
+                        <p style="color: rgb(62, 62, 62);  text-align:center;  line-height: 25.6px; white-space: pre-line; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
                             
                             <b><font color="red" >长按识别此二维码关注公众号即有机会获得免费酸奶，赠完为止。</font></b>
                             <%
