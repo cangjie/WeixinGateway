@@ -119,7 +119,16 @@ public class DealMessage
             case "subscribe":
                 try
                 {
-                    Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
+                    RepliedMessage.news[] newsArray = new RepliedMessage.news[1];
+                    newsArray[0] = new RepliedMessage.news();
+                    newsArray[0].title = "免费喝酸奶，真的不要钱！";
+                    newsArray[0].url = "http://miss.dotera.cn/pages/show_content.aspx?articleid=9&userid=" + receivedMessage.from;
+                    newsArray[0].description = "分享此消息至朋友圈，并邀请15个朋友识别其中的二维码，即可免费得到蜜思手工酸奶一份。";
+                    newsArray[0].picUrl = "http://miss.dotera.cn/images/free_black.jpg";
+                    repliedMessage.newsContent = newsArray;
+
+
+                    //Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
                     WeixinUser userSubscribe = new WeixinUser(receivedMessage.from);
                     userSubscribe.Subscribe = true;
                     if (receivedMessage.eventKey.StartsWith("qrscene_"))
@@ -171,7 +180,6 @@ public class DealMessage
                 Util.GetProductNews("单方", repliedMessage);
                 break;
             case "我要喝酸奶":
-
                 RepliedMessage.news[] newsArray = new RepliedMessage.news[1];
                 newsArray[0] = new RepliedMessage.news();
                 newsArray[0].title = "免费喝酸奶，真的不要钱！";
@@ -179,7 +187,6 @@ public class DealMessage
                 newsArray[0].description = "分享此消息至朋友圈，并邀请15个朋友识别其中的二维码，即可免费得到蜜思手工酸奶一份。";
                 newsArray[0].picUrl = "http://miss.dotera.cn/images/free_black.jpg";
                 repliedMessage.newsContent = newsArray;
-
                 break;
             default:
                 if (receivedMessage.type.Trim().Equals("text"))
