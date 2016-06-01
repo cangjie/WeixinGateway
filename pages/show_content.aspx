@@ -54,7 +54,7 @@
             }
         }*/
 
-        UserAction.AddUserAction(openId.Trim(), articleId.ToString(), currentOpenId, 0, "read");
+        UserAction.AddUserAction(currentOpenId, articleId.ToString(), openId.Trim(), 0, "read");
 
     }
 </script>
