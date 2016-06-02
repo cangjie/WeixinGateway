@@ -4,7 +4,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string json = "";
-        string token = Util.GetSafeRequestValue(Request, "token", "23a43a51801d9fee4881f8a73549c769f67c2ef995b26c5724cbb82756c560d58a283adf");
+        string token = Util.GetSafeRequestValue(Request, "token", "7777e297508f30411a2c5d443b2d4e9696c8dfd8d2141f556744efff82e27988516cc04f");
         string currentUserOpenId = WeixinUser.CheckToken(token);
         if (!currentUserOpenId.Trim().Equals(""))
         {
@@ -22,6 +22,8 @@
 
                 jsonArticleArray = jsonArticleArray + "," + jsonArticle.Trim();
             }
+            if (jsonArticleArray.StartsWith(","))
+                jsonArticleArray = jsonArticleArray.Remove(0, 1).Trim();
             json = "{\"status\" : 0 ,  \"count\" : " + articleArray.Length.ToString() + " ,  \"article_array\" : [" + jsonArticleArray.Trim() + " ] }";
             Response.Write(json.Trim());
         }
