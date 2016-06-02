@@ -10,8 +10,11 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        
 
-        string url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appId.Trim() + "&secret=" + appSecret.Trim();
+        string url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
+            + System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim()
+            + "&secret=" + System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"];
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
         HttpWebResponse res = (HttpWebResponse)req.GetResponse();
         Stream s = res.GetResponseStream();
