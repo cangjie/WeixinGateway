@@ -13,8 +13,8 @@
             + System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim()   
             + "&redirect_uri=" + Server.UrlEncode("http://"
             + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
-            + "/authorize_callback.aspx?callback=" + Server.UrlEncode(callBack))
-            + "&response_type=code&scope=snsapi_base&state=1000#wechat_redirect";
+            + "/authorize_callback.aspx?callback=" + Server.UrlEncode(callBack)
+            ) + "&scope=snsapi_base&response_type=code&state=1000#wechat_redirect";
         
         
         //Response.Write("<a href='" + redirectUrl + "'  >"+redirectUrl + "</a>");
