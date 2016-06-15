@@ -60,8 +60,10 @@
 </head>
 <body>
 	<div class="row" >
-		<div class="col-xs-4" >
-			<img src="<%=currentUser.HeadImage.Trim() %>"  class="img-circle">
+		<div class="col-xs-4" style="margin-left:10px;margin-top:10px;margin-bottom:10px" >
+
+			<img src="<%=currentUser.HeadImage.Trim() %>"  class="img-circle" style="width:50px" >
+
 		</div>
 		<div class="col-xs-6" >
 			
