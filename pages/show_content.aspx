@@ -218,6 +218,9 @@
                             articleid: "<%=articleId.ToString()%>",
                             openid: "<%=openId%>",
                             sceneid:"0"
+                        },
+                        success: function() {
+                            alert("aaa");
                         }
                     });
                 }
