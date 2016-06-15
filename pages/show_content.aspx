@@ -209,16 +209,9 @@
                 success: function () {
                     // 用户确认分享后执行的回调函数
                     $.ajax({
-                        type: "POST",
+                        type: "GET",
                         async: false,
-                        url: "../api/user_action_register.aspx",
-                        data: {
-                            token: "<%=Session["user_token"].ToString()%>",
-                            actionname: "sharemoment",
-                            articleid: "<%=articleId.ToString()%>",
-                            openid: "<%=openId%>",
-                            sceneid:"0"
-                        },
+                        url: "../api/user_action_register.aspx?token=<%=Session["user_token"].ToString()%>&actionname=sharemoment&articleid=<%=articleId.ToString()%>&openid=<%=openId%>&sceneid=0",
                         success: function() {
                             alert("aaa");
                         }
