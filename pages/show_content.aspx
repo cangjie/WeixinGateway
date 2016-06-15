@@ -36,7 +36,7 @@
         openId = Util.GetSafeRequestValue(Request, "userid", "");
 
 
-        Session["user_token"] = "aaa";
+        //Session["user_token"] = "aaa";
         /*
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
