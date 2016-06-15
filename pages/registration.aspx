@@ -59,7 +59,7 @@
     
 </head>
 <body>
-    <div>
+    <div class="row" >
         <div id="article_list" class="list-group">
             <a href="#" class="list-group-item">
                 <h4 class="list-group-item-heading">List group item heading</h4>
