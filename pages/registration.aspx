@@ -59,8 +59,17 @@
     
 </head>
 <body>
+	<div class="row" >
+		<div class="col-xs-4" >
+			
+		</div>
+		<div class="col-xs-6" >
+			
+		</div>
+	</div>
+
     <div class="row" >
-        <div id="article_list" class="list-group">
+        <div id="article_list" class="col-md-12 list-group">
             <a href="#" class="list-group-item">
                 <h4 class="list-group-item-heading">List group item heading</h4>
                 <p class="list-group-item-text">...</p>

@@ -17,9 +17,9 @@
             ) + "&scope=snsapi_userinfo&response_type=code&state=1000#wechat_redirect";
         
         
-        Response.Write("<a href='" + redirectUrl + "'  >"+redirectUrl + "</a>");
+        //Response.Write("<a href='" + redirectUrl + "'  >"+redirectUrl + "</a>");
         
-        //Response.Redirect(redirectUrl, true);
+        Response.Redirect(redirectUrl, true);
     }
 </script>
 
