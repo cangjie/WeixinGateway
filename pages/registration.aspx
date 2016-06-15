@@ -24,7 +24,7 @@
                 Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/registration.aspx"), true);
             }
         }
-        
+        currentUser = new WeixinUser(currentOpenId.Trim());
     }
 </script>
 
@@ -61,7 +61,7 @@
 <body>
 	<div class="row" >
 		<div class="col-xs-4" >
-			
+			<img src="<%=currentUser.HeadImage.Trim() %>"  class="img-circle">
 		</div>
 		<div class="col-xs-6" >
 			
