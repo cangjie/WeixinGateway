@@ -4,7 +4,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string json = "";
-        string token = Util.GetSafeRequestValue(Request, "token", "7777e297508f30411a2c5d443b2d4e9696c8dfd8d2141f556744efff82e27988516cc04f");
+        string token = Util.GetSafeRequestValue(Request, "token", "b3a3fc1bc72bef6ba645c3bb0be4d7f4abe2e2a232940e15b4c93b3e276be2d9f5ad4f9b");
         string currentUserOpenId = WeixinUser.CheckToken(token);
         if (!currentUserOpenId.Trim().Equals(""))
         {

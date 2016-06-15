@@ -37,8 +37,8 @@ public class Article
 
     public void Init()
     {
-        DataTable dtShareOpenId = DBHelper.GetDataTable(" select distinct open_id from user_action where action_name = 'forward' and action_object = " + ID.ToString());
-        DataTable dtForwardOpenId = DBHelper.GetDataTable(" select distinct open_id from user_action where action_name = 'sharemoment' and action_object = " + ID.ToString());
+        DataTable dtForwardOpenId = DBHelper.GetDataTable(" select distinct open_id from user_action where action_name = 'forward' and action_object = " + ID.ToString());
+        DataTable dtShareOpenId = DBHelper.GetDataTable(" select distinct open_id from user_action where action_name = 'sharemoment' and action_object = " + ID.ToString());
         forwardUserOpenIdArray = new string[dtForwardOpenId.Rows.Count];
         shareMomentOpenIdArray = new string[dtShareOpenId.Rows.Count];
         for (int i = 0; i < dtShareOpenId.Rows.Count; i++)
@@ -182,6 +182,7 @@ public class Article
         {
             articleArray[i] = new Article();
             articleArray[i]._fields = dt.Rows[i];
+            articleArray[i].Init();
         }
         return articleArray;
     }
