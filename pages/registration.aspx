@@ -69,7 +69,9 @@
 			
 		</div>
 	</div>
+    <div class="row" style="background:url(images/split_title.jpg)" >
 
+    </div>
     <div class="row" >
         <div id="article_list" class="col-md-12 list-group">
             <a href="#" class="list-group-item">
