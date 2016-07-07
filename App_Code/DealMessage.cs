@@ -135,9 +135,9 @@ public class DealMessage
                     {
                         int sceneId = int.Parse(receivedMessage.eventKey.Replace("qrscene_", ""));
 
-                        userSubscribe.LinkFatherUser(sceneId);
+                        string fatherOpenId = userSubscribe.LinkFatherUser(sceneId);
 
-                        UserAction.AddUserAction(userSubscribe.OpenId, "", userSubscribe.FatherOpenId.Trim(), sceneId, "subscribe");
+                        UserAction.AddUserAction(userSubscribe.OpenId, "", fatherOpenId, sceneId, "subscribe");
                     }
                 }
                 catch

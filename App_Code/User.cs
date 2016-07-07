@@ -101,7 +101,7 @@ public class WeixinUser : ObjectHelper
     }
 
 
-    public void LinkFatherUser(int sceenId)
+    public string LinkFatherUser(int sceenId)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from users where qr_code_scene = " + sceenId.ToString(), Util.conStr);
         string fatherOpenId = "";
@@ -112,6 +112,7 @@ public class WeixinUser : ObjectHelper
         string[,] updateParameters = new string[,] { { "father_open_id", "varchar", fatherOpenId.Trim() } };
         string[,] keyParameters = new string[,] { { "open_id", "varchar", OpenId.Trim() } };
         DBHelper.UpdateData("users", updateParameters, keyParameters, Util.conStr);
+        return fatherOpenId.Trim();
     }
 
     public bool Subscribe
