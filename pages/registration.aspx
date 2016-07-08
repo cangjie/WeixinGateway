@@ -70,8 +70,8 @@
 		</div>
 	</div>
 
-    <div class="row" style="background:url(images/title_tree.jpg);width:400px;height:280px" >
-        
+    <div class="row" style="width:400px;height:280px" >
+        <img style="width:100%;height:100%" src="images/title_tree.jpg" />
     </div>
     <div class="row" style="background:url(images/split_title.jpg); height:28px" >
         
