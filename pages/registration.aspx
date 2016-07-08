@@ -59,18 +59,8 @@
     
 </head>
 <body style="margin-left:15px;margin-top:0px">
-	<div class="row" >
-		<div class="col-xs-4" style="margin-left:10px;margin-top:10px;margin-bottom:10px" >
-
-			<img src="<%=currentUser.HeadImage.Trim() %>"  class="img-circle" style="width:50px" >
-
-		</div>
-		<div class="col-xs-6" >
-			
-		</div>
-	</div>
-
     <div class="row" style="width:400px;height:280px" >
+        <img src="<%=currentUser.HeadImage.Trim() %>"  class="img-circle" style="width:50px" >
         <img style="width:100%;height:100%" src="images/title_tree.jpg" />
     </div>
     <div class="row" style="background:url(images/split_title.jpg); height:28px" >
