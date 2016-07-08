@@ -60,7 +60,8 @@
 </head>
 <body style="margin-left:15px;margin-top:0px">
     <div class="row"  >
-       
+       	<p style="position:absolute; left:140px; top:120px" >关注人数：23</p>
+	<p style="position:absolute;left:140px; top:140px" >积分：细则制定中<br/>积分可抵现金<br/>请努力转发</p>
         <img src="<%=currentUser.HeadImage.Trim() %>"  class="img-circle" style="width:75px; position:absolute;top:10px;left:10px" >
         <img style="width:100%;height:100%" src="images/title_tree.jpg" />
     </div>
