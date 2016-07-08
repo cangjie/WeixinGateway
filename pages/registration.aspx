@@ -71,10 +71,10 @@
 	</div>
 
     <div class="row" style="background:url(images/title_tree.jpg);width:400px;height:280px" >
-        aaaa
+        
     </div>
     <div class="row" style="background:url(images/split_title.jpg); height:28px" >
-        bbb
+        
     </div>
     <div class="row" >
         <div id="article_list" class="col-md-12 list-group">
