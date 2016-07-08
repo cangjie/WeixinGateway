@@ -69,8 +69,12 @@
 			
 		</div>
 	</div>
-    <div class="row"  >
-<img src="images/split_title.jpg" style="width:430px" />
+
+    <div class="row" style="background:url(images/title_tree.jpg)" >
+
+    </div>
+    <div class="row" style="background:url(images/split_title.jpg)" >
+
     </div>
     <div class="row" >
         <div id="article_list" class="col-md-12 list-group">
