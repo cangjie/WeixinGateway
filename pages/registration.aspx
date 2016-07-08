@@ -73,7 +73,7 @@
                 <h4 class="list-group-item-heading">List group item heading</h4>
                 <p class="list-group-item-text">...</p>
             </a>
-            <a href="#" class="list-group-item">
+            <a href="#" class="list-group-item" style="border:1px solid #337ab7;">
                 <h4 class="list-group-item-heading">List group item heading</h4>
                 <p class="list-group-item-text">...</p>
             </a>
@@ -95,7 +95,7 @@
         for (var i = 0 ; i < article_array_json.article_array.length; i++)
         {
             article_list_node.innerHTML = article_list_node.innerHTML
-                + "<a href=\"show_content.aspx?articleid=" + article_array_json.article_array[i].article_id + "\" class=\"list-group-item\">"
+                + "<a href=\"show_content.aspx?articleid=" + article_array_json.article_array[i].article_id + "\" class=\"list-group-item\" style=\"border:1px solid #337ab7;\" >"
                 + "<h4 class=\"list-group-item-heading\">" + article_array_json.article_array[i].article_title + "</h4>"
                 + "<p class=\"list-group-item-text\">" + ((article_array_json.article_array[i].shared == 0) ? "未" : "已") + "分享&nbsp;&nbsp;&nbsp;&nbsp;"
                 + "阅读数：" + article_array_json.article_array[i].read_num + "&nbsp;&nbsp;&nbsp;&nbsp;分享数：" + article_array_json.article_array[i].share_num + "</p>"
