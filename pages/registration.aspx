@@ -58,7 +58,7 @@
     </script>
     
 </head>
-<body>
+<body style="margin-left:0px;margin-top:0px">
 	<div class="row" >
 		<div class="col-xs-4" style="margin-left:10px;margin-top:10px;margin-bottom:10px" >
 
