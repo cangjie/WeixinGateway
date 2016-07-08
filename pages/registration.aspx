@@ -60,7 +60,8 @@
 </head>
 <body style="margin-left:15px;margin-top:0px">
     <div class="row" style="width:400px;height:280px" >
-        <img src="<%=currentUser.HeadImage.Trim() %>"  class="img-circle" style="width:50px" >
+       
+        <img src="<%=currentUser.HeadImage.Trim() %>"  class="img-circle" style="width:50px; position:absolute" >
         <img style="width:100%;height:100%" src="images/title_tree.jpg" />
     </div>
     <div class="row" style="background:url(images/split_title.jpg); height:28px" >
