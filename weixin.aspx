@@ -9,11 +9,9 @@
 <%@ Import Namespace="System.Net" %>
 <script runat="server">
 
-<<<<<<< HEAD
-    public string token = "yoghurt";
-=======
+
     public string token = "jingshe";
->>>>>>> origin/doTERRA精舍
+
     public string validResult = "";
 
     protected void Page_Load(object sender, EventArgs e)
