@@ -81,6 +81,40 @@ public class Util
     }
 
 
+    public static string GetWebContent(string url)
+    {
+        return GetWebContent(url, "get", "", "html/text");
+    }
+
+    public static string GetLongTimeStamp(DateTime currentDateTime)
+    {
+        TimeSpan ts = currentDateTime - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        return Convert.ToInt64(ts.TotalMilliseconds).ToString();
+    }
+
+    public static string GetWebContent(string url, string method, string content, string contentType)
+    {
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+        req.Method = method.Trim();
+        req.ContentType = contentType;
+        if (!content.Trim().Equals(""))
+        {
+            StreamWriter sw = new StreamWriter(req.GetRequestStream());
+            sw.Write(content);
+            sw.Close();
+        }
+        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        Stream s = res.GetResponseStream();
+        StreamReader sr = new StreamReader(s);
+        string str = sr.ReadToEnd();
+        sr.Close();
+        s.Close();
+        res.Close();
+        req.Abort();
+        return str;
+    }
+
+
     public static string GetSHA1(string str)
     {
         SHA1 sha = SHA1.Create();
