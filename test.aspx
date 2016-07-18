@@ -3,14 +3,34 @@
 <%@ Import Namespace="System.Data.SqlClient" %>
 <%@ Import Namespace="System.IO" %>
 <%@ Import Namespace="System.Xml" %>
+<%@ Import Namespace="System.Net" %>
 <!DOCTYPE html>
 
 <script runat="server">
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        
 
-        Response.Write(Util.GetQrCodeTicketTemp(Util.GetToken(), 1111));
+        string url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
+            + System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim()
+            + "&secret=" + System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"];
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        Stream s = res.GetResponseStream();
+        string ret = (new StreamReader(s)).ReadToEnd();
+        s.Close();
+        res.Close();
+        req.Abort();
+
+        Response.Write(ret);
+        
+
+        //Response.Write(Util.GetToken());
+        
+        //Response.Write(QrCode.GenerateNewQrCode(1, "images/qrcode"));
+        
+        //Response.Write(Util.GetQrCodeTicketTemp(Util.GetToken(), 1111));
         
         /*
         ReceivedMessage receiveMsg = new ReceivedMessage();

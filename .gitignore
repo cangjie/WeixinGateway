@@ -5,7 +5,9 @@
 *.pydevproject
 .project
 .metadata
-bin/
+
+kind_editor/attached
+
 tmp/
 *.tmp
 *.bak
@@ -214,3 +216,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+/images/qrcode
+/qrcode
+images/ariticle_logo/*

@@ -73,6 +73,18 @@ public class DealMessage
                 repliedMessage.messageCount = 1;
                 repliedMessage.type = "news";
                 break;
+            case "ABOUT":
+                repliedMessage.content = "选用青海新鲜无污染的牛奶，加入天然老酵母，融入西方先进的奶制品工艺，历经8-10小时自然发酵，口感独特浓稠，入口即化，回味无穷。质朴的包装，纯粹的滋味。";
+                repliedMessage.type = "text";
+                break;
+            case "CONTACT":
+                repliedMessage.content = "18531008530蜜思家小C";
+                repliedMessage.type = "text";
+                break;
+            case "ADDR":
+                repliedMessage.content = "1. 建外SOHO西区16号楼一层1605，电话010-53657956.\r\n2. 海淀区温泉镇东埠头路王庄4号院龙溪农庄，电话18513008530.";
+                repliedMessage.type = "text";
+                break;
             default:
                 break;
         }
@@ -99,10 +111,57 @@ public class DealMessage
         {
             Util.DealLandingRequest(receivedMessage.from);
         }
-        if (receivedMessage.userEvent.Trim().ToLower().Equals("subscribe"))
+
+        
+ 
+        switch(receivedMessage.userEvent.Trim().ToLower())
         {
-            Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
+            case "subscribe":
+                try
+                {
+                    RepliedMessage.news[] newsArray = new RepliedMessage.news[1];
+                    newsArray[0] = new RepliedMessage.news();
+                    newsArray[0].title = "免费喝酸奶，真的不要钱！";
+                    newsArray[0].url = "http://miss.dotera.cn/pages/show_content.aspx?articleid=9&userid=" + receivedMessage.from;
+                    newsArray[0].description = "分享此消息至朋友圈，并邀请15个朋友识别其中的二维码，即可免费得到蜜思手工酸奶一份。";
+                    newsArray[0].picUrl = "http://miss.dotera.cn/images/free_black.jpg";
+                    repliedMessage.newsContent = newsArray;
+
+
+                    //Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
+                    WeixinUser userSubscribe = new WeixinUser(receivedMessage.from);
+                    userSubscribe.Subscribe = true;
+                    if (receivedMessage.eventKey.StartsWith("qrscene_"))
+                    {
+                        int sceneId = int.Parse(receivedMessage.eventKey.Replace("qrscene_", ""));
+
+                        string fatherOpenId = userSubscribe.LinkFatherUser(sceneId);
+
+                        UserAction.AddUserAction(userSubscribe.OpenId, "", fatherOpenId, sceneId, "subscribe");
+                    }
+                }
+                catch
+                { 
+                
+                }
+                break;
+            case "unsubscribe":
+                try
+                {
+                    WeixinUser userUnsubscribe = new WeixinUser(receivedMessage.from);
+                    userUnsubscribe.Subscribe = false;
+                    UserAction.AddUserAction(userUnsubscribe.OpenId, "", userUnsubscribe.FatherOpenId.Trim(), 0, "unsubscribe");
+                }
+                catch
+                { 
+                
+                }
+                break;
+            default:
+                break;
         }
+
+
         return repliedMessage;
     }
 
@@ -119,6 +178,15 @@ public class DealMessage
                 break;
             case "单方":
                 Util.GetProductNews("单方", repliedMessage);
+                break;
+            case "我要喝酸奶":
+                RepliedMessage.news[] newsArray = new RepliedMessage.news[1];
+                newsArray[0] = new RepliedMessage.news();
+                newsArray[0].title = "免费喝酸奶，真的不要钱！";
+                newsArray[0].url = "http://miss.dotera.cn/pages/show_content.aspx?articleid=9&userid=" + receivedMessage.from;
+                newsArray[0].description = "分享此消息至朋友圈，并邀请15个朋友识别其中的二维码，即可免费得到蜜思手工酸奶一份。";
+                newsArray[0].picUrl = "http://miss.dotera.cn/images/free_black.jpg";
+                repliedMessage.newsContent = newsArray;
                 break;
             default:
                 if (receivedMessage.type.Trim().Equals("text"))

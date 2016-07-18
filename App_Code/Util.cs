@@ -29,6 +29,23 @@ public class Util
     protected static DateTime tokenTime = DateTime.MinValue;
 
     //public static string conStr = "";
+    public static string ticket = string.Empty;
+    public static DateTime ticketTime = DateTime.MinValue;
+    public static string GetTicket()
+    {
+        if (ticketTime == DateTime.MinValue || ticketTime < DateTime.Now)
+        {
+            try
+            {
+                string jsonStrForTicket = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="
+                        + Util.GetToken() + "&type=jsapi", "get", "", "form-data");
+                ticket = Util.GetSimpleJsonValueByKey(jsonStrForTicket, "ticket");
+                ticketTime = DateTime.Now.AddMinutes(10);
+            }
+            catch { }
+        }
+        return ticket;
+    }
 
     public static string GetWebContent(string url)
     {
@@ -673,7 +690,7 @@ public class Util
         repliedMessage.from = receivedMessage.to;
         repliedMessage.to = receivedMessage.from;
         repliedMessage.type = "text";
-        repliedMessage.content = "欢迎加入doTERRA大家庭！将你遇到的亚健康问题发送给这个微信公众号，系统将会自动为你查询解决方案。你只要在这里，勤学勤问勤分享，你的亚健康状态就可以得到很大的改善。我们坚信，通过群防群治是可以战胜亚健康的！";
+        repliedMessage.content = "欢迎关注！";
         //return repliedMessage;
     }
 
@@ -704,5 +721,60 @@ public class Util
         }
         repliedMessage.type = "text";
         repliedMessage.content = content;
+    }
+    public static string ConverXmlDocumentToStringPair(XmlDocument xmlD)
+    {
+        XmlNodeList nl = xmlD.ChildNodes[0].ChildNodes;
+        string str = "";
+        foreach (XmlNode n in nl)
+        {
+            str = str + "&" + n.Name.Trim() + "=" + n.InnerText.Trim();
+        }
+        str = str.Remove(0, 1);
+        return str;
+    }
+
+    public static string GetMd5Sign(string KeyPairStringWillBeSigned, string key)
+    {
+        string str = GetSortedArrayString(KeyPairStringWillBeSigned);
+        System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+        byte[] bArr = md5.ComputeHash(Encoding.UTF8.GetBytes(str + "&key=" + key.Trim()));
+        string ret = "";
+        foreach (byte b in bArr)
+        {
+            ret = ret + b.ToString("x").PadLeft(2, '0').ToUpper();
+        }
+        return ret;
+    }
+
+    public static string GetSimpleJsonValueByKey(string jsonStr, string key)
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
+        object v;
+        json.TryGetValue(key, out v);
+        return v.ToString();
+    }
+
+    public static string GetSortedArrayString(string str)
+    {
+        string[] strArr = str.Split('&');
+        Array.Sort(strArr);
+        return String.Join("&", strArr);
+    }
+
+
+    public static string GetNonceString(int length)
+    {
+        string chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+        char[] charsArr = chars.ToCharArray();
+        int charsCount = chars.Length;
+        string str = "";
+        Random rnd = new Random();
+        for (int i = 0; i < length - 1; i++)
+        {
+            str = str + charsArr[rnd.Next(charsCount)].ToString();
+        }
+        return str;
     }
 }

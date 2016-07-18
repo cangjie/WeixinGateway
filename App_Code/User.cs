@@ -31,14 +31,29 @@ public class WeixinUser : ObjectHelper
             + Util.GetToken() + "&openid=" + openId + "&lang=zh_CN");
             if (json.IndexOf("errocde") >= 0)
             {
-                throw new Exception("not found");
+                //throw new Exception("not found");
             }
             else
             {
                 JsonHelper jsonObject = new JsonHelper(json);
-                string nick = jsonObject.GetValue("nickname");
-                string headImageUrl = jsonObject.GetValue("headimgurl");
-
+                string nick = "";
+                try
+                {
+                    nick = jsonObject.GetValue("nickname");
+                }
+                catch
+                { 
+                
+                }
+                string headImageUrl = "";
+                try
+                {
+                    headImageUrl = jsonObject.GetValue("headimgurl");
+                }
+                catch
+                { 
+                
+                }
                 KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[5];
                 parameters[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
                     "open_id", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)openId));
@@ -68,8 +83,100 @@ public class WeixinUser : ObjectHelper
         else
         {
             _fields = dt.Rows[0];
+            DateTime updateInfoTime = DateTime.MinValue;
+            try
+            {
+                updateInfoTime = DateTime.Parse(_fields["update_time"].ToString());
+            }
+            catch
+            { 
+            
+            }
+            if ((DateTime.Now - updateInfoTime > new TimeSpan(24, 0, 0)) || Nick.Trim().Equals("") || HeadImage.Trim().Equals(""))
+            {
+                UpdateUserInfo(openId);
+            }
         }
 
+    }
+
+
+    public string LinkFatherUser(int sceenId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from users where qr_code_scene = " + sceenId.ToString(), Util.conStr);
+        string fatherOpenId = "";
+        if (dt.Rows.Count > 0)
+        {
+            fatherOpenId = dt.Rows[0]["open_id"].ToString().Trim();
+        }
+        string[,] updateParameters = new string[,] { { "father_open_id", "varchar", fatherOpenId.Trim() } };
+        string[,] keyParameters = new string[,] { { "open_id", "varchar", OpenId.Trim() } };
+        DBHelper.UpdateData("users", updateParameters, keyParameters, Util.conStr);
+        return fatherOpenId.Trim();
+    }
+
+    public bool Subscribe
+    {
+        get
+        {
+            if (_fields["is_subscribe"].ToString().Equals("0"))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        set
+        {
+            int subscribe = 0;
+            if (value)
+            {
+                subscribe = 1;
+                UpdateUserInfo(OpenId);
+            }
+            string[,] updateParameter = new string[,] { { "is_subscribe", "int", subscribe.ToString() } };
+            string[,] keyParameters = new string[,] { { "open_id", "varchar", OpenId.Trim() } };
+            DBHelper.UpdateData("users", updateParameter, keyParameters, Util.conStr);
+        }
+    }
+
+    public static void UpdateUserInfo(string openId)
+    {
+        string json = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/user/info?access_token="
+            + Util.GetToken() + "&openid=" + openId + "&lang=zh_CN");
+        if (json.IndexOf("errocde") >= 0)
+        {
+            //throw new Exception("not found");
+        }
+        else
+        {
+            JsonHelper jsonObject = new JsonHelper(json);
+            string nick = "";
+            try
+            {
+                nick = jsonObject.GetValue("nickname");
+            }
+            catch
+            {
+
+            }
+            string headImageUrl = "";
+            try
+            {
+                headImageUrl = jsonObject.GetValue("headimgurl");
+            }
+            catch
+            {
+
+            }
+            string[,] updateParameters = new string[,] { { "nick", "varchar", nick }, 
+                { "head_image", "varchar", headImageUrl }, 
+                {"update_time", "datetime", DateTime.Now.ToString() } };
+            string[,] keyParameters = new string[,] { { "open_id", "varchar", openId.Trim() } };
+            DBHelper.UpdateData("users", updateParameters, keyParameters, Util.conStr);
+        }
     }
 
 
@@ -298,6 +405,36 @@ public class WeixinUser : ObjectHelper
         get
         {
             return _fields["nick"].ToString().Trim();
+        }
+    }
+
+    public int QrCodeSceneId
+    {
+        get
+        {
+            int currentSceneId = int.Parse(_fields["qr_code_scene"].ToString().Trim());
+            if (currentSceneId == 0)
+            {
+                currentSceneId = QrCode.CreateScene();
+                string[,] updateParameter = new string[,] { { "qr_code_scene", "int", currentSceneId.ToString()} };
+                string[,] keyParameter = new string[,] { { "open_id", "varchar", OpenId.Trim() } };
+                DBHelper.UpdateData("users", updateParameter, keyParameter, Util.conStr.Trim());
+                return currentSceneId;
+
+            }
+            else
+            {
+                return currentSceneId;
+            }
+
+        }
+    }
+
+    public string FatherOpenId
+    {
+        get
+        {
+            return _fields["father_open_id"].ToString().Trim();
         }
     }
 
