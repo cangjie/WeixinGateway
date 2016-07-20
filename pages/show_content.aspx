@@ -110,7 +110,7 @@
                         						                        <em class="rich_media_meta rich_media_meta_text" id="post-date"><%=dateString %></em>
 
                                                 <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" id="post-user" href="javascript:void(0);">蜜思手工酸奶</a>
-                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">蜜思手工酸奶<%//=Session["user_token"].ToString().Trim() %></span>
+                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">瑞精舍<%//=Session["user_token"].ToString().Trim() %></span>
 
                       
                     </div>
@@ -125,7 +125,7 @@
                         
                         <p style="color: rgb(62, 62, 62);  text-align:center;  line-height: 25.6px; white-space: pre-line; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
                             
-                            <b><font color="red" >长按识别此二维码关注公众号即有机会获得免费酸奶，赠完为止。</font></b>
+                            <b><font color="red" >长按识别此二维码可索取精油试用装。</font></b>
                             <%
                               
                               WeixinUser user = new WeixinUser();
