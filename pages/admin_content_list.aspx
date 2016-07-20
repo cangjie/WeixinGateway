@@ -42,6 +42,14 @@
     {
         Response.Redirect("admin_content_edit.aspx", true);
     }
+
+    protected void dg_DeleteCommand(object source, DataGridCommandEventArgs e)
+    {
+        int id = int.Parse(dg.DataKeys[e.Item.ItemIndex].ToString().Trim());
+        DBHelper.DeleteData("article", new string[,] { { "id", "int", id.ToString() } }, Util.conStr.Trim());
+        dg.DataSource = GetData();
+        dg.DataBind();  
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -67,7 +75,7 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td><asp:DataGrid ID="dg" Width="100%" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" Font-Size="Small" GridLines="Vertical" AutoGenerateColumns="False" >
+                <td><asp:DataGrid ID="dg" Width="100%" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" Font-Size="Small" GridLines="Vertical" AutoGenerateColumns="False" OnDeleteCommand="dg_DeleteCommand" DataKeyField="id" >
                     <AlternatingItemStyle BackColor="#DCDCDC" />
                     <Columns>
                         <asp:ButtonColumn CommandName="Delete" Text="Delete"></asp:ButtonColumn>
