@@ -66,17 +66,16 @@
         <img id="title_image" style="width:100%;height:100%" src="images/title_tree.jpg" />
     </div>
     <script type="text/javascript" >
-        var followed_num = document.getElementById("followed_num");
-	followed_num.style.left = (document.body.clientWidth/3).toString() + "px";
 
-        alert(document.body.clientWidth/3);
-        alert(title_image.style.top);
-        alert(screen.width);
-        alert(title_image.style.height);
+        function locate_title() {
+            var body_width = document.body.clientWidth;
+            var followed_num = document.getElementById("followed_num");
+            followed_num.style.left = (document.body.clientWidth / 3).toString() + "px";
+            followed_num.style.top = (document.body.clientWidth / 3).toString() + "px";
+        }
 
-	window.addEventListener('orientationchange',function(){
-	alert("rotate");
-},false);
+        locate_title();
+	    window.addEventListener('orientationchange',locate_title,false);
 
     </script>
     <div class="row" style="background:url(images/split_title.jpg); height:28px" >
