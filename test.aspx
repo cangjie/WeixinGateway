@@ -10,6 +10,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        WeixinUser user = new WeixinUser("oQcmtt3qa6S1gl5GInoYe_jmgfnk");
+        DataTable dt = user.FollowedUsers;
         
 
         string url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="

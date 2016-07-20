@@ -17,7 +17,6 @@ public class WeixinUser : ObjectHelper
         //primaryKeyValue = openId.Trim();
     }
 
-
     public WeixinUser(string openId)
     {
         tableName = "users";
@@ -100,7 +99,6 @@ public class WeixinUser : ObjectHelper
 
     }
 
-
     public string LinkFatherUser(int sceenId)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from users where qr_code_scene = " + sceenId.ToString(), Util.conStr);
@@ -179,7 +177,6 @@ public class WeixinUser : ObjectHelper
         }
     }
 
-
     public static int RegisterFamily(string school, string major, DateTime checkinDate)
     {
         int familyId = 0;
@@ -218,10 +215,6 @@ public class WeixinUser : ObjectHelper
         else
             return false;
     }
-
-
-
-    
 
     public string OpenId
     {
@@ -435,6 +428,63 @@ public class WeixinUser : ObjectHelper
         get
         {
             return _fields["father_open_id"].ToString().Trim();
+        }
+    }
+
+    public DataTable FollowedUsers
+    {
+        get
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("id");
+            dt.Columns.Add("open_id");
+            dt.Columns.Add("deal");
+            dt.Columns.Add("action_time");
+
+            DataTable dtTotalSubscribeList = DBHelper.GetDataTable(" select * from user_action where object_open_id = '" + OpenId.Trim()
+                + "' and action_name = 'subscribe' and deal <> -1 order by [id] desc ");
+            foreach (DataRow drTotalSubscribeList in dtTotalSubscribeList.Rows)
+            {
+                bool isValid = false;
+                DataTable dtTmp = DBHelper.GetDataTable(" select * from user_action where open_id = '" + drTotalSubscribeList["open_id"]
+                    + "'  and action_name = 'unsubscribe' ");
+                if (dtTmp.Rows.Count == 0)
+                    isValid = true;
+                else
+                    isValid = false;
+                dtTmp.Dispose();
+                if (isValid)
+                {
+                    dtTmp = DBHelper.GetDataTable(" select * from user_action where open_id = '" + drTotalSubscribeList["open_id"]
+                        + "'  and action_name = 'subscribe' ");
+                    if (dtTmp.Rows.Count == 1)
+                    {
+                        isValid = true;
+                    }
+                    else
+                    {
+                        isValid = false;
+                    }
+                }
+                if (isValid)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["id"] = drTotalSubscribeList["id"];
+                    dr["open_id"] = drTotalSubscribeList["open_id"];
+                    dr["deal"] = drTotalSubscribeList["deal"];
+                    dr["action_time"] = drTotalSubscribeList["action_time"];
+                    dt.Rows.Add(dr);
+                }
+                else
+                {
+                    DBHelper.UpdateData("user_action", new string[,] { { "deal", "int", "-1" } },
+                        new string[,] { { "id", "int", drTotalSubscribeList["id"].ToString().Trim() } }, Util.conStr);
+                }
+            }
+
+
+            return dt;
+            
         }
     }
 

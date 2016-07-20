@@ -61,9 +61,9 @@
 <body style="margin-left:15px;margin-top:0px">
     <div id="title" class="row"  >
        	<p id="followed_num" style="position:absolute; left:140px; top:120px" >
-		关注人数：0<br/>
-		可领试用装：<br/>
-		已领试用装：<br/>
+		关注人数：<%=currentUser.FollowedUsers.Rows.Count.ToString() %><br/>
+		可领试用装：0<br/>
+		已领试用装：0<br/>
 		
 	</p>
 	    <!--p style="position:absolute;left:140px; top:140px" >积分：细则制定中<br/>积分可抵现金<br/>请努力转发</p-->
