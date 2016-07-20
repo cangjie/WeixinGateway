@@ -60,17 +60,24 @@
 </head>
 <body style="margin-left:15px;margin-top:0px">
     <div id="title" class="row"  >
-       	<p id="followed_num" style="position:absolute; left:140px; top:120px" >关注人数：23</p>
-	    <p style="position:absolute;left:140px; top:140px" >积分：细则制定中<br/>积分可抵现金<br/>请努力转发</p>
+       	<p id="followed_num" style="position:absolute; left:140px; top:120px" >
+		关注人数：0<br/>
+		可领试用装：<br/>
+		已领试用装：<br/>
+		
+	</p>
+	    <!--p style="position:absolute;left:140px; top:140px" >积分：细则制定中<br/>积分可抵现金<br/>请努力转发</p-->
         <img src="<%=currentUser.HeadImage.Trim() %>"  class="img-circle" style="width:75px; position:absolute;top:10px;left:10px" >
         <img id="title_image" style="width:100%;height:100%" src="images/title_tree.jpg" />
     </div>
     <script type="text/javascript" >
 
         function locate_title() {
+		window.orientation;
+		//alert(document.body.clientWidth);
             var body_width = document.body.clientWidth;
             var followed_num = document.getElementById("followed_num");
-            followed_num.style.left = (document.body.clientWidth / 3).toString() + "px";
+            followed_num.style.left = (document.body.clientWidth * 1.2 / 3).toString() + "px";
             followed_num.style.top = (document.body.clientWidth / 3).toString() + "px";
         }
 
