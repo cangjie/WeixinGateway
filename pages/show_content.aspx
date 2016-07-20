@@ -16,7 +16,8 @@
     public string ticket = "";
     public string shaParam = "";
     public string appId = System.Configuration.ConfigurationManager.AppSettings["wxappid"];
-    
+
+    public bool isMyself = false;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -51,6 +52,13 @@
             {
                 Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/show_content.aspx?articleid="
                 + articleId.ToString() + "&userid=" + openId.ToString()), true);
+            }
+            else
+            {
+                if (currentOpenId.Trim().Equals(openId.Trim()) || openId.Trim().Equals(""))
+                {
+                    isMyself = true;
+                }
             }
         }
 
@@ -124,10 +132,13 @@
                     <div class="rich_media_content " id="js_content">
                         
                         <p style="color: rgb(62, 62, 62);  text-align:center;  line-height: 25.6px; white-space: pre-line; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
-                            
-                            <b><font color="red" >长按识别此二维码可索取精油试用装。</font></b>
-                            <%
-                              
+                            <%if (isMyself)
+                              {
+                            %><b><font color="red" >将此文分享至朋友圈后，如果你的朋友识别此二维码关注了我们，你可以获得精油试用装哦。</font></b><%
+                              }
+                              else
+                              {%><b><font color="red" >长按识别此二维码可索取精油试用装。</font></b><%
+                            }
                               WeixinUser user = new WeixinUser();
                               
                               WeixinUser currentUser = new WeixinUser(currentOpenId);
