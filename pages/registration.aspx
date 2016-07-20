@@ -85,14 +85,9 @@
 	    window.addEventListener('orientationchange',locate_title,false);
 
     </script>
-    <div class="row" style="background:url(images/split_title.jpg); height:28px" >
-        
-    </div>
     <div class="row" >
-        <div id="article_list" class="col-md-12 list-group">
-            <a href="#" class="list-group-item">
-                <h4 class="list-group-item-heading">规则说明</h4>
-                <p class="list-group-item-text">
+         <h4 class="list-group-item-heading">规则说明</h4>
+        <p class="list-group-item-text">
                     <ul>
                         <li>让你的朋友识别你在这里分享的文章中的二维码来关注我们的微信公众号，分享群发或者其它的文章无效。</li>
                         <li>你的每一位朋友只可关注一次有效，取关再关、反复关注或者通过其他人的二维码关注过的，均被视为无效。</li>
@@ -100,7 +95,13 @@
                         <li>分享，转发数据提供给你作为参考，并有可能在不远的将来变成积分。</li>
                     </ul>
                 </p>
-            </a>
+    </div>
+    <div class="row" style="background:url(images/split_title.jpg); height:28px" >
+        
+    </div>
+    <div class="row" >
+        <div id="article_list" class="col-md-12 list-group">
+            
             <!--a href="#" class="list-group-item" style="border:1px solid #337ab7;">
                 <h4 class="list-group-item-heading">List group item heading</h4>
                 <p class="list-group-item-text">...</p>
