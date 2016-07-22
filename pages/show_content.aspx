@@ -17,6 +17,8 @@
     public string shaParam = "";
     public string appId = System.Configuration.ConfigurationManager.AppSettings["wxappid"];
 
+    public bool qrCodeOnHead = true;
+
     public bool isMyself = false;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -32,6 +34,16 @@
         Article article = new Article(articleId);
         title = article.Title.Trim();
         content = article.Content.Trim();
+
+        if (article._fields["display_qrcode_on_top"].ToString().Trim().Equals("1"))
+        {
+            qrCodeOnHead = true;
+        }
+        else
+        {
+            qrCodeOnHead = false;
+        }
+        
         dateString = article.CreateDate.ToShortDateString();
 
         openId = Util.GetSafeRequestValue(Request, "userid", "");
@@ -132,6 +144,15 @@
                     <div class="rich_media_content " id="js_content">
                         
                         <p style="color: rgb(62, 62, 62);  text-align:center;  line-height: 25.6px; white-space: pre-line; -ms-word-wrap: break-word !important; min-height: 1em; max-width: 100%; box-sizing: border-box !important; background-color: rgb(255, 255, 255);">
+
+                            <%
+                                if (!qrCodeOnHead)
+                            {
+                            %>
+                            
+                            <%=content %>
+                            <%} %>
+                               
                             <%if (isMyself)
                               {
                             %><b><font color="red" >将此文分享至朋友圈后，如果你的朋友识别此二维码关注了我们，你可以获得精油试用装哦。</font></b><%
@@ -157,8 +178,14 @@
                             {
                             %><img src="../images/qrcode/qrcode.jpg" /><%
                             }
-                            } %>
+                            } 
+                            
+                            if (qrCodeOnHead)
+                            {
+                            %>
+                            
                             <%=content %>
+                            <%} %>
                         </p>
                     </div>
                     <script type="text/javascript">
