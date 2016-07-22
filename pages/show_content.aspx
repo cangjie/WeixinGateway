@@ -151,9 +151,7 @@
                             %>
                             
                             <%=content %>
-                            <%} %>
-                               
-                            <%if (isMyself)
+                            <%} %><div style="align-self:center" ><%if (isMyself)
                               {
                             %><b><font color="red" >将此文分享至朋友圈后，如果你的朋友识别此二维码关注了我们，你可以获得精油试用装哦。</font></b><%
                               }
@@ -172,13 +170,13 @@
                                     {
                                     user = new WeixinUser(openId);
                                    
-                                 %><img align="center" src="../show_qrcode.aspx?sceneid=<%=user.QrCodeSceneId.ToString() %>" /><%
+                                 %><img  src="../show_qrcode.aspx?sceneid=<%=user.QrCodeSceneId.ToString() %>" /><%
                             }
                             catch
                             {
                             %><img align="center" src="../images/qrcode/qrcode.jpg" /><%
                             }
-                            } 
+                            } %></div><%
                             
                             if (qrCodeOnHead)
                             {
