@@ -165,18 +165,18 @@
                               WeixinUser currentUser = new WeixinUser(currentOpenId);
                               
                                 if (openId.Trim().Equals(""))
-                                {%><img src="../images/qrcode/qrcode.jpg" /><%}
+                                {%><img  align="center" src="../images/qrcode/qrcode.jpg" /><%}
                                   else
                                   {
                                     try
                                     {
                                     user = new WeixinUser(openId);
                                    
-                                 %><img src="../show_qrcode.aspx?sceneid=<%=user.QrCodeSceneId.ToString() %>" /><%
+                                 %><img align="center" src="../show_qrcode.aspx?sceneid=<%=user.QrCodeSceneId.ToString() %>" /><%
                             }
                             catch
                             {
-                            %><img src="../images/qrcode/qrcode.jpg" /><%
+                            %><img align="center" src="../images/qrcode/qrcode.jpg" /><%
                             }
                             } 
                             
