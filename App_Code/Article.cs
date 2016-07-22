@@ -157,6 +157,21 @@ public class Article
         }
     }
 
+    public bool ShowToPublic
+    {
+        get
+        {
+            if (_fields["show_to_public"].ToString().Trim().Equals("1"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
     public static int AddArticle(string tile, string content)
     {
         string[,] insertData = new string[,] { { "title", "varchar", tile.Trim() }, { "content", "text", content.Trim() } };

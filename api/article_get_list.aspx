@@ -13,14 +13,17 @@
             foreach (Article article in articleArray)
             {
                 article.Init();
-                string jsonArticle = article.Json.Trim().Remove(article.Json.Trim().Length - 1, 1);
-                bool shared = article.IfUserSharedMoment(currentUserOpenId.Trim());
-                jsonArticle = jsonArticle + " , \"shared\" : "
-                    + (shared ? "1" : "0") + "  , \"read_num\" : " + Article.GetActionTable(article.ID, currentUserOpenId, "read").Rows.Count.ToString()
-                    + " , \"share_num\" : " + Article.GetActionTable(article.ID, currentUserOpenId, "sharemoment").Rows.Count.ToString() + "  }";
+                if (article.ShowToPublic)
+                {
+                    string jsonArticle = article.Json.Trim().Remove(article.Json.Trim().Length - 1, 1);
+                    bool shared = article.IfUserSharedMoment(currentUserOpenId.Trim());
+                    jsonArticle = jsonArticle + " , \"shared\" : "
+                        + (shared ? "1" : "0") + "  , \"read_num\" : " + Article.GetActionTable(article.ID, currentUserOpenId, "read").Rows.Count.ToString()
+                        + " , \"share_num\" : " + Article.GetActionTable(article.ID, currentUserOpenId, "sharemoment").Rows.Count.ToString() + "  }";
 
 
-                jsonArticleArray = jsonArticleArray + "," + jsonArticle.Trim();
+                    jsonArticleArray = jsonArticleArray + "," + jsonArticle.Trim();
+                }
             }
             if (jsonArticleArray.StartsWith(","))
                 jsonArticleArray = jsonArticleArray.Remove(0, 1).Trim();
