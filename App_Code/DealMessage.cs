@@ -119,6 +119,7 @@ public class DealMessage
             case "subscribe":
                 try
                 {
+                    /*
                     RepliedMessage.news[] newsArray = new RepliedMessage.news[1];
                     newsArray[0] = new RepliedMessage.news();
                     newsArray[0].title = "免费喝酸奶，真的不要钱！";
@@ -126,7 +127,7 @@ public class DealMessage
                     newsArray[0].description = "分享此消息至朋友圈，并邀请15个朋友识别其中的二维码，即可免费得到蜜思手工酸奶一份。";
                     newsArray[0].picUrl = "http://miss.dotera.cn/images/free_black.jpg";
                     repliedMessage.newsContent = newsArray;
-
+                    */
 
                     //Util.GetSubcribeWelcomeMessage(receivedMessage, repliedMessage);
                     WeixinUser userSubscribe = new WeixinUser(receivedMessage.from);
@@ -134,10 +135,59 @@ public class DealMessage
                     if (receivedMessage.eventKey.StartsWith("qrscene_"))
                     {
                         int sceneId = int.Parse(receivedMessage.eventKey.Replace("qrscene_", ""));
-
                         string fatherOpenId = userSubscribe.LinkFatherUser(sceneId);
+                        WeixinUser fatherUser = new WeixinUser(fatherOpenId);
+                        string fatherHeadImage = fatherUser.HeadImage.Trim();
+                        string fatherNick = fatherUser.Nick.Trim();
 
                         UserAction.AddUserAction(userSubscribe.OpenId, "", fatherOpenId, sceneId, "subscribe");
+                        RepliedMessage.news[] newsArray = new RepliedMessage.news[3];
+
+                        Article article = new Article(8);
+
+                        newsArray[0] = new RepliedMessage.news();
+                        newsArray[0].title = article.Title.Trim();
+                        newsArray[0].picUrl = article.Image.Trim();
+                        newsArray[0].description = article.Title.Trim();
+                        newsArray[0].url = "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
+                            + "/pages/show_content.aspx?articleid=8";
+
+                        newsArray[1] = new RepliedMessage.news();
+                        newsArray[1].title = fatherNick.Trim() + "：叫你的朋友一起来，即可获赠精油套装！";
+                        newsArray[1].picUrl = fatherHeadImage.Trim();
+                        newsArray[1].description = fatherNick.Trim() + "：叫你的朋友一起来，即可获赠精油套装！";
+                        newsArray[1].url = "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
+                            + "/pages/show_content.aspx?articleid=18";
+
+                        article = new Article(9);
+
+                        newsArray[2] = new RepliedMessage.news();
+                        newsArray[2].title = article.Title.Trim();
+                        newsArray[2].picUrl = article.Image.Trim();
+                        newsArray[2].description = article.Title.Trim();
+                        newsArray[2].url = "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
+                            + "/pages/show_content.aspx?articleid=9";
+                        repliedMessage.newsContent = newsArray;
+
+                    }
+                    else
+                    {
+                        Article article = new Article(8);
+                        RepliedMessage.news[] newsArray = new RepliedMessage.news[2];
+                        newsArray[0] = new RepliedMessage.news();
+                        newsArray[0].title = article.Title.Trim();
+                        newsArray[0].picUrl = article.Image.Trim();
+                        newsArray[0].description = article.Title.Trim();
+                        newsArray[0].url = "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
+                            + "/pages/show_content.aspx?articleid=8";
+                        article = new Article(9);
+                        newsArray[1] = new RepliedMessage.news();
+                        newsArray[1].title = article.Title.Trim();
+                        newsArray[1].picUrl = article.Image.Trim();
+                        newsArray[1].description = article.Title.Trim();
+                        newsArray[1].url = "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
+                            + "/pages/show_content.aspx?articleid=9";
+                        repliedMessage.newsContent = newsArray;
                     }
                 }
                 catch
