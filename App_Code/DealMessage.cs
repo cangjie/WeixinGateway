@@ -157,7 +157,7 @@ public class DealMessage
                         newsArray[1].picUrl = fatherHeadImage.Trim();
                         newsArray[1].description = fatherNick.Trim() + "：叫你的朋友一起来，即可获赠精油套装！";
                         newsArray[1].url = "http://" + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
-                            + "/pages/show_content.aspx?articleid=18";
+                            + "/pages/show_content.aspx?articleid=10";
 
                         article = new Article(9);
 

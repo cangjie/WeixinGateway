@@ -151,7 +151,7 @@
                             %>
                             
                             <%=content %>
-                            <%} %><div style="align-self:center" ><%if (isMyself)
+                            <%} %><div style="text-align:center" ><%if (isMyself)
                               {
                             %><b><font color="red" >将此文分享至朋友圈后，如果你的朋友识别此二维码关注了我们，你可以获得精油试用装哦。</font></b><%
                               }
