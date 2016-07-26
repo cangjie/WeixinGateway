@@ -8,6 +8,10 @@
 
     public int tryGetOpenIdTimes = 0;
 
+    public object userAccessToken = "";
+
+    public object refreshToken = "";
+    
     public string GetOpenId(string code)
     {
         if (tryGetOpenIdTimes > 0)
@@ -35,14 +39,26 @@
             object openId;
             json.TryGetValue("openid", out openId);
 
-            object userAccessToken = "";
+            
             json.TryGetValue("access_token", out userAccessToken);
             
-            object refrechToken = "";
-            json.TryGetValue("refresh_token", out refrechToken);
+            
+            json.TryGetValue("refresh_token", out refreshToken);
 
-            Session["user_access_token"] = userAccessToken.ToString().Trim();
-            Session["refresh_token"] = refrechToken.ToString().Trim();
+            string userInfoJsonStr = WeixinUser.GetUserInfoJsonStr(openId.ToString().Trim(), userAccessToken.ToString().Trim(), refreshToken.ToString().Trim());
+
+            object nick = "";
+            object headImage = "";
+
+            Dictionary<string, object> jsonUserInfo = (Dictionary<string, object>)serializer.DeserializeObject(userInfoJsonStr.Trim());
+            jsonUserInfo.TryGetValue("nickname", out nick);
+            jsonUserInfo.TryGetValue("headImage", out headImage);
+            WeixinUser user = new WeixinUser(openId.ToString());
+            user.Nick = nick.ToString().Trim();
+            user.HeadImage = headImage.ToString().Trim();
+            
+            //Session["user_access_token"] = userAccessToken.ToString().Trim();
+            //Session["refresh_token"] = refreshToken.ToString().Trim();
             
             openIdStr = openId.ToString().Trim();
 
