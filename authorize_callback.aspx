@@ -35,6 +35,15 @@
             object openId;
             json.TryGetValue("openid", out openId);
 
+            object userAccessToken = "";
+            json.TryGetValue("access_token", out userAccessToken);
+            
+            object refrechToken = "";
+            json.TryGetValue("refresh_token", out refrechToken);
+
+            Session["user_access_token"] = userAccessToken.ToString().Trim();
+            Session["refresh_token"] = refrechToken.ToString().Trim();
+            
             openIdStr = openId.ToString().Trim();
 
         }
@@ -58,16 +67,22 @@
         string code = Request["code"].Trim();
         string state = Request["state"].Trim();
         string openId = GetOpenId(code);
-        //Response.Write(openId);
-        //Response.End();
         string callBack = Request["callback"].Trim();
         callBack = Server.UrlDecode(callBack);
+        
+        
         string token = WeixinUser.CreateToken(openId,DateTime.Now.AddMinutes(100));
         Session["user_token"] = token;
-        //WeixinUser user = new WeixinUser(openId);
-        //Response.Write(token);
+
+        
+        
+        if (callBack.IndexOf("?") > 0)
+            callBack = callBack + "&token=" + token.Trim();
+        else
+            callBack = callBack + "?token=" + token.Trim();
+        
         Response.Redirect(callBack);
-        //Response.Write("<a href='" + callBack + "'  >" + callBack + "</a>");
+        
     }
 </script>
 
