@@ -129,7 +129,7 @@
                     <div class="rich_media_meta_list">
                         						                        <em class="rich_media_meta rich_media_meta_text" id="post-date"><%=dateString %></em>
 
-                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" id="post-user" href="javascript:void(0);">蜜思手工酸奶</a>
+                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" id="post-user" href="javascript:void(0);">瑞精舍</a>
                         <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">瑞精舍<%//=Session["user_token"].ToString().Trim() %></span>
 
                       
