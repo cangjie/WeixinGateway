@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.Script.Serialization;
 
 /// <summary>
 /// Summary description for User
@@ -16,6 +17,10 @@ public class WeixinUser : ObjectHelper
         primaryKeyName = "open_id";
         //primaryKeyValue = openId.Trim();
     }
+
+
+
+
 
     public WeixinUser(string openId)
     {
@@ -216,6 +221,8 @@ public class WeixinUser : ObjectHelper
             return false;
     }
 
+    
+
     public string OpenId
     {
         get
@@ -391,6 +398,11 @@ public class WeixinUser : ObjectHelper
         {
             return _fields["head_image"].ToString().Trim();
         }
+        set
+        {
+            DBHelper.UpdateData("users", new string[,] { { "head_image", "varchar", value.Trim() } },
+                new string[,] { { "open_id", "varchar", OpenId.Trim() } }, Util.conStr.Trim());
+        }
     }
 
     public string Nick
@@ -398,6 +410,11 @@ public class WeixinUser : ObjectHelper
         get
         {
             return _fields["nick"].ToString().Trim();
+        }
+        set
+        {
+            DBHelper.UpdateData("users", new string[,] { { "nick", "varchar", value.Trim() } }, 
+                new string[,] { { "open_id", "varchar", OpenId.Trim() } }, Util.conStr.Trim());
         }
     }
 
@@ -553,5 +570,66 @@ public class WeixinUser : ObjectHelper
         //return true;
     }
 
+    public static bool UserAccessTokenIsValid(string openId, string userAccessToken)
+    {
+        bool tokenIsValid = false;
+        string jsonStr = Util.GetWebContent("https://api.weixin.qq.com/sns/auth?access_token=" + userAccessToken.Trim() + "&openid=" + openId.Trim());
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
+        object errMsg;
+        json.TryGetValue("errmsg", out errMsg);
+        if (errMsg.ToString().Trim().ToLower().Equals("ok"))
+        {
+            tokenIsValid = true;
+        }
+        return tokenIsValid;
+    }
+
+    public static string GetNewWeixinToken(string refreshToken)
+    {
+        string jsonStr = Util.GetWebContent("https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" +
+            System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim()
+            + "&grant_type=refresh_token&refresh_token=" + refreshToken.Trim());
+
+        return jsonStr;
+    }
+
+
+
+    public static string GetUserInfoJsonStr(string openId, string token, string refreshToken)
+    {
+        string jsonStr = "";
+        if (token.Trim().Equals("") && refreshToken.Trim().Equals(""))
+        {
+            jsonStr = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/user/info?access_token="
+                + token + "&openid=" + openId + "&lang=zh_CN");
+        }
+        else
+        {
+            if (!UserAccessTokenIsValid(openId.Trim(), token))
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                string jsonStr2 = GetNewWeixinToken(refreshToken);
+                Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr2);
+                try
+                {
+                    object newToken;
+                    json.TryGetValue("ACCESS_TOKEN", out newToken);
+                    token = newToken.ToString().Trim();
+                }
+                catch
+                {
+                    token = "";
+                }
+            }
+            if (!token.Trim().Equals(""))
+            {
+                jsonStr = Util.GetWebContent("https://api.weixin.qq.com/sns/userinfo?access_token="
+                    + token.Trim() + "&openid=" + openId + "&lang=zh_CN");
+            }
+        }
+        return jsonStr;
+
+    }
 
 }
