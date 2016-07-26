@@ -10,6 +10,8 @@
 
     public object userAccessToken = "";
 
+    public string callBackUrl = "";
+    
     public object refreshToken = "";
     
     public string GetOpenId(string code)
@@ -97,7 +99,9 @@
         else
             callBack = callBack + "?token=" + token.Trim();
         
-        Response.Redirect(callBack);
+        //Response.Redirect(callBack);
+
+        callBackUrl = callBack;
         
     }
 </script>
@@ -105,6 +109,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <script type="text/javascript" >
+
+        //window.localStorage.setItem("
+
+        alert("<%=callBackUrl%>");
+
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
