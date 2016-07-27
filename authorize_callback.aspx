@@ -14,9 +14,9 @@
     
     public object refreshToken = "";
     
-public string jsonStr = "";
+    public string jsonStr = "";
 
-public string userInfoJsonStr  = "";
+    public string userInfoJsonStr  = "";
 
 
     public string GetOpenId(string code)
@@ -37,7 +37,7 @@ public string userInfoJsonStr  = "";
         {
 
             jsonStr = "";
-string jsonStrUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
+            string jsonStrUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
                 + System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim()
                 + "&secret=" + System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"].Trim()
                 + "&code=" + code + "&grant_type=authorization_code";
@@ -119,17 +119,9 @@ string jsonStrUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
 <head runat="server">
     <title></title>
     <script type="text/javascript" >
-
         window.localStorage.setItem("weixin_user_refresh_token", "<%=refreshToken.ToString()%>");
-window.localStorage.setItem("weixin_user_refresh_token_time_stamp", Date.parse(new Date()).toString());
-	//alert("<%=jsonStr%>");
-
-//	alert("<%=userInfoJsonStr%>");
-
-//        alert("<%=callBackUrl%>");
-
-	window.location.href = "<%=callBackUrl%>";
-
+        window.localStorage.setItem("weixin_user_refresh_token_time_stamp", Date.parse(new Date()).toString());
+	    window.location.href = "<%=callBackUrl%>";
     </script>
 </head>
 <body>
