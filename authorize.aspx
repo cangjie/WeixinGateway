@@ -67,19 +67,19 @@
 
         if (currentTimeStamp - weixin_user_refresh_token_time_stamp > 3600000 * 24 * 20) {
 
-alert("aaa");
+//alert("aaa");
             window.location.href = redirectUrl;
 
         }
         else {
 
-alert("weixin_user_refresh_token:"+weixin_user_refresh_token);
+//alert("weixin_user_refresh_token:"+weixin_user_refresh_token);
             var refresh_token_json_str = $.ajax({
                 url: "api/weixin_token_refresh.aspx?refreshtoken=" + weixin_user_refresh_token,
                 type: "get",
                 async: false
             }).responseText.trim();
-alert(refresh_token_json_str);
+//alert(refresh_token_json_str);
             if (refresh_token_json_str.indexOf("errcode") < 0) {
 //alert("bbb");
                 var refresh_token_json = JSON.parse(refresh_token_json_str);
