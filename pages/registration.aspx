@@ -18,10 +18,11 @@
         }
         else
         {
+//Response.Write(Session["user_token"].ToString());
             currentOpenId = WeixinUser.CheckToken(Session["user_token"].ToString());
             if (currentOpenId.Trim().Equals(""))
             {
-                Response.Redirect("../authorize.aspx?callback=" + Server.UrlEncode("pages/registration.aspx"), true);
+                Response.Redirect("../authorize.aspx?test=111&callback=" + Server.UrlEncode("pages/registration.aspx"), true);
             }
         }
         currentUser = new WeixinUser(currentOpenId.Trim());

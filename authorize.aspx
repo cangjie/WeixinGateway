@@ -26,6 +26,10 @@
         //Response.Write("<a href='" + redirectUrl + "'  >"+redirectUrl + "</a>");
         
         //Response.Redirect(redirectUrl, true);
+
+
+	//Response.Write(redirectUrl);
+	//Response.End();
     }
 </script>
 
@@ -51,10 +55,10 @@
 
         var weixin_user_access_token = "";
 
-        var weixin_user_refresh_token = getItemFromLocalStorage(weixin_user_refresh_token);
+        var weixin_user_refresh_token = getItemFromLocalStorage("weixin_user_refresh_token");
         var weixin_user_refresh_token_time_stamp = 0;
         try {
-            weixin_user_refresh_token_time_stamp = parseInt(getItemFromLocalStorage(weixin_user_refresh_token_time_stamp));
+            weixin_user_refresh_token_time_stamp = parseInt(getItemFromLocalStorage("weixin_user_refresh_token_time_stamp"));
         }
         catch (errMsg) {
         }
@@ -77,6 +81,7 @@ alert("weixin_user_refresh_token:"+weixin_user_refresh_token);
             }).responseText.trim();
 alert(refresh_token_json_str);
             if (refresh_token_json_str.indexOf("errcode") < 0) {
+//alert("bbb");
                 var refresh_token_json = JSON.parse(refresh_token_json_str);
                 open_id = refresh_token_json.openid;
                 weixin_user_access_token = refresh_token_json.access_token;

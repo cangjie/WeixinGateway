@@ -14,6 +14,11 @@
     
     public object refreshToken = "";
     
+public string jsonStr = "";
+
+public string userInfoJsonStr  = "";
+
+
     public string GetOpenId(string code)
     {
         if (tryGetOpenIdTimes > 0)
@@ -31,11 +36,14 @@
         try
         {
 
-            string jsonStr = "";
-            jsonStr = Util.GetWebContent("https://api.weixin.qq.com/sns/oauth2/access_token?appid="
+            jsonStr = "";
+string jsonStrUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
                 + System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim()
                 + "&secret=" + System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"].Trim()
-                + "&code=" + code + "&grant_type=authorization_code", "GET", "", "text/htm");
+                + "&code=" + code + "&grant_type=authorization_code";
+
+            jsonStr = Util.GetWebContent(jsonStrUrl, "GET", "", "text/htm");
+
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
             object openId;
@@ -49,12 +57,14 @@
 
             string userInfoJsonStr = WeixinUser.GetUserInfoJsonStr(openId.ToString().Trim(), userAccessToken.ToString().Trim(), refreshToken.ToString().Trim());
 
+
+
             object nick = "";
             object headImage = "";
 
             Dictionary<string, object> jsonUserInfo = (Dictionary<string, object>)serializer.DeserializeObject(userInfoJsonStr.Trim());
             jsonUserInfo.TryGetValue("nickname", out nick);
-            jsonUserInfo.TryGetValue("headImage", out headImage);
+            jsonUserInfo.TryGetValue("headimgurl", out headImage);
             WeixinUser user = new WeixinUser(openId.ToString());
             user.Nick = nick.ToString().Trim();
             user.HeadImage = headImage.ToString().Trim();
@@ -92,8 +102,7 @@
         string token = WeixinUser.CreateToken(openId,DateTime.Now.AddMinutes(100));
         Session["user_token"] = token;
 
-        
-        
+    
         if (callBack.IndexOf("?") > 0)
             callBack = callBack + "&token=" + token.Trim();
         else
@@ -111,9 +120,15 @@
     <title></title>
     <script type="text/javascript" >
 
-        //window.localStorage.setItem("
+        window.localStorage.setItem("weixin_user_refresh_token", "<%=refreshToken.ToString()%>");
+window.localStorage.setItem("weixin_user_refresh_token_time_stamp", Date.parse(new Date()).toString());
+	//alert("<%=jsonStr%>");
 
-        alert("<%=callBackUrl%>");
+//	alert("<%=userInfoJsonStr%>");
+
+//        alert("<%=callBackUrl%>");
+
+	window.location.href = "<%=callBackUrl%>";
 
     </script>
 </head>
