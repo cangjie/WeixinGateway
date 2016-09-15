@@ -6,7 +6,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write( PointFile.ComputeFileMd5(Server.MapPath("bb.txt")) );
+        Response.Write(Util.IsNumeric("0").ToString() + Util.IsNumeric("98762323").ToString() + Util.IsNumeric("wsd3234").ToString()
+            + Util.IsNumeric("0123").ToString() + Util.IsNumeric("233ssdsd").ToString());
         
     }
     

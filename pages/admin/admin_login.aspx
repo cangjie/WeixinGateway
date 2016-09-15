@@ -17,14 +17,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <div id="file-upload">
 
-
-        </div>
-        <hr />
-        <div id="file-upload-list">
-            <asp:DataGrid ID="dg" runat="server" ></asp:DataGrid>
-        </div>
     </div>
     </form>
 </body>

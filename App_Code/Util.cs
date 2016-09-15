@@ -12,6 +12,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 /// <summary>
 /// Summary description for Util
 /// </summary>
@@ -30,6 +31,33 @@ public class Util
     public static string conStr = System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim();
 
     public static string domainName = System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim();
+
+    public static bool IsCellNumber(string number)
+    {
+        bool ret = false;
+        number = number.Trim();
+        string regCmccStr = @"^(134[012345678]\d{7}|1[34578][012356789]\d{8})$";
+        string regCuccStr = @"^1[34578][01256]\d{8}$";
+        string regCtccStr = @"^1[3578][01379]\d{8}$";
+        Regex regCmcc = new Regex(regCmccStr);
+        Regex regCucc = new Regex(regCuccStr);
+        Regex regCtcc = new Regex(regCtccStr);
+        if (regCmcc.IsMatch(number) || regCtcc.IsMatch(number) || regCucc.IsMatch(number))
+        {
+            ret = true;
+        }
+        else
+        {
+            ret = false;
+        }
+        return ret;
+    }
+
+    public static bool IsNumeric(string number)
+    {
+        Regex reg = new Regex(@"^([1-9]\d*|0)$");
+        return reg.IsMatch(number);
+    }
 
     public static string GetSHA1(string str)
     {
