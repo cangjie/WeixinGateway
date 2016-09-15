@@ -6,8 +6,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(GetMD5HashFromFile(Server.MapPath("aa.txt"))
-            + "<br/>" + GetMD5HashFromFile(Server.MapPath("bb.txt")) );
+        Response.Write( PointFile.ComputeFileMd5(Server.MapPath("bb.txt")) );
         
     }
     
