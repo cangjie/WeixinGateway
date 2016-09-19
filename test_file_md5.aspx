@@ -6,8 +6,10 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(Util.IsNumeric("0").ToString() + Util.IsNumeric("98762323").ToString() + Util.IsNumeric("wsd3234").ToString()
-            + Util.IsNumeric("0123").ToString() + Util.IsNumeric("233ssdsd").ToString());
+        //PointFile.AddNewFile("/bb.txt", "test");
+        PointFile pointFile = new PointFile(1);
+        int i = pointFile.ImportUploadedPointFileToDB();
+        Response.Write(i.ToString());
         
     }
     
