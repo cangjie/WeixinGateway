@@ -88,7 +88,8 @@ public class WeixinUser : ObjectHelper
             int points = 0;
             if (dt.Rows.Count > 0)
             {
-                points = int.Parse(dt.Rows[0][0].ToString().Trim());
+                if (Util.IsNumeric(dt.Rows[0][0].ToString().Trim())
+                    points = int.Parse(dt.Rows[0][0].ToString().Trim());
             }
             dt.Dispose();
             return points;
