@@ -217,6 +217,36 @@ public class PointFile
         return dt;
     }
 
+    public static int ImportPointsFromUploadFiles(string cellNumber)
+    {
+        int ret = 0;
+        string[] openIdArr = WeixinUser.GetOpenIdByCellNumber(cellNumber);
+        if (openIdArr.Length == 1)
+        {
+            string openId = openIdArr[0];
+            DataTable dtPointsUploaded = DBHelper.GetDataTable(" select * from point_uploaded_detail where deal = 0 and cell_number = '"
+                + cellNumber.Replace("'", "").Trim() + "'  ");
+            foreach (DataRow drPointsUploaded in dtPointsUploaded.Rows)
+            {
+                string[,] insertParameters = new string[,] {{"user_open_id", "varchar", openId},
+                    {"points", "int", drPointsUploaded["points"].ToString().Trim()},
+                    {"point_upload_detail_id", "int", drPointsUploaded["id"].ToString().Trim()},
+                    {"memo", "varchar", drPointsUploaded["memo"].ToString().Trim()}};
+                ret = ret + DBHelper.InsertData("user_point_balance", insertParameters);
+                int maxId = DBHelper.GetMaxValue("user_point_balance", "id", Util.conStr);
+                string[,] updateParameters = new string[,] {{"deal", "int", maxId.ToString()} };
+                string[,] keyParameters = new string[,] { { "id", "int", drPointsUploaded["id"].ToString() } };
+                DBHelper.UpdateData("point_uploaded_detail", updateParameters, keyParameters, Util.conStr);
+
+            }
+        }
+        else
+        {
+            ret = -1;
+        }
+        return ret;
+    }
+
     
 
 }

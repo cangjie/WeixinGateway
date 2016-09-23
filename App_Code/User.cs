@@ -79,7 +79,22 @@ public class WeixinUser : ObjectHelper
             return _fields["open_id"].ToString().Trim();
         }
     }
-    
+
+    public int Points
+    {
+        get
+        {
+            DataTable dt = DBHelper.GetDataTable(" select sum(points) from user_point_balance where user_open_id = '" + OpenId.Trim() + "'  ");
+            int points = 0;
+            if (dt.Rows.Count > 0)
+            {
+                points = int.Parse(dt.Rows[0][0].ToString().Trim());
+            }
+            dt.Dispose();
+            return points;
+        }
+    }
+
     public int VipLevel
     {
         get
@@ -211,5 +226,16 @@ public class WeixinUser : ObjectHelper
         //return true;
     }
 
+    public static string[] GetOpenIdByCellNumber(string number)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select open_id from users where cell_number = '" + number.Trim().Replace("'", "").Trim() + "'  ");
+        string[] cellNumber = new string[dt.Rows.Count];
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+            cellNumber[i] = dt.Rows[i]["open_id"].ToString().Trim();
+        }
+        dt.Dispose();
+        return cellNumber;
+    }
 
 }

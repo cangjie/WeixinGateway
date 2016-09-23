@@ -16,7 +16,7 @@
     {
         string currentPageUrl = Server.UrlEncode("/pages/register_cell_number.aspx");
 
-        Session["user_token"] = "a8488dfb185d7719b88315b7bcfe5d85cbd7cbbe971d175a4e1079fe22ec5724519eed31";
+        //Session["user_token"] = "a8488dfb185d7719b88315b7bcfe5d85cbd7cbbe971d175a4e1079fe22ec5724519eed31";
         
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {

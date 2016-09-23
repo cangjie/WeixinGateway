@@ -7,9 +7,11 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         //PointFile.AddNewFile("/bb.txt", "test");
-        PointFile pointFile = new PointFile(1);
-        int i = pointFile.ImportUploadedPointFileToDB();
-        Response.Write(i.ToString());
+        //PointFile pointFile = new PointFile(1);
+        //int i = pointFile.ImportUploadedPointFileToDB();
+        //Response.Write(i.ToString());
+
+        PointFile.ImportPointsFromUploadFiles("13501177897");
         
     }
     
