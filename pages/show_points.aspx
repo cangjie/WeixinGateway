@@ -71,7 +71,7 @@
             <div class="col-xs-12" ><br /></div>
         </div>
         <div class="row" >
-            <div class="col-xs-12" ><%=currentUser.Points.ToString() %></div>
+            <div class="col-xs-12" style="align-content:center" ><%=currentUser.Points.ToString() %></div>
         </div>
     </div>
     </form>
