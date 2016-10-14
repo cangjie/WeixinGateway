@@ -20,7 +20,7 @@ public class DealMessage
         
 
         WeixinUser user = new WeixinUser(receivedMessage.from.Trim());
-        if (user.VipLevel == 0)
+        if (user.VipLevel == 0 && (!receivedMessage.isEvent || receivedMessage.isMenuClick))
         {
             return GetNewSubscribeMessage(receivedMessage);
         }
