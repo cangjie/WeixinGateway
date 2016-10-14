@@ -41,8 +41,8 @@ public class DealMessage
         RepliedMessage repliedMessage = new RepliedMessage();
         repliedMessage.from = receivedMessage.to.Trim();
         repliedMessage.to = receivedMessage.from;
-        receivedMessage.type = "text";
-        receivedMessage.content = "感谢您关注易龙雪聚，请<a href='http://weixin.snowmeet.com/pages/register_cell_number.aspx' >点击这里</a>以完成注册。";
+        repliedMessage.type = "text";
+        repliedMessage.content = "感谢您关注易龙雪聚，请<a href='http://weixin.snowmeet.com/pages/register_cell_number.aspx' >点击这里</a>以完成注册。";
         return repliedMessage;
     }
 
