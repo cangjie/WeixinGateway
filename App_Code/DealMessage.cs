@@ -17,11 +17,32 @@ public class DealMessage
 
     public static RepliedMessage DealReceivedMessage(ReceivedMessage receivedMessage)
     {
-        RepliedMessage repliedMessage;
-        if (receivedMessage.isEvent)
-            repliedMessage = DealEventMessage(receivedMessage);
+        
+
+        WeixinUser user = new WeixinUser(receivedMessage.from.Trim());
+        if (user.VipLevel == 0)
+        {
+            return GetNewSubscribeMessage(receivedMessage);
+        }
         else
-            repliedMessage = DealUserInputMessage(receivedMessage);
+        {
+            RepliedMessage repliedMessage;
+            if (receivedMessage.isEvent)
+                repliedMessage = DealEventMessage(receivedMessage);
+            else
+                repliedMessage = DealUserInputMessage(receivedMessage);
+            return repliedMessage;
+        }
+    }
+
+
+    public static RepliedMessage GetNewSubscribeMessage(ReceivedMessage receivedMessage)
+    {
+        RepliedMessage repliedMessage = new RepliedMessage();
+        repliedMessage.from = receivedMessage.to.Trim();
+        repliedMessage.to = receivedMessage.from;
+        receivedMessage.type = "text";
+        receivedMessage.content = "感谢您关注易龙雪聚，请<a href='http://weixin.snowmeet.com/pages/register_cell_number.aspx' >点击这里</a>以完成注册。";
         return repliedMessage;
     }
 

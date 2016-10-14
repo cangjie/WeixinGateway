@@ -11,6 +11,7 @@
         {
             WeixinUser user = new WeixinUser(WeixinUser.CheckToken(token));
             user.CellNumber = cell.Trim();
+            user.VipLevel = 1;
             PointFile.ImportPointsFromUploadFiles(user.CellNumber.Trim());
             Response.Write("{\"status\" : 0 , \"result\" : 1  }");
         }
