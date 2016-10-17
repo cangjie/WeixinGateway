@@ -9,12 +9,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        SqlConnection conn = new SqlConnection(Util.conStr);
-        conn.Open();
-        conn.Close();
-    conn.Dispose();
-    Response.End();
-        
+        WeixinUser user = new WeixinUser("oZBHkjhdFpC5ScK5FUU7HKXE3PJM");
+        Response.Write(user.LastScanedOpenId);
     }
     
 
