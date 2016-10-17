@@ -8,7 +8,7 @@
     {
         if (Session["is-log-in"] == null || !Session["is-log-in"].ToString().Equals("1"))
         {
-            Response.Redirect("admin_login.aspx", true);
+            //Response.Redirect("admin_login.aspx", true);
         }
         if (!IsPostBack)
         {
