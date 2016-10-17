@@ -184,6 +184,51 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public string FatherOpenId
+    {
+        get
+        {
+            return _fields["father_open_id"].ToString().Trim();
+        }
+    }
+
+    public string LastScanedOpenId
+    {
+        get
+        {
+            string openId = "";
+            int sceneId = 0;
+            DataTable dt = DBHelper.GetDataTable(" select * from wxreceivemsg where wxreceivemsg_from = '" + OpenId.Trim().Replace("'", "").Trim()
+                + "' and wxreceivemsg_event in ('SCAN', 'subscribe') and wxreceivemsg_eventkey <> ''  ");
+            if (dt.Rows.Count > 0)
+            {
+                string temp = dt.Rows[0]["wxreceivemsg_eventkey"].ToString().Trim();
+                if (temp.StartsWith("qrscene_"))
+                    temp = temp.Replace("qrscene_", "");
+                try
+                {
+                    sceneId = int.Parse(temp);
+                    if (sceneId != 0)
+                    {
+                        DataTable dtUser = DBHelper.GetDataTable(" select * from users where qr_code_scene = " + sceneId.ToString());
+                        if (dtUser.Rows.Count > 0)
+                        {
+                            openId = dtUser.Rows[0]["open_id"].ToString().Trim();
+                        }
+                        dtUser.Dispose();
+                    }
+                }
+                catch
+                {
+
+
+                }
+            }
+            dt.Dispose();
+            return openId;
+        }
+    }
+
     public static WeixinUser[] GetAllUsers()
     {
         DataTable dt = DBHelper.GetDataTable(" select * from users order by crt desc ");

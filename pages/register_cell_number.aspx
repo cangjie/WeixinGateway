@@ -12,12 +12,14 @@
 
     public string nick = "";
 
+    public string fatherCellNumber = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         string currentPageUrl = Server.UrlEncode("/pages/register_cell_number.aspx");
 
         //Session["user_token"] = "a8488dfb185d7719b88315b7bcfe5d85cbd7cbbe971d175a4e1079fe22ec5724519eed31";
-        
+
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
@@ -32,10 +34,23 @@
 
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
-        string userInfoJson = Util.GetWebContent("http://" + Util.domainName.Trim() + "/get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
-        headImage = Util.GetSimpleJsonValueByKey(userInfoJson, "headimgurl");
-        nick = Util.GetSimpleJsonValueByKey(userInfoJson, "nickname");
-        
+        if (currentUser.VipLevel == 0)
+        {
+
+            string userInfoJson = Util.GetWebContent("http://" + Util.domainName.Trim() + "/get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
+            headImage = Util.GetSimpleJsonValueByKey(userInfoJson, "headimgurl");
+            nick = Util.GetSimpleJsonValueByKey(userInfoJson, "nickname");
+            string fatherOpenId = currentUser.FatherOpenId.Trim();
+            if (fatherOpenId.Trim().Equals(""))
+                fatherOpenId = currentUser.LastScanedOpenId;
+            WeixinUser fatherUser = new WeixinUser(fatherOpenId);
+            fatherCellNumber = fatherUser.CellNumber.Trim();
+        }
+        else
+        {
+            Response.Redirect("default.aspx", true);
+        }
+
     }
 </script>
 
@@ -84,6 +99,10 @@
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">验证码：</p></div>
                 <div class="col-xs-8" ><input type="text" id="verify_code"  style="width:150px" /></div>
+            </div>
+            <div class="row" >
+                <div class="col-xs-4" ><p class="text-right">推荐人手机号：</p></div>
+                <div class="col-xs-8" ><input type="text" id="father_cell_number"  style="width:150px" value="<%=fatherCellNumber %>"/></div>
             </div>
             <div class="row" >
                 <div class="col-xs-12 center-block"><button id="bind_cell_number_button" style="width:100px;" type="button"  onclick="bind_cell_number_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button></div>
