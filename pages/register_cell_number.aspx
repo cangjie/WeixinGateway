@@ -153,10 +153,11 @@
         function bind_cell_number_button_on_click() {
             var cell = document.getElementById("cell_number").value.trim();
             var verify_code = document.getElementById("verify_code").value.trim();
+            var father_cell_number = document.getElementById("father_cell_number").value.trim();
             var token = "<%=Session["user_token"].ToString()%>";
             $.ajax({
                 url: "../api/verify_code_bind_cell_number.aspx",
-                data: { cellnumber: cell, verifycode: verify_code, token: token },
+                data: { cellnumber: cell, verifycode: verify_code, token: token, father_cell_number: father_cell_number },
                 async: false,
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
