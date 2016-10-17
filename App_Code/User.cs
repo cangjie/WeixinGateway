@@ -18,6 +18,8 @@ public class WeixinUser : ObjectHelper
     }
 
 
+
+
 	public WeixinUser(string openId)
 	{
         tableName = "users";
@@ -195,6 +197,13 @@ public class WeixinUser : ObjectHelper
         {
             return _fields["father_open_id"].ToString().Trim();
         }
+        set
+        {
+            string[,] updateParameter = { { "father_open_id", "varchar", value.Trim() } };
+            string[,] keyParameter = { { "open_id", "varchar", _fields["open_id"].ToString().Trim() } };
+            DBHelper.UpdateData("users", DBHelper.ConvertStringArryToKeyValuePairArray(updateParameter),
+                DBHelper.ConvertStringArryToKeyValuePairArray(keyParameter));
+        }
     }
 
     public string LastScanedOpenId
@@ -319,6 +328,18 @@ public class WeixinUser : ObjectHelper
             ret = false;
         dt.Dispose();
         return ret;
+    }
+
+    public static string GetVipUserOpenIdByNumber(string number)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from users where cell_number = '" + number.Replace("'", "") + "' and vip_level > 0");
+        string openId = "";
+        if (dt.Rows.Count > 0)
+        {
+            openId = dt.Rows[0]["open_id"].ToString().Trim();
+        }
+        dt.Dispose();
+        return openId.Trim();
     }
 
 }
