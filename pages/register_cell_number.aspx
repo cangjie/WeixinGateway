@@ -43,8 +43,11 @@
             string fatherOpenId = currentUser.FatherOpenId.Trim();
             if (fatherOpenId.Trim().Equals(""))
                 fatherOpenId = currentUser.LastScanedOpenId;
-            WeixinUser fatherUser = new WeixinUser(fatherOpenId);
-            fatherCellNumber = fatherUser.CellNumber.Trim();
+            if (!fatherOpenId.Trim().Equals(""))
+            {
+                WeixinUser fatherUser = new WeixinUser(fatherOpenId);
+                fatherCellNumber = fatherUser.CellNumber.Trim();
+            }
         }
         else
         {
