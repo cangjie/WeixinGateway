@@ -160,7 +160,7 @@ public class DealMessage
         */
         WeixinUser user = new WeixinUser(receivedMessage.from);
         repliedMessage.messageCount = 1;
-        repliedMessage.type = "test";
+        repliedMessage.type = "text";
         repliedMessage.content = "<a href=\"http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=" + user.QrCodeSceneId.ToString() + "\"  >点击查看二维码</a>";
         return repliedMessage;
     }
