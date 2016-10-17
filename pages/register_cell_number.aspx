@@ -46,8 +46,8 @@
             if (!fatherOpenId.Trim().Equals(""))
             {
                 WeixinUser fatherUser = new WeixinUser(fatherOpenId);
+                fatherCellNumber = fatherUser.CellNumber.Trim();
             }
-            fatherCellNumber = "111";
         }
         else
         {
