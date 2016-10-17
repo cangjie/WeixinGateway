@@ -199,7 +199,7 @@ public class WeixinUser : ObjectHelper
             string openId = "";
             int sceneId = 0;
             DataTable dt = DBHelper.GetDataTable(" select top 1 * from wxreceivemsg where wxreceivemsg_from = '" + OpenId.Trim().Replace("'", "").Trim()
-                + "' and wxreceivemsg_event in ('SCAN', 'subscribe') and wxreceivemsg_eventkey <> '' order by wxreceivemst_crt desc  ");
+                + "' and wxreceivemsg_event in ('SCAN', 'subscribe') and wxreceivemsg_eventkey <> '' order by wxreceivemsg_crt desc  ");
             if (dt.Rows.Count > 0)
             {
                 string temp = dt.Rows[0]["wxreceivemsg_eventkey"].ToString().Trim();
