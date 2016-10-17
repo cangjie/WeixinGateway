@@ -149,6 +149,7 @@ public class DealMessage
 
     public static RepliedMessage CreateQrCodeReplyMessage(ReceivedMessage receivedMessage, RepliedMessage repliedMessage)
     {
+        /*
         string token = Util.GetToken();
         long scene = long.Parse(Util.GetInviteCode(receivedMessage.to.Trim()));
         string ticket = Util.GetQrCodeTicketTemp(token, scene);
@@ -156,9 +157,11 @@ public class DealMessage
         string filePathName = System.Configuration.ConfigurationSettings.AppSettings["qrcode_path"].Trim() + "\\" + scene.ToString() + ".jpg";
         Util.SaveBytesToFile(filePathName, qrCodeByteArr);
         string mediaId = Util.UploadImageToWeixin(filePathName, token);
+        */
+        WeixinUser user = new WeixinUser(receivedMessage.from);
         repliedMessage.messageCount = 1;
-        repliedMessage.type = "image";
-        repliedMessage.content = mediaId;
+        repliedMessage.type = "test";
+        repliedMessage.content = "<a href=\"http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=" + user.QrCodeSceneId.ToString() + "\"  >点击查看二维码</a>";
         return repliedMessage;
     }
 
