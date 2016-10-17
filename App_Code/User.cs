@@ -96,6 +96,8 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    
+
     public int VipLevel
     {
         get
@@ -155,10 +157,13 @@ public class WeixinUser : ObjectHelper
         }
         set
         {
-            string[,] updateParameter = { { "cell_number", "varchar", value.Trim() } };
-            string[,] keyParameter = { { "open_id", "varchar", _fields["open_id"].ToString().Trim() } };
-            DBHelper.UpdateData("users", DBHelper.ConvertStringArryToKeyValuePairArray(updateParameter), 
-                DBHelper.ConvertStringArryToKeyValuePairArray(keyParameter));
+            if (WeixinUser.CheckCellNumberHasNotBeenBinded(value.Trim()))
+            {
+                string[,] updateParameter = { { "cell_number", "varchar", value.Trim() } };
+                string[,] keyParameter = { { "open_id", "varchar", _fields["open_id"].ToString().Trim() } };
+                DBHelper.UpdateData("users", DBHelper.ConvertStringArryToKeyValuePairArray(updateParameter),
+                    DBHelper.ConvertStringArryToKeyValuePairArray(keyParameter));
+            }
         }
     }
 
@@ -304,6 +309,16 @@ public class WeixinUser : ObjectHelper
         }
         dt.Dispose();
         return cellNumber;
+    }
+
+    public static bool CheckCellNumberHasNotBeenBinded(string number)
+    {
+        DataTable dt = DBHelper.GetDataTable("select * from users where cell_number = '" + number.Trim().Replace("'", "").Trim() + "' and vip_level > 0  ");
+        bool ret = true;
+        if (dt.Rows.Count > 0)
+            ret = false;
+        dt.Dispose();
+        return ret;
     }
 
 }
