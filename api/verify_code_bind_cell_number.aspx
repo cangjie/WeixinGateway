@@ -3,10 +3,10 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string cell = Util.GetSafeRequestValue(Request, "cellnumber", "13501177897");
-        string verifyCode = Util.GetSafeRequestValue(Request, "verifycode", "653800");
-        string token = Util.GetSafeRequestValue(Request, "token", "a8488dfb185d7719b88315b7bcfe5d85cbd7cbbe971d175a4e1079fe22ec5724519eed31");
-        string fatherCellNumber = Util.GetSafeRequestValue(Request, "father_cell_number", "");
+        string cell = Util.GetSafeRequestValue(Request, "cellnumber", "18601197897");
+        string verifyCode = Util.GetSafeRequestValue(Request, "verifycode", "346643");
+        string token = Util.GetSafeRequestValue(Request, "token", "d5540d695013c873d467082403e92177d23f9f279fd8203caf57defe6b54ac555e55d9cc");
+        string fatherCellNumber = Util.GetSafeRequestValue(Request, "father_cell_number", "13501177897");
         if (Sms.CheckVerifyCode(cell, verifyCode))
         {
             WeixinUser user = new WeixinUser(WeixinUser.CheckToken(token));

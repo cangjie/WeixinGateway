@@ -159,6 +159,7 @@ public class WeixinUser : ObjectHelper
         }
         set
         {
+            _fields["cell_number"] = value.Trim();
             if (WeixinUser.CheckCellNumberHasNotBeenBinded(value.Trim()))
             {
                 string[,] updateParameter = { { "cell_number", "varchar", value.Trim() } };
