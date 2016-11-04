@@ -46,10 +46,18 @@ public class Point
             return;
         else
             openId = openIdArr[0];
-        DataTable dt = DBHelper.GetDataTable(" select * from points_imported where number = '" + number.Replace("'","") + "'  ");
+        DataTable dt = DBHelper.GetDataTable(" select * from points_imported where deal = 0 and number = '" + number.Replace("'","") + "'  ");
         foreach (DataRow dr in dt.Rows)
         {
-            Point.AddNew(openId, int.Parse(dr["points"].ToString()), DateTime.Parse("2016-12-1"), "16~17雪季前导入");
+            int i = Point.AddNew(openId, int.Parse(dr["points"].ToString()), DateTime.Parse("2016-12-1"), "16~17雪季前导入");
+            string[,] updateParameter = { { "deal", "int", i.ToString() } };
+            string[,] keyParameter = { { "id", "int", dr["id"].ToString() } };
+            int j = DBHelper.UpdateData("points_imported", updateParameter, keyParameter, Util.conStr);
+            if (j == 0)
+            {
+                string[,] deleteKeyParameter = { { "id", "int", i.ToString() } };
+                DBHelper.DeleteData("user_point_balace", deleteKeyParameter, Util.conStr);
+            }
         }
     }
 }
