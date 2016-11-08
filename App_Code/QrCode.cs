@@ -25,6 +25,19 @@ public class QrCode
         {
             _fields = dt.Rows[0];
         }
+        else
+        {
+            if (sceneId >= 1000000000)
+            {
+                dt.Dispose();
+                CreateScene(sceneId);
+                dt = DBHelper.GetDataTable(" select * from qr_code_scene where [id] = " + sceneId.ToString(), Util.conStr.Trim());
+                if (dt.Rows.Count > 0)
+                {
+                    _fields = dt.Rows[0];
+                }
+            }
+        }
     }
 
     public int ID
@@ -79,7 +92,7 @@ public class QrCode
         }
         string token = Util.GetToken();
         string ticketString = Util.GetSimpleJsonValueByKey(Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + token.Trim(), "POST",
-            "{\"expire_seconds\": 604800, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": "
+            "{\"expire_seconds\": 2592000, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": "
             + sceneId.ToString() + " }}}", "text/html"), "ticket").Trim();
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" + ticketString.Trim());
         HttpWebResponse res = (HttpWebResponse)req.GetResponse();
@@ -124,7 +137,7 @@ public class QrCode
     {
         string path = "";
         QrCode qrCode = new QrCode(sceneId);
-        TimeSpan span = new TimeSpan(0, 0, 403200);
+        TimeSpan span = new TimeSpan(0, 0, 2500000);
         if ((DateTime.Now - qrCode.LastUpdateTime) > span || !qrCode.Path.Trim().EndsWith(".jpg"))
         {
             path = GenerateNewQrCode(sceneId, qrRootPath);
@@ -137,15 +150,39 @@ public class QrCode
         return path;
     }
 
-    public static int CreateScene()
+    public static int CreateScene(int id)
     {
-        int i = DBHelper.InsertData("qr_code_scene", new string[,] { { "last_update_time", "DateTime", DateTime.Now.ToString() } });
+        if (id < 1000000000)
+            return -2;
+        int i = DBHelper.InsertData("qr_code_scene", new string[,] { { "id", "int", id.ToString() } { "last_update_time", "DateTime", DateTime.Now.ToString() } });
         if (i > 0)
         {
-            DataTable dt = DBHelper.GetDataTable(" select max(id) from qr_code_scene", Util.conStr);
-            i = int.Parse(dt.Rows[0][0].ToString().Trim());
-            dt.Dispose();
-            return i;
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public static int CreateScene()
+    {
+        DataTable dtMax = DBHelper.GetDataTable("select max(id) from qr_code_scene where [id] < 1000000000", Util.conStr);
+        int maxId = 1;
+        try
+        {
+            maxId = int.Parse(dtMax.Rows[0][0].ToString());
+            maxId++;
+        }
+        catch
+        {
+
+        }
+        dtMax.Dispose();
+        int i = DBHelper.InsertData("qr_code_scene", new string[,] { {"id", "int", maxId.ToString() } { "last_update_time", "DateTime", DateTime.Now.ToString() } });
+        if (i > 0)
+        {
+            return maxId;
         }
         else
         {
