@@ -42,15 +42,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
         function select_ticket(id) {
-            alert(id);
+            //alert(id);
             var ticket_array = document.getElementsByName("ticket");
-            for(var i = 0 ; i < ticket_array.length ; i++) {
+            for (var i = 0; i < ticket_array.length; i++) {
                 var ticket = ticket_array[i];
-                if (ticket.id == "ticket-" + id) {
-                    ticket.className = "panel panel-danger";
-                }
-                else {
-                    ticket.className = "panel panel-info";
+                //alert(ticket.className);
+                if (ticket.className != "panel panel-default") {
+
+                    if (ticket.id == "ticket-" + id) {
+                        ticket.className = "panel panel-danger";
+                    }
+                    else {
+                        ticket.className = "panel panel-info";
+                    }
                 }
             }
         }
@@ -64,7 +68,7 @@
     for (int i = 0; i < ticketTemplateArray.Length; i++)
     {
         string className = "panel panel-info";
-        string onClick = "select_ticket('" + i.ToString() + "')";
+        string onClick = "select_ticket('" +  ticketTemplateArray[i].id.ToString() + "')";
 
         if (userPoints < ticketTemplateArray[i].neetPoints)
         {
@@ -73,7 +77,7 @@
         }
 
         %>
-        <div id="ticket-<%=i.ToString() %>" name="ticket" class="<%=className %>" style="width:350px" <%if (!onClick.Trim().Equals(""))
+        <div id="ticket-<%=ticketTemplateArray[i].id.ToString() %>" name="ticket" class="<%=className %>" style="width:350px" <%if (!onClick.Trim().Equals(""))
             { %> onclick="<%=onClick.Trim() %>" <%} %> >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=ticketTemplateArray[i].neetPoints.ToString() %>龙珠兑换代金券<%=ticketTemplateArray[i].currencyValue.ToString() %>元</h3>
