@@ -144,4 +144,20 @@ public class Ticket
 
         return retCode;
     }
+
+    public static TicketTemplate[] GetAllTicketTemplate()
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from ticket_template where valid = 1 order by [id] ");
+        TicketTemplate[] ticketTemplateArray = new TicketTemplate[dt.Rows.Count];
+        for (int i = 0; i < ticketTemplateArray.Length; i++)
+        {
+            ticketTemplateArray[i] = new TicketTemplate();
+            ticketTemplateArray[i].id = int.Parse(dt.Rows[i]["id"].ToString());
+            ticketTemplateArray[i].availableDays = int.Parse(dt.Rows[i]["available_days"].ToString());
+            ticketTemplateArray[i].currencyValue = int.Parse(dt.Rows[i]["currency_value"].ToString());
+            ticketTemplateArray[i].memo = dt.Rows[i]["memo"].ToString().Trim();
+            ticketTemplateArray[i].neetPoints = int.Parse(dt.Rows[i]["need_points"].ToString());
+        }
+        return ticketTemplateArray;
+    }
 }
