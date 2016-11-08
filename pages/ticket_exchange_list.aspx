@@ -42,6 +42,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
         function select_ticket(id) {
+            alert(id);
             var ticket_array = document.getElementsByName("ticket");
             for(var i = 0 ; i < ticket_array.length ; i++) {
                 var ticket = ticket_array[i];
