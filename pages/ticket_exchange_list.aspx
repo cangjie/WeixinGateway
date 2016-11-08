@@ -40,6 +40,20 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" >
+        function select_ticket(id) {
+            var ticket_array = document.getElementsByName("ticket");
+            for(var i = 0 ; i < ticket_array.length ; i++) {
+                var ticket = ticket_array[i];
+                if (ticket.id == "ticket-" + id) {
+                    ticket.className = "panel panel-danger";
+                }
+                else {
+                    ticket.className = "panel panel-info";
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <div style="margin-left: 5px" >
