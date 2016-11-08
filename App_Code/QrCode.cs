@@ -154,7 +154,7 @@ public class QrCode
     {
         if (id < 1000000000)
             return -2;
-        int i = DBHelper.InsertData("qr_code_scene", new string[,] { { "id", "int", id.ToString() } { "last_update_time", "DateTime", DateTime.Now.ToString() } });
+        int i = DBHelper.InsertData("qr_code_scene", new string[,] { { "id", "int", id.ToString() }, { "last_update_time", "DateTime", DateTime.Now.ToString() } });
         if (i > 0)
         {
             return 1;
@@ -179,7 +179,7 @@ public class QrCode
 
         }
         dtMax.Dispose();
-        int i = DBHelper.InsertData("qr_code_scene", new string[,] { {"id", "int", maxId.ToString() } { "last_update_time", "DateTime", DateTime.Now.ToString() } });
+        int i = DBHelper.InsertData("qr_code_scene", new string[,] { {"id", "int", maxId.ToString() } ,{ "last_update_time", "DateTime", DateTime.Now.ToString() } });
         if (i > 0)
         {
             return maxId;
