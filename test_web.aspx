@@ -6,7 +6,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Point.ImportPointsByNumber("18601197897");
+        Ticket.GenerateNewTicket("adfasdfasdf", 1);
     }
 </script>
 

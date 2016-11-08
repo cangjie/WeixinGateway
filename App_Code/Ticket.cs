@@ -82,7 +82,7 @@ public class Ticket
         string code = "";
         for (; code.Trim().Equals("");)
         {
-            string codeTemp = GetRandomString(8);
+            string codeTemp = GetRandomString(9);
             DataTable dt = DBHelper.GetDataTable(" select * from ticket where code = '" + codeTemp.Trim() + "'  ");
             if (dt.Rows.Count == 0)
             {
@@ -106,6 +106,8 @@ public class Ticket
         charHash.Add(6, '7');
         charHash.Add(7, '8');
         charHash.Add(8, '9');
+        charHash.Add(9, '0');
+        /*
         charHash.Add(9, 'A');
         charHash.Add(10, 'B');
         charHash.Add(11, 'C');
@@ -131,7 +133,7 @@ public class Ticket
         charHash.Add(31, 'X');
         charHash.Add(32, 'Y');
         charHash.Add(33, 'Z');
-
+        */
         string retCode = "";
         Random rnd = new Random();
         for (int i = 0; i < digit; i++)
