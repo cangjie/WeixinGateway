@@ -72,7 +72,7 @@
         }
 
         %>
-        <div id="ticket-<%=i.ToString() %>" name="ticket" class="<%=className %>" style="width:350px" <%if (onClick.Trim().Equals(""))
+        <div id="ticket-<%=i.ToString() %>" name="ticket" class="<%=className %>" style="width:350px" <%if (!onClick.Trim().Equals(""))
             { %> onclick="<%=onClick.Trim() %>" <%} %> >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=ticketTemplateArray[i].neetPoints.ToString() %>龙珠兑换代金券<%=ticketTemplateArray[i].currencyValue.ToString() %>元</h3>
