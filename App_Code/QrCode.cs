@@ -18,7 +18,7 @@ public class QrCode
 
     }
 
-    public QrCode(int sceneId)
+    public QrCode(long sceneId)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from qr_code_scene where [id] = " + sceneId.ToString(), Util.conStr.Trim());
         if (dt.Rows.Count > 0)
@@ -80,7 +80,7 @@ public class QrCode
         }
     }
 
-    public static string GenerateNewQrCode(int sceneId, string qrRootPath)
+    public static string GenerateNewQrCode(long sceneId, string qrRootPath)
     {
         string webPhysicalPath = System.Configuration.ConfigurationSettings.AppSettings["web_site_physical_path"].Trim();
         string qrCodePath = qrRootPath + "/" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0')
@@ -133,7 +133,7 @@ public class QrCode
         return qrCodePath + "/" + sceneId.ToString() + ".jpg";
     }
 
-    public static string GetQrCode(int sceneId, string qrRootPath)
+    public static string GetQrCode(long sceneId, string qrRootPath)
     {
         string path = "";
         QrCode qrCode = new QrCode(sceneId);
@@ -150,7 +150,7 @@ public class QrCode
         return path;
     }
 
-    public static int CreateScene(int id)
+    public static int CreateScene(long id)
     {
         if (id < 1000000000)
             return -2;

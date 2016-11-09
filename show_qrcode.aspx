@@ -4,7 +4,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int sceneId = int.Parse(Util.GetSafeRequestValue(Request, "sceneid", "1"));
+        long sceneId = long.Parse(Util.GetSafeRequestValue(Request, "sceneid", "1"));
         //QrCode qrCode = new QrCode(sceneId);
         string path = QrCode.GetQrCode(sceneId, "images/qrcode");
 
