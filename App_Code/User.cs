@@ -285,7 +285,7 @@ public class WeixinUser : ObjectHelper
         conn.Dispose();
         return token;
     }
-
+    /*
     public static string GetOpenIdByToken(string token)
     { 
        DataTable dt = DBHelper.GetDataTable(" select * from tokens where token = '" 
@@ -308,7 +308,7 @@ public class WeixinUser : ObjectHelper
         return openId.Trim();
         //return true;
     }
-
+    */
     public static string[] GetOpenIdByCellNumber(string number)
     {
         DataTable dt = DBHelper.GetDataTable(" select open_id from users where cell_number = '" + number.Trim().Replace("'", "").Trim() + "'  ");

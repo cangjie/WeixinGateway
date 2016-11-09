@@ -6,7 +6,7 @@
     {
         string token = Util.GetSafeRequestValue(Request, "token", "").Trim();
         int templateId = int.Parse(Util.GetSafeRequestValue(Request, "templateid", "1"));
-        string userOpenId = WeixinUser.GetOpenIdByToken(token).Trim();
+        string userOpenId = WeixinUser.CheckToken(token).Trim();
         Ticket.TicketTemplate ticketTemplate = Ticket.GetTicketTemplate(templateId);
         WeixinUser user = new WeixinUser(userOpenId);
 
