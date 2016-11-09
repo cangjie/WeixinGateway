@@ -65,6 +65,9 @@ public class DBHelper
             case "test":
                 sqlType = SqlDbType.Text;
                 break;
+            case "bigint":
+                sqlType = SqlDbType.BigInt;
+                break;
             default:
                 sqlType = SqlDbType.VarChar;
                 break;
