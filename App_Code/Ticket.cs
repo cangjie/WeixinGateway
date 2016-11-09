@@ -21,6 +21,11 @@ public class Ticket
 
     public DataRow _fields;
 
+    public Ticket()
+    {
+
+    }
+
     public Ticket(string code)
     {
         //
@@ -159,5 +164,31 @@ public class Ticket
             ticketTemplateArray[i].neetPoints = int.Parse(dt.Rows[i]["need_points"].ToString());
         }
         return ticketTemplateArray;
+    }
+
+    public static Ticket[] GetUserAllTickets(string openId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from ticket where user_open_id = '" + openId + "'  order by expire_date ");
+        Ticket[] ticketArray = new Ticket[dt.Rows.Count];
+        for (int i = 0; i < ticketArray.Length; i++)
+        {
+            ticketArray[i] = new Ticket();
+            ticketArray[i]._fields = dt.Rows[i];
+        }
+        return ticketArray;
+    }
+
+    public static Ticket[] GetUserTickets(string openId, bool isUsed)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from ticket where user_open_id = '" + openId + "' "
+            + " and " + (isUsed?" used = 1 ":" used = 0 ")
+            + "  order by expire_date ");
+        Ticket[] ticketArray = new Ticket[dt.Rows.Count];
+        for (int i = 0; i < ticketArray.Length; i++)
+        {
+            ticketArray[i] = new Ticket();
+            ticketArray[i]._fields = dt.Rows[i];
+        }
+        return ticketArray;
     }
 }
