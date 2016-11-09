@@ -45,6 +45,11 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" >
+        function go_to_ticket_detail(code) {
+            window.location.href = "ticket_detail.aspx?code=" + code;
+        }
+    </script>
 </head>
 <body>
     <div style="margin-left: 5px" >
@@ -60,7 +65,7 @@
     foreach (Ticket t in ticketArray)
     {
                  %>
-            <div id="ticket-<%=t.Code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px" >
+            <div id="ticket-<%=t.Code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px" onclick="go_to_ticket_detail('<%=t.Code.Trim() %>')" >
                 <div class="panel-heading">
                     <h3 class="panel-title">代金券<%=Math.Round(t.Amount, 2).ToString() %>元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期日：<%=t.ExpireDate.ToShortDateString() %></h3>
                 </div>
