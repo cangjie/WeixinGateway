@@ -89,6 +89,7 @@
         <%
     }
      %>
+        <button type="button" class="btn btn-danger" >我要兑换（此操作不可逆）</button>
     </div>
 </body>
 </html>
