@@ -41,22 +41,42 @@
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
+        var current_id = "";
+        var token = "<%=Session["user_token"].ToString().Trim()%>";
         function select_ticket(id) {
             //alert(id);
+            
             var ticket_array = document.getElementsByName("ticket");
             for (var i = 0; i < ticket_array.length; i++) {
                 var ticket = ticket_array[i];
                 //alert(ticket.className);
                 if (ticket.className != "panel panel-default") {
-
                     if (ticket.id == "ticket-" + id) {
                         ticket.className = "panel panel-danger";
+                        current_id = id;
                     }
                     else {
                         ticket.className = "panel panel-info";
                     }
                 }
             }
+        }
+
+        function exchange() {
+            var ajax_url = "../api/exchange_dragon_ball_to_ticket.aspx?token=" + token + "&templateid=" + current_id;
+            $.ajax({
+                url:        ajax_url,
+                async:      false,
+                success:    function (msg, status) {
+                                var msg_object = eval("(" + msg + ")");
+                                if (msg_object.status == 0) {
+                                    alert("success");
+                                }
+                                else {
+                                    alert(msg_object.error_message);
+                                }
+                            }
+            });
         }
     </script>
 </head>
@@ -89,7 +109,8 @@
         <%
     }
      %>
-        <button type="button" class="btn btn-danger" >我要兑换（此操作不可逆）</button>
+        <button type="button" class="btn btn-danger" onclick="exchange()" >我要兑换（此操作不可逆）</button>
+        <br />
     </div>
 </body>
 </html>
