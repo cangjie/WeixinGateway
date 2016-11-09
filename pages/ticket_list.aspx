@@ -60,6 +60,7 @@
     foreach (Ticket t in ticketArray)
     {
                  %>
+             <br />
             <div id="ticket-<%=t.Code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px" >
                 <div class="panel-heading">
                     <h3 class="panel-title">代金券<%=Math.Round(t.Amount, 2).ToString() %>元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期日：<%=t.ExpireDate.ToShortDateString() %></h3>
