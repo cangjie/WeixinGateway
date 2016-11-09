@@ -47,11 +47,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-    <div>
+    <div style="margin-left: 5px" >
         <div id="nav" >
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" <%if (!used)
-                    { %> class="active" <%} %><a href="ticket_list.aspx">未使用</a></li>
+                    { %> class="active" <%} %> ><a href="ticket_list.aspx">未使用</a></li>
                 <li role="presentation" <%if (used) {%> class="active" <%} %> ><a href="ticket_list.aspx?used=1">已使用</a></li>
             </ul>
         </div>
