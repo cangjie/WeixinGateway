@@ -40,11 +40,11 @@ public class QrCode
         }
     }
 
-    public int ID
+    public long ID
     {
         get
         {
-            return int.Parse(_fields["id"].ToString().Trim());
+            return long.Parse(_fields["id"].ToString().Trim());
         }
     }
 
