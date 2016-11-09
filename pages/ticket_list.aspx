@@ -55,6 +55,22 @@
                 <li role="presentation" <%if (used) {%> class="active" <%} %> ><a href="ticket_list.aspx?used=1">已使用</a></li>
             </ul>
         </div>
+        <div id="tickets" >
+            <%
+    foreach (Ticket t in ticketArray)
+    {
+                 %>
+            <div id="ticket-<%=t.Code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">代金券<%=Math.Round(t.Amount, 2).ToString() %>元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期日：<%=t.ExpireDate.ToShortDateString() %></h3>
+                </div>
+                <div class="panel-body">
+                    <%=t._fields["memo"].ToString().Trim() %>
+                </div>
+            </div>
+            <%}
+                 %>
+        </div>
     </div>
 </body>
 </html>

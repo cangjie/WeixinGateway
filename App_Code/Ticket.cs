@@ -40,6 +40,46 @@ public class Ticket
         }
     }
 
+    public string Code
+    {
+        get
+        {
+            return _fields["code"].ToString();
+        }
+    }
+
+    public WeixinUser Owner
+    {
+        get
+        {
+            return new WeixinUser(_fields["user_open_id"].ToString().Trim());
+        }
+    }
+
+    public double Amount
+    {
+        get
+        {
+            return double.Parse(_fields["amount"].ToString());
+        }
+    }
+
+    public DateTime ExpireDate
+    {
+        get
+        {
+            return DateTime.Parse(_fields["expire_date"].ToString());
+        }
+    }
+
+    public bool Used
+    {
+        get
+        {
+            return _fields["used"].ToString().Equals("1");
+        }
+    }
+
     public static TicketTemplate GetTicketTemplate(int templateId)
     {
         TicketTemplate tt = new TicketTemplate();
