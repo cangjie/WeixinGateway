@@ -59,7 +59,7 @@ public class QrCode
             string[,] updateParameters = new string[,] {
                 {"path", "varchar", value.Trim()},
                 {"last_update_time", "DateTime", DateTime.Now.ToString()}};
-            string[,] keyParameters = new string[,] { { "id", "int", ID.ToString() } };
+            string[,] keyParameters = new string[,] { { "id", "bigint", ID.ToString() } };
             DBHelper.UpdateData("qr_code_scene", updateParameters, keyParameters, Util.conStr);
 
         }
@@ -179,7 +179,7 @@ public class QrCode
 
         }
         dtMax.Dispose();
-        int i = DBHelper.InsertData("qr_code_scene", new string[,] { {"id", "int", maxId.ToString() } ,{ "last_update_time", "DateTime", DateTime.Now.ToString() } });
+        int i = DBHelper.InsertData("qr_code_scene", new string[,] { {"id", "bigint", maxId.ToString() } ,{ "last_update_time", "DateTime", DateTime.Now.ToString() } });
         if (i > 0)
         {
             return maxId;
