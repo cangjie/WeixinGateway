@@ -27,7 +27,7 @@
 
         if (!currentUser.IsAdmin && ticket.Used)
         {
-           // Response.End();
+            Response.End();
         }
     }
 </script>
@@ -45,6 +45,28 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="../../js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" >
+        function use_ticket() {
+            var code = "<%=ticket.Code.Trim()%>";
+            var token = "<%=Session["user_token"].ToString().Trim()%>";
+            var word = document.getElementById("word").innerText;
+            $.ajax({
+                url:        "../../../api/use_ticket.aspx",
+                async:      false,
+                data:       { code: code, token: token, word: word },
+                success:    function (msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    if (msg_object.status == 0) {
+                        alert("success");
+                        window.close();
+                    }
+                    else {
+                        alert("failed");
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div style="margin-left: 5px" >
@@ -63,8 +85,8 @@
                     <%=ticket.Owner.CellNumber.Trim() %> <%=ticket.Owner.Nick.Trim() %>
                     <br /><br />
                     <p style="text-align:left" >填写备注<br /></p>
-                    <textarea rows="3" cols="38"  ></textarea>  <br />
-                    <button class="btn btn-default" >确认使用</button>
+                    <textarea id="word" rows="3" cols="38"  ></textarea>  <br />
+                    <button class="btn btn-default" onclick="use_ticket()" >确认使用</button>
                 </div>
             </div>
         </div>
