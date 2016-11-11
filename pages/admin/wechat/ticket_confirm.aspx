@@ -25,7 +25,7 @@
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
-        if (!currentUser.IsAdmin && ticket.Used)
+        if (!currentUser.IsAdmin || ticket.Used)
         {
             Response.End();
         }
@@ -49,7 +49,7 @@
         function use_ticket() {
             var code = "<%=ticket.Code.Trim()%>";
             var token = "<%=Session["user_token"].ToString().Trim()%>";
-            var word = document.getElementById("word").innerText;
+            var word = document.getElementById("word").value;
             $.ajax({
                 url:        "../../../api/use_ticket.aspx",
                 async:      false,
