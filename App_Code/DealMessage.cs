@@ -119,10 +119,43 @@ public class DealMessage
     public static RepliedMessage DealCommonEventMessage(ReceivedMessage receivedMessage)
     {
         RepliedMessage repliedMessage = new RepliedMessage();
+        /*
         if (receivedMessage.eventKey.ToLower().Trim().StartsWith("http://www.luqinwenda.com/index.php?app=public&mod=landingpage"))
         {
             Util.DealLandingRequest(receivedMessage.from);
         }
+        */
+        switch (receivedMessage.userEvent.ToUpper())
+        {
+            case "SCAN":
+                WeixinUser user = new WeixinUser(receivedMessage.from);
+                if (receivedMessage.eventKey.Trim().StartsWith("3") && user.IsAdmin)
+                {
+                    try
+                    {
+                        string ticketCode = receivedMessage.eventKey.Substring(1, 9);
+                        repliedMessage.type = "news";
+                        RepliedMessage.news content = new RepliedMessage.news();
+                        content.title = "确认消费抵用券";
+                        content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
+                        content.url = "http://weixin.snowmeet.com/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
+                        content.description = "";
+                        repliedMessage.newsContent = new RepliedMessage.news[] { content };
+                    }
+                    catch
+                    {
+
+                    }
+
+                    
+
+                }
+                break;
+            default:
+                break;
+        }
+
+
         return repliedMessage;
     }
 
