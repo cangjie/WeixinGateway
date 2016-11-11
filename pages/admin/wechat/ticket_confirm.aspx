@@ -61,6 +61,9 @@
                     <b style="text-align:center" ><%=ticket.Code.Substring(0,3) %>-<%=ticket.Code.Substring(3,3) %>-<%=ticket.Code.Substring(6,3) %></b>
                     <br />
                     <%=ticket.Owner.CellNumber.Trim() %> <%=ticket.Owner.Nick.Trim() %>
+                    <br />
+                    <input class="form-control" id="word" placeholder="备注" /><br />
+                    <button class="btn btn-default" >确认使用</button>
                 </div>
             </div>
         </div>
