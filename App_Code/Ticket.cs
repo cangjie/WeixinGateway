@@ -40,6 +40,27 @@ public class Ticket
         }
     }
 
+    public bool Use(string word)
+    {
+        if (!Used)
+        {
+            string[,] updateParameters = new string[,] { { "used", "int", "1" },
+                {"use_date", "datetime", DateTime.Now.ToString() },
+                {"use_memo", "varchar", word } };
+            string[,] keyParameter = new string[,] { { "code", "varchar", Code.Trim() } };
+            int i = DBHelper.UpdateData("ticket", updateParameters, keyParameter, Util.conStr);
+            if (i == 1)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+       
+    }
+
     public string Code
     {
         get

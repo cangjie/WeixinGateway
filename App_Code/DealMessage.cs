@@ -136,7 +136,7 @@ public class DealMessage
                         string ticketCode = receivedMessage.eventKey.Substring(1, 9);
                         repliedMessage.type = "news";
                         RepliedMessage.news content = new RepliedMessage.news();
-                        content.title = "确认消费抵用券";
+                        content.title = "确认消费抵用券-"+ticketCode;
                         content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
                         content.url = "http://weixin.snowmeet.com/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
                         content.description = "";
