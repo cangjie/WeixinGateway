@@ -62,7 +62,7 @@
                     <br />
                     <%=ticket.Owner.CellNumber.Trim() %> <%=ticket.Owner.Nick.Trim() %>
                     <br />
-                    <input class="form-control" id="word" placeholder="备注" /><br />
+                    <input class="form-control" id="word" placeholder="备注" style="height:20px" /><br />
                     <button class="btn btn-default" >确认使用</button>
                 </div>
             </div>
