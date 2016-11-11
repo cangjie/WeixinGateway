@@ -141,6 +141,8 @@ public class DealMessage
                         content.url = "http://weixin.snowmeet.com/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
                         content.description = "";
                         repliedMessage.newsContent = new RepliedMessage.news[] { content };
+                        repliedMessage.from = receivedMessage.to;
+                        repliedMessage.to = receivedMessage.from;
                     }
                     catch
                     {
