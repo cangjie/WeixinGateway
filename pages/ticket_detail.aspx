@@ -55,9 +55,11 @@
             <div class="panel-body">
                     <%=ticket._fields["memo"].ToString().Trim() %>
                 <br />
-                <img src="../show_qrcode.aspx?sceneid=3<%=ticket.Code %>" style="width:200px" />
-                <br />
-                <b><%=ticket.Code.Substring(0,3) %>-<%=ticket.Code.Substring(3,3) %>-<%=ticket.Code.Substring(6,3) %></b>
+                <div style="text-align:center" >
+                    <img src="../show_qrcode.aspx?sceneid=3<%=ticket.Code %>" style="width:200px; text-align:center"  />
+                    <br />
+                    <b style="text-align:center" ><%=ticket.Code.Substring(0,3) %>-<%=ticket.Code.Substring(3,3) %>-<%=ticket.Code.Substring(6,3) %></b>
+                </div>
             </div>
         </div>
     </div>
