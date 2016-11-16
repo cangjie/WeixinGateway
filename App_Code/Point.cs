@@ -9,11 +9,30 @@ using System.Data;
 /// </summary>
 public class Point
 {
+
+    public DataRow _fields;
+
     public Point()
     {
         //
         // TODO: Add constructor logic here
         //
+    }
+
+    public int Points
+    {
+        get
+        {
+            return int.Parse(_fields["points"].ToString());
+        }
+    }
+
+    public DateTime TransactDate
+    {
+        get
+        {
+            return DateTime.Parse(_fields["transact_date"].ToString());
+        }
     }
 
     public static int AddNew(string openId, int points, DateTime transDate, string memo)
@@ -60,4 +79,19 @@ public class Point
             }
         }
     }
+
+    public static Point[] GetUserBalance(string openId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from user_point_balance where user_open_id = '" + openId.Trim().Replace("'", "") 
+            + "' order by transact_date desc  ");
+        Point[] pointArray = new Point[dt.Rows.Count];
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+            pointArray[i] = new Point();
+            pointArray[i]._fields = dt.Rows[i];
+        }
+        return pointArray;
+
+    }
+
 }
