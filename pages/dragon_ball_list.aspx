@@ -82,7 +82,7 @@
 </head>
 <body>
     <div>
-        <div class="alert alert-info" role="alert">您当前的拥有龙珠：<%=balanceTable.Rows[0]["余额"].ToString() %>颗，可以立即<button type="button" class="btn btn-link">兑换消费抵用券</button>。</div>
+        <div class="alert alert-info" role="alert">您当前的拥有龙珠：<%=balanceTable.Rows[0]["余额"].ToString() %>颗，可以立即<button type="button" class="btn btn-danger">兑换消费抵用券</button>。</div>
         <table class="table table-striped" >
             <tr>
                 <td>日期</td>
