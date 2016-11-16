@@ -12,7 +12,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string currentPageUrl = Server.UrlEncode("../pages/dragon_ball_list.aspx");
+        string currentPageUrl = Server.UrlEncode("/pages/dragon_ball_list.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
@@ -53,10 +53,11 @@
             }
             else
             {
-                dr["支出"] = p.Points.ToString();
+                dr["支出"] = (-1*p.Points).ToString();
                 dr["收入"] = "";
             }
             dr["余额"] = sum.ToString();
+            sum = sum - p.Points;
             dr["备注"] = p._fields["memo"].ToString();
             balanceTable.Rows.Add(dr);
         }
