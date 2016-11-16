@@ -81,7 +81,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
         function go_to_exchange() {
-            window.location.href = "ticket_list.aspx";
+            window.location.href = "ticket_exchange_list.aspx";
         }
     </script>
 </head>
