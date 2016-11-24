@@ -578,4 +578,15 @@ public class Util
         dt.Dispose();
         da.Dispose();
     }
+
+    public static byte[] GetBinaryFileContent(string filePathName)
+    {
+        FileStream fileStream = File.OpenRead(filePathName);
+        byte[] bArr = new byte[fileStream.Length];
+        for (long i = 0; i < fileStream.Length; i++)
+        {
+            bArr[i] = (byte)fileStream.ReadByte();
+        }
+        return bArr;
+    }
 }
