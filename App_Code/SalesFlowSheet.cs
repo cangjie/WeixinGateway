@@ -23,6 +23,12 @@ public class SalesFlowSheet
     public static string[] fieldNameUsedTicketAmount = { "代金券总面值" };
     public static string[] fieldNameRealPaidAmount = { "抵扣完订单金额" };
     public static string[] fieldNameGenerateDragonBallCount = { "易龙豆数量", "本次生成易龙豆" };
+    public static string[] fieldNameNumber = { "电话" };
+    public static string[] fieldNameMemberName = { "会员名" };
+    public static string[] fieldNameGoodType = { "品类" };
+    public static string[] fieldNameGoodBrand = { "品牌" };
+    public static string[] fieldNameGoodStyle = { "款式" };
+    public static string[] fieldNameOrderDate = { "日期" };
 
     public int fieldPositionFlowNumber = -1;
     public int fieldPositionCount = -1;
@@ -37,7 +43,12 @@ public class SalesFlowSheet
     public int fieldPositionRealPaidAmount = -1;
     public int fieldPositionGenerateDragonBallCount = -1;
     public int fieldPositionOrderShouldPaidAmount = -1;
-
+    public int fieldPositionNumber = -1;
+    public int fieldPositionMemberName = -1;
+    public int fieldPositionGoodType = -1;
+    public int fieldPositionGoodBrand = -1;
+    public int fieldPositionGoodStyle = -1;
+    public int fieldPositionOrderDate = -1;
     public string filePath = "";
 
     public Microsoft.Office.Interop.Excel.Application app;
@@ -205,6 +216,48 @@ public class SalesFlowSheet
                     break;
                 }
             }
+            foreach (string s in fieldNameNumber)
+            {
+                if (currentFieldName.Equals(s))
+                {
+                    fieldPositionNumber = i;
+                }
+            }
+            foreach (string s in fieldNameMemberName)
+            {
+                if (currentFieldName.Equals(s))
+                {
+                    fieldPositionMemberName = i;
+                }
+            }
+            foreach (string s in fieldNameGoodType)
+            {
+                if (currentFieldName.Equals(s))
+                {
+                    fieldPositionGoodType = i;
+                }
+            }
+            foreach (string s in fieldNameGoodBrand)
+            {
+                if (currentFieldName.Equals(s))
+                {
+                    fieldPositionGoodBrand = i;
+                }
+            }
+            foreach (string s in fieldNameGoodStyle)
+            {
+                if (currentFieldName.Equals(s))
+                {
+                    fieldPositionGoodStyle = i;
+                }
+            }
+            foreach (string s in fieldNameOrderDate)
+            {
+                if (currentFieldName.Equals(s))
+                {
+                    fieldPositionOrderDate = i;
+                }
+            }
         }
 
     }
@@ -229,6 +282,8 @@ public class SalesFlowSheet
                     if (orderDetail.IsValid)
                     {
                         order.AddItem(orderDetail);
+                        //if (order.cellNumber.Trim().Equals("") && !orderDetail.cellNumber.Equals(""))
+                        //    order.cellNumber = orderDetail.cellNumber.Trim();
                     }
                 }
                 if (fieldPositionOrderPrice != -1)
@@ -253,6 +308,7 @@ public class SalesFlowSheet
                     WriteBackToExcel(order.startIndex, fieldPositionGenerateDragonBallCount, ((int)order.GenerateDraonBallCount).ToString());
                 }
                 workbook.Save();
+                order.Save();
             }
         }
         
@@ -358,6 +414,37 @@ public class SalesFlowSheet
             {
 
             }
+        }
+        if (fieldPositionNumber != -1)
+        {
+            orderDetail.cellNumber = GetCellText(i, fieldPositionNumber);
+        }
+        if (fieldPositionMemberName != -1)
+        {
+            orderDetail.memberName = GetCellText(i, fieldPositionMemberName);
+        }
+        if (fieldPositionGoodType != -1)
+        {
+            orderDetail.goodName = GetCellText(i, fieldPositionGoodType);
+        }
+        if (fieldPositionGoodBrand != -1)
+        {
+            orderDetail.goodName = orderDetail.goodName + " " + GetCellText(i, fieldPositionGoodBrand);
+        }
+        if (fieldPositionGoodStyle != -1)
+        {
+            orderDetail.goodName = orderDetail.goodName + " " + GetCellText(i, fieldPositionGoodStyle);
+        }
+        try
+        {
+            if (fieldPositionOrderDate != -1)
+            {
+                orderDetail.orderDate = DateTime.Parse(GetCellText(i, fieldPositionOrderDate));
+            }
+        }
+        catch
+        {
+
         }
         return orderDetail;
     }

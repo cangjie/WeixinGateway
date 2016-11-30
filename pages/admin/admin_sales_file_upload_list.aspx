@@ -15,7 +15,15 @@
     protected void btnUpload_Click(object sender, EventArgs e)
     {
         string fileName = SaveUploadedFile();
-        DealFile(fileName);
+        if (!fileName.Trim().Equals(""))
+        {
+            DealFile(fileName);
+        }
+        else
+        {
+
+        }
+        
     }
 
     public string SaveUploadedFile()
@@ -24,7 +32,11 @@
         fileUpload.SaveAs(Server.MapPath(fileUploadPath + "/" + fileName.Trim()));
         if (!IsFileExists(fileName))
         {
-            fileUpload.SaveAs(Server.MapPath(fileUploadPath+"/"+fileName));
+            fileUpload.SaveAs(Server.MapPath(fileUploadPath + "/" + fileName));
+        }
+        else
+        {
+            fileName = "";
         }
         return fileName.Trim();
     }
@@ -67,7 +79,9 @@
 
     public void DealFile(string fileName)
     {
-
+        SalesFlowSheet sfs = new SalesFlowSheet(Server.MapPath(fileDownloadPath + "/" + fileName.Trim()));
+        sfs.SetFieldsPosition();
+        sfs.FillDragonBallBlank();
     }
 
 

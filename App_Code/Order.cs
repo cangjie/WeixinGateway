@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 /// <summary>
 /// Summary description for Order
@@ -19,12 +20,106 @@ public class Order
     private double disCountRate = 0;
     private double dragonBallRate = 0;
     private int generateDragonBallCount = 0;
-    
+    //public string openId = "";
+    //public string cellNumber = "";
 
 
     public Order()
     {
         
+    }
+
+    
+
+    public int Save()
+    {
+        int i = 0;
+        if (!HaveImported && Date >= DateTime.Parse("2016-12-1"))
+        {
+            string[,] insertParam = { {"flow_number", "varchar", flowNumber.Trim() },
+                {"open_id", "varchar", "" },
+                {"member_name", "varchar", MemberName.Trim() },
+                {"cell_number", "varchar", CellNumber.Trim() },
+                {"price", "float", OrderPrice.ToString() },
+                {"dragon_ball_used", "int", UsedDragonBallCount.ToString() },
+                {"ticket_used_amount", "float", UsedTicketAmount.ToString().Trim() },
+                {"real_paid_summary", "float", RealPaidAmount.ToString() },
+                {"dragon_ball_rate", "float", DragonBallRate.ToString().Trim() },
+                {"dragon_ball_generated", "int", GenerateDraonBallCount.ToString() },
+                {"order_date", "datetime", Date.ToShortDateString() } };
+            i = DBHelper.InsertData("orders", insertParam);
+            if (i > 0)
+            {
+                foreach (OrderDetail dtl in orderDetails)
+                {
+                    dtl.Save();
+                }
+            }
+        }
+        return i;
+        
+    }
+
+    public DateTime Date
+    {
+        get
+        {
+            DateTime orderDate = DateTime.MinValue;
+            foreach (OrderDetail dtl in orderDetails)
+            {
+                if (dtl.orderDate != DateTime.MinValue)
+                    orderDate = dtl.orderDate;
+                break;
+            }
+            return orderDate;
+        }
+    }
+
+    public bool HaveImported
+    {
+        get
+        {
+            bool imported = false;
+            DataTable dt = DBHelper.GetDataTable(" select * from orders where flow_number = '" + flowNumber.Trim() + "' ");
+            if (dt.Rows.Count > 0)
+                imported = true;
+            dt.Dispose();
+            return imported;
+        }
+    }
+
+    public string CellNumber
+    {
+        get
+        {
+            string cellNumber = "";
+            foreach (OrderDetail dtl in orderDetails)
+            {
+                if (!dtl.cellNumber.Trim().Equals("") && dtl.IsValid)
+                {
+                    cellNumber = dtl.cellNumber;
+                    break;
+                }
+            }
+            return cellNumber;
+        }
+    }
+
+    public string MemberName
+    {
+        get
+        {
+            string memberName = "";
+            foreach (OrderDetail dtl in orderDetails)
+            {
+                if (dtl.IsValid && !dtl.memberName.Trim().Equals(""))
+                {
+                    memberName = dtl.memberName.Trim();
+                    break;
+                }
+            }
+            return memberName.Trim();
+        }
     }
 
     public double OrderPrice
@@ -145,6 +240,7 @@ public class Order
 
     public void AddItem(OrderDetail orderDetail)
     {
+        orderDetail.flowNumber = flowNumber.Trim();
         OrderDetail[] newOrderDetails;// = new OrderDetail[orderDetails.Length + 1];
         if (orderDetails == null)
             newOrderDetails = new OrderDetail[1];

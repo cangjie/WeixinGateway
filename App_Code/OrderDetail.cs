@@ -15,6 +15,11 @@ public class OrderDetail
     public double saleSummary = 0;
     public int usedDragonBallCount = 0;
     public double usedTicketAmount = 0;
+    public string cellNumber = "";
+    public string memberName = "";
+    public string flowNumber = "";
+    public string goodName = "";
+    public DateTime orderDate = DateTime.MinValue;
 
     public OrderDetail()
     {
@@ -33,4 +38,17 @@ public class OrderDetail
                 return false;
         }
     }
+
+    public int Save()
+    {
+        string[,] insertParams = { { "flow_number", "varchar", flowNumber.Trim()},
+            {"good_name", "varchar", goodName.Trim()  },
+            {"count", "int", count.ToString() },
+            {"unit_price", "float", unitPrice.ToString() },
+            {"deal_price", "float", saleSummary.ToString() }};
+        int i = DBHelper.InsertData("order_details",insertParams);
+        return i;
+    }
+
+   
 }
