@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Diagnostics;
+using System.Data;
 
 /// <summary>
 /// Summary description for SalesFlowSheet
 /// </summary>
 public class SalesFlowSheet
 {
+    public static string[] fieldNameOrderType = { "订单类别" };
     public static string[] fieldNameFlowNumber = { "流水号" };
     public static string[] fieldNameCount = { "数量" };
     public static string[] fieldNameUnitPrice = { "零售价" };
@@ -30,6 +32,7 @@ public class SalesFlowSheet
     public static string[] fieldNameGoodStyle = { "款式" };
     public static string[] fieldNameOrderDate = { "日期" };
 
+    public int fieldPositionOrderType = -1;
     public int fieldPositionFlowNumber = -1;
     public int fieldPositionCount = -1;
     public int fieldPositionUnitPrice = -1;
@@ -258,9 +261,37 @@ public class SalesFlowSheet
                     fieldPositionOrderDate = i;
                 }
             }
+            foreach (string s in fieldNameOrderType)
+            {
+                if (currentFieldName.Equals(s))
+                {
+                    fieldPositionOrderType = i;
+                }
+            }
         }
 
     }
+
+    public bool HaveDealed(int i)
+    {
+        bool dealed = true;
+        try
+        {
+            if (fieldPositionDragonBallRate != -1)
+            {
+                if (GetCellText(i, fieldPositionDragonBallRate).Trim().Equals(""))
+                {
+                    dealed = false;
+                }
+            }
+        }
+        catch
+        {
+
+        }
+        return dealed;
+    }
+
 
     public void FillDragonBallBlank()
     {
@@ -269,8 +300,10 @@ public class SalesFlowSheet
         for (int i = 2; i <= rowsCount; i++)
         {
             string flowNumber = GetFlowNumber(i);
+            if (flowNumber.Trim().Equals("") || flowNumber.Trim().Equals("0"))
+                break;
             OrderDetail firstOrderDetail = GetOrderDetail(i);
-            if (firstOrderDetail.IsValid)
+            if ( firstOrderDetail.CanImport )
             {
                 Order order = new Order();
                 order.flowNumber = flowNumber;
@@ -282,8 +315,6 @@ public class SalesFlowSheet
                     if (orderDetail.IsValid)
                     {
                         order.AddItem(orderDetail);
-                        //if (order.cellNumber.Trim().Equals("") && !orderDetail.cellNumber.Equals(""))
-                        //    order.cellNumber = orderDetail.cellNumber.Trim();
                     }
                 }
                 if (fieldPositionOrderPrice != -1)
@@ -312,6 +343,17 @@ public class SalesFlowSheet
             }
         }
         
+    }
+
+
+    public static bool HasImported(string flowNumber)
+    {
+        bool hasImported = false;
+        DataTable dt = DBHelper.GetDataTable(" select * from orders where flow_number = '" + flowNumber.Replace("'", "") + "' ");
+        if (dt.Rows.Count > 0)
+            hasImported = true;
+        dt.Dispose();
+        return hasImported;
     }
 
     public void WriteBackToExcel(int i, int j, string content)
@@ -381,8 +423,6 @@ public class SalesFlowSheet
             try
             {
                 orderDetail.saleSummary = float.Parse(GetCellText(i, fieldPositionSaleSummary));
-                if (orderDetail.saleSummary == 0)
-                    throw new Exception();
             }
             catch
             {
@@ -445,6 +485,10 @@ public class SalesFlowSheet
         catch
         {
 
+        }
+        if (fieldPositionOrderType != -1)
+        {
+            orderDetail.orderType = GetCellText(i, fieldPositionOrderType);
         }
         return orderDetail;
     }

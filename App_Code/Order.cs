@@ -22,21 +22,41 @@ public class Order
     private int generateDragonBallCount = 0;
     //public string openId = "";
     //public string cellNumber = "";
-
+    public DataRow _fields;
 
     public Order()
     {
         
     }
 
+    public Order(string flowNumber)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from orders where flownumber = '" + flowNumber.Trim().Replace("'","") + "' ");
+        if (dt.Rows.Count == 1)
+        {
+            _fields = dt.Rows[0];
+        }
+
+        DataTable dtDetails = DBHelper.GetDataTable(" select * from order_details where flow_number = '" + flowNumber.Trim().Replace("'", "") + "' order by detail_id ");
+        orderDetails = new OrderDetail[dtDetails.Rows.Count];
+        for (int i = 0; i < orderDetails.Length; i++)
+        {
+            orderDetails[i] = new OrderDetail();
+            orderDetails[i]._fields = dtDetails.Rows[i];
+        }
+
+    }
+
+   
     
 
     public int Save()
     {
         int i = 0;
-        if (!HaveImported && Date >= DateTime.Parse("2016-12-1"))
+        if (!HaveImported )
         {
             string[,] insertParam = { {"flow_number", "varchar", flowNumber.Trim() },
+                {"type", "varchar", OrderType.Trim() },
                 {"open_id", "varchar", "" },
                 {"member_name", "varchar", MemberName.Trim() },
                 {"cell_number", "varchar", CellNumber.Trim() },
@@ -178,7 +198,23 @@ public class Order
     {
         get
         {
-            return OrderShouldPaidAmount - UsedTicketAmount - UsedDragonBallCount / 10;
+            if (OrderType.Trim().Equals("现货未付"))
+            {
+                double paidAmount = 0;
+                foreach (OrderDetail dtl in orderDetails)
+                {
+                    if (dtl.orderType.Equals("现货补收"))
+                    {
+                        paidAmount = paidAmount + double.Parse(_fields["deal_price"].ToString().Trim());
+                    }
+                }
+                return paidAmount + UsedTicketAmount + UsedDragonBallCount / 10;
+            }
+            else
+            {
+                return OrderShouldPaidAmount - UsedTicketAmount - UsedDragonBallCount / 10;
+            }
+            
         }
     }
 
@@ -235,6 +271,21 @@ public class Order
         get
         {
             return (int)(RealPaidAmount*DragonBallRate);
+        }
+    }
+
+    public string OrderType
+    {
+        get
+        {
+            string type = "";
+            foreach (OrderDetail dtl in orderDetails)
+            {
+                if (type.Equals(""))
+                    type = dtl.orderType.Trim();
+                break;
+            }
+            return type;
         }
     }
 

@@ -32,7 +32,7 @@
         fileUpload.SaveAs(Server.MapPath(fileUploadPath + "/" + fileName.Trim()));
         if (!IsFileExists(fileName))
         {
-            fileUpload.SaveAs(Server.MapPath(fileUploadPath + "/" + fileName));
+            fileUpload.SaveAs(Server.MapPath(fileDownloadPath + "/" + fileName));
         }
         else
         {
