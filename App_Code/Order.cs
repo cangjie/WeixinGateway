@@ -26,12 +26,12 @@ public class Order
 
     public Order()
     {
-        
+
     }
 
     public Order(string flowNumber)
     {
-        DataTable dt = DBHelper.GetDataTable(" select * from orders where flownumber = '" + flowNumber.Trim().Replace("'","") + "' ");
+        DataTable dt = DBHelper.GetDataTable(" select * from orders where flownumber = '" + flowNumber.Trim().Replace("'", "") + "' ");
         if (dt.Rows.Count == 1)
         {
             _fields = dt.Rows[0];
@@ -47,13 +47,10 @@ public class Order
 
     }
 
-   
-    
-
     public int Save()
     {
         int i = 0;
-        if (!HaveImported )
+        if (!HaveImported)
         {
             string[,] insertParam = { {"flow_number", "varchar", flowNumber.Trim() },
                 {"type", "varchar", OrderType.Trim() },
@@ -77,7 +74,7 @@ public class Order
             }
         }
         return i;
-        
+
     }
 
     public DateTime Date
@@ -162,7 +159,8 @@ public class Order
             orderShouldPaidAmount = 0;
             foreach (OrderDetail detail in orderDetails)
             {
-                orderShouldPaidAmount = orderShouldPaidAmount + detail.saleSummary;
+                if (!detail._fields["type"].ToString().Trim().Equals("现货补收"))
+                    orderShouldPaidAmount = orderShouldPaidAmount + detail.saleSummary;
             }
             return orderShouldPaidAmount;
         }
@@ -205,7 +203,7 @@ public class Order
                 {
                     if (dtl.orderType.Equals("现货补收"))
                     {
-                        paidAmount = paidAmount + double.Parse(_fields["deal_price"].ToString().Trim());
+                        paidAmount = paidAmount + double.Parse(dtl._fields["deal_price"].ToString().Trim());
                     }
                 }
                 return paidAmount + UsedTicketAmount + UsedDragonBallCount / 10;
@@ -214,7 +212,7 @@ public class Order
             {
                 return OrderShouldPaidAmount - UsedTicketAmount - UsedDragonBallCount / 10;
             }
-            
+
         }
     }
 
@@ -270,7 +268,7 @@ public class Order
     {
         get
         {
-            return (int)(RealPaidAmount*DragonBallRate);
+            return (int)(RealPaidAmount * DragonBallRate);
         }
     }
 
@@ -299,7 +297,7 @@ public class Order
             newOrderDetails = new OrderDetail[orderDetails.Length + 1];
         for (int i = 0; i < newOrderDetails.Length; i++)
         {
-            if (i < newOrderDetails.Length-1)
+            if (i < newOrderDetails.Length - 1)
             {
                 newOrderDetails[i] = orderDetails[i];
             }
@@ -309,5 +307,46 @@ public class Order
             }
         }
         orderDetails = newOrderDetails;
+    }
+
+    public static int SetPayStatus(string flowNumber)
+    {
+        int i = 0;
+        Order order = new Order(flowNumber);
+        i = int.Parse(order._fields["pay_status"].ToString());
+        if (order.RealPaidAmount > 0)
+        {
+            i = 2;
+        }
+        else
+        {
+            if (order.RealPaidAmount >= order.OrderShouldPaidAmount)
+            {
+                i = 3;
+            }
+        }
+
+        string[,] updateParam = { {"pay_status", "int", i.ToString() } };
+        string[,] keyParam = { { "flow_number", "varchar", flowNumber.Trim() } };
+        int r = DBHelper.UpdateData("orders", updateParam, keyParam, Util.conStr);
+        if (r == 1)
+            return i;
+        else
+            return -1;
+    }
+
+    public static int ImportOrderDragonBall(string flowNumber)
+    {
+        int i = 0;
+        Order order = new Order(flowNumber);
+        if (order._fields["type"].ToString().Trim().Equals("现货未付"))
+            SetPayStatus(flowNumber);
+        string openId = WeixinUser.GetVipUserOpenIdByNumber(order._fields["cell_number"].ToString().Trim());
+        if (!openId.Trim().Equals("") && (order._fields["pay_status"].ToString().Equals("1") || order._fields["pay_status"].ToString().Equals("3")))
+        {
+            i = DragonBallBalance.Add(openId.Trim(), int.Parse(order._fields["drangon_ball_generated"].ToString().Trim()),
+                order._fields["flow_number"].ToString(), DateTime.Parse(order._fields["order_date"].ToString()));
+        }
+        return i;
     }
 }
