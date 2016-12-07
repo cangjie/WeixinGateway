@@ -342,11 +342,25 @@ public class Order
         if (order._fields["type"].ToString().Trim().Equals("现货未付"))
             SetPayStatus(flowNumber);
         string openId = WeixinUser.GetVipUserOpenIdByNumber(order._fields["cell_number"].ToString().Trim());
+
         if (!openId.Trim().Equals("") && (order._fields["pay_status"].ToString().Equals("1") || order._fields["pay_status"].ToString().Equals("3")))
         {
             i = DragonBallBalance.Add(openId.Trim(), int.Parse(order._fields["drangon_ball_generated"].ToString().Trim()),
                 order._fields["flow_number"].ToString(), DateTime.Parse(order._fields["order_date"].ToString()));
         }
+        if (i > 0)
+        {
+            string[,] updateParam = { {"deal", "int", "1" } };
+            string[,] keyParam = { {"flow_number", "varchar", flowNumber } };
+            int r = DBHelper.UpdateData("orders", updateParam, keyParam, Util.conStr);
+            if (r != 1)
+            {
+                string[,] keyParamDel = { {"id", "int", i.ToString() } };
+                DBHelper.DeleteData("user_point_balance", keyParamDel, Util.conStr);
+                i = 0;
+            }
+        }
+
         return i;
     }
 }
