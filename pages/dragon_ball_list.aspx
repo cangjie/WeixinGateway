@@ -8,6 +8,7 @@
 
     public WeixinUser currentUser;
     public string openId = "";
+    public int dragonBallSummary = 0;
 
 
     protected void Page_Load(object sender, EventArgs e)
@@ -68,7 +69,8 @@
             dr["备注"] = p._fields["memo"].ToString();
             balanceTable.Rows.Add(dr);
         }
-
+        if (balanceTable.Rows.Count > 0)
+            dragonBallSummary = int.Parse(balanceTable.Rows[0]["余额"].ToString());
 
     }
 </script>
@@ -94,7 +96,8 @@
 </head>
 <body>
     <div>
-        <div class="alert alert-info" role="alert">您当前的拥有龙珠：<%=(balanceTable.Rows.Count>0?balanceTable.Rows[0]["余额"].ToString():"0") %>颗，可以立即<button type="button" class="btn btn-danger" onclick="go_to_exchange()">兑换消费抵用券</button>。</div>
+        <div class="alert alert-info" role="alert">您当前的拥有龙珠：<%=dragonBallSummary.ToString() %>颗<% if (dragonBallSummary > 1000)
+                                                                                                   { %>，可以立即<button type="button" class="btn btn-danger" onclick="go_to_exchange()">兑换消费抵用券</button>。<%} %></div>
         <table class="table table-striped" >
             <tr>
                 <td>日期</td>
