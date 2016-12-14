@@ -31,7 +31,7 @@ public class Order
 
     public Order(string flowNumber)
     {
-        DataTable dt = DBHelper.GetDataTable(" select * from orders where flownumber = '" + flowNumber.Trim().Replace("'", "") + "' ");
+        DataTable dt = DBHelper.GetDataTable(" select * from orders where flow_number = '" + flowNumber.Trim().Replace("'", "") + "' ");
         if (dt.Rows.Count == 1)
         {
             _fields = dt.Rows[0];
@@ -52,6 +52,11 @@ public class Order
         int i = 0;
         if (!HaveImported)
         {
+            int payStatus = 1;
+            if (OrderType.Trim().Equals("现货未付"))
+            {
+                payStatus = 0;
+            }
             string[,] insertParam = { {"flow_number", "varchar", flowNumber.Trim() },
                 {"type", "varchar", OrderType.Trim() },
                 {"open_id", "varchar", "" },
@@ -63,6 +68,7 @@ public class Order
                 {"real_paid_summary", "float", RealPaidAmount.ToString() },
                 {"dragon_ball_rate", "float", DragonBallRate.ToString().Trim() },
                 {"dragon_ball_generated", "int", GenerateDraonBallCount.ToString() },
+                {"pay_status", "int", payStatus.ToString() },
                 {"order_date", "datetime", Date.ToShortDateString() } };
             i = DBHelper.InsertData("orders", insertParam);
             if (i > 0)
@@ -159,7 +165,7 @@ public class Order
             orderShouldPaidAmount = 0;
             foreach (OrderDetail detail in orderDetails)
             {
-                if (!detail._fields["type"].ToString().Trim().Equals("现货补收"))
+                if (!detail.OrderType.Trim().ToString().Trim().Equals("现货补收"))
                     orderShouldPaidAmount = orderShouldPaidAmount + detail.saleSummary;
             }
             return orderShouldPaidAmount;
@@ -314,6 +320,10 @@ public class Order
         int i = 0;
         Order order = new Order(flowNumber);
         i = int.Parse(order._fields["pay_status"].ToString());
+        if (order._fields["type"].ToString().Trim().Equals("现货未付"))
+        {
+            i = 0;
+        }
         if (order.RealPaidAmount > 0)
         {
             i = 2;
@@ -343,9 +353,11 @@ public class Order
             SetPayStatus(flowNumber);
         string openId = WeixinUser.GetVipUserOpenIdByNumber(order._fields["cell_number"].ToString().Trim());
 
-        if (!openId.Trim().Equals("") && (order._fields["pay_status"].ToString().Equals("1") || order._fields["pay_status"].ToString().Equals("3")))
+        if (!openId.Trim().Equals("") 
+            && (order._fields["pay_status"].ToString().Equals("1") || order._fields["pay_status"].ToString().Equals("3"))
+            && order._fields["deal"].ToString().Equals("0"))
         {
-            i = DragonBallBalance.Add(openId.Trim(), int.Parse(order._fields["drangon_ball_generated"].ToString().Trim()),
+            i = DragonBallBalance.Add(openId.Trim(), int.Parse(order._fields["dragon_ball_generated"].ToString().Trim()),
                 order._fields["flow_number"].ToString(), DateTime.Parse(order._fields["order_date"].ToString()));
         }
         if (i > 0)

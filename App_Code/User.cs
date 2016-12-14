@@ -135,6 +135,19 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public bool IsBetaUser
+    {
+        get
+        {
+            bool ret = false;
+            DataTable dt = DBHelper.GetDataTable(" select * from beta_user where cell_number =  '" + CellNumber.Trim() + "' ");
+            if (dt.Rows.Count > 0)
+                ret = true;
+            dt.Dispose();
+            return ret;
+        }
+    }
+
     public string HeadImage
     {
         get

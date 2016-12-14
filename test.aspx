@@ -9,10 +9,22 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        /*
         SalesFlowSheet sfs = new SalesFlowSheet(Server.MapPath("bayi.xlsx"));
         sfs.SetFieldsPosition();
         sfs.FillDragonBallBlank();
         sfs.Dispose();
+        */
+        /*
+        for(int i = 0; i < 600; i++)
+        {
+            Card.GenerateCardNo(9, 1);
+
+        }
+
+        */
+
+        //Order.ImportOrderDragonBall("NS2016120401");
     }
 
 

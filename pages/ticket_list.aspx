@@ -24,6 +24,11 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+        if (currentUser.CellNumber.Trim().Equals(""))
+            Response.Redirect("register_cell_number.aspx", true);
+        if (!currentUser.IsBetaUser)
+            Response.Redirect("beta_announce.aspx", true);
+
 
         ticketArray = Ticket.GetUserTickets(openId, used);
 

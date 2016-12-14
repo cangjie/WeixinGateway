@@ -305,41 +305,50 @@ public class SalesFlowSheet
             OrderDetail firstOrderDetail = GetOrderDetail(i);
             if ( firstOrderDetail.CanImport )
             {
-                Order order = new Order();
-                order.flowNumber = flowNumber;
-                order.startIndex = i;
-                for (int j = i ; (GetFlowNumber(j).Trim().Equals(order.flowNumber.Trim()) || GetFlowNumber(j).Trim().Equals("")) && j <= rowsCount ; j++)
+                if (firstOrderDetail.orderType.Trim().Equals("现货补收"))
                 {
-                    i = j;
-                    OrderDetail orderDetail = GetOrderDetail(j);
-                    if (orderDetail.IsValid)
+                    firstOrderDetail.Save();
+                }
+                else
+                {
+                    Order order = new Order();
+                    order.flowNumber = flowNumber;
+                    order.startIndex = i;
+                    for (int j = i; (GetFlowNumber(j).Trim().Equals(order.flowNumber.Trim()) || GetFlowNumber(j).Trim().Equals("")) && j <= rowsCount; j++)
                     {
-                        order.AddItem(orderDetail);
+                        i = j;
+                        OrderDetail orderDetail = GetOrderDetail(j);
+                        if (orderDetail.IsValid)
+                        {
+                            order.AddItem(orderDetail);
+                        }
                     }
-                }
-                if (fieldPositionOrderPrice != -1)
-                {
-                    WriteBackToExcel(order.startIndex, fieldPositionOrderPrice, Math.Round(order.OrderPrice, 2).ToString());
-                }
+                    if (fieldPositionOrderPrice != -1)
+                    {
+                        WriteBackToExcel(order.startIndex, fieldPositionOrderPrice, Math.Round(order.OrderPrice, 2).ToString());
+                    }
 
-                if (fieldPositionOrderShouldPaidAmount != -1)
-                {
-                    WriteBackToExcel(order.startIndex, fieldPositionOrderShouldPaidAmount, Math.Round(order.OrderShouldPaidAmount, 2).ToString());
+                    if (fieldPositionOrderShouldPaidAmount != -1)
+                    {
+                        WriteBackToExcel(order.startIndex, fieldPositionOrderShouldPaidAmount, Math.Round(order.OrderShouldPaidAmount, 2).ToString());
+                    }
+                    if (fieldPositionDiscountRate != -1)
+                    {
+                        WriteBackToExcel(order.startIndex, fieldPositionDiscountRate, Math.Round(order.DisCountRate, 2).ToString());
+                    }
+                    if (fieldPositionDragonBallRate != -1)
+                    {
+                        WriteBackToExcel(order.startIndex, fieldPositionDragonBallRate, Math.Round(order.DragonBallRate, 2).ToString());
+                    }
+                    if (fieldPositionGenerateDragonBallCount != -1)
+                    {
+                        WriteBackToExcel(order.startIndex, fieldPositionGenerateDragonBallCount, ((int)order.GenerateDraonBallCount).ToString());
+                    }
+                    workbook.Save();
+                    order.Save();
+
                 }
-                if (fieldPositionDiscountRate != -1)
-                {
-                    WriteBackToExcel(order.startIndex, fieldPositionDiscountRate, Math.Round(order.DisCountRate, 2).ToString());
-                }
-                if (fieldPositionDragonBallRate != -1)
-                {
-                    WriteBackToExcel(order.startIndex, fieldPositionDragonBallRate, Math.Round(order.DragonBallRate, 2).ToString());
-                }
-                if (fieldPositionGenerateDragonBallCount != -1)
-                {
-                    WriteBackToExcel(order.startIndex, fieldPositionGenerateDragonBallCount, ((int)order.GenerateDraonBallCount).ToString());
-                }
-                workbook.Save();
-                order.Save();
+                
             }
         }
         

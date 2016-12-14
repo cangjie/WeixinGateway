@@ -31,6 +31,18 @@ public class OrderDetail
         //
     }
 
+
+    public string OrderType
+    {
+        get
+        {
+            if (_fields == null)
+                return orderType.Trim();
+            else
+                return _fields["type"].ToString().Trim();
+        }
+    }
+
     public bool IsValid
     {
         get
