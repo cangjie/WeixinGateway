@@ -218,3 +218,4 @@ pip-log.txt
 log/
 pages/upload/*
 /pages/admin/sale_lists/uploaded
+/pages/admin/sale_lists/downloads
