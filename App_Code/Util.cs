@@ -590,11 +590,11 @@ public class Util
         return bArr;
     }
 
-    public static string GetMd5Sign(string KeyPairStringWillBeSigned, string key)
+    public static string GetHaojinMd5Sign(string KeyPairStringWillBeSigned, string key)
     {
         string str = GetSortedArrayString(KeyPairStringWillBeSigned);
         System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-        byte[] bArr = md5.ComputeHash(Encoding.UTF8.GetBytes(str + "&key=" + key.Trim()));
+        byte[] bArr = md5.ComputeHash(Encoding.UTF8.GetBytes(str + key.Trim()));
         string ret = "";
         foreach (byte b in bArr)
         {
