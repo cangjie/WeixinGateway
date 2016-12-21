@@ -11,6 +11,7 @@
         string keyValuePair = "app_code=" + appCode.Trim() + "&redirect_uri=" + Server.UrlEncode(redirectUri.Trim());
         string jumpUrl = "https://" + paymentDomain + "/tool/v1/get_weixin_oauth_code?" + keyValuePair.Trim()
             + "&sign=" + Util.GetHaojinMd5Sign(keyValuePair,md5Key);
-        Response.Redirect(jumpUrl, true);
+        //Response.Redirect(jumpUrl, true);
+        Response.Write("<a href=\"" + jumpUrl + "\" >" + jumpUrl + "</a>");
     }
 </script>
