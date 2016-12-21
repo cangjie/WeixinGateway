@@ -49,7 +49,7 @@
         sr.Close();
         res.Close();
         req.Abort();
-        Response.Write(str);
+        Response.Write(postData + "<br/>" + str);
 
 
 
