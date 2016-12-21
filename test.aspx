@@ -9,6 +9,9 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        //string keyValuePair = "txamt=1&txcurrcd=CNY&pay_type=800207";
+        //Response.Write(Util.GetHaojinMd5Sign(keyValuePair.Trim(),"7AB7F12D1A374208BA9A9E29E337BAEE"));
+
         /*
         SalesFlowSheet sfs = new SalesFlowSheet(Server.MapPath("bayi.xlsx"));
         sfs.SetFieldsPosition();
