@@ -32,7 +32,7 @@
         string goods_name = "易龙雪聚测试商品";
 
         string postData = "txamt=" + txamt + "&txcurrcd=" + txcurrcd + "&pay_type=" + pay_type + "&out_trade_no=" + out_trade_no
-            + "&txdtl=" + txdtm + "&sub_openid=" + sub_openid + "&goods_name=" + goods_name;
+            + "&txdtm=" + txdtm + "&sub_openid=" + sub_openid + "&goods_name=" + goods_name;
 
         jumpUrl = "https://" + paymentDomain + "/trade/v1/payment";
         req = (HttpWebRequest)WebRequest.Create(jumpUrl);
