@@ -25,7 +25,8 @@
         string txcurrcd = "CNY";
         string pay_type = "800207";
         string out_trade_no = "sn00001";
-        string txdtm = DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":"
+        string txdtm = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "-" 
+            + DateTime.Now.Day.ToString().PadLeft(2,'0') + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":"
             + DateTime.Now.Minute.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
         string sub_openid = openId;
         string goods_name = "易龙雪聚测试商品";
