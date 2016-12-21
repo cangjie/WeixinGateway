@@ -34,6 +34,8 @@
         
         jumpUrl = "https://" + paymentDomain + "/trade/v1/payment";
         req = (HttpWebRequest)WebRequest.Create(jumpUrl);
+        req.Method = "POST";
+        req.ContentType = "application/x-www-form-urlencoded";
         req.Headers.Add("X-QF-APPCODE", appCode);
         req.Headers.Add("X-QF-SIGN", Util.GetHaojinMd5Sign(postData, md5Key));
         Stream requestStream = req.GetRequestStream();
