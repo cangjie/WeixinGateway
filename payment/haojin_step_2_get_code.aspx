@@ -1,7 +1,11 @@
 ﻿<%@ Page Language="C#" %>
 <%@ Import Namespace="System.Net" %>
 <%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Web.Script.Serialization" %>
 <script runat="server">
+
+    public string weixinPaymentJson = "";
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -21,11 +25,11 @@
         req.Abort();
         string openId = Util.GetSimpleJsonValueByKey(str, "openid");
 
-        string txamt = "100";
+        string txamt = "1";
         string txcurrcd = "CNY";
         string pay_type = "800207";
         string out_trade_no = "sn00001";
-        string txdtm = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "-" 
+        string txdtm = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "-"
             + DateTime.Now.Day.ToString().PadLeft(2,'0') + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":"
             + DateTime.Now.Minute.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
         string sub_openid = openId;
@@ -50,11 +54,19 @@
         sr.Close();
         res.Close();
         req.Abort();
-        Response.Write(postData + "<br/>" + str);
+        //Response.Write(postData + "<br/>" + str);
 
+        Dictionary<string, object> payParam = Util.GetObjectFromJsonByKey(str, "pay_params");
+        KeyValuePair<string, object>[] keyValuePairArray = payParam.ToArray();
 
-
+        weixinPaymentJson = "{ " + Util.GetSimpleJsonStringFromKeyPairArray(keyValuePairArray) + " } ";
 
         //Response.Write(str);
     }
+</script>
+<script type="text/javascript" >
+    var json_str = "<%=weixinPaymentJson %>";
+    alert(json_str);
+    var json = json_str.parseJSON();
+    alert(json.package)
 </script>

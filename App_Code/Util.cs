@@ -554,6 +554,31 @@ public class Util
         return v.ToString();
     }
 
+    public static Dictionary<string, object> GetObjectFromJsonByKey(string jsonStr, string key)
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
+        object v;
+        json.TryGetValue(key, out v);
+        return (Dictionary < string, object>)v;
+    }
+
+    public static string GetSimpleJsonStringFromKeyPairArray(KeyValuePair<string, object>[] vArr)
+    {
+        string r = "";
+        for (int i = 0; i < vArr.Length; i++)
+        {
+            if (i == 0)
+            {
+                r = "\"" + vArr[i].Key.Trim() + "\" : \"" + vArr[i].Value.ToString() + "\"";
+            }
+            else
+            {
+                r = r + ", \"" + vArr[i].Key.Trim() + "\" : \"" + vArr[i].Value.ToString() + "\" ";
+            }
+        }
+        return r;
+    }
 
     public static void DealLandingRequest(string openId)
     {
