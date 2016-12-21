@@ -30,7 +30,9 @@
         if (!currentUser.IsBetaUser)
             Response.Redirect("beta_announce.aspx", true);
 
-
+        Point.ImportPointsByNumber(currentUser.CellNumber.Trim());
+        Order.ImportUserOrderDragonBall(currentUser.CellNumber.Trim());
+        
 
 
         Point[] userPointArray = Point.GetUserBalance(currentUser.OpenId);

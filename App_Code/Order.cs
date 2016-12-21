@@ -345,6 +345,17 @@ public class Order
             return -1;
     }
 
+    public static int ImportUserOrderDragonBall(string cellNumber)
+    {
+        DataTable dtOrder = DBHelper.GetDataTable(" select * from orders where deal = 0 and cell_number = '" + cellNumber.Replace(",", "").Trim() + "' ");
+        int i = 0;
+        foreach (DataRow dr in dtOrder.Rows)
+        {
+            i += ImportOrderDragonBall(dr["flow_number"].ToString());
+        }
+        return i;
+    }
+
     public static int ImportOrderDragonBall(string flowNumber)
     {
         int i = 0;
