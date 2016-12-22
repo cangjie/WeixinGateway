@@ -68,6 +68,20 @@
 <script type="text/javascript" >
     var json_str = '<%=weixinPaymentJson %>'; 
     var json = JSON.parse(json_str);
+
+    function callpay() {
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            }
+        } else {
+            jsApiCall();
+        }
+    }
+
     function jsApiCall() {
         var payInvokeParam = {
             "appId": json.appId,
@@ -83,4 +97,6 @@
             }
         });
     }
+
+    document.onload = callpay();
 </script>
