@@ -64,14 +64,23 @@
         //Response.Write(weixinPaymentJson );
     }
 </script>
-"<%=weixinPaymentJson %>"
+<%=weixinPaymentJson %>
 <script type="text/javascript" >
-//alert("aaa");
-
-    var json_str = '<%=weixinPaymentJson %>';
-
-   // alert(json_str);
+    var json_str = '<%=weixinPaymentJson %>'; 
     var json = JSON.parse(json_str);
-    alert(json.package);
-
+    function jsApiCall() {
+        var payInvokeParam = {
+            "appId": json.appId,
+            "timeStamp": json.timeStamp,
+            "nonceStr": json.nonceStr,
+            "package": json.package,
+            "signType": json.signType,
+            "paySign": json.paySign
+        };
+        WeixinJSBridge.invoke('getBrandWCPayRequest', payInvokeParam, function (res) {
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                alert("success");
+            }
+        });
+    }
 </script>
