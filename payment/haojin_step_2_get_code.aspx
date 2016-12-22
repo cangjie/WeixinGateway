@@ -61,12 +61,17 @@
 
         weixinPaymentJson = "{ " + Util.GetSimpleJsonStringFromKeyPairArray(keyValuePairArray) + " } ";
 
-        //Response.Write(str);
+        //Response.Write(weixinPaymentJson );
     }
 </script>
+"<%=weixinPaymentJson %>"
 <script type="text/javascript" >
-    var json_str = "<%=weixinPaymentJson %>";
-    alert(json_str);
-    var json = json_str.parseJSON();
-    alert(json.package)
+//alert("aaa");
+
+    var json_str = '<%=weixinPaymentJson %>';
+
+   // alert(json_str);
+    var json = JSON.parse(json_str);
+    alert(json.package);
+
 </script>
