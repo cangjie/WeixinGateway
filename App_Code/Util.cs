@@ -577,7 +577,7 @@ public class Util
                 r = r + ", \"" + vArr[i].Key.Trim() + "\" : \"" + vArr[i].Value.ToString() + "\" ";
             }
         }
-        return r;
+        return "{ " + r + " }";
     }
 
     public static void DealLandingRequest(string openId)

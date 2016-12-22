@@ -59,44 +59,22 @@
         Dictionary<string, object> payParam = Util.GetObjectFromJsonByKey(str, "pay_params");
         KeyValuePair<string, object>[] keyValuePairArray = payParam.ToArray();
 
-        weixinPaymentJson = "{ " + Util.GetSimpleJsonStringFromKeyPairArray(keyValuePairArray) + " } ";
+        weixinPaymentJson = Util.GetSimpleJsonStringFromKeyPairArray(keyValuePairArray);
+
+        string jumpPayUrl = "https://o2.qfpay.com/q/direct?mchntnm=" + Server.UrlEncode("易龙雪聚")
+            + "&txamt=" + txamt + "&goods_name=" + Server.UrlEncode(goods_name) + "&redirect_url="
+            + Server.UrlEncode("http://weixin.snowmeet.com/payment/haojin_callback.aspx")
+            + "&package=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "package")
+            + "&timeStamp=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "timeStamp")
+            + "&signType=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "signType")
+            + "&paySign=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "paySign")
+            + "&appId=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "appId")
+            + "&nonceStr=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "nonceStr");
+
+        Response.Write("<a href=\"" + jumpPayUrl + "\" >" + jumpPayUrl + "</a>");
+
+        //Response.Redirect()
 
         //Response.Write(weixinPaymentJson );
     }
-</script>
-<%=weixinPaymentJson %>
-<script type="text/javascript" >
-    var json_str = '<%=weixinPaymentJson %>'; 
-    var json = JSON.parse(json_str);
-
-    function callpay() {
-        if (typeof WeixinJSBridge == "undefined") {
-            if (document.addEventListener) {
-                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
-            } else if (document.attachEvent) {
-                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
-                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
-            }
-        } else {
-            jsApiCall();
-        }
-    }
-
-    function jsApiCall() {
-        var payInvokeParam = {
-            "appId": json.appId,
-            "timeStamp": json.timeStamp,
-            "nonceStr": json.nonceStr,
-            "package": json.package,
-            "signType": json.signType,
-            "paySign": json.paySign
-        };
-        WeixinJSBridge.invoke('getBrandWCPayRequest', payInvokeParam, function (res) {
-            if (res.err_msg == "get_brand_wcpay_request:ok") {
-                alert("success");
-            }
-        });
-    }
-
-    document.onload = callpay();
 </script>
