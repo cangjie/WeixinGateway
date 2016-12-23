@@ -563,6 +563,22 @@ public class Util
         return (Dictionary < string, object>)v;
     }
 
+    public static Dictionary<string, object>[] GetObjectArrayFromJsonByKey(string jsonStr, string key)
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
+        object v;
+        json.TryGetValue(key, out v);
+        object[] vArr = (object[])v;
+        Dictionary<string, object>[] retArr = new Dictionary<string, object>[vArr.Length];
+        for (int i = 0; i < retArr.Length; i++)
+        {
+            Dictionary<string, object> keyPairObjectArray = (Dictionary<string, object>)vArr[i];
+            retArr[i] = keyPairObjectArray;
+        }
+        return retArr;
+    }
+
     public static string GetSimpleJsonStringFromKeyPairArray(KeyValuePair<string, object>[] vArr)
     {
         string r = "";
