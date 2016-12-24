@@ -4,10 +4,17 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string str = "";
-        StreamReader sr = new StreamReader(Request.InputStream);
-        str = sr.ReadToEnd();
-        sr.Close();
-        Response.Write(Session["user_token"].ToString());
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
+        string openId = WeixinUser.CheckToken(Session["user_token"].ToString());
+        OnlineOrder order = new OnlineOrder(orderId);
+        if (order._fields["open_id"].ToString().Trim().Equals(openId.Trim()))
+        {
+            order.SetOrderPaySuccess(DateTime.Now);
+            if (order.Type.Trim().Equals("雪票"))
+            {
+                order.CreateSkiPass();
+            }
+        }
+
     }
 </script>
