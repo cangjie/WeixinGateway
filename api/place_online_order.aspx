@@ -23,9 +23,8 @@
                 detail.count = int.Parse(item["count"].ToString());
                 newOrder.AddADetail(detail);
             }
-            //newOrder.Place("oZBHkjhdFpC5ScK5FUU7HKXE3PJM");
-            newOrder.Place(openId);
-
+            int orderId = newOrder.Place(openId);
+            Response.Write("{\"status\" : \"0\", \"order_id\" : \"" + orderId.ToString() + "\" }");
         }
     }
 </script>

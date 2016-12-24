@@ -77,6 +77,13 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" >
+
+        function book_ski_pass(product_id) {
+            alert(product_id);
+        }
+
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -95,7 +102,7 @@
 
              %>
         <br />
-        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" >
+        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="book_ski_pass(<%=p._fields["id"].ToString() %>)" >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
