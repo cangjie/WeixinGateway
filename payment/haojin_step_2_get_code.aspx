@@ -25,6 +25,11 @@
         req.Abort();
         string openId = Util.GetSimpleJsonValueByKey(str, "openid");
 
+
+
+
+
+
         string txamt = "1";
         string txcurrcd = "CNY";
         string pay_type = "800207";
