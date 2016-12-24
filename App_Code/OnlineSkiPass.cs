@@ -52,7 +52,7 @@ public class OnlineSkiPass
     public static OnlineSkiPass[] GetOnlieSkiPassByOwnerOpenId(string openId)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from order_online where type = '雪票' and code <> '' and code is not null and open_id = '"
-            + openId.Trim() + "'  and pay_state = 1 ");
+            + openId.Trim() + "'  and pay_state = 1 order by [id] desc ");
         OnlineSkiPass[] passArr = new OnlineSkiPass[dt.Rows.Count];
         for (int i = 0; i < passArr.Length; i++)
         {
