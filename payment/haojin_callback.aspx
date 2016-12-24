@@ -3,6 +3,6 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(Request);
+        Response.Write(Request.Form.ToString());
     }
 </script>
