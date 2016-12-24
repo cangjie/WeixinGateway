@@ -33,7 +33,7 @@
         string txamt = (order.OrderPrice*100).ToString();
         string txcurrcd = "CNY";
         string pay_type = "800207";
-        string out_trade_no = "sn00001";
+        string out_trade_no = order._fields["id"].ToString().Trim();
         string txdtm = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "-"
             + DateTime.Now.Day.ToString().PadLeft(2,'0') + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":"
             + DateTime.Now.Minute.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
