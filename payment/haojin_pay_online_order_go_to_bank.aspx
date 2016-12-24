@@ -67,7 +67,7 @@
 
         string jumpPayUrl = "https://o2.qfpay.com/q/direct?mchntnm=" + Server.UrlEncode("易龙雪聚")
             + "&txamt=" + txamt + "&goods_name=" + Server.UrlEncode(goods_name) + "&redirect_url="
-            + Server.UrlEncode("http://weixin.snowmeet.com/payment/haojin_callback.aspx")
+            + Server.UrlEncode("http://weixin.snowmeet.com/payment/haojin_callback.aspx?orderid=" + order._fields["id"].ToString())
             + "&package=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "package")
             + "&timeStamp=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "timeStamp")
             + "&signType=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "signType")
