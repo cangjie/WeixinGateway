@@ -8,6 +8,6 @@
         StreamReader sr = new StreamReader(Request.InputStream);
         str = sr.ReadToEnd();
         sr.Close();
-        Response.Write(str);
+        Response.Write(Session["user_token"].ToString());
     }
 </script>
