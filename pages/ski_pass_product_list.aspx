@@ -80,7 +80,17 @@
     <script type="text/javascript" >
 
         function book_ski_pass(product_id) {
-            alert(product_id);
+            //alert(product_id);
+            var cart_json = '{"cart_array" : [{"product_id" : "' + product_id + '", "count" : "1"}]}';
+            $.ajax({
+                url:    "/api/place_online_order.aspx",
+                async:  false,
+                type:   "POST",
+                data:   cart_json,
+                success: function(msg, status) {
+                    alert(msg);
+            }
+            });
         }
 
     </script>
