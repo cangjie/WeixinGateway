@@ -34,6 +34,9 @@
         pass = new OnlineSkiPass(code);
         order = pass.associateOnlineOrder;
         detail = pass.associateOnlineOrderDetail;
+
+        if (!openId.Trim().Equals(pass.owner.OpenId.Trim()))
+            Response.End();
         
     }
 </script>
@@ -55,7 +58,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-            <div id="ticket-<%=code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px"  >
+            <div id="ticket-<%=code.Trim()%>" name="ticket" class="panel panel-success" style="width:350px"  >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=detail.productName.Trim() %></h3>
             </div>

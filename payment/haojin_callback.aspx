@@ -13,6 +13,7 @@
             if (order.Type.Trim().Equals("雪票"))
             {
                 order.CreateSkiPass();
+                Response.Redirect("../pages/ski_pass_list.aspx", true);
             }
         }
 
