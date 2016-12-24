@@ -9,11 +9,27 @@ using System.Data;
 /// </summary>
 public class Card
 {
+
+    public DataRow _fields;
+
     public Card()
     {
         //
         // TODO: Add constructor logic here
         //
+    }
+
+    public Card(string code)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from card where card_no = '" + code + "' ");
+        _fields = dt.Rows[0];
+    }
+
+    public void Use(DateTime useDateTime)
+    {
+        string[,] updateParam = { {"used", "int", "1" }, {"use_date", "datetime", useDateTime.ToString() } };
+        string[,] keyParam = { {"code", "varchar", _fields["code"].ToString() } };
+        DBHelper.UpdateData("card", updateParam, keyParam, Util.conStr);
     }
 
     public static string GenerateCardNo(int digit, int batchId)
