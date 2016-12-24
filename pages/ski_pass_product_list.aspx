@@ -80,7 +80,6 @@
     <script type="text/javascript" >
 
         function book_ski_pass(product_id) {
-            //alert(product_id);
             var cart_json = '{"cart_array" : [{"product_id" : "' + product_id + '", "count" : "1"}]}';
             $.ajax({
                 url:    "/api/place_online_order.aspx",
@@ -88,7 +87,8 @@
                 type:   "POST",
                 data:   {"cart":cart_json,"token":<%=userToken%>},
                 success: function(msg, status) {
-                    alert(msg);
+                    var msg_object = eval("(" + msg + ")");
+                    window.location.href = "../payment/haojin_pay_online_order.aspx?orderid=" + msg_object.order_id;
             }
             });
         }

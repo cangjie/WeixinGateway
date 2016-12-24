@@ -20,6 +20,13 @@ public class OnlineOrder
         //
     }
 
+    public OnlineOrder(int orderId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from order_online where [id] = " + orderId.ToString());
+        _fields = dt.Rows[0];
+
+    }
+
     public int Place(string openId)
     {
         if (_fields == null)
