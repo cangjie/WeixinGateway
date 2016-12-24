@@ -49,6 +49,11 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" >
+        function go_to_detail(order_id, card_code) {
+            window.location.href = "ski_pass_detail.aspx?orderid=" + order_id + "&code=" + card_code;
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -70,7 +75,7 @@
                     Product p = new Product(pass.associateOnlineOrderDetail.productId);
                     %>
         <br />
-        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px"  >
+        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="go_to_detail('<%=pass.associateOnlineOrder._fields["id"].ToString().Trim() %>','<%=pass.cardCode %>')" >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
