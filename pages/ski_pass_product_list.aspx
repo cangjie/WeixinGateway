@@ -85,8 +85,8 @@
             $.ajax({
                 url:    "/api/place_online_order.aspx",
                 async:  false,
-                type:   "POST",
-                data:   {"cart":cart_json,"token":<%=userToken%>},
+                type:   "GET",
+                data:   {"cart":cart_json,"token":"<%=userToken%>"},
                 success: function(msg, status) {
                     alert(msg);
             }
