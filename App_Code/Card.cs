@@ -36,7 +36,7 @@ public class Card
     {
         string[,] updateParam = { { "used", "int", "1" }, { "use_date", "datetime", useDateTime.ToString() },
             {"use_memo", "varchar", memo } };
-        string[,] keyParam = { { "code", "varchar", _fields["code"].ToString() } };
+        string[,] keyParam = { { "code", "varchar", _fields["card_no"].ToString() } };
         DBHelper.UpdateData("card", updateParam, keyParam, Util.conStr);
     }
 
