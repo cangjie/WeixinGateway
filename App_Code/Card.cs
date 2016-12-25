@@ -59,7 +59,7 @@ public class Card
             switch (_fields["type"].ToString().Trim())
             {
                 case "雪票":
-                    OnlineSkiPass pass = new OnlineSkiPass(_fields["code"].ToString().Trim());
+                    OnlineSkiPass pass = new OnlineSkiPass(_fields["card_no"].ToString().Trim());
                     return pass.owner;
                     break;
                 default:
