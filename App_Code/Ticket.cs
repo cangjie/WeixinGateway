@@ -118,6 +118,26 @@ public class Ticket
         return tt;
     }
 
+    public static void GenerateNewTicket(string code, string openId, int templateId)
+    {
+        DataTable dtTemplate = DBHelper.GetDataTable(" select * from ticket_template where [id] = " + templateId.ToString());
+        int i = 0;
+        if (dtTemplate.Rows.Count == 1)
+        {
+            double amount = double.Parse(dtTemplate.Rows[0]["currency_value"].ToString().Trim());
+            DateTime expireDate = DateTime.Now.AddDays(int.Parse(dtTemplate.Rows[0]["available_days"].ToString().Trim()));
+            string memo = dtTemplate.Rows[0]["memo"].ToString().Trim();
+            string[,] insertParameters = { {"code", "varchar", code },
+                {"user_open_id", "varchar", openId.Trim() },
+                {"template_id", "int", templateId.ToString() },
+                {"amount", "float", Math.Round(amount,2).ToString() },
+                {"expire_date", "datetime", expireDate.ToString() },
+                {"memo", "varchar", memo.Trim() } };
+            i = DBHelper.InsertData("ticket", insertParameters);
+        }
+        dtTemplate.Dispose();
+    }
+
     public static string GenerateNewTicket(string openId, int templateId)
     {
         string code = GenerateNewTicketCode();

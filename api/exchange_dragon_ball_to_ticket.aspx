@@ -9,13 +9,13 @@
         string userOpenId = WeixinUser.CheckToken(token).Trim();
         Ticket.TicketTemplate ticketTemplate = Ticket.GetTicketTemplate(templateId);
         WeixinUser user = new WeixinUser(userOpenId);
-
         if (user.Points >= ticketTemplate.neetPoints)
         {
             int i = Point.AddNew(userOpenId, -1 * ticketTemplate.neetPoints, DateTime.Now, "兑换代金券");
             if (i > 0)
             {
-                string code = Ticket.GenerateNewTicket(userOpenId, templateId);
+                string code = Card.GenerateCardNo(9, 0, "代金券");
+                Ticket.GenerateNewTicket(code, userOpenId, templateId);
                 Response.Write("{\"status\" : 0, \"ticket_code\" : \"" + code.Trim() + "\" }");
             }
             else
