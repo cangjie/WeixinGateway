@@ -12,22 +12,12 @@
         if (user.IsAdmin)
         {
             Card card = new Card(code);
-            card.Use(DateTime.Now);
-            Ticket ticket = new Ticket(code);
-            if (ticket.Use(word))
-            {
-                Response.Write("{\"status\":0}");
-            }
-            else
-            {
-                Response.Write("{\"status\":1}");
-            }
+            card.Use(DateTime.Now, word);
+            Response.Write("{\"status\":0}");
         }
         else
         {
             Response.Write("{\"status\":1}");
         }
-
     }
-
 </script>

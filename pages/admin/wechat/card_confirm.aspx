@@ -3,29 +3,18 @@
 <!DOCTYPE html>
 
 <script runat="server">
-
     public WeixinUser currentUser;
     public string openId = "";
-    public Ticket ticket;
-
+    public Card card;
+    public string pannelStyle = "info";
+    public string title = "";
+    public string code = "";
+    public string body = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-        string code = Util.GetSafeRequestValue(Request, "code", "");
+        code = Util.GetSafeRequestValue(Request, "code", "");
 
-        Card card = new Card(code);
-
-        switch (card._fields["type"].ToString().Trim())
-        {
-            case "雪票":
-                Response.Redirect("card_confirm.aspx?code=" + code.Trim(), true);
-                break;
-            default:
-                break;
-        }
-
-        ticket = new Ticket(code);
-
-        string currentPageUrl = Server.UrlEncode("/pages/ticket_detail.aspx?code=" + ticket.Code);
+        string currentPageUrl = Server.UrlEncode("/pages/ticket_detail.aspx?code=" + code);
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
@@ -38,7 +27,21 @@
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
-        if (!currentUser.IsAdmin || ticket.Used)
+        card = new Card(code);
+
+        switch (card._fields["type"].ToString().Trim())
+        {
+            case "雪票":
+                pannelStyle = "success";
+                OnlineSkiPass pass = new OnlineSkiPass(code);
+                title = pass.associateOnlineOrderDetail.productName.Trim();
+                body = "";
+                break;
+            default:
+                break;
+        }
+
+        if (!currentUser.IsAdmin || card.Used)
         {
             Response.End();
         }
@@ -59,12 +62,13 @@
     <script src="../../js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
-        function use_ticket() {
-            var code = "<%=ticket.Code.Trim()%>";
+        function use_card() {
+    
+            var code = "<%=code.Trim()%>";
             var token = "<%=Session["user_token"].ToString().Trim()%>";
             var word = document.getElementById("word").value;
             $.ajax({
-                url:        "../../../api/use_ticket.aspx",
+                url:        "../../../api/use_card.aspx",
                 async:      false,
                 data:       { code: code, token: token, word: word },
                 success:    function (msg, status) {
@@ -78,28 +82,29 @@
                     }
                 }
             });
+        
         }
     </script>
 </head>
 <body>
     <div style="margin-left: 5px" >
-        <div id="ticket-<%=ticket.Code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px"  >
+        <div id="card-<%=code%>" name="ticket" class="panel panel-<%=pannelStyle %>" style="width:350px"  >
             <div class="panel-heading">
-                <h3 class="panel-title">代金券<%=Math.Round(ticket.Amount, 2).ToString() %>元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期日：<%=ticket.ExpireDate.ToShortDateString() %></h3>
+                <h3 class="panel-title"><%=card._fields["type"] %>：<%=title %></h3>
             </div>
             <div class="panel-body">
-                    <%=ticket._fields["memo"].ToString().Trim() %>
+                    <%=body%>
                 <br />
                 <div style="text-align:center" >
-                    <img src="<%=ticket.Owner.HeadImage.Trim() %>" style="width:200px; text-align:center"  />
+                    <img src="<%=card.Owner.HeadImage.Trim() %>" style="width:200px; text-align:center"  />
                     <br />
-                    <b style="text-align:center" ><%=ticket.Code.Substring(0,3) %>-<%=ticket.Code.Substring(3,3) %>-<%=ticket.Code.Substring(6,3) %></b>
+                    <b style="text-align:center" ><%=code.Substring(0,3) %>-<%=code.Substring(3,3) %>-<%=code.Substring(6,3) %></b>
                     <br />
-                    <%=ticket.Owner.CellNumber.Trim() %> <%=ticket.Owner.Nick.Trim() %>
+                    <%=card.Owner.CellNumber.Trim() %> <%=card.Owner.Nick.Trim() %>
                     <br /><br />
                     <p style="text-align:left" >填写备注<br /></p>
                     <textarea id="word" rows="3" cols="38"  ></textarea>  <br />
-                    <button class="btn btn-default" onclick="use_ticket()" >确认使用</button>
+                    <button class="btn btn-default" onclick="use_card()" >确认使用</button>
                 </div>
             </div>
         </div>

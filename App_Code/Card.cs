@@ -32,6 +32,43 @@ public class Card
         DBHelper.UpdateData("card", updateParam, keyParam, Util.conStr);
     }
 
+    public void Use(DateTime useDateTime, string memo)
+    {
+        string[,] updateParam = { { "used", "int", "1" }, { "use_date", "datetime", useDateTime.ToString() },
+            {"use_memo", "varchar", memo } };
+        string[,] keyParam = { { "code", "varchar", _fields["code"].ToString() } };
+        DBHelper.UpdateData("card", updateParam, keyParam, Util.conStr);
+    }
+
+    public bool Used
+    {
+        get
+        {
+            if (_fields["used"].ToString().Equals("0"))
+                return false;
+            else
+                return true;
+
+        }
+    }
+
+    public WeixinUser Owner
+    {
+        get
+        {
+            switch (_fields["type"].ToString().Trim())
+            {
+                case "雪票":
+                    OnlineSkiPass pass = new OnlineSkiPass(_fields["code"].ToString().Trim());
+                    return pass.owner;
+                    break;
+                default:
+                    break;
+            }
+            return null;
+        }
+    }
+
     public static string GenerateCardNo(int digit, int batchId)
     {
         
