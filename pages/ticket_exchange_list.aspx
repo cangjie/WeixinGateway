@@ -70,7 +70,8 @@
                 success:    function (msg, status) {
                                 var msg_object = eval("(" + msg + ")");
                                 if (msg_object.status == 0) {
-                                    alert("success");
+                                    //alert("success");
+                                    window.location.href = "ticket_list.aspx";
                                 }
                                 else {
                                     alert(msg_object.error_message);
