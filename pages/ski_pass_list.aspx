@@ -30,7 +30,9 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
-
+        if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
+            Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
+        
         passArr = OnlineSkiPass.GetOnlieSkiPassByOwnerOpenId(openId);
 
     }

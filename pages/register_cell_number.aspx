@@ -14,6 +14,8 @@
 
     public string fatherCellNumber = "";
 
+    public string refUrl = "/pages/ski_pass_product_list.aspx";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         string currentPageUrl = Server.UrlEncode("/pages/register_cell_number.aspx");
@@ -31,6 +33,8 @@
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
+
+        refUrl = Util.GetSafeRequestValue(Request, "refurl", refUrl);
 
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
@@ -51,7 +55,7 @@
         }
         else
         {
-            Response.Redirect("default.aspx", true);
+            Response.Redirect(refUrl, true);
         }
 
     }
@@ -163,6 +167,7 @@
                     var msg_object = eval("(" + msg + ")");
                     if (status == "success" && msg_object.status == 0 && msg_object.result == 1) {
                         alert("手机绑定成功");
+                        window.location.href = "<%=refUrl%>";
                     }
 
                 }
