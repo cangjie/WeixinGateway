@@ -62,5 +62,17 @@ public class OnlineSkiPass
         return passArr;
     }
 
+    public static OnlineSkiPass[] GetUnusedOnlineSkiPass()
+    {
+        DataTable dt = DBHelper.GetDataTable(" select code from order_online left join card on card_no = code where   card.type = '雪票' and code <> '' and code is not null   and pay_state = 1 and used = 0  order by [id] desc ");
+        OnlineSkiPass[] passArr = new OnlineSkiPass[dt.Rows.Count];
+        for (int i = 0; i < passArr.Length; i++)
+        {
+            passArr[i] = new OnlineSkiPass(dt.Rows[i]["code"].ToString());
+        }
+        dt.Dispose();
+        return passArr;
+    }
+
 
 }

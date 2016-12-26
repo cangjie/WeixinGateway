@@ -1,9 +1,11 @@
 ﻿<%@ Page Language="C#" %>
 <script runat="server">
 
+    public OnlineSkiPass[] passArr;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        passArr = OnlineSkiPass.GetUnusedOnlineSkiPass();
     }
 </script>
 
@@ -28,10 +30,26 @@
             <td>手机号</td>
             <td>昵称</td>
             <td>票种</td>
+            <td>单价</td>
             <td>张数</td>
-            <td>预约日期</td>
             <td>购买日期</td>
         </tr>
+        <%
+            foreach(OnlineSkiPass pass in passArr)
+            {
+                %>
+        <tr>
+            <td><%=pass.associateOnlineOrder._fields["id"].ToString() %></td>
+            <td><%=pass.owner.CellNumber.Trim() %></td>
+            <td><%=pass.owner.Nick.Trim() %></td>
+            <td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td>
+            <td><%=pass.associateOnlineOrderDetail.price.ToString() %></td>
+            <td><%=pass.associateOnlineOrderDetail.count.ToString() %></td>
+            <td><%=pass.associateOnlineOrder._fields["crt"].ToString() %></td>
+        </tr>
+                    <%
+            }
+             %>
         <tr>
             <td>1</td>
             <td>13501177897</td>
