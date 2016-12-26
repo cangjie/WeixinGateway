@@ -66,6 +66,7 @@
             </div>
             <div class="panel-body">
                     <li>请看清雪票的使用时段。</li>
+                    <li><font color="red" >请电话告知出票时间。</font></li>
                     <li>一旦下单，不退不换。</li>
                     <%
                         if (detail.productName.Trim().StartsWith("南山"))
