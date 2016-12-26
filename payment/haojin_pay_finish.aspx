@@ -9,10 +9,10 @@
         OnlineOrder order = new OnlineOrder(orderId);
         if (order._fields["open_id"].ToString().Trim().Equals(openId.Trim()))
         {
-            order.SetOrderPaySuccess(DateTime.Now);
+            //order.SetOrderPaySuccess(DateTime.Now);
             if (order.Type.Trim().Equals("雪票"))
             {
-                order.CreateSkiPass();
+                //order.CreateSkiPass();
                 Response.Redirect("../pages/ski_pass_list.aspx", true);
             }
         }
