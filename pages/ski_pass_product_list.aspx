@@ -127,7 +127,7 @@
                         if (currentResort.Trim().Equals("nanshan"))
                         {
                             %>
-                    <li>如需租赁雪具，请下单时加入备注。</li>
+                    <li>如需租赁雪具，请带好足够的押金或者证件。</li>
                     <%
                         }
                         else
