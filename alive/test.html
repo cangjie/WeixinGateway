@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <input type="text" id="sessionId" /><input type="button" value="进入" onclick="comin()" /><br />
+    <input type="text" id="message" /><input type="button" value="发送" onclick="send()" />
+    <div id="messages">
+    </div>
+    <script type="text/javascript">
+
+        function comin() {
+
+            var xmlHttp = ajaxFunction();
+
+            var url = "../MyAsyncHandler.ashx?sessionId=" + document.getElementById("sessionId").value;
+
+            xmlHttp.onreadystatechange = function () {
+
+                if (xmlHttp.readyState == 4) {
+
+                    if (xmlHttp.status == 200) {
+
+                        document.getElementById("messages").innerHTML += xmlHttp.responseText + "<br>";
+
+                        //连接已经结束，马上开启另外一个连接
+
+                        comin();
+
+                    }
+
+                }
+
+            }
+
+            xmlHttp.open("get", url, true);
+
+            xmlHttp.send(null);
+
+        }
+
+
+        function send() {
+
+            var xmlHttp = ajaxFunction();
+
+            var url = "../MyHandler.ashx?sessionId=" + document.getElementById("sessionId").value + "&message=" + document.getElementById("message").value;
+
+
+            xmlHttp.onreadystatechange = function () {
+
+                if (xmlHttp.readyState == 4) {
+
+                    if (xmlHttp.status == 200) {
+
+                    }
+                    else {
+
+                        alert("错误:" + xmlHttp.status);
+
+                    }
+
+                }
+            }
+
+            xmlHttp.open("get", url, true);
+
+            xmlHttp.send(null);
+
+        }
+
+        function ajaxFunction() {
+
+            var xmlHttp;
+
+            try {
+
+                xmlHttp = new XMLHttpRequest();
+
+            }
+
+            catch (e) {
+
+                try {
+
+                    xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+
+                }
+
+                catch (e) {
+
+                    try {
+
+                        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+                    }
+
+                    catch (e) {
+
+                        alert("您的浏览器不支持AJAX！");
+
+                        return false;
+
+                    }
+
+                }
+
+            }
+
+            return xmlHttp;
+
+        }
+
+    </script>
+</body>
+</html>
