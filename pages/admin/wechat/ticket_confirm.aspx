@@ -22,25 +22,33 @@
             default:
                 break;
         }
-
-        ticket = new Ticket(code);
-
-        string currentPageUrl = Server.UrlEncode("/pages/ticket_detail.aspx?code=" + ticket.Code);
-        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+        try
         {
-            Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
+
+
+            ticket = new Ticket(code);
+
+            string currentPageUrl = Server.UrlEncode("/pages/ticket_detail.aspx?code=" + ticket.Code);
+            if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+            {
+                Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
+            }
+            string userToken = Session["user_token"].ToString();
+            openId = WeixinUser.CheckToken(userToken);
+            if (openId.Trim().Equals(""))
+            {
+                Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
+            }
+            currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+
+            if (!currentUser.IsAdmin || ticket.Used)
+            {
+                Response.End();
+            }
         }
-        string userToken = Session["user_token"].ToString();
-        openId = WeixinUser.CheckToken(userToken);
-        if (openId.Trim().Equals(""))
+        catch
         {
-            Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
-        }
-        currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
-
-        if (!currentUser.IsAdmin || ticket.Used)
-        {
-            Response.End();
+            Response.Redirect("card_confirm.aspx?code=" + code, true);
         }
     }
 </script>
