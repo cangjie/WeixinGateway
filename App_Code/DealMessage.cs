@@ -116,7 +116,7 @@ public class DealMessage
                         if (card.Used)
                         {
                             repliedMessage.type = "text";
-                            receivedMessage.content = card._fields["type"].ToString() + ":"
+                            repliedMessage.content = card._fields["type"].ToString() + ":"
                                 + ticketCode.Trim() + "已经使用，点击<a href=\"http://weixin.snowmeet.com/pages/admin/wechat/card_confirm_finish.aspx?code=" + ticketCode.Trim()  +"\" >这里</a>查看详情";
 
                         }
