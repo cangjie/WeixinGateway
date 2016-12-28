@@ -41,10 +41,12 @@
                 break;
         }
 
-        if (!currentUser.IsAdmin || card.Used)
+        if (!currentUser.IsAdmin)
         {
             Response.End();
         }
+        if (card.Used)
+            Response.Redirect("card_confirm_finish.aspx?code=" + card._fields["card_no"].ToString(), true);
     }
 </script>
 
@@ -75,6 +77,7 @@
                     var msg_object = eval("(" + msg + ")");
                     if (msg_object.status == 0) {
                         alert("success");
+                        window.location.href = "card_confirm_finish.aspx?code=<%=code%>";
                     }
                     else {
                         alert("failed");
