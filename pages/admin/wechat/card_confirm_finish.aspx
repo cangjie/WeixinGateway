@@ -14,7 +14,7 @@
     {
         code = Util.GetSafeRequestValue(Request, "code", "");
 
-        string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/card_confirm.aspx?code=" + code);
+        string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/card_confirm_finish.aspx?code=" + code);
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
@@ -35,16 +35,17 @@
                 pannelStyle = "success";
                 OnlineSkiPass pass = new OnlineSkiPass(code);
                 title = pass.associateOnlineOrderDetail.productName.Trim();
-                body = "";
+                body = "<ul><li>使用日期：" + card._fields["use_date"].ToString() + "</li><li>" + card._fields["use_memo"].ToString().Trim() + "</li></ul>";
                 break;
             default:
                 break;
         }
 
-        if (!currentUser.IsAdmin || card.Used)
-        {
+        if (!currentUser.IsAdmin)
             Response.End();
-        }
+
+        if (!card.Used)
+            Response.Redirect("card_confirm.aspx?code=" + code.Trim(), true);
     }
 </script>
 
@@ -61,32 +62,9 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="../../js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script type="text/javascript" >
-        function use_card() {
-    
-            var code = "<%=code.Trim()%>";
-            var token = "<%=Session["user_token"].ToString().Trim()%>";
-            var word = document.getElementById("word").value;
-            $.ajax({
-                url:        "../../../api/use_card.aspx",
-                async:      false,
-                data:       { code: code, token: token, word: word },
-                success:    function (msg, status) {
-                    var msg_object = eval("(" + msg + ")");
-                    if (msg_object.status == 0) {
-                        alert("success");
-                    }
-                    else {
-                        alert("failed");
-                    }
-                }
-            });
-        
-        }
-    </script>
 </head>
 <body>
-    <div style="margin-left: 5px" >
+        <div style="margin-left: 5px" >
         <div id="card-<%=code%>" name="ticket" class="panel panel-<%=pannelStyle %>" style="width:350px"  >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=card._fields["type"] %>：<%=title %></h3>
@@ -101,12 +79,11 @@
                     <br />
                     <%=card.Owner.CellNumber.Trim() %> <%=card.Owner.Nick.Trim() %>
                     <br /><br />
-                    <p style="text-align:left" >填写备注<br /></p>
-                    <textarea id="word" rows="3" cols="38"  ></textarea>  <br />
-                    <button class="btn btn-default" onclick="use_card()" >确认使用</button>
+                   
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 </html>
