@@ -138,9 +138,10 @@ public class DealMessage
                             }
 
                             repliedMessage.newsContent = new RepliedMessage.news[] { content };
-                            repliedMessage.from = receivedMessage.to;
-                            repliedMessage.to = receivedMessage.from;
+                            
                         }
+                        repliedMessage.from = receivedMessage.to;
+                        repliedMessage.to = receivedMessage.from;
                     }
                     catch
                     {
