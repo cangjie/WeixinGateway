@@ -114,25 +114,33 @@ public class DealMessage
                         repliedMessage.type = "news";
                         RepliedMessage.news content = new RepliedMessage.news();
                         if (card.Used)
-                            return null;
-                        if (card._fields["type"].ToString().Equals("雪票"))
                         {
-                            content.title = "确认雪票-" + ticketCode;
-                            content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                            content.url = "http://weixin.snowmeet.com/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
-                            content.description = "";
+                            repliedMessage.type = "text";
+                            receivedMessage.content = card._fields["type"].ToString() + ":"
+                                + ticketCode.Trim() + "已经使用，点击<a href=\"http://weixin.snowmeet.com/pages/admin/wechat/card_confirm_finish.aspx?code=" + ticketCode.Trim()  +"\" >这里</a>查看详情";
+
                         }
                         else
                         {
-                            content.title = "确认消费抵用券-" + ticketCode;
-                            content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                            content.url = "http://weixin.snowmeet.com/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
-                            content.description = "";
+                            if (card._fields["type"].ToString().Equals("雪票"))
+                            {
+                                content.title = "确认雪票-" + ticketCode;
+                                content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
+                                content.url = "http://weixin.snowmeet.com/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
+                                content.description = "";
+                            }
+                            else
+                            {
+                                content.title = "确认消费抵用券-" + ticketCode;
+                                content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
+                                content.url = "http://weixin.snowmeet.com/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
+                                content.description = "";
+                            }
+
+                            repliedMessage.newsContent = new RepliedMessage.news[] { content };
+                            repliedMessage.from = receivedMessage.to;
+                            repliedMessage.to = receivedMessage.from;
                         }
-                       
-                        repliedMessage.newsContent = new RepliedMessage.news[] { content };
-                        repliedMessage.from = receivedMessage.to;
-                        repliedMessage.to = receivedMessage.from;
                     }
                     catch
                     {
