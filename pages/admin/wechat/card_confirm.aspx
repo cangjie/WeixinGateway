@@ -14,7 +14,7 @@
     {
         code = Util.GetSafeRequestValue(Request, "code", "");
 
-        string currentPageUrl = Server.UrlEncode("/pages/ticket_detail.aspx?code=" + code);
+        string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/card_confirm.aspx?code=" + code);
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);

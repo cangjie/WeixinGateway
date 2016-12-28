@@ -28,7 +28,7 @@
 
             ticket = new Ticket(code);
 
-            string currentPageUrl = Server.UrlEncode("/pages/ticket_detail.aspx?code=" + ticket.Code);
+            string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/ticket_confirm.aspx?code=" + ticket.Code);
             if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
             {
                 Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
