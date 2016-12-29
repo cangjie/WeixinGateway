@@ -34,7 +34,7 @@
                     customMessage.type = "text";
                     customMessage.content = "您的雪票：" + pass.associateOnlineOrderDetail.productName + "，票号："
                         + code.Substring(0, 3) + "-" + code.Substring(3, 3) + "-" + code.Substring(6, 3) + "，"
-                        + "被" + user.Nick.Trim() + "验证成功，<a href=\"http://weixin.snowmeet.com/pages/ski_pass_list.aspx\" >点击查看详情</a>。";
+                        + "被" + user.Nick.Trim() + "验证成功，详情请点击微信公众号菜单“我的雪票”查看。";
                     ServiceMessage.SendServiceMessage(customMessage);
                 }
                 catch
