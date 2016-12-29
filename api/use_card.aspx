@@ -13,6 +13,37 @@
         {
             Card card = new Card(code);
             card.Use(DateTime.Now, word);
+
+            if (card._fields["type"].ToString().Equals("雪票"))
+            {
+                try
+                {
+                    OnlineSkiPass pass = new OnlineSkiPass(card._fields["card_no"].ToString().Trim());
+                    ServiceMessage adminMessage = new ServiceMessage();
+                    adminMessage.from = "gh_0427e9838339";
+                    adminMessage.to = user.OpenId;
+                    adminMessage.type = "text";
+                    adminMessage.content = "雪票：" + pass.associateOnlineOrderDetail.productName + "，票号："
+                        + code.Substring(0, 3) + "-" + code.Substring(3, 3) + "-" + code.Substring(6, 3) + "，"
+                        + "持有人：" + card.Owner.Nick + "，验证成功。";
+                    ServiceMessage.SendServiceMessage(adminMessage);
+
+                    ServiceMessage customMessage = new ServiceMessage();
+                    customMessage.from = "gh_0427e9838339";
+                    customMessage.to = card.Owner.OpenId;
+                    customMessage.type = "test";
+                    customMessage.content = "您的雪票：" + pass.associateOnlineOrderDetail.productName + "，票号："
+                        + code.Substring(0, 3) + "-" + code.Substring(3, 3) + "-" + code.Substring(6, 3) + "，"
+                        + "被" + user.Nick.Trim() + "验证成功，<a href=\"http://weixin.snowmeet.com/pages/ski_pass_list.aspx\" >点击查看详情</a>。";
+                    ServiceMessage.SendServiceMessage(customMessage);
+                }
+                catch
+                {
+
+                }
+
+            }
+
             Response.Write("{\"status\":0}");
         }
         else

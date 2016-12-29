@@ -16,6 +16,10 @@ public class ServiceMessage
     public string voiceUrl = "";
     public RepliedMessage.news[] newsArray;
 
+    public ServiceMessage()
+    {
+
+    }
 
     public ServiceMessage(string jsonStr)
 	{
