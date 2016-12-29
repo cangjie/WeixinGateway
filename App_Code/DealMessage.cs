@@ -101,10 +101,11 @@ public class DealMessage
             Util.DealLandingRequest(receivedMessage.from);
         }
         */
+        WeixinUser user = new WeixinUser(receivedMessage.from);
         switch (receivedMessage.userEvent.ToUpper())
         {
             case "SCAN":
-                WeixinUser user = new WeixinUser(receivedMessage.from);
+                
                 if (receivedMessage.eventKey.Trim().StartsWith("3") && user.IsAdmin)
                 {
                     try
@@ -149,6 +150,47 @@ public class DealMessage
                     }
 
                     
+
+                }
+
+                if (receivedMessage.eventKey.StartsWith("1"))
+                {
+                    if (user.VipLevel == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        Device device = Device.ScanDeviceQrCode(receivedMessage.eventKey);
+                        if (device != null)
+                        {
+                            int needPoints = int.Parse(device._fields["need_point"].ToString());
+                            if (user.Points < needPoints)
+                                Device.FirstTimeToUse(receivedMessage.from.Trim(), int.Parse(device._fields["id"].ToString()));
+                            if (user.Points >= needPoints)
+                            {
+                                Point.AddNew(user.OpenId, -1 * needPoints, DateTime.Now, "使用" + device._fields["name"].ToString());
+                                Device.AddNewScanRecord(int.Parse(device._fields["id"].ToString()), Util.GetTimeStamp(), user.OpenId);
+
+                            }
+                            else
+                            {
+                                ServiceMessage userMessage = new ServiceMessage();
+                                userMessage.from = "gh_0427e9838339";
+                                userMessage.to = user.OpenId;
+                                userMessage.type = "text";
+                                userMessage.content = "您的龙珠不够。";
+                                ServiceMessage.SendServiceMessage(userMessage);
+                            }
+
+
+                        }
+                    }
+                }
+                break;
+            case "subscribe":
+                if (receivedMessage.eventKey.StartsWith("qrscene_1"))
+                {
 
                 }
                 break;
