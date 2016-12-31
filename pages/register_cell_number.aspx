@@ -108,7 +108,7 @@
                 <div class="col-xs-8" ><input type="text" id="verify_code"  style="width:150px" /></div>
             </div>
             <div class="row" >
-                <div class="col-xs-4" ><p class="text-right">推荐人手机号：</p></div>
+                <div class="col-xs-4" ><p class="text-right">推荐人手机号(若没有，可不填)：</p></div>
                 <div class="col-xs-8" ><input type="text" id="father_cell_number"  style="width:150px" value="<%=fatherCellNumber %>"/></div>
             </div>
             <div class="row" >
