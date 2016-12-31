@@ -26,7 +26,7 @@
 <body>
     <table class="table table-striped">
         <tr>
-            <td>订单号</td>
+            <td>票号</td>
             <td>手机号</td>
             <td>昵称</td>
             <!--td>票种</td-->
@@ -41,7 +41,7 @@
             {
                 %>
         <tr>
-            <td><%=pass.associateOnlineOrder._fields["id"].ToString() %></td>
+            <td><%=pass.cardCode.Trim()%></td>
             <td><%=pass.owner.CellNumber.Trim() %></td>
             <td><%=pass.owner.Nick.Trim() %></td>
             <!--td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td-->
