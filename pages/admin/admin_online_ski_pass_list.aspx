@@ -29,9 +29,11 @@
             <td>订单号</td>
             <td>手机号</td>
             <td>昵称</td>
-            <td>票种</td>
+            <!--td>票种</td-->
             <td>单价</td>
             <td>张数</td>
+            <td>验票</td>
+            <td>验票时间</td>
             <td>购买日期</td>
         </tr>
         <%
@@ -42,9 +44,11 @@
             <td><%=pass.associateOnlineOrder._fields["id"].ToString() %></td>
             <td><%=pass.owner.CellNumber.Trim() %></td>
             <td><%=pass.owner.Nick.Trim() %></td>
-            <td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td>
+            <!--td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td-->
             <td><%=pass.associateOnlineOrderDetail.price.ToString() %></td>
             <td><%=pass.associateOnlineOrderDetail.count.ToString() %></td>
+            <td><%=(pass.used? "已验":"未验") %></td>
+            <td><%=(pass.used? pass.useDate.ToString() : "---") %></td>
             <td><%=pass.associateOnlineOrder._fields["crt"].ToString() %></td>
         </tr>
                     <%
