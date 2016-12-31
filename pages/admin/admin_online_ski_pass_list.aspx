@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        passArr = OnlineSkiPass.GetUnusedOnlineSkiPass();
+        passArr = OnlineSkiPass.GetLastWeekOnlineSkiPass();
     }
 </script>
 
