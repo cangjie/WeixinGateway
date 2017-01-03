@@ -27,7 +27,7 @@ public class Product
 
     public static Product[] GetSkiPassList(string resort)
     {
-        string sqlStr = " select * from product where type = '雪票' and  ";
+        string sqlStr = " select * from product where type = '雪票' and  hidden = 0 and ";
         if (resort.Trim().Equals("nanshan"))
         {
             sqlStr = sqlStr + " name like '南山%' ";
