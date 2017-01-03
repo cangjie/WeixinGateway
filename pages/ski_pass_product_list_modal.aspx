@@ -164,7 +164,7 @@
                     <div class="modal-body" >
                         <div>日期：<span class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                    <span id="current_date" ></span>
+                                    <span id="current_date" >2017-1-3 今日</span>
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
