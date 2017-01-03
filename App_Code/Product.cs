@@ -34,7 +34,7 @@ public class Product
         }
         else
         {
-            sqlStr = sqlStr + " name like '八亿%' ";
+            sqlStr = sqlStr + " name like '八易%' ";
         }
 
         DataTable dt = DBHelper.GetDataTable(sqlStr);
