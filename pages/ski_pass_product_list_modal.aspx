@@ -160,8 +160,7 @@
                 <div class="modal-content">
                     <div class="modal-header" id="modal-header" >测试</div>
                     <div class="modal-body" >
-                        <div>日期：
-                            <div class="dropdown">
+                        <div>日期：<span class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                                     Dropdown
                                     <span class="caret"></span>
@@ -172,12 +171,14 @@
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
                                 </ul>
-                            </div>
+                            </span>
                         </div>
+			<br/>
                         <div>
-                            人数：<input id="num" value="1" type="text" />
+                            人数：<input id="num" value="1" style="width:50px" type="text" />
                         </div>
-                        <div>租板<input type="checkbox" id="rent" /></div>
+			<br/>
+                        <div><input type="checkbox" id="rent" />我要租板</div>
                     </div>
                     <div class="modal-footer" ><button type="button" class="btn btn-default"> 确 认 预 定 </button></div>
                 </div>
