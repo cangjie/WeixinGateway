@@ -82,9 +82,11 @@
 
         var current_product_id = "0";
         var current_title = "";
-        var current_date = "";
+        var current_date = "<% = ((DateTime.Now.Hour < 8)? (DateTime.Now.ToShortDateString()+"今日") : (DateTime.Now.AddDays(1)+"明日"))%>";
         var current_num = "";
         var current_rent = "0";
+
+        document.getElementById("current_date").innerText = current_date;
 
         function launch_book_modal(product_id, title) {
             document.getElementById("modal-header").innerText = title;
@@ -162,7 +164,7 @@
                     <div class="modal-body" >
                         <div>日期：<span class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                    Dropdown
+                                    <span id="current_date" ></span>
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -173,11 +175,11 @@
                                 </ul>
                             </span>
                         </div>
-			<br/>
+			            <br/>
                         <div>
                             人数：<input id="num" value="1" style="width:50px" type="text" />
                         </div>
-			<br/>
+			            <br/>
                         <div><input type="checkbox" id="rent" />我要租板</div>
                     </div>
                     <div class="modal-footer" ><button type="button" class="btn btn-default"> 确 认 预 定 </button></div>
