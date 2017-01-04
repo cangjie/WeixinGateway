@@ -14,8 +14,11 @@
 
     public string userToken = "";
 
+    public KeyValuePair<DateTime, string>[] selectedDate = new KeyValuePair<DateTime, string>[5];
+
     protected void Page_Load(object sender, EventArgs e)
     {
+
 
         string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
@@ -31,7 +34,7 @@
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
             Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
-        
+
 
         string resort = Util.GetSafeRequestValue(Request, "resort", "");
         if (!resort.Trim().Equals(""))
@@ -59,6 +62,76 @@
             Session["default_resort"] = "nanshan";
         }
         */
+    }
+
+    public void FillSelectedDate()
+    {
+        DateTime startDate = DateTime.Now;
+        if (DateTime.Now.Hour >= 8)
+        {
+            startDate = startDate.AddDays(1);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            string dayName = "今天";
+            switch (startDate.DayOfWeek)
+            {
+                case DayOfWeek.Sunday:
+                    dayName = "周日";
+                    break;
+                case DayOfWeek.Monday:
+                    dayName = "周一";
+                    break;
+                case DayOfWeek.Tuesday:
+                    dayName = "周二";
+                    break;
+                case DayOfWeek.Wednesday:
+                    dayName = "周三";
+                    break;
+                case DayOfWeek.Thursday:
+                    dayName = "周四";
+                    break;
+                case DayOfWeek.Friday:
+                    dayName = "周五";
+                    break;
+                case DayOfWeek.Saturday:
+                    dayName = "周六";
+                    break;
+                default:
+                    break;
+            }
+            if (startDate.Day == DateTime.Now.AddDays(1).Day && !dayName.Equals("周六") && !dayName.Equals("周日"))
+                dayName = "明天";
+            if (startDate.Day == DateTime.Now.AddDays(2).Day && !dayName.Equals("周六") && !dayName.Equals("周日"))
+                dayName = "后天";
+            switch (startDate.Year.ToString()+"-"+startDate.Month.ToString()+"-"+startDate.Day.ToString())
+            {
+                case "2017-1-27":
+                    dayName = "除夕";
+                    break;
+                case "2017-1-28":
+                    dayName = "初一";
+                    break;
+                case "2017-1-29":
+                    dayName = "初二";
+                    break;
+                case "2017-1-30":
+                    dayName = "初三";
+                    break;
+                case "2017-1-31":
+                    dayName = "初四";
+                    break;
+                case "2017-2-1":
+                    dayName = "初五";
+                    break;
+                case "2017-2-2":
+                    dayName = "初六";
+                    break;
+                default:
+                    break;
+            }
+            selectedDate[i] = new KeyValuePair<DateTime, string>(startDate, dayName.Trim());
+        }
     }
 
 
@@ -164,14 +237,15 @@
                     <div class="modal-body" >
                         <div>日期：<span class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                    <span id="current_date" >2017-1-3 今日</span>
+                                    <span id="current_date" ><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></span>
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%=selectedDate[1].Key.ToShortDateString()%> <%=selectedDate[1].Value.Trim() %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%=selectedDate[2].Key.ToShortDateString()%> <%=selectedDate[2].Value.Trim() %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%=selectedDate[3].Key.ToShortDateString()%> <%=selectedDate[3].Value.Trim() %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%=selectedDate[4].Key.ToShortDateString()%> <%=selectedDate[4].Value.Trim() %></a></li>
                                 </ul>
                             </span>
                         </div>
