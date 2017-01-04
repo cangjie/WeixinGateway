@@ -159,10 +159,14 @@
         var current_num = "";
         var current_rent = "0";
 
-        document.getElementById("current_date").innerText = current_date;
+        //var c-date = document.getElementById("current_date");//.innerHTML = current_date;
+
+//alert(current_date);
 
         function launch_book_modal(product_id, title) {
             document.getElementById("modal-header").innerText = title;
+		var aa = document.getElementById("current_date");
+	alert(aa);
             $("#booking_modal").modal();
         }
 
