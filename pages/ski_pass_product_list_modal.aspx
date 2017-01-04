@@ -244,10 +244,10 @@
         }
 
         function fill_modal() {
-            var span_modal_header = document.getElementById("modal-header").innerHTML;
-            var span_current_date = document.getElementById("current_date").innerHTML;
-            var span_current_num = document.getElementById("current_num").innerHTML;
-            span_modal_header = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
+            var span_modal_header = document.getElementById("modal-header");
+            var span_current_date = document.getElementById("current_date");
+            var span_current_num = document.getElementById("current_num");
+            span_modal_header.innerHTML = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
 
         }
     </script>
