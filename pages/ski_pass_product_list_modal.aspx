@@ -16,6 +16,8 @@
 
     public KeyValuePair<DateTime, string>[] selectedDate = new KeyValuePair<DateTime, string>[5];
 
+    
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -156,18 +158,48 @@
 
         var current_product_id = "0";
         var current_title = "";
-        var current_date = "<% = ((DateTime.Now.Hour < 8)? (DateTime.Now.ToShortDateString()+"今日") : (DateTime.Now.AddDays(1)+"明日"))%>";
+        var current_date = "<%=selectedDate[0].Key.ToShortDateString()%>";
         var current_num = "";
         var current_rent = "0";
 
-        //var c-date = document.getElementById("current_date");//.innerHTML = current_date;
+        var product_id_work_day = 0;
+        var product_title_work_day = "";
+        var product_price_work_day = 0;
 
-//alert(current_date);
+        var product_id_weekend = 0;
+        var product_title_weekend = "";
+        var product_price_weekend = 0;
+
+        var product_id_holiday = 0;
+        var product_title_holiday = "";
+        var product_price_holiday = 0;
+        
 
         function launch_book_modal(product_id, title) {
             document.getElementById("modal-header").innerText = title;
-		var aa = document.getElementById("current_date");
+            $.ajax({
+                url:        "/api/get_associate_product.aspx?productid=" + product_id,
+                async:      false,
+                type: "GET",
+                success: function (msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    if (msg_object.status == "0") {
 
+                        product_id_holiday = msg_object.holiday_product.id;
+                        product_title_holiday = msg_object.holiday_product.title;
+                        product_price_holiday = msg_object.holiday_product.price;
+
+                        product_id_weekend = msg_object.weekend_product.id;
+                        product_title_weekend = msg_object.weekend_product.title;
+                        product_price_weekend = msg_object.weekend_product.price;
+
+                        product_id_work_day = msg_object.workday_product.id;
+                        product_title_work_day = msg_object.workday_product.title;
+                        product_price_work_day = msg_object.workday_product.price;
+
+                    }
+                }
+            });
             $("#booking_modal").modal();
         }
 
