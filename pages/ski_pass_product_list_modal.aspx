@@ -254,6 +254,7 @@
             else {
                 current_rent = false;
             }
+            fill_modal()
         }
 
         function fill_modal() {
@@ -267,8 +268,8 @@
             rent_box.checked = current_rent;
             var div_summary = document.getElementById("summary");
             var rent_cash = current_title.indexOf("南山") >= 0 ? 200 : 400;
-            var summary_amount = (parseInt(current_price) + rent_cash) * parseInt(current_num);
-            div_summary.innerHTML = "(雪票￥" + current_price + (current_rent ? (" + 押金￥" + rent_cash) : "") + ")x" + current_num + "人 = " + summary_amount;
+            var summary_amount = (parseInt(current_price) + (current_rent? rent_cash:0)) * parseInt(current_num);
+            div_summary.innerHTML = "(雪票￥" + current_price + (current_rent ? (" + 押金￥" + rent_cash) : "") + ") x " + current_num + "人 = " + summary_amount;
 
         }
     </script>
