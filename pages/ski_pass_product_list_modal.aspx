@@ -238,10 +238,12 @@
                 current_title = product_title_work_day;
                 current_price = product_price_work_day;
             }
+            fill_modal();
         }
 
         function select_num(num) {
             current_num = num;
+            fill_modal();
         }
 
         function fill_modal() {
