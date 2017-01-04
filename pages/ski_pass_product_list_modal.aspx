@@ -176,7 +176,7 @@
         
 
         function launch_book_modal(product_id, title) {
-            document.getElementById("modal-header").innerText = title;
+            //document.getElementById("modal-header").innerText = title;
             $.ajax({
                 url:        "/api/get_associate_product.aspx?productid=" + product_id,
                 async:      false,
@@ -218,9 +218,11 @@
         }
 
         function select_date(date, day_name) {
-            alert(date);
-            alert(day_name);
             document.getElementById("current_date").innerText = date + " " + day_name;
+        }
+
+        function fill_modal(day_name, count) {
+
         }
     </script>
 </head>
@@ -278,7 +280,7 @@
                     <div class="modal-header" id="modal-header" >测试</div>
                     <div class="modal-body" >
                         <div>日期：<span class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSelectDate" data-toggle="dropdown">
                                     <span id="current_date" ><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></span>
                                     <span class="caret"></span>
                                 </button>
@@ -293,7 +295,19 @@
                         </div>
 			            <br/>
                         <div>
-                            人数：<input id="num" value="1" style="width:50px" type="text" />
+                            人数：<span class="dropdown" >
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSelectNum" data-toggle="dropdown">
+                                    <span id="current_num" >1</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(1)" >1</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(2)" >2</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(3)" >3</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(4)" >4</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(5)" >5</a></li>
+                                </ul>
+                            </span>
                         </div>
 			            <br/>
                         <div><input type="checkbox" id="rent" />我要租板</div>
