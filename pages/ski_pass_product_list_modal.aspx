@@ -160,7 +160,7 @@
         var current_title = "";
         var current_date = "<%=selectedDate[0].Key.ToShortDateString()%>";
         var current_num = "1";
-        var current_rent = true;
+        var current_rent = false;
         var current_day_name = "<%=selectedDate[0].Value%>";
         var current_price = 0;
 
@@ -269,7 +269,7 @@
             var div_summary = document.getElementById("summary");
             var rent_cash = current_title.indexOf("南山") >= 0 ? 200 : 400;
             var summary_amount = (parseInt(current_price) + (current_rent? rent_cash:0)) * parseInt(current_num);
-            div_summary.innerHTML = "(雪票￥" + current_price + (current_rent ? (" + 押金￥" + rent_cash) : "") + ") x " + current_num + "人 = " + summary_amount;
+            div_summary.innerHTML = "(雪票￥" + current_price + (current_rent ? (" + 押金￥" + rent_cash) : "") + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
 
         }
     </script>
