@@ -160,7 +160,7 @@
         var current_title = "";
         var current_date = "<%=selectedDate[0].Key.ToShortDateString()%>";
         var current_num = "1";
-        var current_rent = "0";
+        var current_rent = true;
         var current_day_name = "<%=selectedDate[0].Value%>";
         var current_price = 0;
 
@@ -246,6 +246,16 @@
             fill_modal();
         }
 
+        function select_rent() {
+            var rent_box = document.getElementById("rent");
+            if (rent_box.checked) {
+                current_rent = true;
+            }
+            else {
+                current_rent = false;
+            }
+        }
+
         function fill_modal() {
             var span_modal_header = document.getElementById("modal-header");
             var span_current_date = document.getElementById("current_date");
@@ -253,6 +263,8 @@
             span_modal_header.innerHTML = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
             span_current_date.innerHTML = current_date + " " + current_day_name;
             span_current_num.innerHTML = current_num;
+            var rent_box = document.getElementById("rent");
+            rent_box = current_rent;
         }
     </script>
 </head>
@@ -340,7 +352,7 @@
                             </span>
                         </div>
 			            <br/>
-                        <div><input type="checkbox" id="rent" />我要租板</div>
+                        <div><input type="checkbox" id="rent" onclick="select_rent()" />我要租板</div>
                     </div>
                     <div class="modal-footer" ><button type="button" class="btn btn-default"> 确 认 预 定 </button></div>
                 </div>
