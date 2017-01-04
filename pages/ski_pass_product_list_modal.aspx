@@ -201,6 +201,7 @@
                     }
                 }
             });
+            select_date(current_date,current_day_name)
             fill_modal();
             $("#booking_modal").modal();
         }
