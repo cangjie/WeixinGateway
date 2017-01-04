@@ -159,8 +159,10 @@
         var current_product_id = "0";
         var current_title = "";
         var current_date = "<%=selectedDate[0].Key.ToShortDateString()%>";
-        var current_num = "";
+        var current_num = "1";
         var current_rent = "0";
+        var current_day_name = "<%=selectedDate[0].Value%>";
+        var current_price = 0;
 
         var product_id_work_day = 0;
         var product_title_work_day = "";
@@ -176,7 +178,6 @@
         
 
         function launch_book_modal(product_id, title) {
-            //document.getElementById("modal-header").innerText = title;
             $.ajax({
                 url:        "/api/get_associate_product.aspx?productid=" + product_id,
                 async:      false,
@@ -200,6 +201,7 @@
                     }
                 }
             });
+
             $("#booking_modal").modal();
         }
 
@@ -218,10 +220,34 @@
         }
 
         function select_date(date, day_name) {
-            document.getElementById("current_date").innerText = date + " " + day_name;
+            current_date = date;
+            current_day_name = day_name;
+            if (day_name == "周六" ||| day_name == "周日" ) {
+                current_product_id = product_id_weekend;
+                current_title = product_title_weekend;
+                current_price = product_price_weekend;
+            }
+            else if (day_name == "除夕" || day_name.indexOf("初") >=0 ) {
+                current_product_id = product_id_holiday;
+                current_title = product_title_holiday;
+                current_price = product_price_holiday;
+            }
+            else {
+                current_product_id = product_id_work_day;
+                current_title = product_title_work_day;
+                current_price = product_price_work_day;
+            }
         }
 
-        function fill_modal(day_name, count) {
+        function select_num(num) {
+            current_num = num;
+        }
+
+        function fill_modal() {
+            var span_modal_header = document.getElementById("modal-header").innerHTML;
+            var span_current_date = document.getElementById("current_date").innerHTML;
+            var span_current_num = document.getElementById("current_num").innerHTML;
+            span_modal_header = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
 
         }
     </script>
