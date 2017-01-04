@@ -251,7 +251,8 @@
             var span_current_date = document.getElementById("current_date");
             var span_current_num = document.getElementById("current_num");
             span_modal_header.innerHTML = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
-
+            span_current_date.innerHTML = current_date + " " + current_day_name;
+            span_current_num.innerHTML = current_num;
         }
     </script>
 </head>
