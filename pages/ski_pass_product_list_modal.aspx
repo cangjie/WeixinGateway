@@ -176,6 +176,7 @@
         
 
         function launch_book_modal(product_id, title) {
+            alert(product_id);
             document.getElementById("modal-header").innerText = title;
             $.ajax({
                 url:        "/api/get_associate_product.aspx?productid=" + product_id,
