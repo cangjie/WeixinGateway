@@ -264,7 +264,7 @@
             span_current_date.innerHTML = current_date + " " + current_day_name;
             span_current_num.innerHTML = current_num;
             var rent_box = document.getElementById("rent");
-            rent_box = current_rent;
+            rent_box.checked = current_rent;
         }
     </script>
 </head>
