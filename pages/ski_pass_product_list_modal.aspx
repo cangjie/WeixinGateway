@@ -19,7 +19,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
 
-
+        FillSelectedDate();
         string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
