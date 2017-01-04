@@ -131,6 +131,7 @@
                     break;
             }
             selectedDate[i] = new KeyValuePair<DateTime, string>(startDate, dayName.Trim());
+            startDate = startDate.AddDays(1);
         }
     }
 
