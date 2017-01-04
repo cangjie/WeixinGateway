@@ -201,7 +201,7 @@
                     }
                 }
             });
-
+            fill_modal();
             $("#booking_modal").modal();
         }
 
