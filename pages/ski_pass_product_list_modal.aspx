@@ -265,6 +265,11 @@
             span_current_num.innerHTML = current_num;
             var rent_box = document.getElementById("rent");
             rent_box.checked = current_rent;
+            var div_summary = document.getElementById("summary");
+            var rent_cash = current_title.indexOf("南山") >= 0 ? 200 : 400;
+            var summary_amount = (parseInt(current_price) + rent_cash) * parseInt(current_num);
+            div_summary.innerHTML = "(雪票￥" + current_price + (current_rent ? (" + 押金￥" + rent_cash) : "") + ")x" + current_num + "人 = " + summary_amount;
+
         }
     </script>
 </head>
@@ -353,6 +358,7 @@
                         </div>
 			            <br/>
                         <div><input type="checkbox" id="rent" onclick="select_rent()" />我要租板</div>
+                        <div id="summary" >小计：</div>
                     </div>
                     <div class="modal-footer" ><button type="button" class="btn btn-default"> 确 认 预 定 </button></div>
                 </div>
