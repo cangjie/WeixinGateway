@@ -22,7 +22,7 @@
     {
 
         FillSelectedDate();
-        string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list.aspx");
+        string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list_modal.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
