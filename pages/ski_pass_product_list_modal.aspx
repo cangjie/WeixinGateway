@@ -218,7 +218,7 @@
                 rent_json = '{ "product_id": "' + rent_productid + '", "count": "' + current_num + '" }';
             }
 
-            cart_json = '{"cart_array" : [' + pass_json + ((rent_json == '') ? (', ' + rent_json) : '') + '], "memo" : {'
+            cart_json = '{"cart_array" : [' + pass_json + ((rent_json != '') ? (', ' + rent_json) : '') + '], "memo" : {'
                 + '"rent" : "' + (current_rent ? '1' : '0') + '", "use_date" : "' + current_date + '"   }}';
 
             alert(cart_json);
