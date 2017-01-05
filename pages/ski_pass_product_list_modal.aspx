@@ -58,12 +58,6 @@
         }
 
         prodArr = Product.GetSkiPassList(currentResort);
-        /*
-        if (Session["default_resort"] == null || Session["default_resort"].ToString().Equals("") || resort.Trim().Equals(""))
-        {
-            Session["default_resort"] = "nanshan";
-        }
-        */
     }
 
     public void FillSelectedDate()
@@ -207,7 +201,30 @@
         }
 
         function book_ski_pass(product_id) {
+
             var cart_json = '{"cart_array" : [{"product_id" : "' + product_id + '", "count" : "1"}]}';
+
+            var pass_json = '{ "product_id": "' + product_id + '", "count": "' + current_num + '" }';
+            var rent_json = '';
+            if (current_rent) {
+                var rent_productid = "14";
+                if (current_title.indexOf("南山") >= 0) {
+                    rent_productid = "14";
+                }
+                else {
+                    rent_productid = "15";
+                }
+
+                rent_json = '{ "product_id": "' + rent_productid + '", "count": "' + current_num + '" }';
+            }
+
+            cart_json = '{"cart_array" : [' + pass_json + ((rent_json == '') ? (', ' + rent_json) : '') + '], "memo" : {'
+                + '"rent" : "' + (current_rent ? '1' : '0') + '", "use_date" : "' + current_date + '"   }}';
+
+            alert(cart_json);
+
+            return;
+            
             $.ajax({
                 url:    "/api/place_online_order.aspx",
                 async:  false,
