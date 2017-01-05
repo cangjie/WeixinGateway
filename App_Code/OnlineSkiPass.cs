@@ -49,6 +49,30 @@ public class OnlineSkiPass
         }
     }
 
+    public bool Rent
+    {
+        get
+        {
+            bool ret = false;
+            foreach (OnlineOrderDetail detail in associateOnlineOrder.OrderDetails)
+            {
+                if (detail.productName.IndexOf("押金") >= 0)
+                {
+                    ret = true;
+                }
+            }
+            return ret;
+        }
+    }
+
+    public DateTime AppointDate
+    {
+        get
+        {
+            return DateTime.Parse(Util.GetSimpleJsonValueByKey(associateOnlineOrder._fields["memo"].ToString(), "use_date"));
+        }
+    }
+
     public static OnlineSkiPass[] GetOnlieSkiPassByOwnerOpenId(string openId)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from order_online where type = '雪票' and code <> '' and code is not null and open_id = '"
