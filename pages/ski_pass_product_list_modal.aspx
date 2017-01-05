@@ -202,7 +202,7 @@
 
         function book_ski_pass() {
 
-            var cart_json = '{"cart_array" : [{"product_id" : "' + product_id + '", "count" : "1"}]}';
+            var cart_json = '';
 
             var pass_json = '{ "product_id": "' + current_product_id + '", "count": "' + current_num + '" }';
             var rent_json = '';
