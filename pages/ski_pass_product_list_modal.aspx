@@ -200,11 +200,11 @@
             $("#booking_modal").modal();
         }
 
-        function book_ski_pass(product_id) {
+        function book_ski_pass() {
 
             var cart_json = '{"cart_array" : [{"product_id" : "' + product_id + '", "count" : "1"}]}';
 
-            var pass_json = '{ "product_id": "' + product_id + '", "count": "' + current_num + '" }';
+            var pass_json = '{ "product_id": "' + current_product_id + '", "count": "' + current_num + '" }';
             var rent_json = '';
             if (current_rent) {
                 var rent_productid = "14";
@@ -378,7 +378,7 @@
                         <div><input type="checkbox" id="rent" onclick="select_rent()" />我要租板</div>
                         <div id="summary" >小计：</div>
                     </div>
-                    <div class="modal-footer" ><button type="button" class="btn btn-default"> 确 认 预 定 </button></div>
+                    <div class="modal-footer" ><button type="button" class="btn btn-default" onclick="book_ski_pass()"> 确 认 预 定 </button></div>
                 </div>
             </div>
         </div>
