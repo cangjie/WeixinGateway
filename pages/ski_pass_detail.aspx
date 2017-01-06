@@ -66,7 +66,7 @@
             </div>
             <div class="panel-body">
                 <ul>
-                    <li>价格：<font color="red" ><%=order._fields["sale_price"].ToString() %></font>元，张数：
+                    <li>价格：<font color="red" ><%=order._fields["order_price"].ToString() %></font>元，张数：
                         <%=pass.associateOnlineOrderDetail.count.ToString() %>张 
                         <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></li>
                     <li>预约时间：<font color="red" ><%=pass.AppointDate.ToShortDateString() %></font></li>
