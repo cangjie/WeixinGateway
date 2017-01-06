@@ -66,7 +66,9 @@
             </div>
             <div class="panel-body">
                 <ul>
-                    <li>价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元，张数：<%=pass.associateOnlineOrderDetail.count.ToString() %>张 <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></li>
+                    <li>价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元，张数：
+                        <%=pass.associateOnlineOrderDetail.count.ToString() %>张 
+                        <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></li>
                     <li>预约时间：<font color="red" ><%=pass.AppointDate.ToShortDateString() %></font></li>
                     <li>南山滑雪场需要在门口购买门票后入场。</li>
                     <li>到店签到取票无需办理其他手续。</li>
