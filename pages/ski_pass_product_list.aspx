@@ -120,25 +120,10 @@
             <div class="panel-body">
                 <ul>
                     <li>价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元。</li>
-                    <li><font color="red" >购买后第二日自动出票。</font></li>
-                    <li>请看清雪票的使用时段。</li>
+                    <li><font color="red" >请看清雪票的预约使用时间。</font></li>
+                    <li>南山滑雪场需要在门口购买门票后入场。</li>
+                    <li>到店签到取票无需办理其他手续。</li>
                     <li>一旦下单，不退不换。</li>
-                    <%
-                        if (currentResort.Trim().Equals("nanshan"))
-                        {
-                            %>
-                    <li>如需租赁雪具，请带好足够的押金或者证件。</li>
-                    <li>门票自理，自行到店出票。</li>
-                    <%
-                        }
-                        else
-                        {
-                            %>
-                    <li>不支持租赁，<font color="red" >请自带雪具</font>。</li>
-                                <%
-                        }
-                         %>
-                    
                     <li>到店请出示雪票二维码。</li>
                 </ul>
             </div>

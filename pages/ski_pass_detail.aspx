@@ -65,26 +65,14 @@
                 <h3 class="panel-title"><%=detail.productName.Trim() %></h3>
             </div>
             <div class="panel-body">
-                    <li>请看清雪票的使用时段。</li>
-                    <li><font color="red" >购买后第二日自动出票。</font></li>
+                <ul>
+                    <li>价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元，张数：<%=pass.associateOnlineOrderDetail.count.ToString() %>张 <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></li>
+                    <li>预约时间：<font color="red" ><%=pass.AppointDate.ToShortDateString() %></font></li>
+                    <li>南山滑雪场需要在门口购买门票后入场。</li>
+                    <li>到店签到取票无需办理其他手续。</li>
                     <li>一旦下单，不退不换。</li>
-                    <%
-                        if (detail.productName.Trim().StartsWith("南山"))
-                        {
-                            %>
-                    <li>如需租赁雪具，请带好足够的押金或者证件。</li>
-                    <li>门票自理，自行到店出票。</li>
-                    <%
-                        }
-                        else
-                        {
-                            %>
-                    <li>不支持租赁，<font color="red" >请自带雪具</font>。</li>
-                                <%
-                        }
-                         %>
-                    
                     <li>到店请出示雪票二维码。</li>
+                </ul>
                 <br />
                 <div style="text-align:center" >
                     <img src="../show_qrcode.aspx?sceneid=3<%=code %>" style="width:200px; text-align:center"  />
