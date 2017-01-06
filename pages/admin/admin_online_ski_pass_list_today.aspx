@@ -12,7 +12,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         rent = (Util.GetSafeRequestValue(Request, "rent", "0").Equals("0") ? false : true);
-        resort = Util.GetSafeRequestValue(Request, "resort", "八易").Trim();
+        resort = Util.GetSafeRequestValue(Request, "resort", "南山").Trim();
 
 
         passArr = OnlineSkiPass.GetLastWeekOnlineSkiPass();
@@ -43,6 +43,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation"  ><a href="admin_online_ski_pass_list.aspx" >最近七日</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("南山") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0" >南山今日自带</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("南山") && rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("八易") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八亿&rent=0" >八易今日自带</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("八易") && rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八亿&rent=1" >八易今日租板</a></li>
+    </ul>
     <table class="table table-striped">
         <tr>
             <td>票号</td>
@@ -64,7 +71,6 @@
             <td><%=pass.cardCode.Trim()%></td>
             <td><%=pass.owner.CellNumber.Trim() %></td>
             <td><%=pass.owner.Nick.Trim() %></td>
-            <!--td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td-->
             <td><%=pass.associateOnlineOrderDetail.price.ToString() %></td>
             <td><%=pass.associateOnlineOrderDetail.count.ToString() %></td>
             <td><%=(pass.used ? "已验" : "未验") %></td>

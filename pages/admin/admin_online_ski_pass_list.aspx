@@ -24,6 +24,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" ><a href="admin_online_ski_pass_list.aspx" >最近七日</a></li>
+        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0" >南山今日自带</a></li>
+        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
+        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八亿&rent=0" >八易今日自带</a></li>
+        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八亿&rent=1" >八易今日租板</a></li>
+    </ul>
     <table class="table table-striped">
         <tr>
             <td>票号</td>

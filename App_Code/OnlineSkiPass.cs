@@ -69,7 +69,15 @@ public class OnlineSkiPass
     {
         get
         {
-            return DateTime.Parse(Util.GetSimpleJsonValueByKey(associateOnlineOrder._fields["memo"].ToString(), "use_date"));
+            try
+            {
+                return DateTime.Parse(Util.GetSimpleJsonValueByKey(associateOnlineOrder._fields["memo"].ToString(), "use_date"));
+            }
+            catch
+            {
+                return DateTime.Parse(DateTime.Parse(associateOnlineOrder._fields["crt"].ToString()).AddDays(1).ToShortDateString());
+            }
+            
         }
     }
 
