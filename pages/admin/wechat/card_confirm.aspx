@@ -106,7 +106,7 @@
                     <br /><br />
                     <% if (card._fields["type"].ToString().Equals("雪票"))
                         {
-                            OnlineSkiPass pass = new OnlineSkiPass(card._fields["code"].ToString().Trim());
+                            OnlineSkiPass pass = new OnlineSkiPass(card._fields["card_no"].ToString().Trim());
                             %>
                     <b style="text-align:center" >日期：<font color="red"><%=pass.AppointDate.ToString() %></font> 张数：<font color="red" ><%=pass.associateOnlineOrderDetail.count.ToString() %> <%=(pass.Rent? "租板":"") %></font></b>
                     <br />
