@@ -157,6 +157,10 @@ public class DealMessage
                 double lonWest = 0;
                 double lonEast = 0;
 
+                repliedMessage.type = "text";
+                repliedMessage.content = "text " + receivedMessage.eventKey.Trim();
+                return repliedMessage;
+
                 Location lastLocation;
                 switch (receivedMessage.eventKey)
                 {
