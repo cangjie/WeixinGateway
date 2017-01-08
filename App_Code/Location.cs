@@ -29,7 +29,7 @@ public class Location
         Location location = new Location();
         location.latitude = double.Parse(dt.Rows[0]["wxreceivemsg_locationy"].ToString());
         location.longitude = double.Parse(dt.Rows[0]["wxreceivemsg_locationx"].ToString());
-        location.locationDateTime = DateTime.Parse(dt.Rows[0]["wxreceviemsg_crt"].ToString());
+        location.locationDateTime = DateTime.Parse(dt.Rows[0]["wxreceivemsg_crt"].ToString());
         location.locationTimeStamp = long.Parse(dt.Rows[0]["wxreceivemsg_time"].ToString());
         return location;
     }
