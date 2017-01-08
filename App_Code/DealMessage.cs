@@ -143,6 +143,8 @@ public class DealMessage
                         }
                         repliedMessage.from = receivedMessage.to;
                         repliedMessage.to = receivedMessage.from;
+                        repliedMessage.content = "aaa";
+                        repliedMessage.type = "text";
                         return repliedMessage;
                     }
                     catch
