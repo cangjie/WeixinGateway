@@ -96,10 +96,12 @@
                 default:
                     break;
             }
-            if (startDate.Day == DateTime.Now.AddDays(1).Day && !dayName.Equals("周六") && !dayName.Equals("周日"))
-                dayName = "明天";
-            if (startDate.Day == DateTime.Now.AddDays(2).Day && !dayName.Equals("周六") && !dayName.Equals("周日"))
-                dayName = "后天";
+            if (startDate.Day == DateTime.Now.AddDays(1).Day )
+                dayName = dayName + "(明天)";
+            if (startDate.Day == DateTime.Now.AddDays(2).Day )
+                dayName = dayName + "(后天)";
+            if (startDate.Day == DateTime.Now.AddDays(3).Day)
+                dayName = dayName + "(大后天)";
             switch (startDate.Year.ToString()+"-"+startDate.Month.ToString()+"-"+startDate.Day.ToString())
             {
                 case "2017-1-27":
