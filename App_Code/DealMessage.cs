@@ -176,6 +176,7 @@ public class DealMessage
                             }
                             repliedMessage.from = receivedMessage.to;
                             repliedMessage.to = receivedMessage.from;
+                            repliedMessage.type = "text";
                             break;
                         case "2":
                             latNorth = 39.874130;
@@ -195,6 +196,7 @@ public class DealMessage
                             }
                             repliedMessage.from = receivedMessage.to;
                             repliedMessage.to = receivedMessage.from;
+                            repliedMessage.type = "text";
                             break;
                         default:
                             break;
