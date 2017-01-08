@@ -104,6 +104,15 @@
                     <br />
                     <%=card.Owner.CellNumber.Trim() %> <%=card.Owner.Nick.Trim() %>
                     <br /><br />
+                    <% if (card._fields["type"].ToString().Equals("雪票"))
+                        {
+                            OnlineSkiPass pass = new OnlineSkiPass(card._fields["card_no"].ToString().Trim());
+                            %>
+                    <b style="text-align:center" >日期：<font color="red"><%=pass.AppointDate.ToString() %></font> 张数：<font color="red" ><%=pass.associateOnlineOrderDetail.count.ToString() %> <%=(pass.Rent? "租板":"") %></font></b>
+                    <br />
+                    <%
+
+                        } %>
                     <p style="text-align:left" >填写备注<br /></p>
                     <textarea id="word" rows="3" cols="38"  ></textarea>  <br />
                     <button class="btn btn-default" onclick="use_card()" >确认使用</button>

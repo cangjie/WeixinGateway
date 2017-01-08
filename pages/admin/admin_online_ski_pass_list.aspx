@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        passArr = OnlineSkiPass.GetUnusedOnlineSkiPass();
+        passArr = OnlineSkiPass.GetLastWeekOnlineSkiPass();
     }
 </script>
 
@@ -24,14 +24,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active" ><a href="admin_online_ski_pass_list.aspx" >最近七日</a></li>
+        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0" >南山今日自带</a></li>
+        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
+        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八亿&rent=0" >八易今日自带</a></li>
+        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八亿&rent=1" >八易今日租板</a></li>
+    </ul>
     <table class="table table-striped">
         <tr>
-            <td>订单号</td>
+            <td>票号</td>
             <td>手机号</td>
             <td>昵称</td>
-            <td>票种</td>
+            <!--td>票种</td-->
             <td>单价</td>
             <td>张数</td>
+            <td>验票</td>
+            <td>验票时间</td>
             <td>购买日期</td>
         </tr>
         <%
@@ -39,35 +48,20 @@
             {
                 %>
         <tr>
-            <td><%=pass.associateOnlineOrder._fields["id"].ToString() %></td>
+            <td><%=pass.cardCode.Trim()%></td>
             <td><%=pass.owner.CellNumber.Trim() %></td>
             <td><%=pass.owner.Nick.Trim() %></td>
-            <td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td>
+            <!--td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td-->
             <td><%=pass.associateOnlineOrderDetail.price.ToString() %></td>
             <td><%=pass.associateOnlineOrderDetail.count.ToString() %></td>
+            <td><%=(pass.used? "已验":"未验") %></td>
+            <td><%=(pass.used? pass.useDate.ToString() : "---") %></td>
             <td><%=pass.associateOnlineOrder._fields["crt"].ToString() %></td>
         </tr>
                     <%
             }
              %>
-        <tr>
-            <td>1</td>
-            <td>13501177897</td>
-            <td>苍杰</td>
-            <td>南山半天</td>
-            <td>1</td>
-            <td>2016-12-31</td>
-            <td>2016-12-27</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>13501177897</td>
-            <td>苍杰</td>
-            <td>南山全天</td>
-            <td>1</td>
-            <td>2016-12-31</td>
-            <td>2016-12-27</td>
-        </tr>
+        
     </table>
 </body>
 </html>

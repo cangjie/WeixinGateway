@@ -27,14 +27,14 @@ public class Product
 
     public static Product[] GetSkiPassList(string resort)
     {
-        string sqlStr = " select * from product where type = '雪票' and  ";
+        string sqlStr = " select * from product where type = '雪票' and  hidden = 0 and ";
         if (resort.Trim().Equals("nanshan"))
         {
             sqlStr = sqlStr + " name like '南山%' ";
         }
         else
         {
-            sqlStr = sqlStr + " name like '八亿%' ";
+            sqlStr = sqlStr + " name like '八易%' ";
         }
 
         DataTable dt = DBHelper.GetDataTable(sqlStr);

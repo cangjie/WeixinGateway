@@ -49,6 +49,38 @@ public class OnlineSkiPass
         }
     }
 
+    public bool Rent
+    {
+        get
+        {
+            bool ret = false;
+            foreach (OnlineOrderDetail detail in associateOnlineOrder.OrderDetails)
+            {
+                if (detail.productName.IndexOf("押金") >= 0)
+                {
+                    ret = true;
+                }
+            }
+            return ret;
+        }
+    }
+
+    public DateTime AppointDate
+    {
+        get
+        {
+            try
+            {
+                return DateTime.Parse(Util.GetSimpleJsonValueByKey(associateOnlineOrder._fields["memo"].ToString(), "use_date"));
+            }
+            catch
+            {
+                return DateTime.Parse(DateTime.Parse(associateOnlineOrder._fields["crt"].ToString()).AddDays(1).ToShortDateString());
+            }
+            
+        }
+    }
+
     public static OnlineSkiPass[] GetOnlieSkiPassByOwnerOpenId(string openId)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from order_online where type = '雪票' and code <> '' and code is not null and open_id = '"
@@ -65,6 +97,18 @@ public class OnlineSkiPass
     public static OnlineSkiPass[] GetUnusedOnlineSkiPass()
     {
         DataTable dt = DBHelper.GetDataTable(" select code from order_online left join card on card_no = code where   card.type = '雪票' and code <> '' and code is not null   and pay_state = 1 and used = 0  order by [id] desc ");
+        OnlineSkiPass[] passArr = new OnlineSkiPass[dt.Rows.Count];
+        for (int i = 0; i < passArr.Length; i++)
+        {
+            passArr[i] = new OnlineSkiPass(dt.Rows[i]["code"].ToString());
+        }
+        dt.Dispose();
+        return passArr;
+    }
+
+    public static OnlineSkiPass[] GetLastWeekOnlineSkiPass()
+    {
+        DataTable dt = DBHelper.GetDataTable(" select code from order_online left join card on card_no = code where   card.type = '雪票' and code <> '' and code is not null   and pay_state = 1   and card.crt >= '" + DateTime.Now.AddDays(-7).ToShortDateString() + "' order by [id] desc ");
         OnlineSkiPass[] passArr = new OnlineSkiPass[dt.Rows.Count];
         for (int i = 0; i < passArr.Length; i++)
         {

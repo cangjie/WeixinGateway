@@ -13,6 +13,8 @@ public class OnlineOrder
 
     public OnlineOrderDetail[] orderDetails = new OnlineOrderDetail[0];
 
+    private string memo = "";
+
     public OnlineOrder()
     {
         //
@@ -40,7 +42,8 @@ public class OnlineOrder
                     {"name", "varchar", user.Nick.Trim() },
                     {"pay_method", "varchar", PayMethod.Trim() },
                     {"order_price", "float", OrderPrice.ToString() },
-                    {"order_real_pay_price", "float", OrderPrice.ToString() } };
+                    {"order_real_pay_price", "float", OrderPrice.ToString() },
+                    {"memo", "varchar", memo.Trim() } };
                 int i = DBHelper.InsertData("order_online", insertParam);
                 if (i == 1)
                 {
@@ -118,6 +121,21 @@ public class OnlineOrder
                 price = price + detail.summary;
             }
             return price;
+        }
+    }
+
+    public string Memo
+    {
+        get
+        {
+            if (_fields == null)
+                return memo;
+            else
+                return _fields["memo"].ToString();
+        }
+        set
+        {
+            memo = value.Trim();
         }
     }
 

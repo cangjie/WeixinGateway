@@ -2,8 +2,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = Util.GetSafeRequestValue(Request, "token", "");
-        string cartJson = Util.GetSafeRequestValue(Request, "cart", "{\"cart_array\" : [{\"product_id\" : \"1\", \"count\" : \"3\" },{\"product_id\" : \"2\", \"count\" : \"1\" }] }");
+        string token = Util.GetSafeRequestValue(Request, "token", "43d806b4f81884fcbcce63a3b9f94f47b80384ba5b1fc31165283a9a84ac3ffa88a3ece3");
+        string cartJson = Util.GetSafeRequestValue(Request, "cart", "{\"cart_array\" : [{\"product_id\" : \"1\", \"count\" : \"3\" },{\"product_id\" : \"2\", \"count\" : \"1\" }], \"memo\" :{\"rent\" : \"\" , \"use_date\" : \"2017-1-5\" } }");
         string openId = WeixinUser.CheckToken(token);
         if (openId.Trim().Equals(""))
         {
@@ -23,6 +23,13 @@
                 detail.count = int.Parse(item["count"].ToString());
                 newOrder.AddADetail(detail);
             }
+            Dictionary<string, object> memoJsonObject = (Dictionary<string, object>)Util.GetObjectFromJsonByKey(cartJson, "memo");
+            if (memoJsonObject != null)
+            {
+                newOrder.Memo = Util.GetSimpleJsonStringFromKeyPairArray(memoJsonObject.ToArray());
+            }
+            else
+                newOrder.Memo = "";
             int orderId = newOrder.Place(openId);
             Response.Write("{\"status\" : \"0\", \"order_id\" : \"" + orderId.ToString() + "\" }");
         }
