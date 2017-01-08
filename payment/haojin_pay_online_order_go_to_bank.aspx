@@ -39,8 +39,10 @@
         if (order.OrderDetails.Length > 0)
             goods_name = order.OrderDetails[0].productName.Trim();
 
-        if (order.orderDetails.Length > 1 && order.OrderDetails[1].productName.Trim().IndexOf("押金") > 0)
+
+        if (order.OrderDetails.Length > 1 && order.OrderDetails[1].productName.Trim().IndexOf("押金") >= 0)
         {
+
             goods_name = goods_name.Trim() + "-含雪具押金";
         }
 
