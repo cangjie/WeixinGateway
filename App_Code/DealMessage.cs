@@ -95,6 +95,8 @@ public class DealMessage
     public static RepliedMessage DealCommonEventMessage(ReceivedMessage receivedMessage)
     {
         RepliedMessage repliedMessage = new RepliedMessage();
+        repliedMessage.from = receivedMessage.to;
+        repliedMessage.to = receivedMessage.from;
         /*
         if (receivedMessage.eventKey.ToLower().Trim().StartsWith("http://www.luqinwenda.com/index.php?app=public&mod=landingpage"))
         {
@@ -141,16 +143,15 @@ public class DealMessage
                             repliedMessage.newsContent = new RepliedMessage.news[] { content };
                             
                         }
-                        repliedMessage.from = receivedMessage.to;
-                        repliedMessage.to = receivedMessage.from;
-                        repliedMessage.content = "aaa";
-                        repliedMessage.type = "text";
                         return repliedMessage;
                     }
                     catch
                     {
 
                     }
+                    repliedMessage.content = "bbb";
+                    repliedMessage.type = "text";
+                    return repliedMessage;
 
                     //签到
                     double latNorth = 0;
@@ -177,8 +178,6 @@ public class DealMessage
                             {
                                 repliedMessage.content = "您不在南山，不能签到。";
                             }
-                            repliedMessage.from = receivedMessage.to;
-                            repliedMessage.to = receivedMessage.from;
                             repliedMessage.type = "text";
                             return repliedMessage;
                             break;
@@ -198,8 +197,6 @@ public class DealMessage
                             {
                                 repliedMessage.content = "您不在八易，不能签到。";
                             }
-                            repliedMessage.from = receivedMessage.to;
-                            repliedMessage.to = receivedMessage.from;
                             repliedMessage.type = "text";
                             return repliedMessage;
                             break;
