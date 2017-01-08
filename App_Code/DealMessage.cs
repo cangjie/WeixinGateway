@@ -149,6 +149,57 @@ public class DealMessage
 
                     }
 
+                    //签到
+                    double latNorth = 0;
+                    double latSourth = 0;
+                    double lonWest = 0;
+                    double lonEast = 0;
+
+                    Location lastLocation;
+                    switch (receivedMessage.eventKey)
+                    {
+                        case "1":
+                            latNorth = 40.339170;
+                            latSourth = 40.339170;
+                            lonEast = 116.860606;
+                            lonWest = 116.851649;
+                            lastLocation = Location.GetUserLatestLocation(receivedMessage.from.Trim());
+                            if (long.Parse(Util.GetTimeStamp()) - lastLocation.locationTimeStamp < 3600
+                                && lastLocation.latitude <= latNorth && lastLocation.latitude >= latSourth
+                                && lastLocation.longitude <= lonEast && lastLocation.longitude >= lonWest)
+                            {
+                                repliedMessage.content = "欢迎签到南山。";
+                            }
+                            else
+                            {
+                                repliedMessage.content = "您不在南山，不能签到。";
+                            }
+                            repliedMessage.from = receivedMessage.to;
+                            repliedMessage.to = receivedMessage.from;
+                            break;
+                        case "2":
+                            latNorth = 39.874130;
+                            latSourth = 39.866812;
+                            lonEast = 116.150999;
+                            lonWest = 116.141659;
+                            lastLocation = Location.GetUserLatestLocation(receivedMessage.from.Trim());
+                            if (long.Parse(Util.GetTimeStamp()) - lastLocation.locationTimeStamp < 3600
+                                && lastLocation.latitude <= latNorth && lastLocation.latitude >= latSourth
+                                && lastLocation.longitude <= lonEast && lastLocation.longitude >= lonWest)
+                            {
+                                repliedMessage.content = "欢迎签到八易。";
+                            }
+                            else
+                            {
+                                repliedMessage.content = "您不在八易，不能签到。";
+                            }
+                            repliedMessage.from = receivedMessage.to;
+                            repliedMessage.to = receivedMessage.from;
+                            break;
+                        default:
+                            break;
+                    }
+
                     
 
                 }
