@@ -157,9 +157,7 @@ public class DealMessage
                 double lonWest = 0;
                 double lonEast = 0;
 
-                repliedMessage.type = "text";
-                repliedMessage.content = "text " + receivedMessage.eventKey.Trim();
-                return repliedMessage;
+                
 
                 Location lastLocation;
                 switch (receivedMessage.eventKey)
@@ -170,15 +168,22 @@ public class DealMessage
                         lonEast = 116.860606;
                         lonWest = 116.851649;
                         lastLocation = Location.GetUserLatestLocation(receivedMessage.from.Trim());
-                        if (long.Parse(Util.GetTimeStamp()) - lastLocation.locationTimeStamp < 3600
+                        if (lastLocation != null)
+                        {
+                            if (long.Parse(Util.GetTimeStamp()) - lastLocation.locationTimeStamp < 3600
                             && lastLocation.latitude <= latNorth && lastLocation.latitude >= latSourth
                             && lastLocation.longitude <= lonEast && lastLocation.longitude >= lonWest)
-                        {
-                            repliedMessage.content = "欢迎签到南山。";
+                            {
+                                repliedMessage.content = "欢迎签到南山。";
+                            }
+                            else
+                            {
+                                repliedMessage.content = "您不在南山，不能签到。";
+                            }
                         }
                         else
                         {
-                            repliedMessage.content = "您不在南山，不能签到。";
+                            repliedMessage.content = "请打开公众号定位。";
                         }
                         repliedMessage.type = "text";
                         return repliedMessage;
@@ -189,16 +194,24 @@ public class DealMessage
                         lonEast = 116.150999;
                         lonWest = 116.141659;
                         lastLocation = Location.GetUserLatestLocation(receivedMessage.from.Trim());
-                        if (long.Parse(Util.GetTimeStamp()) - lastLocation.locationTimeStamp < 3600
+                        if (lastLocation != null)
+                        {
+                            if (long.Parse(Util.GetTimeStamp()) - lastLocation.locationTimeStamp < 3600
                             && lastLocation.latitude <= latNorth && lastLocation.latitude >= latSourth
                             && lastLocation.longitude <= lonEast && lastLocation.longitude >= lonWest)
-                        {
-                            repliedMessage.content = "欢迎签到八易。";
+                            {
+                                repliedMessage.content = "欢迎签到八易。";
+                            }
+                            else
+                            {
+                                repliedMessage.content = "您不在八易，不能签到。";
+                            }
                         }
                         else
                         {
-                            repliedMessage.content = "您不在八易，不能签到。";
+                            repliedMessage.content = "请打开公众号定位。";
                         }
+                        
                         repliedMessage.type = "text";
                         return repliedMessage;
                         break;
