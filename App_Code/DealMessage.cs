@@ -163,55 +163,35 @@ public class DealMessage
                 switch (receivedMessage.eventKey)
                 {
                     case "1":
-                        latNorth = 40.339170;
-                        latSourth = 40.339170;
-                        lonEast = 116.860606;
-                        lonWest = 116.851649;
-                        lastLocation = Location.GetUserLatestLocation(receivedMessage.from.Trim());
-                        if (lastLocation != null)
+
+                        string nanShanLocResult = Location.FindInResort(receivedMessage.from);
+                        if (nanShanLocResult.Trim().Equals("南山"))
                         {
-                            if (long.Parse(Util.GetTimeStamp()) - lastLocation.locationTimeStamp < 3600
-                            && lastLocation.latitude <= latNorth && lastLocation.latitude >= latSourth
-                            && lastLocation.longitude <= lonEast && lastLocation.longitude >= lonWest)
-                            {
-                                repliedMessage.content = "欢迎签到南山。";
-                            }
-                            else
-                            {
-                                repliedMessage.content = "您不在南山，不能签到。";
-                            }
+                            repliedMessage.content = "欢迎签到南山。";
                         }
                         else
                         {
-                            repliedMessage.content = "请打开公众号定位。";
+                            if (!nanShanLocResult.Trim().Equals(""))
+                                repliedMessage.content = nanShanLocResult.Trim();
+                            else
+                                repliedMessage.content = "您不在南山，不能签到。";
                         }
                         repliedMessage.type = "text";
                         return repliedMessage;
                         break;
                     case "2":
-                        latNorth = 39.874130;
-                        latSourth = 39.866812;
-                        lonEast = 116.150999;
-                        lonWest = 116.141659;
-                        lastLocation = Location.GetUserLatestLocation(receivedMessage.from.Trim());
-                        if (lastLocation != null)
+                        string baYiLocResult = Location.FindInResort(receivedMessage.from);
+                        if (baYiLocResult.Trim().Equals("八易"))
                         {
-                            if (long.Parse(Util.GetTimeStamp()) - lastLocation.locationTimeStamp < 3600
-                            && lastLocation.latitude <= latNorth && lastLocation.latitude >= latSourth
-                            && lastLocation.longitude <= lonEast && lastLocation.longitude >= lonWest)
-                            {
-                                repliedMessage.content = "欢迎签到八易。";
-                            }
-                            else
-                            {
-                                repliedMessage.content = "您不在八易，不能签到。";
-                            }
+                            repliedMessage.content = "欢迎签到八易。";
                         }
                         else
                         {
-                            repliedMessage.content = "请打开公众号定位。";
+                            if (!baYiLocResult.Trim().Equals(""))
+                                repliedMessage.content = baYiLocResult.Trim();
+                            else
+                                repliedMessage.content = "您不在八易，不能签到。";
                         }
-                        
                         repliedMessage.type = "text";
                         return repliedMessage;
                         break;
