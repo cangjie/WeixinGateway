@@ -37,18 +37,20 @@ public class Location
     public static string FindInResort(string openId)
     {
         string resort = "";
-        /*
+        
         double nanShanlatNorth = 40.339170;
         double nanShanlatSourth = 40.329611;
         double nanShanlonEast = 116.860606;
         double nanShanlonWest = 116.851649;
-        */
+        
 
+
+        /*
         double nanShanlatNorth = 39.924396;
         double nanShanlatSourth = 39.921664;
         double nanShanlonEast = 116.516249;
         double nanShanlonWest = 116.511557;
-
+        */
 
         double baYilatNorth = 39.874130;
         double baYilatSourth = 39.866812;
