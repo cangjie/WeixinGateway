@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading;
 
 /// <summary>
 /// Summary description for DealMessage
@@ -163,7 +164,7 @@ public class DealMessage
                 switch (receivedMessage.eventKey)
                 {
                     case "1":
-
+                        Thread.Sleep(2500);
                         string nanShanLocResult = Location.FindInResort(receivedMessage.from);
                         if (nanShanLocResult.Trim().Equals("南山"))
                         {
@@ -180,6 +181,7 @@ public class DealMessage
                         return repliedMessage;
                         break;
                     case "2":
+                        Thread.Sleep(2500);
                         string baYiLocResult = Location.FindInResort(receivedMessage.from);
                         if (baYiLocResult.Trim().Equals("八易"))
                         {
