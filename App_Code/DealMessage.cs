@@ -216,7 +216,7 @@ public class DealMessage
                 {
                     if (user.VipLevel == 0)
                     {
-
+                        repliedMessage.content =  "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码后重新扫描设备的二维码。";
                     }
                     else
                     {
@@ -230,21 +230,29 @@ public class DealMessage
                             {
                                 Point.AddNew(user.OpenId, -1 * needPoints, DateTime.Now, "使用" + device._fields["name"].ToString());
                                 Device.AddNewScanRecord(int.Parse(device._fields["id"].ToString()), Util.GetTimeStamp(), user.OpenId);
+                                repliedMessage.type = "text";
+                                repliedMessage.content = "请稍候，设备将在5秒钟内启动。";
 
                             }
                             else
                             {
+                                /*
                                 ServiceMessage userMessage = new ServiceMessage();
                                 userMessage.from = "gh_0427e9838339";
                                 userMessage.to = user.OpenId;
                                 userMessage.type = "text";
                                 userMessage.content = "您的龙珠不够。";
                                 ServiceMessage.SendServiceMessage(userMessage);
+                                 */
+                                
+                                repliedMessage.content = "您的龙珠不够。";
+
                             }
 
 
                         }
                     }
+                    repliedMessage.type = "text";
                 }
                 break;
             case "subscribe":
