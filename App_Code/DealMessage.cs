@@ -164,11 +164,17 @@ public class DealMessage
                 switch (receivedMessage.eventKey)
                 {
                     case "1":
-                        Thread.Sleep(2500);
+                        Thread.Sleep(3000);
                         string nanShanLocResult = Location.FindInResort(receivedMessage.from);
                         if (nanShanLocResult.Trim().Equals("南山"))
                         {
-                            repliedMessage.content = "欢迎签到南山。";
+                            repliedMessage.content = "欢迎签到易龙雪聚南山店。";
+
+                            if (user.VipLevel < 1)
+                            {
+                                repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
+                            }
+
                         }
                         else
                         {
@@ -185,7 +191,11 @@ public class DealMessage
                         string baYiLocResult = Location.FindInResort(receivedMessage.from);
                         if (baYiLocResult.Trim().Equals("八易"))
                         {
-                            repliedMessage.content = "欢迎签到八易。";
+                            repliedMessage.content = "欢迎签到易龙雪聚八易店。";
+                            if (user.VipLevel < 1)
+                            {
+                                repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
+                            }
                         }
                         else
                         {
