@@ -240,12 +240,12 @@
         function select_date(date, day_name) {
             current_date = date;
             current_day_name = day_name;
-            if (day_name == "周六" || day_name == "周日" ) {
+            if (day_name.indexOf("周六") >=0 || day_name.indexOf("周日") >= 0 ) {
                 current_product_id = product_id_weekend;
                 current_title = product_title_weekend;
                 current_price = product_price_weekend;
             }
-            else if (day_name == "除夕" || day_name.indexOf("初") >=0 ) {
+            else if (day_name.indexOf("除夕") >=0 || day_name.indexOf("初") >=0 ) {
                 current_product_id = product_id_holiday;
                 current_title = product_title_holiday;
                 current_price = product_price_holiday;
