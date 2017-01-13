@@ -174,6 +174,10 @@ public class DealMessage
                             {
                                 repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
                             }
+                            else
+                            {
+                                Point.AddNew(user.OpenId.Trim(), 10, DateTime.Now, "南山签到");
+                            }
 
                         }
                         else
@@ -195,6 +199,10 @@ public class DealMessage
                             if (user.VipLevel < 1)
                             {
                                 repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
+                            }
+                            else
+                            {
+                                Point.AddNew(user.OpenId.Trim(), 10, DateTime.Now, "八易签到");
                             }
                         }
                         else
