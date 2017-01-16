@@ -186,7 +186,6 @@ public class DealMessage
                 {
                     if (eventKey.Trim().Equals("1") || eventKey.Equals("2"))
                     {
-                        System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", DateTime.Now.ToString() + "\t" + eventKey.Trim());
                         repliedMessage = ScanSignin(receivedMessage);
                     }
                 }
@@ -274,6 +273,7 @@ public class DealMessage
         repliedMessage.to = receivedMessage.from;
         string eventKey = receivedMessage.eventKey.Replace("qrcode_", "");
         WeixinUser user = new WeixinUser(receivedMessage.from.Trim());
+        System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", DateTime.Now.ToString() + "\t" + eventKey.Trim() + "\r\n");
         switch (eventKey)
         {
             case "1":
