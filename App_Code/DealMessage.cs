@@ -189,6 +189,11 @@ public class DealMessage
                         repliedMessage = ScanSignin(receivedMessage);
                     }
                 }
+                repliedMessage.from = receivedMessage.to;
+                repliedMessage.to = receivedMessage.from;
+                repliedMessage.type = "text";
+                repliedMessage.content = "欢迎关注易龙雪聚。"
+                
                 break;
             default:
                 break;
