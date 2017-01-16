@@ -184,9 +184,9 @@ public class DealMessage
                 }
                 else
                 {
-                    System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", DateTime.Now.ToString() + "\t" + eventKey.Trim());
                     if (eventKey.Trim().Equals("1") || eventKey.Equals("2"))
                     {
+                        System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", DateTime.Now.ToString() + "\t" + eventKey.Trim());
                         repliedMessage = ScanSignin(receivedMessage);
                     }
                 }
