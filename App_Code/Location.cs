@@ -85,4 +85,22 @@ public class Location
         }
         return resort;
     }
+
+    public static bool HaveSignedInADay(string openId, string resort, DateTime date)
+    {
+        //WeixinUser user = new WeixinUser(openId);
+        DataTable dt = DBHelper.GetDataTable(" select * from user_point_balance where user_open_id = '" 
+            + openId.Trim() + "'  and memo = '" + resort.Trim() + "签到' " );
+        bool signed = false;
+        foreach (DataRow dr in dt.Rows)
+        {
+            DateTime transDate = DateTime.Parse(dr["transact_date"].ToString());
+            if (transDate.ToShortDateString().Equals(date.ToShortDateString()))
+            {
+                signed = true;
+                break;
+            }
+        }
+        return signed;
+    }
 }

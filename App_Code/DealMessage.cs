@@ -288,7 +288,8 @@ public class DealMessage
                     }
                     else
                     {
-                        Point.AddNew(user.OpenId.Trim(), 10, DateTime.Now, "南山签到");
+                        if (!Location.HaveSignedInADay(receivedMessage.from, "南山", DateTime.Now))
+                            Point.AddNew(user.OpenId.Trim(), 10, DateTime.Now, "南山签到");
                     }
 
                 }
@@ -313,7 +314,8 @@ public class DealMessage
                     }
                     else
                     {
-                        Point.AddNew(user.OpenId.Trim(), 10, DateTime.Now, "八易签到");
+                        if (!Location.HaveSignedInADay(receivedMessage.from, "八易", DateTime.Now))
+                            Point.AddNew(user.OpenId.Trim(), 10, DateTime.Now, "八易签到");
                     }
                 }
                 else
