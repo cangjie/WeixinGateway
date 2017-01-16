@@ -174,8 +174,9 @@ public class DealMessage
 
                 break;
             case "subscribe":
-                /*
+                
                 string eventKey = receivedMessage.eventKey.Replace("qrscene_", "").Trim();
+                /*
                 if (eventKey.Length == 10)
                 {
                     if (int.Parse(eventKey.Substring(0, 2)) > 13)
@@ -190,6 +191,7 @@ public class DealMessage
                         repliedMessage = ScanSignin(receivedMessage);
                     }
                 }*/
+                System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", eventKey + "\r\n");
                 repliedMessage.from = receivedMessage.to;
                 repliedMessage.to = receivedMessage.from;
                 repliedMessage.type = "text";
