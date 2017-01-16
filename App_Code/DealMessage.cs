@@ -174,6 +174,7 @@ public class DealMessage
 
                 break;
             case "subscribe":
+                /*
                 string eventKey = receivedMessage.eventKey.Replace("qrscene_", "").Trim();
                 if (eventKey.Length == 10)
                 {
@@ -188,7 +189,7 @@ public class DealMessage
                     {
                         repliedMessage = ScanSignin(receivedMessage);
                     }
-                }
+                }*/
                 repliedMessage.from = receivedMessage.to;
                 repliedMessage.to = receivedMessage.from;
                 repliedMessage.type = "text";
