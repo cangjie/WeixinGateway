@@ -105,6 +105,7 @@ public class DealMessage
         }
         */
         WeixinUser user = new WeixinUser(receivedMessage.from);
+        System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", DateTime.Now.ToString() + "\t" + receivedMessage.userEvent.Trim() + "\r\n");
         switch (receivedMessage.userEvent.ToUpper())
         {
             case "SCAN":
@@ -191,7 +192,7 @@ public class DealMessage
                         repliedMessage = ScanSignin(receivedMessage);
                     }
                 }*/
-                System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", eventKey + "\r\n");
+                System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", DateTime.Now.ToString() + "\t" + eventKey + "\r\n");
                 repliedMessage.from = receivedMessage.to;
                 repliedMessage.to = receivedMessage.from;
                 repliedMessage.type = "text";
