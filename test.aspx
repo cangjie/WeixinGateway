@@ -9,7 +9,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(Location.FindInResort("oZBHkjiR5fkJmzqt7fLyR0aaRguE"));
+        Response.Write(Location.HaveSignedInADay("oZBHkjhdFpC5ScK5FUU7HKXE3PJM", "南山", DateTime.Now));
+        //Response.Write(Location.FindInResort("oZBHkjiR5fkJmzqt7fLyR0aaRguE"));
         //string keyValuePair = "txamt=1&txcurrcd=CNY&pay_type=800207";
         //Response.Write(Util.GetHaojinMd5Sign(keyValuePair.Trim(),"7AB7F12D1A374208BA9A9E29E337BAEE"));
 
