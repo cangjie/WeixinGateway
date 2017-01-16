@@ -283,6 +283,8 @@ public class DealMessage
                     repliedMessage.content = "欢迎签到易龙雪聚南山店。";
                     if (!Location.HaveSignedInADay(receivedMessage.from, "南山", DateTime.Now))
                         Point.AddNew(user.OpenId.Trim(), 10, DateTime.Now, "南山签到");
+                    else
+                        repliedMessage.content = "您今日已经签过到了，感谢您的激情支持。";
                     if (user.VipLevel < 1)
                     {
                         repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
@@ -305,6 +307,8 @@ public class DealMessage
                     repliedMessage.content = "欢迎签到易龙雪聚八易店。";
                     if (!Location.HaveSignedInADay(receivedMessage.from, "八易", DateTime.Now))
                         Point.AddNew(user.OpenId.Trim(), 10, DateTime.Now, "八易签到");
+                    else
+                        repliedMessage.content = "您今日已经签过到了，感谢您的激情支持。";
                     if (user.VipLevel < 1)
                     {
                         repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
