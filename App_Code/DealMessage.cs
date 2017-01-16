@@ -105,7 +105,6 @@ public class DealMessage
         }
         */
         WeixinUser user = new WeixinUser(receivedMessage.from);
-        System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", DateTime.Now.ToString() + "\t" + receivedMessage.userEvent.Trim() + "\r\n");
         switch (receivedMessage.userEvent.ToUpper())
         {
             case "SCAN":
@@ -174,10 +173,8 @@ public class DealMessage
                 }
 
                 break;
-            case "subscribe":
-                
+            case "SUBSCRIBE":
                 string eventKey = receivedMessage.eventKey.Replace("qrscene_", "").Trim();
-                /*
                 if (eventKey.Length == 10)
                 {
                     if (int.Parse(eventKey.Substring(0, 2)) > 13)
@@ -191,13 +188,7 @@ public class DealMessage
                     {
                         repliedMessage = ScanSignin(receivedMessage);
                     }
-                }*/
-                System.IO.File.AppendAllText(@"C:\webs\weixin.snowmeet.com\subs.txt", DateTime.Now.ToString() + "\t" + eventKey + "\r\n");
-                repliedMessage.from = receivedMessage.to;
-                repliedMessage.to = receivedMessage.from;
-                repliedMessage.type = "text";
-                repliedMessage.content = "欢迎关注易龙雪聚。";
-                
+                }
                 break;
             default:
                 break;
