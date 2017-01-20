@@ -93,21 +93,21 @@
         <tr>
             <td style="width:140px">市场价(元)：</td>
             <td style="white-space:nowrap; overflow:hidden">
-                <input type="text" id="txt_market_price" style="width:100px" onchange="compute_score()" />
+                <input type="text" id="txt_market_price" style="width:100px"  oninput="compute_score()" />
                 <span style="color:red; width:10px; word-wrap:break-word" ></span>
             </td>
         </tr>
         <tr>
             <td>成交价(元)：</td>
             <td>
-                <input type="text" id="txt_sale_price"  style="width:100px" onchange="compute_score()" />
+                <input type="text" id="txt_sale_price"  style="width:100px"  oninput="compute_score()"  />
                 <span style="color:red; width:10px; word-wrap:break-word" ></span>
             </td>
         </tr>
         <tr>
             <td>使用代金券(元)：</td>
             <td>
-                <input type="text" id="txt_ticket_amout" style="width:100px" onchange="compute_score()" />
+                <input type="text" id="txt_ticket_amout" style="width:100px" oninput="compute_score()" />
                 <span style="color:red; width:10px; word-wrap:break-word" ></span>
             </td>
         </tr>
@@ -128,6 +128,10 @@
             <td>
                 <span style="color:red; width:10px; word-wrap:break-word; font-size:large" id="lbl_score" ></span>
             </td>
+        </tr>
+        <tr>
+            <td>备注：</td>
+            <td><textarea cols="30" rows="3" id="txt_memo" ></textarea></td>
         </tr>
         <tr>
             <td colspan="2" style="text-align:center"><button type="button" class="btn btn-default" >获取支付二维码</button></td>
