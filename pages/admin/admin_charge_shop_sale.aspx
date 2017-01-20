@@ -28,22 +28,22 @@
     <table class="table table-striped">
         <tr>
             <td>市场价：</td>
-            <td></td>
+            <td><input type="text" class="form-control" /></td>
         </tr>
         <tr>
             <td>成交价：</td>
-            <td></td>
+            <td><input type="text" class="form-control" /></td>
         </tr>
         <tr>
             <td>使用代金券：</td>
-            <td></td>
+            <td><input type="text" class="form-control" /></td>
         </tr>
         <tr>
             <td>实际支付金额：</td>
-            <td></td>
+            <td><input type="text" class="form-control" /></td>
         </tr>
         <tr>
-            <td colspan="2"><button type="button" class="btn btn-default">获取支付二维码</button></td>
+            <td colspan="2"><button type="button" class="btn btn-default" style="align-items:center">获取支付二维码</button></td>
         </tr>
         <tr>
             <td colspan="2" ></td>
