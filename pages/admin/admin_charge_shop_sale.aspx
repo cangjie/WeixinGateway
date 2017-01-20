@@ -27,23 +27,39 @@
 <body>
     <table class="table table-striped">
         <tr>
-            <td>市场价：</td>
-            <td><input type="text" class="form-control" /></td>
+            <td style="width:120px">市场价：</td>
+            <td style="white-space:nowrap; overflow:hidden">
+                <input type="text"  style="width:100px" />
+                <span style="color:red; width:10px; word-wrap:break-word" ></span>
+            </td>
         </tr>
         <tr>
             <td>成交价：</td>
-            <td><input type="text" class="form-control" /></td>
+            <td>
+                <input type="text"  style="width:100px" />
+                <span style="color:red; width:10px; word-wrap:break-word" ></span>
+            </td>
         </tr>
         <tr>
             <td>使用代金券：</td>
-            <td><input type="text" class="form-control" /></td>
+            <td>
+                <input type="text"  style="width:100px" />
+                <span style="color:red; width:10px; word-wrap:break-word" ></span>
+            </td>
         </tr>
         <tr>
             <td>实际支付金额：</td>
-            <td><input type="text" class="form-control" /></td>
+            <td>
+                <input type="text" style="width:100px" />
+                <span style="color:red; width:10px; word-wrap:break-word" ></span>
+            </td>
         </tr>
         <tr>
-            <td colspan="2"><button type="button" class="btn btn-default" style="align-items:center">获取支付二维码</button></td>
+            <td>生成龙珠：</td>
+            <td><span style="color:red; width:10px; word-wrap:break-word; font-size:large" >1000</span></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center"><button type="button" class="btn btn-default" >获取支付二维码</button></td>
         </tr>
         <tr>
             <td colspan="2" ></td>
