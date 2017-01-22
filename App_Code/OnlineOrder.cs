@@ -99,7 +99,7 @@ public class OnlineOrder
     {
         get
         {
-            return "雪票";
+            return _fields["type"].ToString().Trim();
         }
     }
 

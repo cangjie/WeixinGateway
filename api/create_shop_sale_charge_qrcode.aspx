@@ -3,7 +3,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = Util.GetSafeRequestValue(Request, "token", "76f9c1d2b003a306ec127e6d25c2bc98c16e3128251012f1d4e667832e2725899635eef1");
+        string token = Util.GetSafeRequestValue(Request, "token", "01cd7e34e23378e5cea4cabf22493f0a966b09b54977d62955a8f6e8656668be17780592");
         double marketPrice = double.Parse(Util.GetSafeRequestValue(Request, "marketprice", "1"));
         double salePrice = double.Parse(Util.GetSafeRequestValue(Request, "saleprice", "0.85"));
         double ticketAmount = double.Parse(Util.GetSafeRequestValue(Request, "ticketamount", "0"));
