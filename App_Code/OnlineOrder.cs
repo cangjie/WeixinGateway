@@ -15,6 +15,8 @@ public class OnlineOrder
 
     private string memo = "";
 
+    private string type = "雪票";
+
     public OnlineOrder()
     {
         //
@@ -111,7 +113,16 @@ public class OnlineOrder
     {
         get
         {
-            return _fields["type"].ToString().Trim();
+            if (_fields != null)
+            {
+                return _fields["type"].ToString().Trim();
+            }
+            else
+                return type;
+        }
+        set
+        {
+            type = value;
         }
     }
 
