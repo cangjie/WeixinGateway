@@ -84,10 +84,16 @@ public class OnlineOrder
         }
     }
 
-    public void FinishShopSaleOrder()
+    public bool HaveFinishedShopSaleOrder()
     {
         OrderTemp tempOrder = OrderTemp.GetFinishedOrder(int.Parse(_fields["id"].ToString()));
-        tempOrder.FinishOrder();
+        bool ret = true;
+        if (tempOrder._fields["is_paid"].ToString().Equals("0"))
+        {
+            tempOrder.FinishOrder();
+            ret = false;
+        }
+        return ret;
     }
 
     public OnlineOrderDetail[] OrderDetails

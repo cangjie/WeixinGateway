@@ -22,24 +22,25 @@
             {
                 OrderTemp tempOrder = OrderTemp.GetFinishedOrder(int.Parse(order._fields["id"].ToString()));
 
-                order.FinishShopSaleOrder();
-                ServiceMessage toCustomerMessage = new ServiceMessage();
-                toCustomerMessage.from = "";
-                toCustomerMessage.to = order._fields["open_id"].ToString();
-                toCustomerMessage.type = "text";
-                toCustomerMessage.content = "您的订单" + order.Memo.Trim() + "，已经支付成功，您获得龙珠：" + tempOrder._fields["generate_score"].ToString() + "颗。";
-                ServiceMessage.SendServiceMessage(toCustomerMessage);
+                if (!order.HaveFinishedShopSaleOrder())
+                {
+                    ServiceMessage toCustomerMessage = new ServiceMessage();
+                    toCustomerMessage.from = "";
+                    toCustomerMessage.to = order._fields["open_id"].ToString();
+                    toCustomerMessage.type = "text";
+                    toCustomerMessage.content = "您的订单" + order.Memo.Trim() + "，已经支付成功，支付金额：" + order.OrderPrice.ToString() + "元，您获得龙珠：" + tempOrder._fields["generate_score"].ToString() + "颗。";
+                    ServiceMessage.SendServiceMessage(toCustomerMessage);
 
-                
-                ServiceMessage toSales = new ServiceMessage();
-                WeixinUser customer = new WeixinUser(order._fields["open_id"].ToString());
-                toSales.type = "text";
-                toSales.from = "";
-                toSales.to = tempOrder._fields["admin_open_id"].ToString();
-                toSales.content = customer.Nick.Trim() + " 的订单" + order.Memo.Trim() + "，已经支付成功。";
-                ServiceMessage.SendServiceMessage(toSales);
-                Point.AddNew(customer.OpenId.Trim(), int.Parse(tempOrder._fields["generate_score"].ToString()), DateTime.Now, "店内购买" + order.Memo.Trim());
 
+                    ServiceMessage toSales = new ServiceMessage();
+                    WeixinUser customer = new WeixinUser(order._fields["open_id"].ToString());
+                    toSales.type = "text";
+                    toSales.from = "";
+                    toSales.to = tempOrder._fields["admin_open_id"].ToString();
+                    toSales.content = customer.Nick.Trim() + " 的订单" + order.Memo.Trim() + "，已经支付成功，支付金额：" + order.OrderPrice.ToString() + "元。";
+                    ServiceMessage.SendServiceMessage(toSales);
+                    Point.AddNew(customer.OpenId.Trim(), int.Parse(tempOrder._fields["generate_score"].ToString()), DateTime.Now, "店内购买" + order.Memo.Trim());
+                }
             }
         }
         //File.AppendAllText(Server.MapPath("payment_result.txt"), paymentResult + "\r\n");
