@@ -46,6 +46,11 @@
             goods_name = goods_name.Trim() + "-含雪具押金";
         }
 
+        if (order.Type.Trim().Equals("店销"))
+        {
+            goods_name = order.Memo.Trim();
+        }
+
         string postData = "txamt=" + txamt + "&txcurrcd=" + txcurrcd + "&pay_type=" + pay_type + "&out_trade_no=" + out_trade_no
             + "&txdtm=" + txdtm + "&sub_openid=" + sub_openid + "&goods_name=" + goods_name;
 

@@ -208,7 +208,7 @@ public class DealMessage
         OrderTemp orderTemp = new OrderTemp(chargeId);
         int i = orderTemp.PlaceOnlineOrder(receivedMessage.from);
         replyMessage.type = "text";
-        replyMessage.content = "请支付" + orderTemp._fields["real_paid_price"].ToString() + "元，<a href=\"http://weixin.snowmeet.com/payment/haojin_pay_online_order.aspx?orderid="
+        replyMessage.content = "请支付" + orderTemp._fields["real_paid_price"].ToString() + "元，<a href=\"http://weixin.snowmeet.com/pages/pay_shop_sale_order.aspx?orderid="
             + i.ToString() + "\" >请点击这里</a>支付。";
         return replyMessage;
     }

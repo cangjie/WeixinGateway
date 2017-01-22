@@ -7,7 +7,7 @@
         double marketPrice = double.Parse(Util.GetSafeRequestValue(Request, "marketprice", "1"));
         double salePrice = double.Parse(Util.GetSafeRequestValue(Request, "saleprice", "0.85"));
         double ticketAmount = double.Parse(Util.GetSafeRequestValue(Request, "ticketamount", "0"));
-        string memo = Util.GetSafeRequestValue(Request, "memo", "");
+        string memo = Util.GetSafeRequestValue(Request, "memo", "测试店销产品");
         string openId = WeixinUser.CheckToken(token);
         WeixinUser currentUser = new WeixinUser(openId);
 
