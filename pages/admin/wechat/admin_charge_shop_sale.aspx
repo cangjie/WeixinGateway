@@ -6,7 +6,7 @@
 
     public WeixinUser currentUser;
     public string openId = "";
-
+    public string userToken = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/admin_charge_shop_sale.aspx");
@@ -14,7 +14,7 @@
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
         }
-        string userToken = Session["user_token"].ToString();
+        userToken = Session["user_token"].ToString();
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
@@ -104,6 +104,23 @@
                 ticket_amount = 0;
             return valid;
         }
+
+        function get_qrcode() {
+            var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
+                + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
+                + "&memo=" + document.getElementById("txt_memo").value.trim();
+            $.ajax({
+                url: ajax_url,
+                type: "GET",
+                success: function (msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    var qrcode_id = msg_object.charge_id;
+                    var td_cell = document.getElementById("qrcode_td");
+                    td_cell.innerHTML = "<img style='width:200px' src='http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=" + qrcode_id + "' />";
+                }
+            });
+        }
+
     </script>
 </head>
 <body>
@@ -152,10 +169,10 @@
             <td><textarea cols="30" rows="3" id="txt_memo" ></textarea></td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align:center"><button type="button" class="btn btn-default" >获取支付二维码</button></td>
+            <td colspan="2" style="text-align:center"><button type="button" class="btn btn-default" onclick="get_qrcode()" >获取支付二维码</button></td>
         </tr>
         <tr>
-            <td colspan="2" ></td>
+            <td colspan="2" id="qrcode_td"></td>
         </tr>
     </table>
 </body>
