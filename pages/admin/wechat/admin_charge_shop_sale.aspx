@@ -4,10 +4,28 @@
 
 <script runat="server">
 
+    public WeixinUser currentUser;
+    public string openId = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/admin_charge_shop_sale.aspx");
+        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+        {
+            Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
+        }
+        string userToken = Session["user_token"].ToString();
+        openId = WeixinUser.CheckToken(userToken);
+        if (openId.Trim().Equals(""))
+        {
+            Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
+        }
+        currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
+        if (!currentUser.IsAdmin)
+            Response.End();
     }
+
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
