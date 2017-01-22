@@ -212,9 +212,15 @@ public class DealMessage
         int chargeId = int.Parse(receivedMessage.eventKey.Replace("qrscene_", "").Substring(4, 6));
         OrderTemp orderTemp = new OrderTemp(chargeId);
         int i = orderTemp.PlaceOnlineOrder(receivedMessage.from);
-        replyMessage.type = "text";
-        replyMessage.content = "感谢惠顾，您已经获得" + orderTemp._fields["generate_score"].ToString() 
-            + "颗龙珠，您可以<a href=\"http://weixin.snowmeet.com/pages/dragon_ball_list.aspx\" >点击查看详情</a>。";
+        if (i > 0)
+        {
+            Point.AddNew(receivedMessage.from.Trim(), int.Parse(orderTemp._fields["generate_score"].ToString()),
+                DateTime.Now, orderTemp._fields["memo"].ToString());
+            replyMessage.content = "感谢惠顾，您已经获得" + orderTemp._fields["generate_score"].ToString()
+                + "颗龙珠，您可以<a href=\"http://weixin.snowmeet.com/pages/dragon_ball_list.aspx\" >点击查看详情</a>。";
+            replyMessage.type = "text";
+        }
+        
         return replyMessage;
     }
 
