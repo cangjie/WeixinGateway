@@ -172,7 +172,7 @@
             <td colspan="2" style="text-align:center"><button type="button" class="btn btn-default" onclick="get_qrcode()" >获取支付二维码</button></td>
         </tr>
         <tr>
-            <td colspan="2" id="qrcode_td"></td>
+            <td colspan="2" id="qrcode_td" style="text-align:center"></td>
         </tr>
     </table>
 </body>
