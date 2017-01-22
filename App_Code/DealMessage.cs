@@ -160,7 +160,8 @@ public class DealMessage
 
                     if (receivedMessage.eventKey.Trim().StartsWith("4294"))
                     {
-                        
+                        //int chargeId = int.Parse(receivedMessage.eventKey.Trim().Substring(4, 6));
+                        repliedMessage = GenerateChargeMessage(receivedMessage);
                     }
 
                 }
@@ -196,6 +197,19 @@ public class DealMessage
 
 
         return repliedMessage;
+    }
+
+    public static RepliedMessage GenerateChargeMessage(ReceivedMessage receivedMessage)
+    {
+        RepliedMessage replyMessage = new RepliedMessage();
+        replyMessage.from = receivedMessage.to;
+        replyMessage.to = receivedMessage.from;
+        int chargeId = int.Parse(receivedMessage.eventKey.Replace("qrscene_", "").Substring(4, 6));
+        OrderTemp orderTemp = new OrderTemp(chargeId);
+        replyMessage.type = "text";
+        replyMessage.content = "请支付" + orderTemp._fields["real_paid_price"].ToString() + "元，<a href=\"http://weixin.snowmeet.com/pages/create_online_order_for_shop_sale.aspx?id="
+            + chargeId.ToString() + "\" >请点击这里</a>支付。";
+        return replyMessage;
     }
 
     public static RepliedMessage DealUserInputMessage(ReceivedMessage receivedMessage)

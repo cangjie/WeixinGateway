@@ -8,12 +8,20 @@ using System.Data;
 /// </summary>
 public class OrderTemp
 {
+    public DataRow _fields;
     public OrderTemp()
     {
         //
         // TODO: Add constructor logic here
         //
     }
+
+    public OrderTemp(int id)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from order_online_temp where [id] =  " + id.ToString());
+        _fields = dt.Rows[0];
+    }
+
 
     public static int AddNewOrderTemp(double marketPrice, double salePrice, double ticketAmount, string memo, string openId)
     {

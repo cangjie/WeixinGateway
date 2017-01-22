@@ -18,8 +18,7 @@
         }
 
         int chargeId = OrderTemp.AddNewOrderTemp(marketPrice, salePrice, ticketAmount, memo, openId);
-
-        Response.Write("{\"status\":0, \"charge_id\":" + chargeId.ToString() + " }");
+        Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6,'0') + "\" }");
 
     }
 </script>
