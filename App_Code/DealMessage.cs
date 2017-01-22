@@ -182,6 +182,11 @@ public class DealMessage
                     {
                         repliedMessage = ScanDeviceQrCode(receivedMessage);
                     }
+
+                    if (eventKey.StartsWith("4294"))
+                    {
+                        repliedMessage = GenerateChargeMessage(receivedMessage);
+                    }
                 }
                 else
                 {
