@@ -26,14 +26,12 @@ public class OrderTemp
     {
         try
         {
-            if (_fields["online_order_id"] == null
-                || _fields["online_order_id"].ToString().Equals("")
-                || int.Parse(_fields["online_order_id"].ToString()) == 0)
-                return 0;
+            int.Parse(_fields["online_order_id"].ToString());
+            return 0;
         }
         catch
         {
-            return 0;
+            
         }
         OnlineOrder newOrder = new OnlineOrder();
         WeixinUser user = new WeixinUser(openId);
