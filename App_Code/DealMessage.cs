@@ -213,8 +213,8 @@ public class DealMessage
         OrderTemp orderTemp = new OrderTemp(chargeId);
         int i = orderTemp.PlaceOnlineOrder(receivedMessage.from);
         replyMessage.type = "text";
-        replyMessage.content = "请支付" + orderTemp._fields["real_paid_price"].ToString() + "元，<a href=\"http://weixin.snowmeet.com/pages/pay_shop_sale_order.aspx?orderid="
-            + i.ToString() + "\" >请点击这里</a>支付。";
+        replyMessage.content = "感谢惠顾，您已经获得" + orderTemp._fields["generate_score"].ToString() 
+            + "颗龙珠，您可以<a href=\"http://weixin.snowmeet.com/pages/dragon_ball_list.aspx\" >点击查看详情</a>。";
         return replyMessage;
     }
 

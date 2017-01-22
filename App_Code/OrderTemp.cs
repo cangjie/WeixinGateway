@@ -40,7 +40,8 @@ public class OrderTemp
         {"cell_number", "varchar", user.CellNumber.Trim() }, {"name", "varchar", user.Nick.Trim() }, 
         {"pay_method", "varchar", "haojin" },{ "pay_state", "int", "0" },
         {"order_price", "float", _fields["market_price"].ToString() }, 
-        {"order_real_pay_price", "float", _fields["real_paid_price"].ToString() }, {"memo", "varchar", _fields["memo"].ToString().Trim() } };
+        {"order_real_pay_price", "float", _fields["real_paid_price"].ToString() }, {"memo", "varchar", _fields["memo"].ToString().Trim() },
+        {"pay_state", "int", "1" }, {"pay_time", "datetime", DateTime.Now.ToString() } };
         int i = DBHelper.InsertData("order_online", insertParam);
         if (i == 1)
         {
@@ -67,7 +68,8 @@ public class OrderTemp
         string[,] insertParam = { { "admin_open_id", "varchar", openId }, {"market_price", "float", Math.Round(marketPrice,2).ToString() },
         {"sale_price", "float", Math.Round(salePrice, 2).ToString() }, {"real_paid_price", "float", Math.Round(realPayPrice, 2).ToString() },
         {"ticket_amount", "float", Math.Round(ticketAmount, 2).ToString() }, {"score_rate", "float", Math.Round(scoreRate, 2).ToString() }, 
-        {"generate_score", "int", generateScore.ToString() }, {"memo", "varchar", memo.Trim() } };
+        {"generate_score", "int", generateScore.ToString() }, {"memo", "varchar", memo.Trim() }, 
+        {"is_paid", "int", "1" }, {"pay_date_time", "datetime", DateTime.Now.ToString() } };
         int i = DBHelper.InsertData("order_online_temp", insertParam);
         if (i == 1)
         {
