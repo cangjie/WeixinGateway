@@ -66,7 +66,7 @@
         res.Close();
         req.Abort();
         //Response.Write(postData + "<br/>" + str);
-
+        //Response.End();
         Dictionary<string, object> payParam = Util.GetObjectFromJsonByKey(str, "pay_params");
         KeyValuePair<string, object>[] keyValuePairArray = payParam.ToArray();
 

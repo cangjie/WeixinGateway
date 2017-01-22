@@ -108,7 +108,7 @@ public class OnlineSkiPass
 
     public static OnlineSkiPass[] GetLastWeekOnlineSkiPass()
     {
-        DataTable dt = DBHelper.GetDataTable(" select code from order_online left join card on card_no = code where   card.type = '雪票' and code <> '' and code is not null   and pay_state = 1   and card.crt >= '" + DateTime.Now.AddDays(-7).ToShortDateString() + "' order by [id] desc ");
+        DataTable dt = DBHelper.GetDataTable(" select code from order_online left join card on card_no = code where   card.type = '雪票' and code <> '' and code is not null   and pay_state = 1   and card.crt >= '" + DateTime.Now.AddDays(-30).ToShortDateString() + "' order by [id] desc ");
         OnlineSkiPass[] passArr = new OnlineSkiPass[dt.Rows.Count];
         for (int i = 0; i < passArr.Length; i++)
         {
