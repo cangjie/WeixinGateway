@@ -22,6 +22,21 @@ public class OrderTemp
         _fields = dt.Rows[0];
     }
 
+    public int PlaceOnlineOrder(string openId)
+    {
+        OnlineOrder newOrder = new OnlineOrder();
+        WeixinUser user = new WeixinUser(openId);
+        string[,] insertParam = { {"type", "varchar", "店销" }, { "open_id", "varchar", openId.Trim() },
+        {"cell_number", "varchar", user.CellNumber.Trim() }, {"name", "varchar", user.Nick.Trim() }, 
+        {"pay_method", "varchar", "haojin" },{ "pay_status", "int", "0" },
+        {"order_price", "float", _fields["market_price"].ToString() }, {"order_real_pay_price", "float", _fields["real_paid_price"].ToString() } };
+        int i = DBHelper.InsertData("order_online", insertParam);
+        if (i == 1)
+        {
+            i = DBHelper.GetMaxId("order_online");
+        }
+        return i;
+    }
 
     public static int AddNewOrderTemp(double marketPrice, double salePrice, double ticketAmount, string memo, string openId)
     {

@@ -240,4 +240,14 @@ public class DBHelper
         return dt;
     }
 
+    public static int GetMaxId(string tableName)
+    {
+        DataTable dt = GetDataTable(" select max([id]) from " + tableName.Replace("'", "").Trim());
+        int id = 0;
+        if (dt.Rows.Count == 1)
+            id = int.Parse(dt.Rows[0][0].ToString());
+        dt.Dispose();
+        return id;
+    }
+
 }
