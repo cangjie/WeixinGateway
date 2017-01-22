@@ -28,13 +28,16 @@ public class OrderTemp
         WeixinUser user = new WeixinUser(openId);
         string[,] insertParam = { {"type", "varchar", "店销" }, { "open_id", "varchar", openId.Trim() },
         {"cell_number", "varchar", user.CellNumber.Trim() }, {"name", "varchar", user.Nick.Trim() }, 
-        {"pay_method", "varchar", "haojin" },{ "pay_status", "int", "0" },
+        {"pay_method", "varchar", "haojin" },{ "pay_state", "int", "0" },
         {"order_price", "float", _fields["market_price"].ToString() }, {"order_real_pay_price", "float", _fields["real_paid_price"].ToString() } };
         int i = DBHelper.InsertData("order_online", insertParam);
         if (i == 1)
         {
             i = DBHelper.GetMaxId("order_online");
         }
+        string[,] updateParam = { { "online_order_id", "int", i.ToString() } };
+        string[,] keyParam = { {"id", "int", _fields["id"].ToString() } };
+        DBHelper.UpdateData("order_online_temp", updateParam, keyParam, Util.conStr);
         return i;
     }
 
