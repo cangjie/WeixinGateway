@@ -84,6 +84,12 @@ public class OnlineOrder
         }
     }
 
+    public void FinishShopSaleOrder()
+    {
+        OrderTemp tempOrder = OrderTemp.GetFinishedOrder(int.Parse(_fields["id"].ToString()));
+        tempOrder.FinishOrder();
+    }
+
     public OnlineOrderDetail[] OrderDetails
     {
         get

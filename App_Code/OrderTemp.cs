@@ -22,6 +22,7 @@ public class OrderTemp
         _fields = dt.Rows[0];
     }
 
+
     public int PlaceOnlineOrder(string openId)
     {
         try
@@ -50,6 +51,13 @@ public class OrderTemp
         DBHelper.UpdateData("order_online_temp", updateParam, keyParam, Util.conStr);
         return i;
     }
+    
+    public void FinishOrder()
+    {
+        string[,] updateParam = { {"is_paid", "int", "1" }, {"pay_date_time", "datetime", DateTime.Now.ToString()} };
+        string[,] keyParam = { { "id", "int", _fields["id"].ToString() } };
+        DBHelper.UpdateData("order_online_temp", updateParam, keyParam, Util.conStr);
+    }
 
     public static int AddNewOrderTemp(double marketPrice, double salePrice, double ticketAmount, string memo, string openId)
     {
@@ -68,6 +76,19 @@ public class OrderTemp
             dt.Dispose();
         }
         return i;
+    }
+
+    public static OrderTemp GetFinishedOrder(int orderId)
+    {
+        OrderTemp tempOrder = new OrderTemp();
+        DataTable dt = DBHelper.GetDataTable(" select * from order_online_temp where online_order_id = "
+            + orderId.ToString() + " order by [id] desc");
+        if (dt.Rows.Count > 0)
+        {
+            tempOrder = new OrderTemp(int.Parse(dt.Rows[0]["id"].ToString()));
+        }
+        dt.Dispose();
+        return tempOrder;
     }
 
     public static double GetScoreRate(double realPayPrice, double marketPrice)
