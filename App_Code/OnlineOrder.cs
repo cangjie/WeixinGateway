@@ -115,12 +115,20 @@ public class OnlineOrder
     {
         get
         {
-            double price = 0;
-            foreach (OnlineOrderDetail detail in OrderDetails)
+            if (Type.Trim().Equals("雪票"))
             {
-                price = price + detail.summary;
+                double price = 0;
+                foreach (OnlineOrderDetail detail in OrderDetails)
+                {
+                    price = price + detail.summary;
+                }
+                return price;
             }
-            return price;
+            else
+            {
+                return double.Parse(_fields["order_real_pay_price"].ToString());
+            }
+            
         }
     }
 
