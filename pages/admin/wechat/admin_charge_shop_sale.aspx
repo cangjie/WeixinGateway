@@ -167,13 +167,13 @@
         <tr>
             <td>支付方式：</td>
             <td>
-                <dropdownlist id="pay_method" >
+                <select id="pay_method" >
                     <option>现金</option>
                     <option>刷卡</option>
                     <option>微信</option>
                     <option>支付宝</option>
                     <option>哆啦宝</option>
-                </dropdownlist>
+                </select>
             </td>
         </tr>
         <tr>
