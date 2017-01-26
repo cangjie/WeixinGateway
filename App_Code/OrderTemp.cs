@@ -38,7 +38,7 @@ public class OrderTemp
         WeixinUser user = new WeixinUser(openId);
         string[,] insertParam = { {"type", "varchar", "店销" }, { "open_id", "varchar", openId.Trim() },
         {"cell_number", "varchar", user.CellNumber.Trim() }, {"name", "varchar", user.Nick.Trim() }, 
-        {"pay_method", "varchar", "haojin" },{ "pay_state", "int", "1" },
+        {"pay_method", "varchar", _fields["pay_method"].ToString().Trim() },{ "pay_state", "int", "1" },
         {"order_price", "float", _fields["market_price"].ToString() }, 
         {"order_real_pay_price", "float", _fields["real_paid_price"].ToString() }, {"memo", "varchar", _fields["memo"].ToString().Trim() },
         {"pay_time", "datetime", DateTime.Now.ToString() } };
@@ -60,7 +60,7 @@ public class OrderTemp
         DBHelper.UpdateData("order_online_temp", updateParam, keyParam, Util.conStr);
     }
 
-    public static int AddNewOrderTemp(double marketPrice, double salePrice, double ticketAmount, string memo, string openId)
+    public static int AddNewOrderTemp(double marketPrice, double salePrice, double ticketAmount, string memo, string openId, string payMethod)
     {
         double realPayPrice = salePrice - ticketAmount;
         double scoreRate = GetScoreRate(realPayPrice, marketPrice);
@@ -69,7 +69,7 @@ public class OrderTemp
         {"sale_price", "float", Math.Round(salePrice, 2).ToString() }, {"real_paid_price", "float", Math.Round(realPayPrice, 2).ToString() },
         {"ticket_amount", "float", Math.Round(ticketAmount, 2).ToString() }, {"score_rate", "float", Math.Round(scoreRate, 2).ToString() }, 
         {"generate_score", "int", generateScore.ToString() }, {"memo", "varchar", memo.Trim() }, 
-        {"is_paid", "int", "1" }, {"pay_date_time", "datetime", DateTime.Now.ToString() } };
+        {"is_paid", "int", "1" }, {"pay_date_time", "datetime", DateTime.Now.ToString() }, {"pay_method", "varchar", payMethod.Trim() };
         int i = DBHelper.InsertData("order_online_temp", insertParam);
         if (i == 1)
         {
