@@ -165,6 +165,18 @@
             </td>
         </tr>
         <tr>
+            <td>支付方式：</td>
+            <td>
+                <dropdownlist id="pay_method" >
+                    <option>现金</option>
+                    <option>刷卡</option>
+                    <option>微信</option>
+                    <option>支付宝</option>
+                    <option>哆啦宝</option>
+                </dropdownlist>
+            </td>
+        </tr>
+        <tr>
             <td>备注：</td>
             <td><textarea cols="30" rows="3" id="txt_memo" ></textarea></td>
         </tr>
