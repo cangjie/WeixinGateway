@@ -67,9 +67,9 @@ public class OrderTemp
         int generateScore = (int)(realPayPrice * scoreRate);
         string[,] insertParam = { { "admin_open_id", "varchar", openId }, {"market_price", "float", Math.Round(marketPrice,2).ToString() },
         {"sale_price", "float", Math.Round(salePrice, 2).ToString() }, {"real_paid_price", "float", Math.Round(realPayPrice, 2).ToString() },
-        {"ticket_amount", "float", Math.Round(ticketAmount, 2).ToString() }, {"score_rate", "float", Math.Round(scoreRate, 2).ToString() }, 
-        {"generate_score", "int", generateScore.ToString() }, {"memo", "varchar", memo.Trim() }, 
-        {"is_paid", "int", "1" }, {"pay_date_time", "datetime", DateTime.Now.ToString() }, {"pay_method", "varchar", payMethod.Trim() };
+        {"ticket_amount", "float", Math.Round(ticketAmount, 2).ToString() }, {"score_rate", "float", Math.Round(scoreRate, 2).ToString() },
+        {"generate_score", "int", generateScore.ToString() }, {"memo", "varchar", memo.Trim() },
+        {"is_paid", "int", "1" }, {"pay_date_time", "datetime", DateTime.Now.ToString() }, {"pay_method", "varchar", payMethod.Trim() }};
         int i = DBHelper.InsertData("order_online_temp", insertParam);
         if (i == 1)
         {
