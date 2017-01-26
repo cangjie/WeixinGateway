@@ -108,7 +108,8 @@
         function get_qrcode() {
             var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
-                + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim();
+                + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
+                + "&shop=" + document.getElementById("shop");
             $.ajax({
                 url: ajax_url,
                 type: "GET",
@@ -173,6 +174,17 @@
                     <option>微信</option>
                     <option>支付宝</option>
                     <option>哆啦宝</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>门店：</td>
+            <td>
+                <select id="shop" >
+                    <option <% if (currentUser.OpenId.Trim().Equals("oZBHkjiTuhOFyMpdfqQmyz5Tg96M") || currentUser.OpenId.Trim().Equals("oZBHkjrzPAvGSSYXVvmHOSsDaA-E"))
+                        { %> "selected" <%} %> >南山</option>
+                    <option  <% if (currentUser.OpenId.Trim().Equals("oZBHkjqXCnpfu0bvS0SNEPaTR_FI") || currentUser.OpenId.Trim().Equals("oZBHkjjEWyPvCFy1ghiFaw21ePtU"))
+                        { %> "selected" <%} %> >八亿</option>
                 </select>
             </td>
         </tr>

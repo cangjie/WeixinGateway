@@ -9,6 +9,7 @@
         double ticketAmount = double.Parse(Util.GetSafeRequestValue(Request, "ticketamount", "0"));
         string memo = Util.GetSafeRequestValue(Request, "memo", "测试店销产品");
         string payMethod = Util.GetSafeRequestValue(Request, "paymethod", "哆啦宝");
+        string shop = Util.GetSafeRequestValue(Request, "shop", "南山");
         string openId = WeixinUser.CheckToken(token);
         WeixinUser currentUser = new WeixinUser(openId);
 
@@ -18,7 +19,7 @@
             Response.End();
         }
 
-        int chargeId = OrderTemp.AddNewOrderTemp(marketPrice, salePrice, ticketAmount, memo, openId, payMethod);
+        int chargeId = OrderTemp.AddNewOrderTemp(marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop);
         Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6,'0') + "\" }");
 
     }
