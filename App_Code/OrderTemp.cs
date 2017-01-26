@@ -39,7 +39,7 @@ public class OrderTemp
         string[,] insertParam = { {"type", "varchar", "店销" }, { "open_id", "varchar", openId.Trim() },
         {"cell_number", "varchar", user.CellNumber.Trim() }, {"name", "varchar", user.Nick.Trim() }, 
         {"pay_method", "varchar", _fields["pay_method"].ToString().Trim() },{ "pay_state", "int", "1" },
-        {"order_price", "float", _fields["market_price"].ToString() }, {"shop", "varchar", _fields["shop"].ToString().Trim() } 
+        {"order_price", "float", _fields["market_price"].ToString() }, {"shop", "varchar", _fields["shop"].ToString().Trim() } ,
         {"order_real_pay_price", "float", _fields["real_paid_price"].ToString() }, {"memo", "varchar", _fields["memo"].ToString().Trim() },
         {"pay_time", "datetime", DateTime.Now.ToString() } };
         int i = DBHelper.InsertData("order_online", insertParam);
