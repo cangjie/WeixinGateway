@@ -22,6 +22,7 @@
                 detail.price = double.Parse(p._fields["sale_price"].ToString());
                 detail.count = int.Parse(item["count"].ToString());
                 newOrder.AddADetail(detail);
+                newOrder.Type = p._fields["type"].ToString();
             }
             Dictionary<string, object> memoJsonObject = (Dictionary<string, object>)Util.GetObjectFromJsonByKey(cartJson, "memo");
             if (memoJsonObject != null)
