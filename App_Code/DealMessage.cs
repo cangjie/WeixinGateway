@@ -220,7 +220,15 @@ public class DealMessage
                 + "颗龙珠，您可以<a href=\"http://weixin.snowmeet.com/pages/dragon_ball_list.aspx\" >点击查看详情</a>。";
             replyMessage.type = "text";
         }
-        
+        WeixinUser user = new WeixinUser(receivedMessage.from);
+        ServiceMessage serviceMessage = new ServiceMessage();
+        serviceMessage.from = receivedMessage.to;
+        serviceMessage.to = orderTemp._fields["admin_open_id"].ToString();
+        serviceMessage.content = user.Nick.Trim() + "因店铺销售，已经获得" + orderTemp._fields["generate_score"].ToString()
+            + "颗龙珠";
+        serviceMessage.type = "text";
+        ServiceMessage.SendServiceMessage(serviceMessage);
+
         return replyMessage;
     }
 
