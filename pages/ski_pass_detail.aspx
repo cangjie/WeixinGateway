@@ -70,9 +70,8 @@
                         <%=pass.associateOnlineOrderDetail.count.ToString() %>张 
                         <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></li>
                     <li>预约时间：<font color="red" ><%=pass.AppointDate.ToShortDateString() %></font></li>
-                    <li>南山滑雪场需要在门口购买门票后入场。</li>
-                    <li>到店签到取票无需办理其他手续。</li>
-                    <li>一旦下单，不退不换。</li>
+                    <li>含门票费用，到雪场门口请致电：13693171170（小武）。</li>
+                    <li>一旦出票，不退不换。</li>
                     <li>到店请出示雪票二维码。</li>
                 </ul>
                 <br />
