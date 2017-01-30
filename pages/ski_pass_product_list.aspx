@@ -241,7 +241,7 @@
             current_date = date;
             current_day_name = day_name;
             //if (day_name.indexOf("周六") >=0 || day_name.indexOf("周日") >= 0 ) {
-            if (day_name.indexOf("周六") >= 0 ) {
+            if (day_name.indexOf("周日") >= 0 ) {
                 current_product_id = product_id_weekend;
                 current_title = product_title_weekend;
                 current_price = product_price_weekend;
@@ -286,6 +286,9 @@
             rent_box.checked = current_rent;
             var div_summary = document.getElementById("summary");
             var rent_cash = current_title.indexOf("南山") >= 0 ? 200 : 400;
+            if (current_title.indexOf("八易") >= 0) {
+                document.getElementById("rent").disabled = true;
+            }
             var summary_amount = (parseInt(current_price) + (current_rent? rent_cash:0)) * parseInt(current_num);
             div_summary.innerHTML = "(雪票￥" + current_price + (current_rent ? (" + 押金￥" + rent_cash) : "") + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
 
