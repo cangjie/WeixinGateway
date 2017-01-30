@@ -69,9 +69,25 @@
                     <li>价格：<font color="red" ><%=order._fields["order_price"].ToString() %></font>元，张数：
                         <%=pass.associateOnlineOrderDetail.count.ToString() %>张 
                         <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></li>
+                    <%
+                        if (pass.associateOnlineOrder.orderDetails[0].productName.IndexOf("南山") >= 0)
+                        {
+                         %>
                     <li>到达代理商入口请拨打：13693171170，将有工作人员接您入场。</li>
                     <li>来店清除示二维码验票、取票。</li>
                     <li>此票售出后不予退换。</li>
+                    <%
+                        }
+                        else
+                        {
+                            %>
+                    <li><font color="red" >出票日自动出票。</font></li>
+                    <li>来店清除示二维码验票、取票。</li>
+                    <li>滑雪结束后来店办理雪卡押金退还手续。</li>
+                    <li>此票售出后不予退换。</li>
+                    <%
+                        }
+                         %>
                 </ul>
                 <br />
                 <div style="text-align:center" >
