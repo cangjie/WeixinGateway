@@ -313,28 +313,18 @@
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
             <div class="panel-body">
+                <p>雪票价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元。</p>
+                <p>如租板，押金200元。</p>
+                <p>价格包括：门票、滑雪、缆车、拖牵、魔毯费用、（如租板，则包含雪具使用）。</p>
+                <p>如需租用雪板、雪鞋、雪杖以外的物品，如头盔、雪镜、雪服等物品，请额外准备现金，押金 100元/件。</p>
+                <p>使用说明：</p>
                 <ul>
-                    <li>价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元。</li>
-                    <li><font color="red" >购买后于预约当日早八点自动出票。</font></li>
-                    <li>请看清雪票的使用时段。</li>
-                    <li>一旦出票，不退不换。</li>
-                    <%
-                        if (currentResort.Trim().Equals("nanshan"))
-                        {
-                            %>
-                    <li>含门票费用，到雪场门口请致电：13693171170（小武）。</li>
-                    <%
-                        }
-                        else
-                        {
-                            %>
-                    <!--li>不支持租赁，<font color="red" >请自带雪具</font>。</li-->
-                                <%
-                        }
-                         %>
-                    
-                    <li>到店请出示雪票二维码。</li>
+                    <li><font color="red" >出票日自动出票。</font></li>
+                    <li>到达代理商入口请拨打：13693171170，将有工作人员接您入场。</li>
+                    <li>来店清除示二维码验票、取票。</li>
+                    <li>此票售出后不予退换。</li>
                 </ul>
+                <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13693171170</p>
             </div>
         </div>
         <%} %>
