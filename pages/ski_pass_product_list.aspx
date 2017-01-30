@@ -323,7 +323,7 @@
             <div class="panel-body">
                 <p>雪票价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元。</p>
                 <%
-                    if (p._fields["name"].ToString().IndexOf("南山"))
+                    if (p._fields["name"].ToString().IndexOf("南山")>=0)
                     {
 
 
