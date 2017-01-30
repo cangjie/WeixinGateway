@@ -306,12 +306,17 @@
         <%
             foreach (Product p in prodArr)
             {
-
-
-
              %>
         <br />
-        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString() %>','<%=p._fields["name"].ToString() %>' )" >
+        <div id="ticket-1" name="ticket" class="panel panel-<%
+            if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
+            {
+                Response.Write("inform");
+            }
+            else
+            {
+                Response.Write("success");
+            }%>" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString() %>','<%=p._fields["name"].ToString() %>' )" >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
