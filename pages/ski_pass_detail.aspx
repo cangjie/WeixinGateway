@@ -70,7 +70,7 @@
                         <%=pass.associateOnlineOrderDetail.count.ToString() %>张 
                         <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></li>
                     <%
-                        if (pass.associateOnlineOrder.orderDetails[0].productName.IndexOf("南山") >= 0)
+                        if (detail.productName.IndexOf("南山") >= 0)
                         {
                          %>
                     <li>到达代理商入口请拨打：13693171170，将有工作人员接您入场。</li>
