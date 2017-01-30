@@ -36,7 +36,7 @@ public class Product
         {
             sqlStr = sqlStr + " name like '八易%' ";
         }
-
+        sqlStr = sqlStr + "  order by sort desc ";
         DataTable dt = DBHelper.GetDataTable(sqlStr);
         Product[] productArr = new Product[dt.Rows.Count];
         for (int i = 0; i < dt.Rows.Count; i++)
