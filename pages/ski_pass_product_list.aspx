@@ -311,7 +311,7 @@
         <div id="ticket-1" name="ticket" class="panel panel-<%
             if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
             {
-                Response.Write("inform");
+                Response.Write("info");
             }
             else
             {
