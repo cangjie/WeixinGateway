@@ -200,26 +200,38 @@
             
             if (title.indexOf("八易")>=0) {
                 if (title.indexOf("夜场") >= 0) {
-                    if (now.getHours() > 17) {
-                        now = now + 3600 * 24 * 1000;
+                    if (now.getHours() >= 17) {
+                        now = now.valueOf() + 3600 * 24 * 1000;
                     }
                 }
                 else {
-                    if (now.getHours() >= 8) {
-                        now = now + 3600 * 24 * 1000;
+                    if (now.getHours() > 8 || (now.getHours() ==8 && now.getMinutes() >= 30 ) ) {
+                        now = now.valueOf() + 3600 * 24 * 1000;
                     }
                 }
             }
 
             if (title.indexOf("南山") >= 0) {
                 if (now.getHours() >= 8) {
-                    now = now + 3600 * 24 * 1000;
+                    now = new Date(now.valueOf() + 3600 * 24 * 1000);
                 }
             }
+            
+            
 
             select_date(current_date, current_day_name)
             fill_modal();
             $("#booking_modal").modal();
+        }
+
+        function get_day_name(date) {
+
+            var now = new Date();
+            var day_name = "今天";
+            if (date.getYear() == now.getYear() && date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
+
+            }
+
         }
 
         function book_ski_pass() {
