@@ -216,8 +216,8 @@
                     now = new Date(now.valueOf() + 3600 * 24 * 1000);
                 }
             }
-            
-            var day_name = get_day_name(new Date());
+
+            var day_name = get_week_day(new Date());
 
             select_date(current_date, current_day_name)
             fill_modal();
