@@ -195,6 +195,28 @@
                     }
                 }
             });
+
+            var now = new Date();
+            
+            if (title.indexOf("八易")>=0) {
+                if (title.indexOf("夜场") >= 0) {
+                    if (now.getHours() > 17) {
+                        now = now + 3600 * 24 * 1000;
+                    }
+                }
+                else {
+                    if (now.getHours() >= 8) {
+                        now = now + 3600 * 24 * 1000;
+                    }
+                }
+            }
+
+            if (title.indexOf("南山") >= 0) {
+                if (now.getHours() >= 8) {
+                    now = now + 3600 * 24 * 1000;
+                }
+            }
+
             select_date(current_date, current_day_name)
             fill_modal();
             $("#booking_modal").modal();
