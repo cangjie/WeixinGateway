@@ -217,7 +217,7 @@
                 }
             }
 
-            var day_name = get_week_day(new Date());
+            var day_name = get_day_name(now);
 
             select_date(current_date, current_day_name)
             fill_modal();
@@ -228,6 +228,22 @@
 
             var now = new Date();
             var day_name = "今天";
+            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
+                day_name = "今天";
+            }
+            now = new Date(now.valueOf + 1000 * 3600 * 24);
+            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
+                day_name = "明天";
+            }
+            now = new Date(now.valueOf + 1000 * 3600 * 24);
+            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
+                day_name = "后天";
+            }
+            now = new Date(now.valueOf + 1000 * 3600 * 24);
+            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
+                day_name = "大后天";
+            }
+            return day_name;
         }
 
         function get_week_day(date) {
