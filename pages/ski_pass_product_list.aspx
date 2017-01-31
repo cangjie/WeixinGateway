@@ -196,9 +196,15 @@
                 }
             });
 
+            var drop_down = document.getElementById("dropdown-date");
+            var current_date = document.getElementById("current_date");
+            //drop_down.innerHTML = "";
+            //current_date.innerHTML = "";
+            var now_date = new Date();
+
+
             if (title.indexOf("八易") >= 0 && title.indexOf("夜场") >= 0) {
-                var drop_down = document.getElementById("dropdown-date");
-                drop_down.innerHTML = "";
+                
             }
 
 
