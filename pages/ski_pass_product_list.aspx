@@ -136,7 +136,7 @@
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title></title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -169,14 +169,14 @@
         var product_id_holiday = 0;
         var product_title_holiday = "";
         var product_price_holiday = 0;
-        
+
 
         function launch_book_modal(product_id, title) {
             $.ajax({
-                url:        "/api/get_associate_product.aspx?productid=" + product_id,
-                async:      false,
+                url: "/api/get_associate_product.aspx?productid=" + product_id,
+                async: false,
                 type: "GET",
-                success: function (msg, status) {
+                success: function(msg, status) {
                     var msg_object = eval("(" + msg + ")");
                     if (msg_object.status == "0") {
 
@@ -195,20 +195,7 @@
                     }
                 }
             });
-
-            var drop_down = document.getElementById("dropdown-date");
-            var current_date = document.getElementById("current_date");
-            //drop_down.innerHTML = "";
-            //current_date.innerHTML = "";
-            var now_date = new Date();
-
-
-            if (title.indexOf("八易") >= 0 && title.indexOf("夜场") >= 0) {
-                
-            }
-
-
-            select_date(current_date,current_day_name)
+            select_date(current_date, current_day_name)
             fill_modal();
             $("#booking_modal").modal();
         }
@@ -237,16 +224,16 @@
             //alert(cart_json);
 
             //return;
-            
+
             $.ajax({
-                url:    "/api/place_online_order.aspx",
-                async:  false,
-                type:   "GET",
-                data:   {"cart":cart_json,"token":"<%=userToken%>"},
+                url: "/api/place_online_order.aspx",
+                async: false,
+                type: "GET",
+                data: { "cart": cart_json, "token": "<%=userToken%>" },
                 success: function(msg, status) {
                     var msg_object = eval("(" + msg + ")");
                     window.location.href = "../payment/haojin_pay_online_order.aspx?orderid=" + msg_object.order_id;
-            }
+                }
             });
         }
 
@@ -254,12 +241,12 @@
             current_date = date;
             current_day_name = day_name;
             //if (day_name.indexOf("周六") >=0 || day_name.indexOf("周日") >= 0 ) {
-            if (day_name.indexOf("周日") >= 0 ) {
+            if (day_name.indexOf("周日") >= 0) {
                 current_product_id = product_id_weekend;
                 current_title = product_title_weekend;
                 current_price = product_price_weekend;
             }
-            else if (day_name.indexOf("除夕") >=0 || day_name.indexOf("初") >=0 ) {
+            else if (day_name.indexOf("除夕") >= 0 || day_name.indexOf("初") >= 0) {
                 current_product_id = product_id_holiday;
                 current_title = product_title_holiday;
                 current_price = product_price_holiday;
@@ -302,7 +289,7 @@
             if (current_title.indexOf("八易") >= 0) {
                 document.getElementById("rent").disabled = true;
             }
-            var summary_amount = (parseInt(current_price) + (current_rent? rent_cash:0)) * parseInt(current_num);
+            var summary_amount = (parseInt(current_price) + (current_rent ? rent_cash : 0)) * parseInt(current_num);
             div_summary.innerHTML = "(雪票￥" + current_price + (current_rent ? (" + 押金￥" + rent_cash) : "") + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
 
         }
@@ -384,7 +371,7 @@
                                     <span id="current_date" ><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></span>
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="dropdown-date" >
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[0].Key.ToShortDateString()%>', '<%= selectedDate[0].Value.Trim()%>')"><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></a></li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[1].Key.ToShortDateString()%>', '<%= selectedDate[1].Value.Trim()%>')"><%=selectedDate[1].Key.ToShortDateString()%> <%=selectedDate[1].Value.Trim() %></a></li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[2].Key.ToShortDateString()%>', '<%= selectedDate[2].Value.Trim()%>')"><%=selectedDate[2].Key.ToShortDateString()%> <%=selectedDate[2].Value.Trim() %></a></li>
