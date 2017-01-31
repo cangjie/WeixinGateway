@@ -9,6 +9,10 @@
 
     public DateTime currentDate = DateTime.Parse(DateTime.Now.ToShortDateString());
 
+    public int dayNum = 0;
+
+    public int nightNum = 0;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         rent = (Util.GetSafeRequestValue(Request, "rent", "0").Equals("0") ? false : true);
@@ -29,7 +33,7 @@
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title></title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -62,10 +66,18 @@
             <td>购买日期</td>
         </tr>
         <%
-    foreach (OnlineSkiPass pass in passArr)
-    {
-        if (CanDisplay(pass))
-        { 
+            foreach (OnlineSkiPass pass in passArr)
+            {
+                if (CanDisplay(pass))
+                {
+                    if (pass.associateOnlineOrderDetail.productName.IndexOf("日场") >= 0)
+                    {
+                        dayNum++;
+                    }
+                    if (pass.associateOnlineOrderDetail.productName.IndexOf("夜场") >= 0)
+                    {
+                        nightNum++;
+                    }
                 %>
         <tr>
             <td><%=pass.cardCode.Trim()%></td>
@@ -79,6 +91,14 @@
         </tr>
                     <%
                             }
+                        }
+                        if (resort.Trim().Equals("八易"))
+                        {
+                            %>
+        <tr>
+            <td colspan="8" >日场：<%=dayNum.ToString() %> 夜场：<%=nightNum.ToString() %></td>
+        </tr>
+        <%
                         }
              %>
         
