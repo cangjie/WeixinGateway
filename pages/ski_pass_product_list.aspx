@@ -217,7 +217,7 @@
                 }
             }
             
-            
+            var day_name = get_day_name(new Date());
 
             select_date(current_date, current_day_name)
             fill_modal();
@@ -228,10 +228,37 @@
 
             var now = new Date();
             var day_name = "今天";
-            if (date.getYear() == now.getYear() && date.getMonth() == now.getMonth() && date.getDate() == now.getDate()) {
+        }
 
+        function get_week_day(date) {
+            var now = new Date();
+            var week_day_name = "星期一";
+            switch (date.getDay()) {
+                case 0:
+                    week_day_name = "星期天";
+                    break;
+                case 1:
+                    week_day_name = "星期一";
+                    break;
+                case 2:
+                    week_day_name = "星期二";
+                    break;
+                case 3:
+                    week_day_name = "星期三";
+                    break;
+                case 4:
+                    week_day_name = "星期四";
+                    break;
+                case 5:
+                    week_day_name = "星期五";
+                    break;
+                case 6:
+                    week_day_name = "星期六";
+                    break;
+                default:
+                    break;
             }
-
+            return week_day_name;
         }
 
         function book_ski_pass() {
