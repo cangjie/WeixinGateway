@@ -196,20 +196,106 @@
                 }
             });
 
+            var now = new Date();
             
+            if (title.indexOf("八易")>=0) {
+                if (title.indexOf("夜场") >= 0) {
+                    if (now.getHours() >= 17) {
+                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                    }
+                }
+                else {
+                    if (now.getHours() > 8 || (now.getHours() ==8 && now.getMinutes() >= 30 ) ) {
+                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                    }
+                }
+            }
 
+            if (title.indexOf("南山") >= 0) {
+                if (now.getHours() >= 8) {
+                    now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                }
+            }
+
+            var day_name = get_day_name(now);
+            var week_day = get_week_day(now);
+
+
+            var drop_down_date = document.getElementById("drop-down-date");
+
+
+            drop_down_date.innerHTML = "";
+
+           
+            for (var i = 0; i < 5; i++) {
+                var iDate = new Date(now.valueOf() + 1000 * 3600 * 24 * i);
+                var iDayName = get_day_name(iDate);
+                
+                drop_down_date.innerHTML = drop_down_date.innerHTML
+                    + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('" + iDate.toLocaleDateString() + "', '"
+                    + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
+                    + "'\" >" + iDate.toLocaleDateString() + " " + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
+            
+            }
+           
             select_date(current_date, current_day_name)
             fill_modal();
-
-            var drop_down_date = document.getElementById("drop_down_date");
-            drop_down_date.innerHTML = "";
             
             $("#booking_modal").modal();
         }
 
-       
+        function get_day_name(date) {
 
-       
+            var now = new Date();
+            var day_name = "";
+            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
+                day_name = "今天";
+            }
+            now = new Date(now.valueOf() + 1000 * 3600 * 24);
+            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
+                day_name = "明天";
+            }
+            now = new Date(now.valueOf() + 1000 * 3600 * 24);
+            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
+                day_name = "后天";
+            }
+            now = new Date(now.valueOf() + 1000 * 3600 * 24);
+            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
+                day_name = "大后天";
+            }
+            return day_name;
+        }
+
+        function get_week_day(date) {
+            var now = new Date();
+            var week_day_name = "星期一";
+            switch (date.getDay()) {
+                case 0:
+                    week_day_name = "星期天";
+                    break;
+                case 1:
+                    week_day_name = "星期一";
+                    break;
+                case 2:
+                    week_day_name = "星期二";
+                    break;
+                case 3:
+                    week_day_name = "星期三";
+                    break;
+                case 4:
+                    week_day_name = "星期四";
+                    break;
+                case 5:
+                    week_day_name = "星期五";
+                    break;
+                case 6:
+                    week_day_name = "星期六";
+                    break;
+                default:
+                    break;
+            }
+            return week_day_name;
+        }
 
         function book_ski_pass() {
 
@@ -382,7 +468,7 @@
                                     <span id="current_date" ><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></span>
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop_down_date" >
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop-down-date" >
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[0].Key.ToShortDateString()%>', '<%= selectedDate[0].Value.Trim()%>')"><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></a></li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[1].Key.ToShortDateString()%>', '<%= selectedDate[1].Value.Trim()%>')"><%=selectedDate[1].Key.ToShortDateString()%> <%=selectedDate[1].Value.Trim() %></a></li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[2].Key.ToShortDateString()%>', '<%= selectedDate[2].Value.Trim()%>')"><%=selectedDate[2].Key.ToShortDateString()%> <%=selectedDate[2].Value.Trim() %></a></li>
