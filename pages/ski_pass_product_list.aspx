@@ -232,9 +232,11 @@
                 var iDayName = get_day_name(iDate);
                 
                 drop_down_date.innerHTML = drop_down_date.innerHTML
-                    + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('" + iDate.getFullYear() + "-" + iDate.getMonth() + "-" + iDate.getDay() + "', '"
+                    + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
+                    + iDate.getFullYear() + "-" + iDate.getMonth() + "-" + iDate.getDay() + "', '"
                     + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
-                    + "'\" >" + iDate.toLocaleDateString() + " " + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
+                    + "')\" >" + +iDate.getFullYear() + "-" + iDate.getMonth() + "-" + iDate.getDay() + " "
+                    + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
             
             }
            
