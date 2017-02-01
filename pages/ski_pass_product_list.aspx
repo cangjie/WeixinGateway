@@ -234,9 +234,9 @@
                 drop_down_date.innerHTML = drop_down_date.innerHTML
                     + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
 
-                    + iDate.getFullYear() + "/" + iDate.getMonth()+1 + "/" + iDate.getDate() + "', '"
+                    + iDate.getFullYear() + "/" + (iDate.getMonth()+1) + "/" + iDate.getDate() + "', '"
                     + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
-                    + "')\" >" + +iDate.getFullYear() + "/" + iDate.getMonth()+1 + "/" + iDate.getDate() + " "
+                    + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth()+1) + "/" + iDate.getDate() + " "
                     + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
             
             }
@@ -266,7 +266,7 @@
             if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
                 day_name = "大后天";
             }
-            if (now.getMonth() == 1 && now.getDate() == 2) {
+            if (date.getMonth() == 1 && date.getDate() == 2) {
                 day_name = day_name + " 初六";
             }
             return day_name;
