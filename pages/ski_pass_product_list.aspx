@@ -218,7 +218,22 @@
             }
 
             var day_name = get_day_name(now);
+            var week_day = get_week_day(now);
 
+
+            var drop_down_date = document.getElementById("dropdown-date");
+
+            drop_down_date.innerHTML = "";
+
+            for (var i = 0; i < 5; i++) {
+                var iDate = new Date(now.valueOf + 1000 * 3600 * 24 * i);
+                var iDayName = get_day_name(iDate);
+                drop_down_date.innerHTML = drop_down_date.innerHTML
+                    + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('" + iDate.toLocaleDateString() + "', '"
+                    + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
+                    + "'\" >" + iDate.toLocaleDateString() + " " + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
+            }
+           
             select_date(current_date, current_day_name)
             fill_modal();
             $("#booking_modal").modal();
@@ -227,7 +242,7 @@
         function get_day_name(date) {
 
             var now = new Date();
-            var day_name = "今天";
+            var day_name = "";
             if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
                 day_name = "今天";
             }
@@ -464,7 +479,7 @@
                                     <span id="current_num" >1</span>
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="dropdown-date">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(1)" >1</a></li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(2)" >2</a></li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(3)" >3</a></li>
