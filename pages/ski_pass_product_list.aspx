@@ -224,14 +224,17 @@
             var drop_down_date = document.getElementById("dropdown-date");
 
             drop_down_date.innerHTML = "";
+       
 
             for (var i = 0; i < 5; i++) {
-                var iDate = new Date(now.valueOf + 1000 * 3600 * 24 * i);
+                var iDate = new Date(now.valueOf() + 1000 * 3600 * 24 * i);
                 var iDayName = get_day_name(iDate);
+                /*
                 drop_down_date.innerHTML = drop_down_date.innerHTML
                     + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('" + iDate.toLocaleDateString() + "', '"
                     + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
                     + "'\" >" + iDate.toLocaleDateString() + " " + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
+            */
             }
            
             select_date(current_date, current_day_name)
