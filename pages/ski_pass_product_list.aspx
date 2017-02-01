@@ -223,7 +223,7 @@
 
             var drop_down_date = document.getElementById("dropdown-date");
 
-            drop_down_date.innerHTML = "";
+            drop_down_date.remove();
        
 
             for (var i = 0; i < 5; i++) {
