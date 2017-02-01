@@ -233,9 +233,10 @@
                 
                 drop_down_date.innerHTML = drop_down_date.innerHTML
                     + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
-                    + iDate.getFullYear() + "-" + (iDate.getMonth()+1) + "-" + iDate.getDate() + "', '"
+
+                    + iDate.getFullYear() + "/" + iDate.getMonth()+1 + "/" + iDate.getDate() + "', '"
                     + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
-                    + "')\" >" + +iDate.getFullYear() + "-" + (iDate.getMonth()+1) + "-" + iDate.getDate() + " "
+                    + "')\" >" + +iDate.getFullYear() + "/" + iDate.getMonth()+1 + "/" + iDate.getDate() + " "
                     + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
             
             }
@@ -265,33 +266,36 @@
             if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
                 day_name = "大后天";
             }
+            if (now.getMonth() == 1 && now.getDate() == 2) {
+                day_name = day_name + " 初六";
+            }
             return day_name;
         }
 
         function get_week_day(date) {
             var now = new Date();
-            var week_day_name = "星期一";
+            var week_day_name = "周一";
             switch (date.getDay()) {
                 case 0:
-                    week_day_name = "星期天";
+                    week_day_name = "周日";
                     break;
                 case 1:
-                    week_day_name = "星期一";
+                    week_day_name = "周一";
                     break;
                 case 2:
-                    week_day_name = "星期二";
+                    week_day_name = "周二";
                     break;
                 case 3:
-                    week_day_name = "星期三";
+                    week_day_name = "周三";
                     break;
                 case 4:
-                    week_day_name = "星期四";
+                    week_day_name = "周四";
                     break;
                 case 5:
-                    week_day_name = "星期五";
+                    week_day_name = "周五";
                     break;
                 case 6:
-                    week_day_name = "星期六";
+                    week_day_name = "周六";
                     break;
                 default:
                     break;
