@@ -238,6 +238,11 @@
                     + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
                     + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth()+1) + "/" + iDate.getDate() + " "
                     + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
+                if (i == 0) {
+                    current_date = iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate();
+                    current_day_name = get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")");
+                    document.getElementById("current_date").innerHTML = current_date + " " + current_day_name;
+                }
             
             }
            
