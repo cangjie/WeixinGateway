@@ -375,9 +375,10 @@ public class DealMessage
         DataTable dt = DBHelper.GetDataTable(" select * from hand_ring_use  where [id] = " + id.ToString());
         string code = dt.Rows[0]["code"].ToString();
         string adminOpenId = dt.Rows[0]["admin_open_id"].ToString();
+        WeixinUser user = new WeixinUser(receivedMessage.from);
         if (dt.Rows[0]["is_confirm"].ToString().Equals("0"))
         {
-            WeixinUser user = new WeixinUser(receivedMessage.from);
+           
             int i = 0;
             foreach (string c in code.Split(','))
             {
@@ -393,7 +394,7 @@ public class DealMessage
         {
             content = "手环已经兑换。";
         }
-        
+        dt.Dispose();
         ServiceMessage serviceMessage = new ServiceMessage();
         serviceMessage.from = receivedMessage.to;
         serviceMessage.to = adminOpenId;
