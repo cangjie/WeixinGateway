@@ -27,9 +27,10 @@
 
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
             Response.Redirect("register_cell_number.aspx", true);
+        /*
         if (!currentUser.IsBetaUser)
             Response.Redirect("beta_announce.aspx", true);
-
+            */
         if (!currentUser.OpenId.Trim().Equals(ticket.Owner.OpenId))
         {
             Response.End();

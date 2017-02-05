@@ -27,9 +27,10 @@
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
         if (currentUser.CellNumber.Trim().Equals(""))
             Response.Redirect("register_cell_number.aspx", true);
+        /*
         if (!currentUser.IsBetaUser)
             Response.Redirect("beta_announce.aspx", true);
-
+        */
         Point.ImportPointsByNumber(currentUser.CellNumber.Trim());
         Order.ImportUserOrderDragonBall(currentUser.CellNumber.Trim());
         

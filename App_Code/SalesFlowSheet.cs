@@ -501,4 +501,23 @@ public class SalesFlowSheet
         }
         return orderDetail;
     }
+
+    public int LastRowIndex
+    {
+        get
+        {
+            int currentIndex = -1;
+            Microsoft.Office.Interop.Excel.Range range;
+            for (int i = 2; i <= rowsCount; i++)
+            {
+                range = (Microsoft.Office.Interop.Excel.Range)worksheet.Cells[i, 3];
+                if (range.Interior.Color.ToString().Equals("16777215"))
+                {
+                    currentIndex = i;
+                    break;
+                }
+            }
+            return currentIndex;
+        }
+    }
 }
