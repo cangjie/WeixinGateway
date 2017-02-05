@@ -65,7 +65,7 @@
                 type: "GET",
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
-                    var qrcode_id = msg_object.charge_id;
+                    var qrcode_id = msg_object.exchange_id;
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=" + qrcode_id + "' />";
                 }
