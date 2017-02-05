@@ -127,6 +127,9 @@
 <body>
     <table class="table table-striped">
         <tr>
+            <td colspan="2" >&nbsp;</td>
+        </tr>
+        <tr>
             <td style="width:140px">市场价(元)：</td>
             <td style="white-space:nowrap; overflow:hidden">
                 <input type="text" id="txt_market_price" style="width:100px"  oninput="compute_score()" />

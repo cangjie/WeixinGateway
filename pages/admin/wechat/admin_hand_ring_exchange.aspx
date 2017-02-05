@@ -77,6 +77,9 @@
 <body>
     <table class="table table-striped">
         <tr>
+            <td colspan="2" >&nbsp;</td>
+        </tr>
+        <tr>
             <td style="width:140px">号码1：</td>
             <td style="white-space:nowrap; overflow:hidden">
                 <input type="text" id="txt_code_1" style="width:100px" />
