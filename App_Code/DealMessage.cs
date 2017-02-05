@@ -371,7 +371,7 @@ public class DealMessage
     public static RepliedMessage ExchangHandRing(ReceivedMessage receivedMessage)
     {
         string replyContent = "";
-        int id = int.Parse(receivedMessage.eventKey.Substring(4, 10));
+        int id = int.Parse(receivedMessage.eventKey.Substring(4, 6));
         DataTable dt = DBHelper.GetDataTable(" select * from hand_ring_use  where [id] = " + id.ToString());
         string code = dt.Rows[0]["code"].ToString();
         string adminOpenId = dt.Rows[0]["admin_open_id"].ToString();
