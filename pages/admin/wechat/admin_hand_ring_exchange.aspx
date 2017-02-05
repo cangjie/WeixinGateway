@@ -54,7 +54,7 @@
             if (document.getElementById("txt_code_5").value != "")
                 code = code + document.getElementById("txt_code_5").value + ",";
             if (code != "" && code.endsWith(","))
-                code = code.substr(code.length - 1, 1);
+                code = code.substr(0, code.length - 1);
 
                 
             
