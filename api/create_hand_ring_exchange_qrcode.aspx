@@ -4,7 +4,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string token = Util.GetSafeRequestValue(Request, "token", "01127366f2f219f3578b75fbd32a3bb2f200ac7fcf3051fa5bf5515f0321f86e43592f6e");
-        string ringCode = Util.GetSafeRequestValue(Request, "ringcode", "");
+        string ringCode = Util.GetSafeRequestValue(Request, "code", "");
 
         string adminUserOpenId = WeixinUser.CheckToken(token);
         WeixinUser adminUser = new WeixinUser(adminUserOpenId);
