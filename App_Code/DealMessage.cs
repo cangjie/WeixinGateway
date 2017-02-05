@@ -370,19 +370,30 @@ public class DealMessage
 
     public static RepliedMessage ExchangHandRing(ReceivedMessage receivedMessage)
     {
-        string replyContent = "";
+        string content = "";
         int id = int.Parse(receivedMessage.eventKey.Substring(4, 6));
         DataTable dt = DBHelper.GetDataTable(" select * from hand_ring_use  where [id] = " + id.ToString());
         string code = dt.Rows[0]["code"].ToString();
         string adminOpenId = dt.Rows[0]["admin_open_id"].ToString();
-        WeixinUser user = new WeixinUser(receivedMessage.from);
-        int i = 0;
-        foreach (string c in code.Split(','))
+        if (dt.Rows[0]["is_confirm"].ToString().Equals("0"))
         {
-            i++;
+            WeixinUser user = new WeixinUser(receivedMessage.from);
+            int i = 0;
+            foreach (string c in code.Split(','))
+            {
+                i++;
+            }
+            content = "手环兑换成功，共" + i.ToString() + "个，共花费" + i * 100 + "个龙珠。";
+            Point.AddNew(receivedMessage.from, -1 * i * 100, DateTime.Now, "兑换" + i.ToString() + "个手环。");
+            string[,] updateParam = { { "is_confirm", "int", "1" } };
+            string[,] keyParam = { { "id", "int", dt.Rows[0]["id"].ToString() } };
+            DBHelper.UpdateData("hand_ring_use", updateParam, keyParam, Util.conStr);
         }
-        string content = "手环兑换成功，共" + i.ToString() + "个，共花费" + i * 100 + "个龙珠。";
-        Point.AddNew(receivedMessage.from, -1 * i * 100, DateTime.Now, "兑换" + i.ToString() + "个手环。");
+        else
+        {
+            content = "手环已经兑换。";
+        }
+        
         ServiceMessage serviceMessage = new ServiceMessage();
         serviceMessage.from = receivedMessage.to;
         serviceMessage.to = adminOpenId;
