@@ -21,7 +21,7 @@
                 }
                 //user.FatherOpenId = 
                 //PointFile.ImportPointsFromUploadFiles(user.CellNumber.Trim());
-                Point.ImportPointsByNumber(user.CellNumber.Trim());
+                //Point.ImportPointsByNumber(user.CellNumber.Trim());
                 Response.Write("{\"status\" : 0 , \"result\" : 1  }");
             }
             else
