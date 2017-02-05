@@ -58,10 +58,8 @@
 
                 
             
-            var ajax_url = "../../../api/create_hand_ring_exchange_qrcode.aspx?token=<%=userToken%>&marketprice="
-                + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
-                + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
-                + "&shop=" + document.getElementById("shop").value.trim();
+            var ajax_url = "../../../api/create_hand_ring_exchange_qrcode.aspx?token=<%=userToken%>&code=" + code;
+               
             $.ajax({
                 url: ajax_url,
                 type: "GET",
