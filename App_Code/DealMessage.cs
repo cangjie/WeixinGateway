@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Threading;
-
+using System.Data;
 /// <summary>
 /// Summary description for DealMessage
 /// </summary>
@@ -166,9 +166,8 @@ public class DealMessage
                     }
                     if (receivedMessage.eventKey.Trim().StartsWith("4293"))
                     {
-
+                        repliedMessage = ExchangHandRing(receivedMessage);
                     }
-
                 }
                 else
                 {
@@ -366,6 +365,36 @@ public class DealMessage
                 break;
         }
 
+        return repliedMessage;
+    }
+
+    public static RepliedMessage ExchangHandRing(ReceivedMessage receivedMessage)
+    {
+        string replyContent = "";
+        int id = int.Parse(receivedMessage.eventKey.Substring(4, 10));
+        DataTable dt = DBHelper.GetDataTable(" select * from hand_ring_use  where [id] = " + id.ToString());
+        string code = dt.Rows[0]["code"].ToString();
+        string adminOpenId = dt.Rows[0]["admin_open_id"].ToString();
+        WeixinUser user = new WeixinUser(receivedMessage.from);
+        int i = 0;
+        foreach (string c in code.Split(','))
+        {
+            i++;
+        }
+        string content = "手环兑换成功，共" + i.ToString() + "个，共花费" + i * 100 + "个龙珠。";
+        Point.AddNew(receivedMessage.from, -1 * i * 100, DateTime.Now, "兑换" + i.ToString() + "个手环。");
+        ServiceMessage serviceMessage = new ServiceMessage();
+        serviceMessage.from = receivedMessage.to;
+        serviceMessage.to = adminOpenId;
+        serviceMessage.type = "text";
+        serviceMessage.content = user.Nick.Trim() + "的" + content.Trim();
+        ServiceMessage.SendServiceMessage(serviceMessage);
+
+        RepliedMessage repliedMessage = new RepliedMessage();
+        repliedMessage.from = receivedMessage.to;
+        repliedMessage.to = receivedMessage.from;
+        repliedMessage.type = "text";
+        repliedMessage.content = "您的" + content.Trim();
         return repliedMessage;
     }
 
