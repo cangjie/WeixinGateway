@@ -191,6 +191,10 @@ public class DealMessage
                     {
                         repliedMessage = GenerateChargeMessage(receivedMessage);
                     }
+                    if (eventKey.StartsWith("4293"))
+                    {
+                        repliedMessage = ExchangHandRing(receivedMessage);
+                    }
                 }
                 else
                 {
