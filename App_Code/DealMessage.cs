@@ -142,6 +142,7 @@ public class DealMessage
                                     content.description = "";
                                 }
 
+
                                 repliedMessage.newsContent = new RepliedMessage.news[] { content };
 
                             }
@@ -162,6 +163,10 @@ public class DealMessage
                     {
                         //int chargeId = int.Parse(receivedMessage.eventKey.Trim().Substring(4, 6));
                         repliedMessage = GenerateChargeMessage(receivedMessage);
+                    }
+                    if (receivedMessage.eventKey.Trim().StartsWith("4293"))
+                    {
+
                     }
 
                 }
