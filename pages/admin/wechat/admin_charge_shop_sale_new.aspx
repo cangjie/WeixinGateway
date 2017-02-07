@@ -137,6 +137,7 @@
             else {
                 recommender_tr.style.display = "";
             }
+            compute_score();
         }
     </script>
 </head>
@@ -192,7 +193,7 @@
             <td>介绍人电话：</td>
             <td>
                 <input type="text" style="width:100px" id="recommender_number" />
-                <input type="radio" name="recommender_type" id="recommender_type_common" checked />会员 <input id="recommender_type_trainer" type="radio" name="recommender_type" />教练 <input type="radio" name="recommender_type" id="recommender_type_advice_leader" />意见领袖
+                <input type="radio" name="recommender_type" id="recommender_type_common" checked onchange="compute_score()" />会员 <input id="recommender_type_trainer" type="radio" name="recommender_type" onchange="compute_score()" />教练 <input type="radio" name="recommender_type" id="recommender_type_advice_leader" onchange="compute_score()" />意见领袖
             </td>
         </tr>
         <tr>
