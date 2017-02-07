@@ -170,7 +170,7 @@
             </td>
         </tr>
         <tr>
-            <td>生成龙珠(元)：</td>
+            <td>生成龙珠：</td>
             <td>
                 <span style="color:red; width:10px; word-wrap:break-word; font-size:large" id="lbl_score" ></span>
             </td>
