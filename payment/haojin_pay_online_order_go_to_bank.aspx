@@ -12,6 +12,11 @@
         string paymentDomain = System.Configuration.ConfigurationSettings.AppSettings["payment_haojin_domain_name"];
         string md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_key"];
         string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_id"];
+        if (order.OrderDetails[0].productId == 2 || order.OrderDetails[0].productId == 4)
+        {
+            md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_key_nanshan"];
+            appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_id_nanshan"];
+        }
         string code = Request["code"].Trim();
         string jumpUrl = "https://" + paymentDomain + "/tool/v1/get_weixin_openid?code=" + code;
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(jumpUrl);
