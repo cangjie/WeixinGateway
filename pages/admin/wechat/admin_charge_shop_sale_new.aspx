@@ -122,6 +122,15 @@
             });
         }
 
+        function display_recommender() {
+            var recommender_tr = document.getElementById("recommender");
+            if (document.getElementById("member_type_common").checked) {
+                recommender_tr.style.display = "none";
+            }
+            else {
+                recommender_tr.style.display = "block";
+            }
+        }
     </script>
 </head>
 <body>
@@ -169,7 +178,7 @@
         <tr>
             <td>会员属性：</td>
             <td>
-                <input type="radio" name="member_type" checked />普通 <input type="radio" name="member_type" />新晋
+                <input type="radio" id="member_type_common"  name="member_type" checked onchange="display_recommender()" />普通 <input id="member_type_new" type="radio" name="member_type" onchange="display_recommender()" />新晋
             </td>
         </tr>
         <tr id="recommender" style="display:none" >
