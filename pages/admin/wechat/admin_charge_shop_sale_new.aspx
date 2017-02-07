@@ -82,6 +82,13 @@
                 else
                     score_rate = 0;
                 score = parseInt(real_pay_price * score_rate);
+                
+                if (document.getElementById("member_type_new").checked) {
+                    if (document.getElementById("recommender_type_common").checked || document.getElementById("recommender_type_advice_leader").checked) {
+                        score = score * 2;
+                    }
+                }
+
                 document.getElementById("lbl_score").innerText = score.toString();
                 document.getElementById("real_pay_price").innerText = real_pay_price;
                 document.getElementById("lbl_score_rate").innerText = score_rate;
@@ -140,7 +147,7 @@
         </tr>
         <tr>
             <td>姓名：</td>
-            <td><input /></td>
+            <td><input id="txt_name" style="width:100px" /></td>
         </tr>
         <tr>
             <td style="width:140px">市场价(元)：</td>
@@ -184,7 +191,7 @@
         <tr id="recommender" style="display:none" >
             <td>介绍人电话：</td>
             <td>
-                <input type="text" style="width:75px" id="recommender_number" />
+                <input type="text" style="width:100px" id="recommender_number" />
                 <input type="radio" name="recommender_type" id="recommender_type_common" checked />会员 <input id="recommender_type_trainer" type="radio" name="recommender_type" />教练 <input type="radio" name="recommender_type" id="recommender_type_advice_leader" />意见领袖
             </td>
         </tr>
