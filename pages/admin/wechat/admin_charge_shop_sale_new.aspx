@@ -167,18 +167,19 @@
             </td>
         </tr>
         <tr>
+            <td>会员属性：</td>
+            <td>
+                <input type="radio" name="member_type" checked />普通 <input type="radio" name="member_type" />新晋
+            </td>
+        </tr>
+        <tr id="recommender" style="display:none" >
             <td>介绍人电话：</td>
             <td>
                 <input type="text"/>
                 <input type="radio" name="recommender_type" />会员 <input type="radio" name="recommender_type" />教练 <input type="radio" name="recommender_type" />意见领袖
             </td>
         </tr>
-        <tr>
-            <td>会员属性：</td>
-            <td>
-                <input type="radio" name="recommender_type" />普通 <input type="radio" name="recommender_type" />新晋
-            </td>
-        </tr>
+
         <tr>
             <td>生成龙珠：</td>
             <td>
