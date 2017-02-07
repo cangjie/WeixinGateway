@@ -170,6 +170,12 @@
             </td>
         </tr>
         <tr>
+            <td>会员属性：</td>
+            <td>
+                <input type="radio" name="recommender_type" />普通 <input type="radio" name="recommender_type" />新晋
+            </td>
+        </tr>
+        <tr>
             <td>生成龙珠：</td>
             <td>
                 <span style="color:red; width:10px; word-wrap:break-word; font-size:large" id="lbl_score" ></span>
