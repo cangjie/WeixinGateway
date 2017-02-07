@@ -14,6 +14,7 @@
         string memberType = Util.GetSafeRequestValue(Request, "membertype", "");
         string recommenderNumber = Util.GetSafeRequestValue(Request, "recommendernumber", "");
         string recommenderType = Util.GetSafeRequestValue(Request, "recommendertype", "");
+        string name = Util.GetSafeRequestValue(Request, "name", "");
         WeixinUser currentUser = new WeixinUser(openId);
 
         if (!currentUser.IsAdmin)
@@ -22,7 +23,7 @@
             Response.End();
         }
 
-        int chargeId = OrderTemp.AddNewOrderTemp(marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop);
+        int chargeId = OrderTemp.AddNewOrderTemp(marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop, memberType, recommenderNumber, recommenderType, name);
         Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6,'0') + "\" }");
 
     }

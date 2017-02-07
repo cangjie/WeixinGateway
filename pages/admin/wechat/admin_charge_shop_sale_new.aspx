@@ -9,7 +9,7 @@
     public string userToken = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-        string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/admin_charge_shop_sale.aspx");
+        string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/admin_charge_shop_sale_new.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
@@ -128,7 +128,8 @@
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
                 + "&shop=" + document.getElementById("shop").value.trim() + "&membertype=" + member_type
-                + "&recommendernumber=" + recommender_number + "&recommendertype=" + recommender_type;
+                + "&recommendernumber=" + recommender_number + "&recommendertype=" + recommender_type
+                + "&name=" + document.getElementById("txt_name").value;
             $.ajax({
                 url: ajax_url,
                 type: "GET",

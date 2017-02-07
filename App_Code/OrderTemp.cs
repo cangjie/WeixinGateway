@@ -61,7 +61,7 @@ public class OrderTemp
     }
 
     public static int AddNewOrderTemp(double marketPrice, double salePrice, double ticketAmount, string memo,
-        string openId, string payMethod, string shop, string memberType, string recommenderNumber, string recommenderType)
+        string openId, string payMethod, string shop, string memberType, string recommenderNumber, string recommenderType, string name)
     {
         double realPayPrice = salePrice - ticketAmount;
         double scoreRate = GetScoreRate(realPayPrice, marketPrice);
@@ -72,7 +72,8 @@ public class OrderTemp
         {"generate_score", "int", generateScore.ToString() }, {"memo", "varchar", memo.Trim() },
         {"is_paid", "int", "1" }, {"pay_date_time", "datetime", DateTime.Now.ToString() }, {"pay_method", "varchar", payMethod.Trim() },
         {"shop", "varchar", shop.Trim() }, {"member_type", "varchar", memberType.Trim() }, 
-        {"recommender_number", "varchar", recommenderNumber.Trim() }, {"recommender_type", "varchar", recommenderType.Trim() } };
+        {"recommender_number", "varchar", recommenderNumber.Trim() }, {"recommender_type", "varchar", recommenderType.Trim() },
+         {"name", "varchar", name.Trim() }};
         int i = DBHelper.InsertData("order_online_temp", insertParam);
         if (i == 1)
         {
