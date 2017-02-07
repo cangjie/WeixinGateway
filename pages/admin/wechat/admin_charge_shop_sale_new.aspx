@@ -113,10 +113,22 @@
         }
 
         function get_qrcode() {
+            var member_type = "普通";
+            if (document.getElementById("member_type_new").checked)
+                member_type = "新晋";
+            var recommender_number = document.getElementById("recommender_number").value.trim();
+            var recommender_type = "会员";
+            if (document.getElementById("recommender_type_trainer").checked) {
+                recommender_type = "教练";
+            }
+            if (document.getElementById("recommender_type_advice_leader").checked) {
+                recommender_type = "意见领袖";
+            }
             var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
-                + "&shop=" + document.getElementById("shop").value.trim();
+                + "&shop=" + document.getElementById("shop").value.trim() + "&membertype=" + member_type
+                + "&recommendernumber=" + recommender_number + "&recommendertype=" + recommender_type;
             $.ajax({
                 url: ajax_url,
                 type: "GET",

@@ -11,6 +11,9 @@
         string payMethod = Util.GetSafeRequestValue(Request, "paymethod", "哆啦宝");
         string shop = Util.GetSafeRequestValue(Request, "shop", "南山");
         string openId = WeixinUser.CheckToken(token);
+        string memberType = Util.GetSafeRequestValue(Request, "membertype", "");
+        string recommenderNumber = Util.GetSafeRequestValue(Request, "recommendernumber", "");
+        string recommenderType = Util.GetSafeRequestValue(Request, "recommendertype", "");
         WeixinUser currentUser = new WeixinUser(openId);
 
         if (!currentUser.IsAdmin)
