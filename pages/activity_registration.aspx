@@ -138,39 +138,38 @@
     <div><button type="button" class="btn btn-success" onclick="launch_add_person_modal()" >添加雪友</button></div>
     <div><br /></div>
     <div id="others_person">
-        <div class="panel panel-info" id="others_person_template" style="display:none" >
+        <div class="panel panel-info" id="others_person_template" name="others_person_info" style="display:none" >
             <div class="panel-heading"><h3 class="panel-title">联系人</h3></div>
             <div class="panel-body" >
                 <div class="row" >
                     <div class="col-xs-4" >姓名：</div>
-                    <div class="col-xs-8" ></div>
+                    <div class="col-xs-8" name="div_add_name" ></div>
                 </div>
                 <div class="row" >
                     <div class="col-xs-4" >电话：</div>
-                    <div class="col-xs-8" ></div>
+                    <div class="col-xs-8" name="div_add_cell" ></div>
                 </div>
                 <div class="row" >
                     <div class="col-xs-4" >身份证：</div>
-                    <div class="col-xs-8" ></div>
+                    <div class="col-xs-8" name="div_add_id_card" ></div>
                 </div>
                 <div class="row" >
                     <div class="col-xs-4" ></div>
-                    <div class="col-xs-8" ></div>
+                    <div class="col-xs-8" name="div_add_rent" ></div>
                 </div>
                 <div class="row" >
                     <div class="col-xs-4" >身高：</div>
-                    <div class="col-xs-8" ></div>
+                    <div class="col-xs-8" name="div_add_length" ></div>
                 </div>
                 <div class="row" >
                     <div class="col-xs-4" >鞋码：</div>
-                    <div class="col-xs-8" ></div>
+                    <div class="col-xs-8" name="div_add_boot_size" ></div>
                 </div>
                 <div class="row" >
                     <div class="col-xs-12" ><button class="btn btn-danger" name="btn_del"  >删 除</button></div>
                 </div>
             </div>
         </div>
-     
     </div>
     <div id="booking_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -232,9 +231,43 @@
 
         
         var others_person_template = document.getElementById("others_person_template");
-        alert(document.getElementsByName("btn_del").length);
+        //alert(others_person_template.innerHTML);
         
-
+        var div_others_person = document.getElementById("others_person");
+        //alert(div_others_person.innerHTML);
+        //div_others_person.innerHTML = others_person_template.outerHTML;
+        //alert(div_others_person.innerHTML);
+        var child_count = div_others_person.childElementCount;
+        for (var i = 1; i < child_count; i++)
+            div_others_person.removeChild(div_others_person.lastChild);
+        //alert(div_others_person.childElementCount);
+        //alert(registration_json.others_registration.length);
+        for (var i = 0; i < registration_json.others_registration.length; i++) {
+            var new_node = others_person_template.cloneNode();
+            new_node.style.display = "";
+            new_node.innerHTML = others_person_template.innerHTML;
+            document.getElementById("others_person").appendChild(new_node);
+            var onclick_attr = document.createAttribute("onclick");
+            onclick_attr.value = "del_person(" + i + ")";
+            var btn_del_arr = document.getElementsByName("btn_del");
+            var last_child_index = btn_del_arr.length - 1
+            btn_del_arr[last_child_index].attributes.setNamedItem(onclick_attr);
+            document.getElementsByName("div_add_name")[last_child_index].innerHTML = registration_json.others_registration[i].name;
+            document.getElementsByName("div_add_cell")[last_child_index].innerHTML = registration_json.others_registration[i].cell_number;
+            document.getElementsByName("div_add_id_card")[last_child_index].innerHTML = registration_json.others_registration[i].idcard;
+            document.getElementsByName("div_add_rent")[last_child_index].innerHTML = registration_json.others_registration[i].rent == 0 ? "自带板" : "租板"
+            if (document.getElementsByName("div_add_rent")[last_child_index].innerHTML == "租板") {
+                document.getElementsByName("div_add_length")[last_child_index].innerHTML = registration_json.others_registration[i].length;
+                document.getElementsByName("div_add_boot_size")[last_child_index].innerHTML = registration_json.others_registration[i].boot_size;
+            }
+            else {
+                document.getElementsByName("div_add_length")[last_child_index].innerHTML = "-";
+                document.getElementsByName("div_add_boot_size")[last_child_index].innerHTML = "-";
+            }
+            //alert(div_others_person.innerHTML);
+        }
+        
+        /*
         for (var i = 0; i < 5; i++) {
             var new_node = others_person_template.cloneNode();
             alert(document.getElementsByName("btn_del").length);
@@ -249,7 +282,7 @@
             var btn_del_arr = document.getElementsByName("btn_del");
             btn_del_arr[btn_del_arr.length - 1].attributes.setNamedItem(onclick_attr);
         }
-
+        */
         
 
         
