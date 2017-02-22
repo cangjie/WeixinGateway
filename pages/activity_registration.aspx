@@ -73,12 +73,20 @@
         function add_person_from_modal_input() {
             var others_person_json = JSON.parse(person_json_str_template);
             others_person_json.name = document.getElementById("text_add_name").value;
+            document.getElementById("text_add_name").value = "";
             others_person_json.cell_number = document.getElementById("text_add_cell").value;
+            document.getElementById("text_add_cell").value = "";
             others_person_json.idcard = document.getElementById("text_add_idcard").value;
+            document.getElementById("text_add_idcard").value = "";
             others_person_json.rent = document.getElementById("check_add_rent").checked ? 1 : 0;
+            document.getElementById("check_add_rent").checked = false;
             if (others_person_json.rent == 1) {
                 others_person_json.boot_size = document.getElementById("text_add_boot_size").value;
+                document.getElementById("text_add_boot_size").value = "";
+                document.getElementById("text_add_boot_size").disabled = true;
                 others_person_json.length = document.getElementById("text_add_length").value;
+                document.getElementById("text_add_length").value = "";
+                document.getElementById("text_add_length").disabled = true;
             }
             else {
                 others_person_json.boot_size = "";
@@ -105,7 +113,7 @@
 </head>
 <body>
     <div><h1>2017-3-10~2017-3-12 第三期北大湖活动（预付款1500元/人起）</h1></div>
-    <div>共xxx人参加活动，其中xxx人租板，需要预先缴纳xxx元。<div><button type="button" class="btn btn-success" >现在支付</button></div></div>
+    <div>共<span id="span_person_count" >1</span>人参加活动，其中<span id="span_person_rent_count" >1</span>人租板，需要预先缴纳<span id="span_amount_summary" >1</span>元。<div><button type="button" class="btn btn-success" >现在支付</button></div></div>
     <div class="panel panel-danger" >
         <div class="panel-heading"><h3 class="panel-title">联系人</h3></div>
         <div class="panel-body" >
@@ -228,20 +236,11 @@
             document.getElementById("text_boot_size").value = "";
             document.getElementById("text_length").value = "";
         }
-
-        
         var others_person_template = document.getElementById("others_person_template");
-        //alert(others_person_template.innerHTML);
-        
         var div_others_person = document.getElementById("others_person");
-        //alert(div_others_person.innerHTML);
-        //div_others_person.innerHTML = others_person_template.outerHTML;
-        //alert(div_others_person.innerHTML);
         var child_count = div_others_person.childElementCount;
         for (var i = 1; i < child_count; i++)
             div_others_person.removeChild(div_others_person.lastChild);
-        //alert(div_others_person.childElementCount);
-        //alert(registration_json.others_registration.length);
         for (var i = 0; i < registration_json.others_registration.length; i++) {
             var new_node = others_person_template.cloneNode();
             new_node.style.display = "";
@@ -264,31 +263,28 @@
                 document.getElementsByName("div_add_length")[last_child_index].innerHTML = "-";
                 document.getElementsByName("div_add_boot_size")[last_child_index].innerHTML = "-";
             }
-            //alert(div_others_person.innerHTML);
         }
-        
-        /*
-        for (var i = 0; i < 5; i++) {
-            var new_node = others_person_template.cloneNode();
-            alert(document.getElementsByName("btn_del").length);
-            new_node.style.display = "";
-            new_node.innerHTML = others_person_template.innerHTML;
-            var id_attr = document.createAttribute("id");
-            id_attr.value = "others_" + i;
-            new_node.attributes.setNamedItem(id_attr);
-            document.getElementById("others_person").appendChild(new_node);
-            var onclick_attr = document.createAttribute("onclick");
-            onclick_attr.value = "del_person(" + i + ")";
-            var btn_del_arr = document.getElementsByName("btn_del");
-            btn_del_arr[btn_del_arr.length - 1].attributes.setNamedItem(onclick_attr);
+        document.getElementById("span_person_count").innerHTML = registration_json.others_registration.length + 1;
+        var rent_num = 0;
+        if (registration_json.my_registration.rent)
+            rent_num++;
+        for (var i = 0; i < registration_json.others_registration.length; i++) {
+            if (registration_json.others_registration[i].rent)
+                rent_num++;
         }
-        */
-        
-
-        
+        document.getElementById("span_person_rent_count").innerHTML = rent_num;
+        document.getElementById("span_amount_summary").innerHTML = (registration_json.others_registration.length + 1) * 1500;
     }
     fill_page();
     function del_person(i) {
-        alert(i);
+        var old_arr = registration_json.others_registration;
+        var new_arr = JSON.parse("[]");
+        for (var j = 0; j < old_arr.length; j++) {
+            if (i != j) {
+                new_arr.push(old_arr[j]);
+            }
+        }
+        registration_json.others_registration = new_arr;
+        update_registration_json();
     }
 </script>
