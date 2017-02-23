@@ -19,7 +19,7 @@
 
         unitPrice = double.Parse(product._fields["sale_price"].ToString());
 
-        string currentPageUrl = Server.UrlEncode("/pages/activity_registrtion.aspx");
+        string currentPageUrl = Server.UrlEncode("/pages/activity_registration.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
