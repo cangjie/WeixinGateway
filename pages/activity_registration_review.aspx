@@ -99,11 +99,11 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" >身高：</div>
-                <div class="col-xs-8" ><%=(personJsonArr[i]["rent"].ToString().Equals("1")? personJsonArr[0]["length"].ToString(): "--") %></div>
+                <div class="col-xs-8" ><%=(personJsonArr[i]["rent"].ToString().Equals("1")? personJsonArr[i]["length"].ToString(): "--") %></div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" >鞋码：</div>
-                <div class="col-xs-8" ><%=(personJsonArr[i]["rent"].ToString().Equals("1")? personJsonArr[0]["boot_size"].ToString(): "--") %></div>
+                <div class="col-xs-8" ><%=(personJsonArr[i]["rent"].ToString().Equals("1")? personJsonArr[i]["boot_size"].ToString(): "--") %></div>
             </div>
         </div>
 
