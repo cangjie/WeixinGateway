@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" %>
-
+<%@ Import Namespace="System.Data" %>
 <!DOCTYPE html>
 
 <script runat="server">
@@ -11,7 +11,7 @@
     public string title = "";
     public string code = "";
     public string body = "";
-
+    public DataTable dtRegList;
     protected void Page_Load(object sender, EventArgs e)
     {
         code = Util.GetSafeRequestValue(Request, "code", "");
@@ -32,6 +32,7 @@
         card = new Card(code);
 
         Activity activity = new Activity(code);
+        dtRegList = activity.RegistrationList;
         title = activity.AssociateOnlineOrder.OrderDetails[0].productName.Trim();
 
         switch (card._fields["type"].ToString().Trim())
@@ -52,6 +53,8 @@
         }
         if (card.Used)
             Response.Redirect("card_confirm_finish.aspx?code=" + card._fields["card_no"].ToString(), true);
+        //dtRegList = Activity.GetRegistrationList(activity.AssociateOnlineOrder.OrderDetails[0].productId);
+        
     }
 </script>
 
@@ -91,6 +94,28 @@
                 </div>
             </div>
         </div>
+        <%
+            pannelStyle = "success";
+            int i = 0;
+            foreach (DataRow dr in dtRegList.Rows)
+            {
+                i++;
+                %>
+        <div  name="ticket" class="panel panel-<%=pannelStyle %>" style="width:350px"  >
+            <div class="panel-heading">
+                <h3 class="panel-title">雪友-<%=i.ToString() %></h3>
+            </div>
+            <div class="panel-body">
+                <p>姓名：<%=dr["姓名"].ToString()%></p>
+                <p>手机：<%=dr["手机"].ToString() %></p>
+                <p>身份证号：<%=dr["身份证号"].ToString() %></p>
+                <p>租板：<%=dr["是否租板"].ToString() %></p>
+                <p>身高：<%=dr["身高"].ToString() %></p>
+                <p>鞋码：<%=dr["鞋码"].ToString() %></p>
+            </div>
+        </div>
+                    <%
+            } %>
     </div>
 </body>
 </html>

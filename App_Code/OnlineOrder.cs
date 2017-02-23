@@ -246,4 +246,18 @@ public class OnlineOrder
         }
         return orderArr;
     }
+
+    public static OnlineOrder[] GetActivityOrders(int activityProductId, string openId)
+    {
+        DataTable dtDetail = DBHelper.GetDataTable(" select * from order_online where [id] in (  select distinct order_online_id from order_online_detail "
+            + " where product_id = " + activityProductId.ToString() + ") and open_id = '" + openId + "'  and pay_state = 1");
+        OnlineOrder[] orderArr = new OnlineOrder[dtDetail.Rows.Count];
+        for (int i = 0; i < dtDetail.Rows.Count; i++)
+        {
+            orderArr[i] = new OnlineOrder(int.Parse(dtDetail.Rows[i]["id"].ToString()));
+        }
+        return orderArr;
+    }
+
+
 }

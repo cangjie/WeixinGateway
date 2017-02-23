@@ -11,6 +11,8 @@ public class Activity
 {
     public string cardCode = "";
 
+    public Card card;
+
     public Activity()
     {
         //
@@ -21,7 +23,7 @@ public class Activity
     public Activity(string code)
     {
         cardCode = code;
-        Card card = new Card(cardCode);
+        card = new Card(cardCode);
         if (!card._fields["type"].ToString().Equals("活动"))
         {
             throw new Exception("This card is not for activity.");
@@ -46,6 +48,40 @@ public class Activity
         get
         {
             return new WeixinUser(AssociateOnlineOrder._fields["open_id"].ToString());
+        }
+    }
+
+    public DataTable RegistrationList
+    {
+        get
+        {
+            
+            DataTable dt = new DataTable();
+            dt.Columns.Add("活动名称");
+            dt.Columns.Add("姓名");
+            dt.Columns.Add("手机");
+            dt.Columns.Add("身份证号");
+            dt.Columns.Add("是否租板");
+            dt.Columns.Add("身高");
+            dt.Columns.Add("鞋码");
+
+            string regJson = card.Memo.Trim();
+            Dictionary<string, object>[] regListArr = Util.GetObjectArrayFromJsonByKey(regJson, "regist_person");
+            foreach (Dictionary<string, object> reg in regListArr)
+            {
+                DataRow dr = dt.NewRow();
+                dr[0] = AssociateOnlineOrder.OrderDetails[0].productName.Trim();
+                dr[1] = reg["name"].ToString().Trim();
+                dr[2] = reg["cell_number"].ToString().Trim();
+                dr[3] = reg["idcard"].ToString().Trim();
+                dr[4] = (reg["rent"].ToString().Equals("0") ? "自带" : "租板");
+                dr[5] = (reg["rent"].ToString().Equals("0") ? "--" : reg["length"].ToString().Trim());
+                dr[6] = (reg["rent"].ToString().Equals("0") ? "--" : reg["boot_size"].ToString().Trim());
+                dt.Rows.Add(dr);
+            }
+        
+
+            return dt;
         }
     }
 
