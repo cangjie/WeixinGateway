@@ -40,6 +40,20 @@ public class Card
         DBHelper.UpdateData("card", updateParam, keyParam, Util.conStr);
     }
 
+    public string Memo
+    {
+        get
+        {
+            return _fields["memo"].ToString();
+        }
+        set
+        {
+            string[,] updateParam = { { "memo", "varchar", value.Trim() }};
+            string[,] keyParam = { { "card_no", "varchar", _fields["card_no"].ToString() } };
+            DBHelper.UpdateData("card", updateParam, keyParam, Util.conStr);
+        }
+    }
+
     public bool Used
     {
         get

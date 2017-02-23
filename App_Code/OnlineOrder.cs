@@ -184,7 +184,7 @@ public class OnlineOrder
     {
         if (_fields["code"] == null || _fields["code"].ToString().Trim().Equals(""))
         {
-            string code = Card.GenerateCardNo(9, 0, "雪票");
+            string code = Card.GenerateCardNo(9, 0, _fields["type"].ToString().Trim());
             string[,] updateParam = { { "code", "varchar", code } };
             string[,] keyParam = { { "id", "int", _fields["id"].ToString() } };
             DBHelper.UpdateData("order_online", updateParam, keyParam, Util.conStr.Trim());
@@ -195,6 +195,27 @@ public class OnlineOrder
             return "";
         }
         
+    }
+
+    public string CreateActivityPass()
+    {
+        string code = CreateSkiPass();
+        Card card = new Card(code);
+        string activityRegistJson = "";
+        for (int i = 0; i < OrderDetails.Length; i++)
+        {
+            if (i == 0)
+            {
+                activityRegistJson = OrderDetails[i].memo.Trim();
+            }
+            else
+            {
+                activityRegistJson = activityRegistJson + ", " + OrderDetails[i].memo.Trim();
+            }
+        }
+        activityRegistJson = "{\"regist_person\": [" + activityRegistJson + "]}";
+        card.Memo = activityRegistJson;
+        return code;
     }
 
 

@@ -18,6 +18,10 @@
             {
                 order.CreateSkiPass();
             }
+            if (order.Type.Trim().Equals("活动"))
+            {
+                order.CreateActivityPass();
+            }
             if (order.Type.Trim().Equals("店销"))
             {
                 OrderTemp tempOrder = OrderTemp.GetFinishedOrder(int.Parse(order._fields["id"].ToString()));
