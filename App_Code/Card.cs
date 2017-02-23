@@ -76,6 +76,9 @@ public class Card
                     OnlineSkiPass pass = new OnlineSkiPass(_fields["card_no"].ToString().Trim());
                     return pass.owner;
                     break;
+                case "活动":
+                    Activity activity = new Activity(_fields["card_no"].ToString().Trim());
+                    return activity.owner;
                 default:
                     break;
             }

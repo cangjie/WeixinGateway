@@ -7,7 +7,7 @@ using System.Data;
 /// <summary>
 /// Summary description for Activity
 /// </summary>
-public class Activity
+public class Activity:OnlineSkiPass
 {
     public string cardCode = "";
 
