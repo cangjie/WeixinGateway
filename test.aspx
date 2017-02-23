@@ -9,8 +9,9 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        OnlineOrder order = new OnlineOrder(1229);
-        order.CreateActivityPass();
+        Activity.GetRegistrationList(16);
+        //OnlineOrder order = new OnlineOrder(1229);
+        //order.CreateActivityPass();
         //OrderTemp temp = new OrderTemp(1);
         //temp.PlaceOnlineOrder("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
         //Response.Write(Location.HaveSignedInADay("oZBHkjhdFpC5ScK5FUU7HKXE3PJM", "南山", DateTime.Now));
