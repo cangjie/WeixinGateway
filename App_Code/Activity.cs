@@ -7,7 +7,7 @@ using System.Data;
 /// <summary>
 /// Summary description for Activity
 /// </summary>
-public class Activity:OnlineSkiPass
+public class Activity
 {
     public string cardCode = "";
 
@@ -28,6 +28,8 @@ public class Activity:OnlineSkiPass
         }
     }
 
+
+
     public OnlineOrder AssociateOnlineOrder
     {
         get
@@ -36,6 +38,14 @@ public class Activity:OnlineSkiPass
             int orderId = int.Parse(dt.Rows[0][0].ToString());
             dt.Dispose();
             return new OnlineOrder(orderId);
+        }
+    }
+
+    public WeixinUser Owner
+    {
+        get
+        {
+            return new WeixinUser(AssociateOnlineOrder._fields["open_id"].ToString());
         }
     }
 

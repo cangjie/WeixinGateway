@@ -78,7 +78,7 @@ public class Card
                     break;
                 case "活动":
                     Activity activity = new Activity(_fields["card_no"].ToString().Trim());
-                    return activity.owner;
+                    return activity.Owner;
                 default:
                     break;
             }
