@@ -218,5 +218,20 @@ public class OnlineOrder
         return code;
     }
 
+    public static int GetAcivityOrderId(string openId, int activityProductId)
+    {
+        DataTable dtDetail = DBHelper.GetDataTable(" select * from order_online where [id] in (  select distinct order_online_id from order_online_detail "
+            + " where product_id = " + activityProductId.ToString() + ") and open_id = '" + openId.Trim() + "'  and pay_state = 1");
+        int orderId = 0;
+        if (dtDetail.Rows.Count == 0)
+        {
+            orderId = 0;
+        }
+        else
+        {
+            orderId = int.Parse(dtDetail.Rows[dtDetail.Rows.Count - 1]["id"].ToString());
+        }
 
+        return orderId;
+    }
 }

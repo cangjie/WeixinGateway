@@ -7,9 +7,18 @@
 
     public string userToken = "4aa99be7feb90a931ed9deb37ecbf4e948aac5a667babce1a93b6cf35a0283bdfca491e9";
 
+    public double unitPrice = 0;
+
+    public int productId = 0;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        /*
+        productId = int.Parse(Util.GetSafeRequestValue(Request, "productid", "16"));
+
+        Product product = new Product(productId);
+
+        unitPrice = double.Parse(product._fields["sale_price"].ToString());
+
         string currentPageUrl = Server.UrlEncode("/pages/activity_registrtion.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -25,7 +34,9 @@
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
             Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
 
-        */
+        int orderId = OnlineOrder.GetAcivityOrderId(openId, productId);
+        if (orderId != 0)
+            Response.Redirect("activity_registration_review.aspx?orderid=" + orderId.ToString(), true);
 
     }
 </script>
@@ -45,13 +56,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
 
-        var product_id = 16;
-        var unit_price = 1500;
+        var product_id = <%=productId%>;
+        var unit_price = <%=unitPrice%>;
 
 
         var local_storage_key = "snow_meet_act_" + product_id + "_registration";
         var registration_json = get_registration_info_from_local_storage();
-        var person_json_str_template = '{ "name": "", "cell_number": "<%//=currentUser.CellNumber.Trim() %>", "length": "", "boot_size": "", "rent": 0, "idcard": ""}';
+        var person_json_str_template = '{ "name": "", "cell_number": "<%=currentUser.CellNumber.Trim() %>", "length": "", "boot_size": "", "rent": 0, "idcard": ""}';
         function update_registration_json() {
             registration_json.my_registration.name = document.getElementById("text_name").value;
             registration_json.my_registration.cell_number = document.getElementById("text_cell").value;
