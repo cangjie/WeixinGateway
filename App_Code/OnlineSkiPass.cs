@@ -19,6 +19,9 @@ public class OnlineSkiPass
     public OnlineOrderDetail associateOnlineOrderDetail;
     public Card associateCard;
 
+    public OnlineSkiPass()
+    { }
+
     public OnlineSkiPass(string code)
     {
         cardCode = code;
