@@ -203,7 +203,7 @@
     <div><br /></div>
     <div id="others_person">
         <div class="panel panel-info" id="others_person_template" name="others_person_info" style="display:none" >
-            <div class="panel-heading"><h3 class="panel-title">联系人</h3></div>
+            <div class="panel-heading"><h3 class="panel-title">雪友</h3></div>
             <div class="panel-body" >
                 <div class="row" >
                     <div class="col-xs-4" >姓名：</div>
