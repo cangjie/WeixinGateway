@@ -55,14 +55,11 @@
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
-
         var product_id = <%=productId%>;
         var unit_price = <%=unitPrice%>;
-
-
         var local_storage_key = "snow_meet_act_" + product_id + "_registration";
-        var registration_json = get_registration_info_from_local_storage();
         var person_json_str_template = '{ "name": "", "cell_number": "<%=currentUser.CellNumber.Trim() %>", "length": "", "boot_size": "", "rent": 0, "idcard": ""}';
+        var registration_json = get_registration_info_from_local_storage();
         function update_registration_json() {
             registration_json.my_registration.name = document.getElementById("text_name").value;
             registration_json.my_registration.cell_number = document.getElementById("text_cell").value;
@@ -287,11 +284,12 @@
 </html>
 <script type="text/javascript" >
     function fill_page() {
+        document.getElementById("unit_price").innerHTML = unit_price;
         document.getElementById("text_name").value = registration_json.my_registration.name;
         document.getElementById("text_cell").value = registration_json.my_registration.cell_number;
         document.getElementById("text_idcard").value = registration_json.my_registration.idcard;
         document.getElementById("check_rent").checked = registration_json.my_registration.rent == 0 ? false : true;
-        document.getElementById("unit_price").innerHTML = unit_price;
+        
         if (document.getElementById("check_rent").checked) {
             document.getElementById("text_boot_size").disabled = false;
             document.getElementById("text_length").disabled = false;
