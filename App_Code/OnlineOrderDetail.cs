@@ -15,7 +15,7 @@ public class OnlineOrderDetail
     public string productName = "";
     public double price = 0;
     public int count = 0;
-
+    public string memo = "";
 
     public OnlineOrderDetail()
     {
@@ -32,7 +32,8 @@ public class OnlineOrderDetail
             { "product_id", "int", productId.ToString()},
             { "product_name", "varchar", productName.Trim() },
             { "price", "float", price.ToString()},
-            { "count", "int", count.ToString()} };
+            { "count", "int", count.ToString()},
+            { "memo", "varchar", memo.Trim()} };
             int i = DBHelper.InsertData("order_online_detail", insertParam);
             if (i == 1)
             {
@@ -64,6 +65,7 @@ public class OnlineOrderDetail
             detailArr[i].productName = dt.Rows[i]["product_name"].ToString().Trim();
             detailArr[i].price = double.Parse(dt.Rows[i]["price"].ToString());
             detailArr[i].count = int.Parse(dt.Rows[i]["count"].ToString());
+            detailArr[i].memo = dt.Rows[i]["memo"].ToString().Trim();
         }
         dt.Dispose();
         return detailArr;

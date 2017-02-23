@@ -1,8 +1,30 @@
 ﻿<%@ Page Language="C#" %>
 <script runat="server">
 
+    public WeixinUser currentUser;
+
+    public string openId = "";
+
+    public string userToken = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        string currentPageUrl = Server.UrlEncode("/pages/activity_registrtion.aspx");
+        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+        {
+            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+        }
+        userToken = Session["user_token"].ToString();
+        openId = WeixinUser.CheckToken(userToken);
+        if (openId.Trim().Equals(""))
+        {
+            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+        }
+        currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+        if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
+            Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
+
+        
 
     }
 </script>
@@ -23,7 +45,7 @@
     <script type="text/javascript" >
         var local_storage_key = "snow_meet_act_16_registration";
         var registration_json = get_registration_info_from_local_storage();
-        var person_json_str_template = '{ "name": "", "cell_number": "", "length": "", "boot_size": "", "rent": 0, "idcard": ""}';
+        var person_json_str_template = '{ "name": "", "cell_number": "<%=currentUser.CellNumber.Trim() %>", "length": "", "boot_size": "", "rent": 0, "idcard": ""}';
         function update_registration_json() {
             registration_json.my_registration.name = document.getElementById("text_name").value;
             registration_json.my_registration.cell_number = document.getElementById("text_cell").value;

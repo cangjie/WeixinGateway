@@ -136,10 +136,21 @@ public class DealMessage
                                 }
                                 else
                                 {
-                                    content.title = "确认消费抵用券-" + ticketCode;
-                                    content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                                    content.url = "http://weixin.snowmeet.com/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
-                                    content.description = "";
+                                    if (card._fields["type"].ToString().Equals("活动"))
+                                    {
+                                        content.title = "确认雪票-" + ticketCode;
+                                        content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
+                                        content.url = "http://weixin.snowmeet.com/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
+                                        content.description = "";
+                                    }
+                                    else
+                                    {
+                                        content.title = "确认消费抵用券-" + ticketCode;
+                                        content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
+                                        content.url = "http://weixin.snowmeet.com/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
+                                        content.description = "";
+                                    }
+                                    
                                 }
 
 

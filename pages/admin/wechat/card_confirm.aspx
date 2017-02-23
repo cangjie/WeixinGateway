@@ -37,6 +37,9 @@
                 title = pass.associateOnlineOrderDetail.productName.Trim();
                 body = "";
                 break;
+            case "活动":
+                Response.Redirect("activity_confirm.aspx?code=" + code, true);
+                break;
             default:
                 break;
         }
