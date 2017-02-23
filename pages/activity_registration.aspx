@@ -5,10 +5,11 @@
 
     public string openId = "";
 
-    public string userToken = "";
+    public string userToken = "4aa99be7feb90a931ed9deb37ecbf4e948aac5a667babce1a93b6cf35a0283bdfca491e9";
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        /*
         string currentPageUrl = Server.UrlEncode("/pages/activity_registrtion.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -24,7 +25,7 @@
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
             Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
 
-        
+        */
 
     }
 </script>
@@ -43,9 +44,14 @@
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
-        var local_storage_key = "snow_meet_act_16_registration";
+
+        var product_id = 16;
+        var unit_price = 1500;
+
+
+        var local_storage_key = "snow_meet_act_" + product_id + "_registration";
         var registration_json = get_registration_info_from_local_storage();
-        var person_json_str_template = '{ "name": "", "cell_number": "<%=currentUser.CellNumber.Trim() %>", "length": "", "boot_size": "", "rent": 0, "idcard": ""}';
+        var person_json_str_template = '{ "name": "", "cell_number": "<%//=currentUser.CellNumber.Trim() %>", "length": "", "boot_size": "", "rent": 0, "idcard": ""}';
         function update_registration_json() {
             registration_json.my_registration.name = document.getElementById("text_name").value;
             registration_json.my_registration.cell_number = document.getElementById("text_cell").value;
@@ -131,11 +137,39 @@
             }
                 
         }
+        function pay() {
+            var cart_item_json = '';
+            var token = '<%=userToken%>';
+            for (var i = 0; i <= registration_json.others_registration.length; i++) {
+                if (i == 0) {
+                    cart_item_json = '{"product_id": "' + product_id + '", "count": "1", "memo": '
+                        + JSON.stringify(registration_json.my_registration) + '}';
+                }
+                else {
+                    cart_item_json = cart_item_json + ', {"product_id": "' + product_id + '", "count": "1", "memo": '
+                        + JSON.stringify(registration_json.others_registration[i - 1]) + '}';
+                }
+            }
+            cart_item_json = '{"cart_array": [' + cart_item_json + ']}';
+            $.ajax({
+                url: "/api/place_online_order.aspx",
+                async: false,
+                type: "GET",
+                data: { "cart": cart_item_json, "token": token },
+                success: function(msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    window.location.href = "../payment/haojin_pay_online_order.aspx?orderid=" + msg_object.order_id;
+                },
+                error: function (msg, status) {
+                    alert("error");
+                }
+            });
+        }
     </script>
 </head>
 <body>
-    <div><h1>2017-3-10~2017-3-12 第三期北大湖活动（预付款1500元/人起）</h1></div>
-    <div>共<span id="span_person_count" >1</span>人参加活动，其中<span id="span_person_rent_count" >1</span>人租板，需要预先缴纳<span id="span_amount_summary" >1</span>元。<div><button type="button" class="btn btn-success" >现在支付</button></div></div>
+    <div><h1>2017-3-10~2017-3-12 第三期北大湖活动（预付款<span id="unit_price" ></span>/人起）</h1></div>
+    <div>共<span id="span_person_count" >1</span>人参加活动，其中<span id="span_person_rent_count" >1</span>人租板，需要预先缴纳<span id="span_amount_summary" >1</span>元。<div><button type="button" onclick="pay()" class="btn btn-success" >现在支付</button></div></div>
     <div class="panel panel-danger" >
         <div class="panel-heading"><h3 class="panel-title">联系人</h3></div>
         <div class="panel-body" >
@@ -246,6 +280,7 @@
         document.getElementById("text_cell").value = registration_json.my_registration.cell_number;
         document.getElementById("text_idcard").value = registration_json.my_registration.idcard;
         document.getElementById("check_rent").checked = registration_json.my_registration.rent == 0 ? false : true;
+        document.getElementById("unit_price").innerHTML = unit_price;
         if (document.getElementById("check_rent").checked) {
             document.getElementById("text_boot_size").disabled = false;
             document.getElementById("text_length").disabled = false;
@@ -295,7 +330,7 @@
                 rent_num++;
         }
         document.getElementById("span_person_rent_count").innerHTML = rent_num;
-        document.getElementById("span_amount_summary").innerHTML = (registration_json.others_registration.length + 1) * 1500;
+        document.getElementById("span_amount_summary").innerHTML = (registration_json.others_registration.length + 1) * unit_price;
     }
     fill_page();
     function del_person(i) {

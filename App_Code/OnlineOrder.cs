@@ -138,7 +138,7 @@ public class OnlineOrder
     {
         get
         {
-            if (Type.Trim().Equals("雪票"))
+            if (Type.Trim().Equals("雪票") || Type.Trim().Equals("活动"))
             {
                 double price = 0;
                 foreach (OnlineOrderDetail detail in OrderDetails)
