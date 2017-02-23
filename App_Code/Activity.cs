@@ -28,6 +28,17 @@ public class Activity
         }
     }
 
+    public OnlineOrder AssociateOnlineOrder
+    {
+        get
+        {
+            DataTable dt = DBHelper.GetDataTable(" select [id] from order_online where type='活动' and pay_state = 1 and code = '" + cardCode.Trim() + "' ");
+            int orderId = int.Parse(dt.Rows[0][0].ToString());
+            dt.Dispose();
+            return new OnlineOrder(orderId);
+        }
+    }
+
     public static DataTable GetRegistrationList(int productId)
     {
         Product product = new Product(productId);
