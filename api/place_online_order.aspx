@@ -2,8 +2,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = Util.GetSafeRequestValue(Request, "token", "43d806b4f81884fcbcce63a3b9f94f47b80384ba5b1fc31165283a9a84ac3ffa88a3ece3");
-        string cartJson = Util.GetSafeRequestValue(Request, "cart", "{\"cart_array\" : [{\"product_id\" : \"1\", \"count\" : \"3\" },{\"product_id\" : \"2\", \"count\" : \"1\" }], \"memo\" :{\"rent\" : \"\" , \"use_date\" : \"2017-1-5\" } }");
+        string token = Util.GetSafeRequestValue(Request, "token", "67c2db97eec818d98ffb03343c3131ff0e20aea1a38ce63cf8a9a4777f89f12fa717cd9e");
+        string cartJson = Util.GetSafeRequestValue(Request, "cart", "{\"cart_array\" : [{\"product_id\" : \"1\", \"count\" : \"3\", \"memo\": {\"name\": \"aaa\", \"cell\": \"bbb\"} },{\"product_id\" : \"2\", \"count\" : \"1\" }], \"memo\" :{\"rent\" : \"\" , \"use_date\" : \"2017-1-5\" } }");
         string openId = WeixinUser.CheckToken(token);
         if (openId.Trim().Equals(""))
         {
@@ -21,6 +21,14 @@
                 detail.productName = p._fields["name"].ToString();
                 detail.price = double.Parse(p._fields["sale_price"].ToString());
                 detail.count = int.Parse(item["count"].ToString());
+                try
+                {
+                    detail.memo = Util.GetSimpleJsonStringFromKeyPairArray(((Dictionary<string, object>)item["memo"]).ToArray());
+                }
+                catch
+                {
+                    detail.memo = "";
+                }
                 newOrder.AddADetail(detail);
                 newOrder.Type = p._fields["type"].ToString();
             }
