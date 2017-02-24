@@ -71,6 +71,30 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="../../js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" >
+        function use_card() {
+    
+            var code = "<%=code.Trim()%>";
+            var token = "<%=Session["user_token"].ToString().Trim()%>";
+            var word = document.getElementById("word").value;
+            $.ajax({
+                url:        "../../../api/use_card.aspx",
+                async:      false,
+                data:       { code: code, token: token, word: word },
+                success:    function (msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    if (msg_object.status == 0) {
+                        alert("success");
+                        window.location.href = "card_confirm_finish.aspx?code=<%=code%>";
+                    }
+                    else {
+                        alert("failed");
+                    }
+                }
+            });
+        
+        }
+    </script>
 </head>
 <body>
     <div style="margin-left: 5px" >

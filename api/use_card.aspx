@@ -44,6 +44,36 @@
 
             }
 
+            if (card._fields["type"].ToString().Equals("活动"))
+            {
+                try
+                {
+                    OnlineSkiPass pass = new OnlineSkiPass(card._fields["card_no"].ToString().Trim());
+                    ServiceMessage adminMessage = new ServiceMessage();
+                    adminMessage.from = "gh_0427e9838339";
+                    adminMessage.to = user.OpenId;
+                    adminMessage.type = "text";
+                    adminMessage.content = "活动：" + pass.associateOnlineOrderDetail.productName + "，编号："
+                        + code.Substring(0, 3) + "-" + code.Substring(3, 3) + "-" + code.Substring(6, 3) + "，"
+                        + "签到人：" + card.Owner.Nick + "，签到成功。";
+                    ServiceMessage.SendServiceMessage(adminMessage);
+
+                    ServiceMessage customMessage = new ServiceMessage();
+                    customMessage.from = "gh_0427e9838339";
+                    customMessage.to = card.Owner.OpenId;
+                    customMessage.type = "text";
+                    customMessage.content = "您参加的活动：" + pass.associateOnlineOrderDetail.productName + "，编号："
+                        + code.Substring(0, 3) + "-" + code.Substring(3, 3) + "-" + code.Substring(6, 3) + "，"
+                        + "由" + user.Nick.Trim() + "签到成功。";
+                    ServiceMessage.SendServiceMessage(customMessage);
+                }
+                catch
+                {
+
+                }
+
+            }
+
             Response.Write("{\"status\":0}");
         }
         else
