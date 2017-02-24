@@ -68,11 +68,7 @@
                     <b style="text-align:center" ><%=code.Substring(0,3) %>-<%=code.Substring(3,3) %>-<%=code.Substring(6,3) %></b>
                     <br />
                     <%=card.Owner.CellNumber.Trim() %> <%=card.Owner.Nick.Trim() %>
-                    <br /><br />
-                  
-                    <p style="text-align:left" >填写备注<br /></p>
-                    <textarea id="word" rows="3" cols="38"  ></textarea>  <br />
-                    <button class="btn btn-default" onclick="use_card()" >确认使用</button>
+                    <br />
                 </div>
             </div>
         </div>
