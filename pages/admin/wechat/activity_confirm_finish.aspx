@@ -36,7 +36,7 @@
             Response.End();
         }
         if (!card.Used)
-            Response.Redirect("card_confirm.aspx?code=" + card._fields["card_no"].ToString(), true);
+            Response.Redirect("activity_confirm.aspx?code=" + card._fields["card_no"].ToString(), true);
     }
 </script>
 

@@ -52,7 +52,7 @@
             Response.End();
         }
         if (card.Used)
-            Response.Redirect("card_confirm_finish.aspx?code=" + card._fields["card_no"].ToString(), true);
+            Response.Redirect("activity_confirm_finish.aspx?code=" + card._fields["card_no"].ToString(), true);
         //dtRegList = Activity.GetRegistrationList(activity.AssociateOnlineOrder.OrderDetails[0].productId);
         
     }
