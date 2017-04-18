@@ -70,7 +70,7 @@ public class OrderTemp
         {"sale_price", "float", Math.Round(salePrice, 2).ToString() }, {"real_paid_price", "float", Math.Round(realPayPrice, 2).ToString() },
         {"ticket_amount", "float", Math.Round(ticketAmount, 2).ToString() }, {"score_rate", "float", Math.Round(scoreRate, 2).ToString() },
         {"generate_score", "int", generateScore.ToString() }, {"memo", "varchar", memo.Trim() },
-        {"is_paid", "int", "1" }, {"pay_date_time", "datetime", DateTime.Now.ToString() }, {"pay_method", "varchar", payMethod.Trim() },
+        {"is_paid", "int", "0" }, {"pay_date_time", "datetime", DateTime.Now.ToString() }, {"pay_method", "varchar", payMethod.Trim() },
         {"shop", "varchar", shop.Trim() }, {"member_type", "varchar", memberType.Trim() }, 
         {"recommender_number", "varchar", recommenderNumber.Trim() }, {"recommender_type", "varchar", recommenderType.Trim() },
          {"name", "varchar", name.Trim() }};

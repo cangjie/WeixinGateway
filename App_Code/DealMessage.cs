@@ -43,7 +43,7 @@ public class DealMessage
         repliedMessage.from = receivedMessage.to.Trim();
         repliedMessage.to = receivedMessage.from;
         repliedMessage.type = "text";
-        repliedMessage.content = "感谢您关注易龙雪聚，请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>以完成注册。";
+        repliedMessage.content = "感谢您关注易龙雪聚，请<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/register_cell_number.aspx\" >点击这里</a>以完成注册。";
         return repliedMessage;
     }
 
@@ -122,7 +122,7 @@ public class DealMessage
                             {
                                 repliedMessage.type = "text";
                                 repliedMessage.content = card._fields["type"].ToString() + ":"
-                                    + ticketCode.Trim() + "已经使用，点击<a href=\"http://weixin.snowmeet.com/pages/admin/wechat/card_confirm_finish.aspx?code=" + ticketCode.Trim() + "\" >这里</a>查看详情";
+                                    + ticketCode.Trim() + "已经使用，点击<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/card_confirm_finish.aspx?code=" + ticketCode.Trim() + "\" >这里</a>查看详情";
 
                             }
                             else
@@ -131,14 +131,14 @@ public class DealMessage
                                 {
                                     content.title = "确认雪票-" + ticketCode;
                                     content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                                    content.url = "http://weixin.snowmeet.com/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
+                                    content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
                                     content.description = "";
                                 }
                                 else
                                 {
                                     content.title = "确认消费抵用券-" + ticketCode;
                                     content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                                    content.url = "http://weixin.snowmeet.com/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
+                                    content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
                                     content.description = "";
                                 }
 
@@ -225,7 +225,7 @@ public class DealMessage
             Point.AddNew(receivedMessage.from.Trim(), int.Parse(orderTemp._fields["generate_score"].ToString()),
                 DateTime.Now, orderTemp._fields["memo"].ToString());
             replyMessage.content = "感谢惠顾，您已经获得" + orderTemp._fields["generate_score"].ToString()
-                + "颗龙珠，您可以<a href=\"http://weixin.snowmeet.com/pages/dragon_ball_list.aspx\" >点击查看详情</a>。";
+                + "颗龙珠，您可以<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/dragon_ball_list.aspx\" >点击查看详情</a>。";
             replyMessage.type = "text";
         }
         WeixinUser user = new WeixinUser(receivedMessage.from);
@@ -266,7 +266,7 @@ public class DealMessage
         WeixinUser user = new WeixinUser(receivedMessage.from);
         repliedMessage.messageCount = 1;
         repliedMessage.type = "text";
-        repliedMessage.content = "<a href=\"http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=" + user.QrCodeSceneId.ToString() + "\"  >点击查看二维码</a>";
+        repliedMessage.content = "<a href=\"http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?sceneid=" + user.QrCodeSceneId.ToString() + "\"  >点击查看二维码</a>";
         return repliedMessage;
     }
 
@@ -279,7 +279,7 @@ public class DealMessage
         WeixinUser user = new WeixinUser(receivedMessage.from.Trim());
         if (user.VipLevel == 0)
         {
-            repliedMessage.content = "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码后重新扫描设备的二维码。";
+            repliedMessage.content = "请<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码后重新扫描设备的二维码。";
         }
         else
         {
@@ -329,7 +329,7 @@ public class DealMessage
                         repliedMessage.content = "您今日已经签过到了，感谢您的激情支持。";
                     if (user.VipLevel < 1)
                     {
-                        repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
+                        repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
                     }
                 }
                 else
@@ -353,7 +353,7 @@ public class DealMessage
                         repliedMessage.content = "您今日已经签过到了，感谢您的激情支持。";
                     if (user.VipLevel < 1)
                     {
-                        repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin.snowmeet.com/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
+                        repliedMessage.content = repliedMessage.content + "请<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/register_cell_number.aspx\" >点击这里</a>绑定手机号码以获得签到积分。";
                     }
                 }
                 else
