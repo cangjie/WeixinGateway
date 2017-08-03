@@ -16,9 +16,9 @@
         Stream requestBodyStream = Request.InputStream ;
         StreamReader sr = new StreamReader(requestBodyStream);
         string jsonStr = sr.ReadToEnd();
-        Response.Write(jsonStr);
         sr.Close();
         requestBodyStream.Close();
-        
+        Response.Write(jsonStr);
+       
     }
 </script>
