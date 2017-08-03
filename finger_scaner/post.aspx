@@ -18,6 +18,6 @@
         string jsonStr = sr.ReadToEnd();
         sr.Close();
         requestBodyStream.Close();
-        Response.Write("!"+jsonStr+"!");
+        Response.Write("!"+ requestBodyStream.Length.ToString() +"!");
     }
 </script>
