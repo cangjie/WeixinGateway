@@ -9,7 +9,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(Server.MapPath("/"));
+        Response.Write(Util.GetMd5("123456"));
     }
 
 
