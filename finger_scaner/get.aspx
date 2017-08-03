@@ -10,7 +10,7 @@
         string sign = Util.GetMd5(sn.Trim() + requestTime.Trim() + md5Key);
         if (!sign.Equals(Util.GetSafeRequestValue(Request, "sign", "")))
         {
-            //Response.End();
+            Response.End();
         }
         DataTable dt = DBHelper.GetDataTable(" select * from finger_scaner_command where sent = 0 and finger_scaner_id = '" + sn + "' ");
         string commandJsonStr = "";

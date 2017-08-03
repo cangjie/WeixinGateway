@@ -1,20 +1,23 @@
 ﻿<%@ Page Language="C#" %>
-
-<!DOCTYPE html>
-
+<%@ Import Namespace="System.IO" %>
 <script runat="server">
 
-</script>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        string md5Key = "ABCDEF7768";
+        string sn = Util.GetSafeRequestValue(Request, "sn", "Q11163910128");
+        string requestTime = Util.GetSafeRequestValue(Request, "requesttime", "123456");
+        string sign = Util.GetMd5(sn.Trim() + requestTime.Trim() + md5Key);
+        if (!sign.Equals(Util.GetSafeRequestValue(Request, "sign", "")))
+        {
+            //Response.End();
+        }
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>
-</body>
-</html>
+        Stream requestBodyStream = Request.InputStream;
+        StreamReader sr = new StreamReader(requestBodyStream);
+        string jsonStr = sr.ReadToEnd();
+        sr.Close();
+        requestBodyStream.Close();
+        Response.Write(jsonStr);
+    }
+</script>
