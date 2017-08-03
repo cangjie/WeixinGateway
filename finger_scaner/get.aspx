@@ -24,6 +24,9 @@
             {
                 commandJsonStr = commandJsonStr + "," + dr["command_text"].ToString();
             }
+            DBHelper.UpdateData("finger_scaner_command",
+                new string[,] { { "sent", "int", "1" }, { "sent_time", "datetime", DateTime.Now.ToString()} },
+                new string[,] { { "id", "int", dr["id"].ToString() } }, Util.conStr);
         }
         dt.Dispose();
         Response.Write("{\"status\":1, \"info\":\"ok\",\"data\":[" + commandJsonStr + "]}");
