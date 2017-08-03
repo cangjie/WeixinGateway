@@ -13,11 +13,12 @@
             //Response.End();
         }
 
-        Stream requestBodyStream = Request.InputStream;
+        Stream requestBodyStream = Request.InputStream ;
         StreamReader sr = new StreamReader(requestBodyStream);
         string jsonStr = sr.ReadToEnd();
+        Response.Write(Request.InputStream.Length.ToString());
         sr.Close();
         requestBodyStream.Close();
-        Response.Write("!"+ requestBodyStream.Length.ToString() +"!");
+        
     }
 </script>
