@@ -10,15 +10,29 @@
         string sign = Util.GetMd5(sn.Trim() + requestTime.Trim() + md5Key);
         if (!sign.Equals(Util.GetSafeRequestValue(Request, "sign", "")))
         {
-            //Response.End();
+            Response.End();
         }
-
         Stream requestBodyStream = Request.InputStream ;
         StreamReader sr = new StreamReader(requestBodyStream);
         string jsonStr = sr.ReadToEnd();
         sr.Close();
         requestBodyStream.Close();
-        Response.Write(jsonStr);
-       
+
+        jsonStr = "{ \"id\": \"07457\",\"data\": \"return\",\"return\": [{\"id\": \"1001\",\"result\": \"0\"}]}";
+
+        string returnStr = Util.GetSimpleJsonValueByKey(jsonStr, "data");
+
+        if (returnStr.Trim().Equals("return"))
+        {
+            string replyId = Util.GetSimpleJsonValueByKey(jsonStr, "id");
+            Dictionary<string, object>[] returnIdArr = Util.GetObjectArrayFromJsonByKey(jsonStr, "return");
+            foreach (Dictionary<string, object> dic in returnIdArr)
+            {
+                DBHelper.UpdateData("finger_scaner_command",
+                    new string[,] { { "reply", "int", "1" }, { "reply_time", "datetime", DateTime.Now.ToString() }, { "reply_id", "varchar", replyId } },
+                    new string[,] { { "id", "int", dic["id"].ToString() } }, Util.conStr);
+            }
+            Response.Write("{\"status\": 1, \"info\": \"ok\", \"data\":[\"" + replyId.Trim() + "\"]}");
+        }
     }
 </script>
