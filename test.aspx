@@ -9,7 +9,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(Util.GetMd5("123456"));
+        Response.Write(Util.GetSHA1("Q111639101281502270891ABCDEF7768"));
     }
 
 
