@@ -30,7 +30,7 @@
             {
                 DBHelper.UpdateData("finger_scaner_command",
                     new string[,] { { "reply", "int", "1" }, { "reply_time", "datetime", DateTime.Now.ToString() }, { "reply_id", "varchar", replyId } },
-                    new string[,] { { "id", "int", dic["id"].ToString() } }, Util.conStr);
+                    new string[,] { { "id", "int", dic["id"].ToString() }, { "finger_scaner_id", "varchar", sn.Trim()} }, Util.conStr);
             }
             Response.Write("{\"status\": 1, \"info\": \"ok\", \"data\":[\"" + replyId.Trim() + "\"]}");
         }
