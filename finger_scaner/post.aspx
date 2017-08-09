@@ -10,7 +10,7 @@
         string sign = Util.GetMd5(sn.Trim() + requestTime.Trim() + md5Key);
         if (!sign.Equals(Util.GetSafeRequestValue(Request, "sign", "")))
         {
-            Response.End();
+            //Response.End();
         }
         Stream requestBodyStream = Request.InputStream ;
         StreamReader sr = new StreamReader(requestBodyStream);
