@@ -18,8 +18,14 @@
         sr.Close();
         requestBodyStream.Close();
 
-        jsonStr = "{ \"id\": \"07457\",\"data\": \"return\",\"return\": [{\"id\": \"1001\",\"result\": \"0\"}]}";
+        //jsonStr = "{ \"id\": \"07457\",\"data\": \"return\",\"return\": [{\"id\": \"1001\",\"result\": \"0\"}]}";
 
+
+        DBHelper.InsertData("finger_scaner_post",
+            new string[,] { {"finger_scaner_id", "varchar", sn },
+            { "post_message", "varchar", jsonStr.Trim()} });
+
+        
         string returnStr = Util.GetSimpleJsonValueByKey(jsonStr, "data");
 
         if (returnStr.Trim().Equals("return"))
