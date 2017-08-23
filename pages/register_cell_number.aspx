@@ -169,6 +169,9 @@
                         alert("手机绑定成功");
                         window.location.href = "<%=refUrl%>";
                     }
+                    else {
+                        alert(msg_object.error_message);
+                    }
 
                 }
             });
