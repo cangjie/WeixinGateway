@@ -319,7 +319,7 @@
                 if (current_title.indexOf("南山") >= 0) {
                     rent_productid = "14";
                 }
-                else {
+                if (current_title.indexOf("乔波") >= 0) {
                     rent_productid = "8";
                 }
 
