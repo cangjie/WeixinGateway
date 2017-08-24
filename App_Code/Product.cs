@@ -32,9 +32,13 @@ public class Product
         {
             sqlStr = sqlStr + " name like '南山%' ";
         }
-        else
+        if (resort.Trim().Equals("bayi"))
         {
             sqlStr = sqlStr + " name like '八易%' ";
+        }
+        if (resort.Trim().Equals("wanlong"))
+        {
+            sqlStr = sqlStr + " name like '万龙%' ";
         }
         sqlStr = sqlStr + "  order by sort desc ";
         DataTable dt = DBHelper.GetDataTable(sqlStr);
