@@ -50,7 +50,7 @@
             }
             else
             {
-                currentResort = "nanshan";
+                currentResort = "qiaobo";
                 Session["default_resort"] = currentResort;
             }
         }
