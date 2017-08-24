@@ -12,8 +12,13 @@
         {
             if (order.OrderDetails[0].productId == 2 || order.OrderDetails[0].productId == 4)
             {
-                appCodeConfig = "haojin_app_id_nanshan";
-                md5KeyConfig = "haojin_app_key_nanshan";
+                appCodeConfig = "haojin_app_id_nanshan_ticket";
+                md5KeyConfig = "haojin_app_key_nanshan_ticket";
+            }
+            else
+            {
+                appCodeConfig = "haojin_app_id_nanshan_goods";
+                md5KeyConfig = "haojin_app_key_nanshan_goods";
             }
         }
 
