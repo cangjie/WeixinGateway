@@ -398,6 +398,7 @@
                 document.getElementById("rent").disabled = true;
             }
             if (current_title.indexOf("乔波") >= 0) {
+                current_rent = true;
                 rent_cash = 200;
             }
             var summary_amount = (parseInt(current_price) + (current_rent ? rent_cash : 0)) * parseInt(current_num);
