@@ -320,7 +320,7 @@
                     rent_productid = "14";
                 }
                 else {
-                    rent_productid = "15";
+                    rent_productid = "8";
                 }
 
                 rent_json = '{ "product_id": "' + rent_productid + '", "count": "' + current_num + '" }';
