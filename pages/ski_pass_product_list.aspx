@@ -411,7 +411,7 @@
             <li role="presentation" <%if (currentResort.Trim().Equals("bayi"))
                 { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=bayi">八易</a></li>
             <li role="presentation" <%if (currentResort.Trim().Equals("qiaobo"))
-                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=qiaobo">八易</a></li>
+                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=qiaobo">乔波</a></li>
         </ul>
         <%
             foreach (Product p in prodArr)
@@ -451,8 +451,9 @@
                 <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13693171170</p>
                 <%
                     }
-                    else
+                    if (p._fields["name"].ToString().IndexOf("八亿")>=0)
                     {
+                        
                         %>
                 <p><font color="red" >只支持自带板！</font></p>
                 <p>价格包括：滑雪、缆车、魔毯费用及雪卡押金（10元）。</p>
@@ -464,6 +465,13 @@
                     <li>此票售出后不予退换。</li>
                 </ul>
                 <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：15701179221</p>
+                <%
+                    }
+                    if (p._fields["name"].ToString().IndexOf("乔波") >= 0)
+                    {
+                        %>
+                    <p>押金200元。</p>
+
                 <%
                     }
                      %>
