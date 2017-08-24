@@ -18,7 +18,7 @@
             weekendProductId = 4;
             holidayProductId = 4;
         }
-        else
+        if (product._fields["name"].ToString().StartsWith("八易"))
         {
             if (product._fields["name"].ToString().IndexOf("夜场")>=0)
             {
@@ -42,6 +42,21 @@
                 }
             }
         }
+        if (product._fields["name"].ToString().StartsWith("乔波"))
+        {
+            if (product._fields["name"].ToString().IndexOf("夜场") >= 0)
+            {
+                workdayProductId = 7;
+                weekendProductId = 7;
+                holidayProductId = 7;
+            }
+            else
+            {
+                workdayProductId = 5;
+                weekendProductId = 6;
+                holidayProductId = 6;
+            }
+        }
         Product workdayProduct = new Product(workdayProductId);
         Product weekendProduct = new Product(weekendProductId);
         Product holidayProduct = new Product(holidayProductId);
@@ -49,5 +64,5 @@
             + "\"weekend_product\":{\"id\": \"" + weekendProductId.ToString() + "\", \"title\": \"" + weekendProduct._fields["name"].ToString().Trim() + "\", \"price\": \"" + weekendProduct._fields["sale_price"].ToString() + "\"}, "
             + "\"holiday_product\": {\"id\": \"" + holidayProductId.ToString() + "\", \"title\": \"" +  holidayProduct._fields["name"].ToString() + "\", \"price\": \"" + holidayProduct._fields["sale_price"] +  "\"}}");
     }
-    
+
 </script>
