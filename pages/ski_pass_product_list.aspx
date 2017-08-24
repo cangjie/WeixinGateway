@@ -399,7 +399,9 @@
             }
             var summary_amount = (parseInt(current_price) + (current_rent ? rent_cash : 0)) * parseInt(current_num);
             div_summary.innerHTML = "(雪票￥" + current_price + (current_rent ? (" + 押金￥" + rent_cash) : "") + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
-
+            if (current_title.indexOf("乔波") >= 0) {
+                document.getElementById("rend").style.display = "none";
+            }
         }
     </script>
 </head>
@@ -515,7 +517,7 @@
                             </span>
                         </div>
 			            <br/>
-                        <div><input type="checkbox" id="rent" onclick="select_rent()" />我要租板</div>
+                        <div id="rent" ><input type="checkbox" id="rent" onclick="select_rent()" />我要租板</div>
                         <div id="summary" >小计：</div>
                     </div>
                     <div class="modal-footer" ><button type="button" class="btn btn-default" onclick="book_ski_pass()"> 确 认 预 定 </button></div>
