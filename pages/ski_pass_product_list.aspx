@@ -400,7 +400,7 @@
             var summary_amount = (parseInt(current_price) + (current_rent ? rent_cash : 0)) * parseInt(current_num);
             div_summary.innerHTML = "(雪票￥" + current_price + (current_rent ? (" + 押金￥" + rent_cash) : "") + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
             if (current_title.indexOf("乔波") >= 0) {
-                document.getElementById("rend").style.display = "none";
+                document.getElementById("rent").style.display = "none";
             }
         }
     </script>
