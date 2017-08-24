@@ -17,8 +17,8 @@
             }
             else
             {
-                appCodeConfig = "haojin_app_id_bayi_ticket";
-                md5KeyConfig = "haojin_app_key_bayi_ticket";
+                appCodeConfig = "haojin_app_id_nanshan_ticket";
+                md5KeyConfig = "haojin_app_key_nanshan_ticket";
             }
         }
 

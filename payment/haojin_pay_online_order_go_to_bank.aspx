@@ -10,12 +10,12 @@
         OnlineOrder order = new OnlineOrder(orderId);
 
         string paymentDomain = System.Configuration.ConfigurationSettings.AppSettings["payment_haojin_domain_name"];
-        string md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_key_bayi_ticket"];
-        string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_id_bayi_ticket"];
+        string md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_key_nanshan_ticket"];
+        string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_id_nanshan_ticket"];
         if (order.OrderDetails[0].productId == 2 || order.OrderDetails[0].productId == 4)
         {
-            md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_key_bayi_ticket"];
-            appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_id_bayi_ticket"];
+            md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_key_nanshan_ticket"];
+            appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_app_id_nanshan_ticket"];
         }
         string code = Request["code"].Trim();
         string jumpUrl = "https://" + paymentDomain + "/tool/v1/get_weixin_openid?code=" + code;
