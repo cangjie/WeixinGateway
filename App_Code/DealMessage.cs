@@ -253,7 +253,11 @@ public class DealMessage
                 break;
             case "绑定手机":
                 repliedMessage.type = "text";
-                repliedMessage.content = "http://snowmeet.tuyaa.com/pages/register_cell_number.aspx";
+                repliedMessage.content = "http://weixin-snowmeet.chinacloudsites.cn/pages/register_cell_number.aspx";
+                break;
+            case "收款":
+                repliedMessage.type = "text";
+                repliedMessage.content = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/admin_charge_shop_sale_new.aspx";
                 break;
             default:
                 break;

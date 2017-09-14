@@ -9,7 +9,11 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(Util.GetSHA1("Q111639101281502270891ABCDEF7768"));
+        string verifyCode = "123456";
+        //您的验证码为@，请在规定的时间输入。【易龙雪聚】
+        int smsId = Sms.SaveSms("18601197897", "您的验证码为" + verifyCode.Trim() + "，请在规定的时间输入。【易龙雪聚】", true, verifyCode);
+        Sms sms = new Sms(smsId);
+        sms.Send();
     }
 
 
