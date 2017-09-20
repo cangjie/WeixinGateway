@@ -9,11 +9,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string verifyCode = "123456";
-        //您的验证码为@，请在规定的时间输入。【易龙雪聚】
-        int smsId = Sms.SaveSms("18601197897", "您的验证码为" + verifyCode.Trim() + "，请在规定的时间输入。【易龙雪聚】", true, verifyCode);
-        Sms sms = new Sms(smsId);
-        sms.Send();
+        OrderTemp orderTemp = new OrderTemp(1);
+        orderTemp.PlaceOnlineOrder("oZBHkjhdFpC5ScK5FUU7HKXE3PJM");
     }
 
 
