@@ -19,8 +19,8 @@
         string keyValuePairEncode = keyValuePair.Replace(redirectUri, Server.UrlEncode(redirectUri));
         string jumpUrl = "https://" + paymentDomain + "/tool/v1/get_weixin_oauth_code?" + keyValuePairEncode.Trim()
             + "&sign=" + Util.GetHaojinMd5Sign(keyValuePair,md5Key);
-        //Response.Redirect(jumpUrl, true);
-        Response.Write("<a href=\"" + jumpUrl + "\" >" + jumpUrl + "</a><br/>"+appCode.Trim() + "<br/>"+md5Key.Trim());
+        Response.Redirect(jumpUrl, true);
+        //Response.Write("<a href=\"" + jumpUrl + "\" >" + jumpUrl + "</a><br/>"+appCode.Trim() + "<br/>"+md5Key.Trim());
         //Response.Redirect(jumpUrl);
 
 
