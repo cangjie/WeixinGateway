@@ -164,7 +164,7 @@
                 message = "请填写正确的零售价。";
             }
             try {
-                deal_price = parseFloat(document.getElementById("sale_price_" + i.toString()));
+                deal_price = parseFloat(document.getElementById("sale_price_" + i.toString()).value);
                 if (isNaN(deal_price)) {
                     message = "请填写正确的成交价。";
                 }
