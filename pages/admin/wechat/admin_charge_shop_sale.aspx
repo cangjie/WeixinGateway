@@ -122,6 +122,34 @@
             });
         }
 
+        function get_product_list_json() {
+            for(var i = 0; i < 5; i++)
+            {
+
+            }
+        }
+
+        function get_product_json(i) {
+            var json = "";
+
+            return json;
+        }
+
+        function set_product_line_display_status(i, display_status){
+            var tr_obj_arr = document.getElementsByName("product_tr_" + i.toString());
+            for (var i = 0; i < tr_obj_arr.length; i++) {
+                tr_obj_arr[i].style.display = display_status ? "block" : "none";
+            }
+        }
+
+        function get_product_line_display_status(i) {
+            var tr_obj_arr = document.getElementsByName("product_tr_" + i.toString());
+            if (tr_obj_arr.length > 0) {
+                alert(tr_obj_arr[0].style.display);
+            }
+        }
+
+
     </script>
 </head>
 <body>
@@ -129,15 +157,26 @@
         <tr>
             <td colspan="2" >&nbsp;</td>
         </tr>
-        <tr name="product_tr_1" >
-            <td colspan="2" >商品1：<input type="text" id="product_name_1" /> 数量：<input type="text" id="product_num_1" style="width:50px" value="1" /></td>
+        <tr name="product_tr_0" >
+            <td colspan="2" >商品1：<input type="text" id="product_name_0" /> 数量：<input type="text" id="product_num_0" style="width:50px" value="1" /></td>
         </tr>
-        <tr name="product_tr_1" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_1" style="width:75px" /> 成交价：<input type="text" id="sale_price_1" style="width:75px" /></td>
+        <tr name="product_tr_0" >
+            <td colspan="2" >零售价：<input type="text" id="market_price_0" style="width:75px" /> 成交价：<input type="text" id="sale_price_0" style="width:75px" /></td>
         </tr>
-        <tr>
+        <tr name="product_tr_0" >
             <td colspan="2" >&nbsp;</td>
         </tr>
+
+        <tr style="display:none" name="product_tr_1" >
+            <td colspan="2" >商品1：<input type="text" id="product_name_1" /> 数量：<input type="text" id="product_num_1" style="width:50px" value="1" /></td>
+        </tr>
+        <tr style="display:none" name="product_tr_1" >
+            <td colspan="2" >零售价：<input type="text" id="market_price_1" style="width:75px" /> 成交价：<input type="text" id="sale_price_1" style="width:75px" /></td>
+        </tr>
+        <tr style="display:none" name="product_tr_1" >
+            <td colspan="2" >&nbsp;</td>
+        </tr>
+
         <tr style="display:none" name="product_tr_2" >
             <td colspan="2" >商品2：<input type="text" id="product_name_2" /> 数量：<input type="text" id="product_num_2" style="width:50px" value="1" /></td>
         </tr>
@@ -147,6 +186,7 @@
         <tr style="display:none" name="product_tr_2" >
             <td colspan="2" >&nbsp;</td>
         </tr>
+
         <tr style="display:none" name="product_tr_3" >
             <td colspan="2" >商品3：<input type="text" id="product_name_3" /> 数量：<input type="text" id="product_num_3" style="width:50px" value="1" /></td>
         </tr>
@@ -165,15 +205,7 @@
         <tr style="display:none" name="product_tr_4" >
             <td colspan="2" >&nbsp;</td>
         </tr>
-        <tr style="display:none" name="product_tr_5" >
-            <td colspan="2" >商品5：<input type="text" id="product_name_5" /> 数量：<input type="text" id="product_num_5" style="width:50px" value="1" /></td>
-        </tr>
-        <tr style="display:none" name="product_tr_5" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_5" style="width:75px" /> 成交价：<input type="text" id="sale_price_5" style="width:75px" /></td>
-        </tr>
-        <tr style="display:none" name="product_tr_5" >
-            <td colspan="2" >&nbsp;</td>
-        </tr>
+        
         <tr>
             <td style="width:140px">零售价(元)：</td>
             <td style="white-space:nowrap; overflow:hidden">
@@ -249,3 +281,6 @@
     </table>
 </body>
 </html>
+<script type="text/javascript" >
+    alert(get_product_line_display_status(1));
+</script>
