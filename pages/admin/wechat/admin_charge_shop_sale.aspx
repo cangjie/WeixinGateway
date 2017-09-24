@@ -127,7 +127,13 @@
         function get_product_list_json() {
             for(var i = 0; i < 5; i++)
             {
-
+                var product_json = get_product_json(i);
+                if (product_json.trim() == "") {
+                    if (get_product_line_display_status(i) == "none") {
+                        set_product_line_display_status(i, true);
+                        break;
+                    }
+                }
             }
         }
 
@@ -208,20 +214,20 @@
             <td colspan="2" >&nbsp;</td>
         </tr>
         <tr name="product_tr_0" >
-            <td colspan="2" >商品1：<input type="text" id="product_name_0" /> 数量：<input type="text" id="product_num_0" style="width:50px" value="1" /></td>
+            <td colspan="2" >商品1：<input type="text" id="product_name_0" onchange="get_product_list_json()" /> 数量：<input type="text" id="product_num_0" style="width:50px" value="1" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr name="product_tr_0" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_0" style="width:75px" /> 成交价：<input type="text" id="sale_price_0" style="width:75px" /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_0" style="width:75px" onchange="get_product_list_json()"  /> 成交价：<input type="text" id="sale_price_0" style="width:75px" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr name="product_tr_0" >
             <td colspan="2" id="product_info_0" >&nbsp;</td>
         </tr>
 
         <tr style="display:none" name="product_tr_1" >
-            <td colspan="2" >商品1：<input type="text" id="product_name_1" /> 数量：<input type="text" id="product_num_1" style="width:50px" value="1" /></td>
+            <td colspan="2" >商品1：<input type="text" id="product_name_1" onchange="get_product_list_json()"  /> 数量：<input type="text" id="product_num_1" style="width:50px" value="1" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_1" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_1" style="width:75px" /> 成交价：<input type="text" id="sale_price_1" style="width:75px" /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_1" style="width:75px" onchange="get_product_list_json()"  /> 成交价：<input type="text" id="sale_price_1" style="width:75px" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_1" >
             <td colspan="2"  id="product_info_1" >&nbsp;</td>
