@@ -134,8 +134,8 @@
             <td><input type="text" id="product_name_1" /></td>
         </tr>
         <tr>
-            <td>市场价：<input type="text" id="market_price_1" style="width:25px" /></td>
-            <td>成交价：<input type="text" id="sale_price_1" style="width:25px" /></td>
+            <td>市场价：<input type="text" id="market_price_1" style="width:75px" /></td>
+            <td>成交价：<input type="text" id="sale_price_1" style="width:75px" /></td>
         </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
@@ -145,8 +145,8 @@
             <td><input type="text" id="product_name_1" /></td>
         </tr>
         <tr>
-            <td>市场价：<input type="text" id="market_price_1" style="width:25px" /></td>
-            <td>成交价：<input type="text" id="sale_price_1" style="width:25px" /></td>
+            <td>市场价：<input type="text" id="market_price_1" style="width:75px" /></td>
+            <td>成交价：<input type="text" id="sale_price_1" style="width:75px" /></td>
         </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
@@ -156,8 +156,8 @@
             <td><input type="text" id="product_name_2" /></td>
         </tr>
         <tr>
-            <td>市场价：<input type="text" id="market_price_2" style="width:25px" /></td>
-            <td>成交价：<input type="text" id="sale_price_2" style="width:25px" /></td>
+            <td>市场价：<input type="text" id="market_price_2" style="width:75px" /></td>
+            <td>成交价：<input type="text" id="sale_price_2" style="width:75px" /></td>
         </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
@@ -167,8 +167,8 @@
             <td><input type="text" id="product_name_3" /></td>
         </tr>
         <tr>
-            <td>市场价：<input type="text" id="market_price_3" style="width:25px" /></td>
-            <td>成交价：<input type="text" id="sale_price_3" style="width:25px" /></td>
+            <td>市场价：<input type="text" id="market_price_3" style="width:75px" /></td>
+            <td>成交价：<input type="text" id="sale_price_3" style="width:75px" /></td>
         </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
@@ -178,8 +178,8 @@
             <td><input type="text" id="product_name_4" /></td>
         </tr>
         <tr>
-            <td>市场价：<input type="text" id="market_price_4" style="width:25px" /></td>
-            <td>成交价：<input type="text" id="sale_price_4" style="width:25px" /></td>
+            <td>市场价：<input type="text" id="market_price_4" style="width:75px" /></td>
+            <td>成交价：<input type="text" id="sale_price_4" style="width:75px" /></td>
         </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
@@ -189,8 +189,8 @@
             <td><input type="text" id="product_name_1" /></td>
         </tr>
         <tr>
-            <td>市场价：<input type="text" id="market_price_5" style="width:25px" /></td>
-            <td>成交价：<input type="text" id="sale_price_5" style="width:25px" /></td>
+            <td>市场价：<input type="text" id="market_price_5" style="width:75px" /></td>
+            <td>成交价：<input type="text" id="sale_price_5" style="width:75px" /></td>
         </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
