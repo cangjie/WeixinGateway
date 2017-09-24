@@ -131,8 +131,8 @@
                 if (product_json.trim() == "") {
                     if (get_product_line_display_status(i) == "none") {
                         set_product_line_display_status(i, true);
-                        break;
                     }
+                    break;
                 }
             }
         }
