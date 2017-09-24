@@ -192,7 +192,7 @@
         function set_product_line_display_status(i, display_status){
             var tr_obj_arr = document.getElementsByName("product_tr_" + i.toString());
             for (var i = 0; i < tr_obj_arr.length; i++) {
-                tr_obj_arr[i].style.display = display_status ? "block" : "none";
+                tr_obj_arr[i].style.display = display_status ? "" : "none";
             }
         }
 
