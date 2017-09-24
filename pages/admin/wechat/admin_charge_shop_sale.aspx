@@ -282,5 +282,5 @@
 </body>
 </html>
 <script type="text/javascript" >
-    alert(get_product_line_display_status(1));
+    alert(get_product_line_display_status(0));
 </script>
