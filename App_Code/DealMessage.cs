@@ -98,12 +98,6 @@ public class DealMessage
         RepliedMessage repliedMessage = new RepliedMessage();
         repliedMessage.from = receivedMessage.to;
         repliedMessage.to = receivedMessage.from;
-        /*
-        if (receivedMessage.eventKey.ToLower().Trim().StartsWith("http://www.luqinwenda.com/index.php?app=public&mod=landingpage"))
-        {
-            Util.DealLandingRequest(receivedMessage.from);
-        }
-        */
         WeixinUser user = new WeixinUser(receivedMessage.from);
         switch (receivedMessage.userEvent.ToUpper())
         {
@@ -161,7 +155,6 @@ public class DealMessage
 
                     if (receivedMessage.eventKey.Trim().StartsWith("4294"))
                     {
-                        //int chargeId = int.Parse(receivedMessage.eventKey.Trim().Substring(4, 6));
                         repliedMessage = GenerateChargeMessage(receivedMessage);
                     }
                     if (receivedMessage.eventKey.Trim().StartsWith("4293"))
@@ -207,8 +200,6 @@ public class DealMessage
             default:
                 break;
         }
-
-
         return repliedMessage;
     }
 

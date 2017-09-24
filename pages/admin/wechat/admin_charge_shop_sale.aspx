@@ -129,53 +129,53 @@
         <tr>
             <td colspan="2" >&nbsp;</td>
         </tr>
-        <tr>
+        <tr name="product_tr_1" >
             <td colspan="2" >商品1：<input type="text" id="product_name_1" /></td>
         </tr>
-        <tr>
-            <td colspan="2" >市场价：<input type="text" id="market_price_1" style="width:75px" /> 成交价：<input type="text" id="sale_price_1" style="width:75px" /></td>
+        <tr name="product_tr_1" >
+            <td colspan="2" >零售价：<input type="text" id="market_price_1" style="width:75px" /> 成交价：<input type="text" id="sale_price_1" style="width:75px" /></td>
         </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
         </tr>
-        <tr>
+        <tr style="display:none" name="product_tr_2" >
             <td colspan="2" >商品2：<input type="text" id="product_name_2" /></td>
         </tr>
-        <tr>
-            <td colspan="2" >市场价：<input type="text" id="market_price_2" style="width:75px" /> 成交价：<input type="text" id="sale_price_2" style="width:75px" /></td>
+        <tr style="display:none" name="product_tr_2" >
+            <td colspan="2" >零售价：<input type="text" id="market_price_2" style="width:75px" /> 成交价：<input type="text" id="sale_price_2" style="width:75px" /></td>
         </tr>
-        <tr>
+        <tr style="display:none" name="product_tr_2" >
             <td colspan="2" >&nbsp;</td>
         </tr>
-        <tr>
+        <tr style="display:none" name="product_tr_3" >
             <td colspan="2" >商品3：<input type="text" id="product_name_3" /></td>
         </tr>
-        <tr>
-            <td colspan="2" >市场价：<input type="text" id="market_price_3" style="width:75px" /> 成交价：<input type="text" id="sale_price_3" style="width:75px" /></td>
+        <tr style="display:none" name="product_tr_3" >
+            <td colspan="2" >零售价：<input type="text" id="market_price_3" style="width:75px" /> 成交价：<input type="text" id="sale_price_3" style="width:75px" /></td>
         </tr>
-        <tr>
+        <tr style="display:none" name="product_tr_3" >
             <td colspan="2" >&nbsp;</td>
         </tr>
-        <tr>
+        <tr style="display:none" name="product_tr_4" >
             <td colspan="2" >商品4：<input type="text" id="product_name_4" /></td>
         </tr>
-        <tr>
-            <td colspan="2" >市场价：<input type="text" id="market_price_4" style="width:75px" /> 成交价：<input type="text" id="sale_price_4" style="width:75px" /></td>
+        <tr style="display:none" name="product_tr_4" >
+            <td colspan="2" >零售价：<input type="text" id="market_price_4" style="width:75px" /> 成交价：<input type="text" id="sale_price_4" style="width:75px" /></td>
         </tr>
-        <tr>
+        <tr style="display:none" name="product_tr_4" >
             <td colspan="2" >&nbsp;</td>
         </tr>
-        <tr>
+        <tr style="display:none" name="product_tr_5" >
             <td colspan="2" >商品5：<input type="text" id="product_name_1" /></td>
         </tr>
-        <tr>
-            <td colspan="2" >市场价：<input type="text" id="market_price_5" style="width:75px" /> 成交价：<input type="text" id="sale_price_5" style="width:75px" /></td>
+        <tr style="display:none" name="product_tr_5" >
+            <td colspan="2" >零售价：<input type="text" id="market_price_5" style="width:75px" /> 成交价：<input type="text" id="sale_price_5" style="width:75px" /></td>
         </tr>
-        <tr>
+        <tr style="display:none" name="product_tr_5" >
             <td colspan="2" >&nbsp;</td>
         </tr>
         <tr>
-            <td style="width:140px">市场价(元)：</td>
+            <td style="width:140px">零售价(元)：</td>
             <td style="white-space:nowrap; overflow:hidden">
                 <input type="text" id="txt_market_price" style="width:100px"  oninput="compute_score()" />
                 <span style="color:red; width:10px; word-wrap:break-word" ></span>
