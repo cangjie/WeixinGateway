@@ -156,12 +156,18 @@
             }
             try {
                 sale_price = parseFloat(document.getElementById("market_price_" + i.toString()).value);
+                if (sale_price == NaN) {
+                    message = "请填写正确的零售价。";
+                }
             }
             catch (err) {
                 message = "请填写正确的零售价。";
             }
             try {
                 deal_price = parseFloat(document.getElementById("sale_price_" + i.toString()));
+                if (deal_price == NaN) {
+                    message = "请填写正确的成交价。";
+                }
             }
             catch (err) {
                 message = "请填写正确的成交价。";
