@@ -130,7 +130,7 @@
             <td colspan="2" >&nbsp;</td>
         </tr>
         <tr name="product_tr_1" >
-            <td colspan="2" >商品1：<input type="text" id="product_name_1" /></td>
+            <td colspan="2" >商品1：<input type="text" id="product_name_1" /> 数量：<input type="text" id="product_num_1" style="width:50px" value="1" /></td>
         </tr>
         <tr name="product_tr_1" >
             <td colspan="2" >零售价：<input type="text" id="market_price_1" style="width:75px" /> 成交价：<input type="text" id="sale_price_1" style="width:75px" /></td>
@@ -139,7 +139,7 @@
             <td colspan="2" >&nbsp;</td>
         </tr>
         <tr style="display:none" name="product_tr_2" >
-            <td colspan="2" >商品2：<input type="text" id="product_name_2" /></td>
+            <td colspan="2" >商品2：<input type="text" id="product_name_2" /> 数量：<input type="text" id="product_num_2" style="width:50px" value="1" /></td>
         </tr>
         <tr style="display:none" name="product_tr_2" >
             <td colspan="2" >零售价：<input type="text" id="market_price_2" style="width:75px" /> 成交价：<input type="text" id="sale_price_2" style="width:75px" /></td>
@@ -148,7 +148,7 @@
             <td colspan="2" >&nbsp;</td>
         </tr>
         <tr style="display:none" name="product_tr_3" >
-            <td colspan="2" >商品3：<input type="text" id="product_name_3" /></td>
+            <td colspan="2" >商品3：<input type="text" id="product_name_3" /> 数量：<input type="text" id="product_num_3" style="width:50px" value="1" /></td>
         </tr>
         <tr style="display:none" name="product_tr_3" >
             <td colspan="2" >零售价：<input type="text" id="market_price_3" style="width:75px" /> 成交价：<input type="text" id="sale_price_3" style="width:75px" /></td>
@@ -157,7 +157,7 @@
             <td colspan="2" >&nbsp;</td>
         </tr>
         <tr style="display:none" name="product_tr_4" >
-            <td colspan="2" >商品4：<input type="text" id="product_name_4" /></td>
+            <td colspan="2" >商品4：<input type="text" id="product_name_4" /> 数量：<input type="text" id="product_num_4" style="width:50px" value="1" /></td>
         </tr>
         <tr style="display:none" name="product_tr_4" >
             <td colspan="2" >零售价：<input type="text" id="market_price_4" style="width:75px" /> 成交价：<input type="text" id="sale_price_4" style="width:75px" /></td>
@@ -166,7 +166,7 @@
             <td colspan="2" >&nbsp;</td>
         </tr>
         <tr style="display:none" name="product_tr_5" >
-            <td colspan="2" >商品5：<input type="text" id="product_name_1" /></td>
+            <td colspan="2" >商品5：<input type="text" id="product_name_5" /> 数量：<input type="text" id="product_num_5" style="width:50px" value="1" /></td>
         </tr>
         <tr style="display:none" name="product_tr_5" >
             <td colspan="2" >零售价：<input type="text" id="market_price_5" style="width:75px" /> 成交价：<input type="text" id="sale_price_5" style="width:75px" /></td>
