@@ -163,7 +163,7 @@
             }
             try {
                 sale_price = parseFloat(document.getElementById("market_price_" + i.toString()).value);
-                if (isNaN(sale_price)) {
+                if (isNaN(sale_price) || sale_price.toString() != document.getElementById("market_price_" + i.toString()).value.trim()) {
                     message = "请填写正确的零售价。";
                 }
             }
@@ -172,7 +172,7 @@
             }
             try {
                 deal_price = parseFloat(document.getElementById("sale_price_" + i.toString()).value);
-                if (isNaN(deal_price)) {
+                if (isNaN(deal_price) || deal_price != document.getElementById("sale_price_" + i.toString()).value.trim()) {
                     message = "请填写正确的成交价。";
                 }
             }
