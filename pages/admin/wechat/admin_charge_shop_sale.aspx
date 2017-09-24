@@ -235,29 +235,29 @@
         </tr>
 
         <tr style="display:none" name="product_tr_2" >
-            <td colspan="2" >商品2：<input type="text" id="product_name_2" /> 数量：<input type="text" id="product_num_2" style="width:50px" value="1" /></td>
+            <td colspan="2" >商品2：<input type="text" id="product_name_2" onchange="get_product_list_json()"   /> 数量：<input type="text" id="product_num_2" style="width:50px" value="1" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr style="display:none" name="product_tr_2" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_2" style="width:75px" /> 成交价：<input type="text" id="sale_price_2" style="width:75px" /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_2" style="width:75px" onchange="get_product_list_json()"   /> 成交价：<input type="text" id="sale_price_2" style="width:75px" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_2" >
             <td colspan="2" id="product_info_2"  >&nbsp;</td>
         </tr>
 
         <tr style="display:none" name="product_tr_3" >
-            <td colspan="2" >商品3：<input type="text" id="product_name_3" /> 数量：<input type="text" id="product_num_3" style="width:50px" value="1" /></td>
+            <td colspan="2" >商品3：<input type="text" id="product_name_3" onchange="get_product_list_json()"   /> 数量：<input type="text" id="product_num_3" style="width:50px" value="1" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr style="display:none" name="product_tr_3" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_3" style="width:75px" /> 成交价：<input type="text" id="sale_price_3" style="width:75px" /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_3" style="width:75px" onchange="get_product_list_json()"   /> 成交价：<input type="text" id="sale_price_3" style="width:75px" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_3" >
             <td colspan="2" id="product_info_3" >&nbsp;</td>
         </tr>
         <tr style="display:none" name="product_tr_4" >
-            <td colspan="2" >商品4：<input type="text" id="product_name_4" /> 数量：<input type="text" id="product_num_4" style="width:50px" value="1" /></td>
+            <td colspan="2" >商品4：<input type="text" id="product_name_4" onchange="get_product_list_json()"  /> 数量：<input type="text" id="product_num_4" style="width:50px" value="1" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr style="display:none" name="product_tr_4" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_4" style="width:75px" /> 成交价：<input type="text" id="sale_price_4" style="width:75px" /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_4" style="width:75px" onchange="get_product_list_json()"  /> 成交价：<input type="text" id="sale_price_4" style="width:75px" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_4" >
             <td colspan="2" id="product_info_4" >&nbsp;</td>
