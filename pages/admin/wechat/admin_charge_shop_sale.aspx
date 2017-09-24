@@ -156,7 +156,7 @@
             }
             try {
                 sale_price = parseFloat(document.getElementById("market_price_" + i.toString()).value);
-                if (sale_price == NaN) {
+                if (isNaN(sale_price)) {
                     message = "请填写正确的零售价。";
                 }
             }
@@ -165,7 +165,7 @@
             }
             try {
                 deal_price = parseFloat(document.getElementById("sale_price_" + i.toString()));
-                if (deal_price == NaN) {
+                if (isNaN(deal_price)) {
                     message = "请填写正确的成交价。";
                 }
             }
