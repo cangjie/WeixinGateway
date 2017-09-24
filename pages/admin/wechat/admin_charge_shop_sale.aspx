@@ -106,6 +106,8 @@
         }
 
         function get_qrcode() {
+            alert(get_product_json(0));
+            return;
             var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
@@ -131,7 +133,47 @@
 
         function get_product_json(i) {
             var json = "";
-
+            var name = "";
+            var num = 1;
+            var sale_price = 0;
+            var deal_price = 0;
+            var info_lable = document.getElementById("product_info_" + i.toString());
+            var message = "";
+            try{
+                name = document.getElementById("product_name_" + i.toString()).value.trim();
+                if (name.trim() == "") {
+                    message = "请填写正确的商品信息。";
+                }
+            }
+            catch(err) {
+                message = "请填写正确的商品信息。";
+            }
+            try{
+                num = parseInt(document.getElementById("product_num_" + i.toString()).value);
+            }
+            catch (err) {
+                message = "请填写正确的商品数量。";
+            }
+            try {
+                sale_price = parseFloat(document.getElementById("market_price_" + i.toString()).value);
+            }
+            catch (err) {
+                message = "请填写正确的零售价。";
+            }
+            try {
+                deal_price = parseFloat(document.getElementById("sale_price_" + i.toString()));
+            }
+            catch (err) {
+                message = "请填写正确的成交价。";
+            }
+            document.getElementById("product_info_" + i.toString()).innerHTML
+                = "<font color='red' >" + message + "</font>";
+            if (message == "") {
+                json = "{\"name\": \"" + name.trim() + "\", \"num\": \"" + num.toString() + "\", \"market_price\": \"" + market_price.toString() + "\", \"deal_price\": \"" + deal_price.toString() + "\" }";
+            }
+            else {
+                json = "";
+            }
             return json;
         }
 
@@ -143,10 +185,12 @@
         }
 
         function get_product_line_display_status(i) {
+            var status = "unknown";
             var tr_obj_arr = document.getElementsByName("product_tr_" + i.toString());
             if (tr_obj_arr.length > 0) {
-                alert(tr_obj_arr[0].style.display);
+                status = tr_obj_arr[0].style.display;
             }
+            return status;
         }
 
 
@@ -164,7 +208,7 @@
             <td colspan="2" >零售价：<input type="text" id="market_price_0" style="width:75px" /> 成交价：<input type="text" id="sale_price_0" style="width:75px" /></td>
         </tr>
         <tr name="product_tr_0" >
-            <td colspan="2" >&nbsp;</td>
+            <td colspan="2" id="product_info_0" >&nbsp;</td>
         </tr>
 
         <tr style="display:none" name="product_tr_1" >
@@ -174,7 +218,7 @@
             <td colspan="2" >零售价：<input type="text" id="market_price_1" style="width:75px" /> 成交价：<input type="text" id="sale_price_1" style="width:75px" /></td>
         </tr>
         <tr style="display:none" name="product_tr_1" >
-            <td colspan="2" >&nbsp;</td>
+            <td colspan="2"  id="product_info_1" >&nbsp;</td>
         </tr>
 
         <tr style="display:none" name="product_tr_2" >
@@ -184,7 +228,7 @@
             <td colspan="2" >零售价：<input type="text" id="market_price_2" style="width:75px" /> 成交价：<input type="text" id="sale_price_2" style="width:75px" /></td>
         </tr>
         <tr style="display:none" name="product_tr_2" >
-            <td colspan="2" >&nbsp;</td>
+            <td colspan="2" id="product_info_2"  >&nbsp;</td>
         </tr>
 
         <tr style="display:none" name="product_tr_3" >
@@ -194,7 +238,7 @@
             <td colspan="2" >零售价：<input type="text" id="market_price_3" style="width:75px" /> 成交价：<input type="text" id="sale_price_3" style="width:75px" /></td>
         </tr>
         <tr style="display:none" name="product_tr_3" >
-            <td colspan="2" >&nbsp;</td>
+            <td colspan="2" id="product_info_3" >&nbsp;</td>
         </tr>
         <tr style="display:none" name="product_tr_4" >
             <td colspan="2" >商品4：<input type="text" id="product_name_4" /> 数量：<input type="text" id="product_num_4" style="width:50px" value="1" /></td>
@@ -203,7 +247,7 @@
             <td colspan="2" >零售价：<input type="text" id="market_price_4" style="width:75px" /> 成交价：<input type="text" id="sale_price_4" style="width:75px" /></td>
         </tr>
         <tr style="display:none" name="product_tr_4" >
-            <td colspan="2" >&nbsp;</td>
+            <td colspan="2" id="product_info_4" >&nbsp;</td>
         </tr>
         
         <tr>
@@ -282,5 +326,5 @@
 </body>
 </html>
 <script type="text/javascript" >
-    alert(get_product_line_display_status(0));
+    //alert(get_product_line_display_status(0));
 </script>
