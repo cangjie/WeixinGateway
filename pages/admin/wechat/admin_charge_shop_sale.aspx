@@ -130,6 +130,72 @@
             <td colspan="2" >&nbsp;</td>
         </tr>
         <tr>
+            <td>商品1：</td>
+            <td><input type="text" id="product_name_1" /></td>
+        </tr>
+        <tr>
+            <td>市场价：<input type="text" id="market_price_1" /></td>
+            <td>成交价：<input type="text" id="sale_price_1" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" >&nbsp;</td>
+        </tr>
+            <tr>
+            <td>商品1：</td>
+            <td><input type="text" id="product_name_1" /></td>
+        </tr>
+        <tr>
+            <td>市场价：<input type="text" id="market_price_1" /></td>
+            <td>成交价：<input type="text" id="sale_price_1" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" >&nbsp;</td>
+        </tr>
+        <tr>
+            <td>商品2：</td>
+            <td><input type="text" id="product_name_2" /></td>
+        </tr>
+        <tr>
+            <td>市场价：<input type="text" id="market_price_2" /></td>
+            <td>成交价：<input type="text" id="sale_price_2" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" >&nbsp;</td>
+        </tr>
+        <tr>
+            <td>商品3：</td>
+            <td><input type="text" id="product_name_3" /></td>
+        </tr>
+        <tr>
+            <td>市场价：<input type="text" id="market_price_3" /></td>
+            <td>成交价：<input type="text" id="sale_price_3" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" >&nbsp;</td>
+        </tr>
+        <tr>
+            <td>商品4：</td>
+            <td><input type="text" id="product_name_4" /></td>
+        </tr>
+        <tr>
+            <td>市场价：<input type="text" id="market_price_4" /></td>
+            <td>成交价：<input type="text" id="sale_price_4" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" >&nbsp;</td>
+        </tr>
+        <tr>
+            <td>商品5：</td>
+            <td><input type="text" id="product_name_1" /></td>
+        </tr>
+        <tr>
+            <td>市场价：<input type="text" id="market_price_5" /></td>
+            <td>成交价：<input type="text" id="sale_price_5" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" >&nbsp;</td>
+        </tr>
+        <tr>
             <td style="width:140px">市场价(元)：</td>
             <td style="white-space:nowrap; overflow:hidden">
                 <input type="text" id="txt_market_price" style="width:100px"  oninput="compute_score()" />
