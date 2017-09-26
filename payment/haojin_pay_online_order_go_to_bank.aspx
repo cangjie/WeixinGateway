@@ -76,21 +76,29 @@
         req.Abort();
         //Response.Write(appCode + "<br/>" + md5Key + "<br/>" + postData + "<br/>" + str);
         //Response.End();
-        Dictionary<string, object> payParam = Util.GetObjectFromJsonByKey(str, "pay_params");
-        KeyValuePair<string, object>[] keyValuePairArray = payParam.ToArray();
+        try
+        {
+            Dictionary<string, object> payParam = Util.GetObjectFromJsonByKey(str, "pay_params");
+            KeyValuePair<string, object>[] keyValuePairArray = payParam.ToArray();
 
-        weixinPaymentJson = Util.GetSimpleJsonStringFromKeyPairArray(keyValuePairArray);
+            weixinPaymentJson = Util.GetSimpleJsonStringFromKeyPairArray(keyValuePairArray);
 
-        string jumpPayUrl = "https://o2.qfpay.com/q/direct?mchntnm=" + Server.UrlEncode("易龙雪聚")
-            + "&txamt=" + txamt + "&goods_name=" + Server.UrlEncode(goods_name) + "&redirect_url="
-            + Server.UrlEncode("http://weixin-snowmeet.chinacloudsites.cn/payment/haojin_pay_finish.aspx?orderid=" + order._fields["id"].ToString())
-            + "&package=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "package")
-            + "&timeStamp=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "timeStamp")
-            + "&signType=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "signType")
-            + "&paySign=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "paySign")
-            + "&appId=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "appId")
-            + "&nonceStr=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "nonceStr");
-        Response.Redirect(jumpPayUrl, true);
+            string jumpPayUrl = "https://o2.qfpay.com/q/direct?mchntnm=" + Server.UrlEncode("易龙雪聚")
+                + "&txamt=" + txamt + "&goods_name=" + Server.UrlEncode(goods_name) + "&redirect_url="
+                + Server.UrlEncode("http://weixin-snowmeet.chinacloudsites.cn/payment/haojin_pay_finish.aspx?orderid=" + order._fields["id"].ToString())
+                + "&package=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "package")
+                + "&timeStamp=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "timeStamp")
+                + "&signType=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "signType")
+                + "&paySign=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "paySign")
+                + "&appId=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "appId")
+                + "&nonceStr=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "nonceStr");
+            Response.Redirect(jumpPayUrl, true);
+        }
+        catch(Exception err)
+        {
+            Response.Write(err.ToString().Trim() + "<br/>");
+            Response.Write(str.Trim());
+        }
     }
 
 
