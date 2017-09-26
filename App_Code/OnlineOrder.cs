@@ -197,5 +197,11 @@ public class OnlineOrder
         
     }
 
+    public void UpdateMchId(string mchid)
+    {
+        DBHelper.UpdateData("order_online", new string[,] { { "mchid", "varchar", mchid.Trim() } }, 
+            new string[,] { { "id", "int", _fields["id"].ToString().Trim() } }, Util.conStr.Trim());
+    }
+
 
 }

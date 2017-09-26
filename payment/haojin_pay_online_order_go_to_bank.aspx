@@ -34,7 +34,9 @@
             + DateTime.Now.Minute.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
         string sub_openid = openId;
 
-        string mchid = Util.GetSafeRequestValue(Request, "mchid", "kBGGYCQNeR");
+        string mchid = GetMchId(order);
+
+        order.UpdateMchId(mchid);
 
         string goods_name = "易龙雪聚";
 
@@ -89,5 +91,16 @@
             + "&appId=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "appId")
             + "&nonceStr=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "nonceStr");
         Response.Redirect(jumpPayUrl, true);
+    }
+
+
+    public string GetMchId(OnlineOrder order)
+    {
+        string mchId = "eA8qkhmq2M";
+        if (order.Type.Trim().Equals("雪票"))
+        {
+            mchId = "wQ2V3sdZ95";
+        }
+        return mchId.Trim();
     }
 </script>

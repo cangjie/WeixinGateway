@@ -8,7 +8,7 @@
         string appCodeConfig = "haojin_code";
         string md5KeyConfig = "haojin_key";
 
-        string mchid = Util.GetSafeRequestValue(Request, "mchid", "kBGGYCQNeR");
+        //string mchid = GetMchId(order);
 
         string paymentDomain = System.Configuration.ConfigurationSettings.AppSettings["payment_haojin_domain_name"];
         string currentDomain = System.Configuration.ConfigurationSettings.AppSettings["domain_name"];
@@ -25,4 +25,7 @@
 
 
     }
+
+
+
 </script>
