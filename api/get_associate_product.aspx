@@ -46,15 +46,36 @@
         {
             if (product._fields["name"].ToString().IndexOf("夜场") >= 0)
             {
-                workdayProductId = 7;
-                weekendProductId = 7;
-                holidayProductId = 7;
+                if (product._fields["name"].ToString().IndexOf("租板") >= 0)
+                {
+                    workdayProductId = 11;
+                    weekendProductId = 11;
+                    holidayProductId = 11;
+                }
+                else
+                {
+                    workdayProductId = 7;
+                    weekendProductId = 7;
+                    holidayProductId = 7;
+
+                }
+
             }
             else
             {
-                workdayProductId = 5;
-                weekendProductId = 6;
-                holidayProductId = 6;
+                if (product._fields["name"].ToString().IndexOf("租板") >= 0)
+                {
+                    workdayProductId = 9;
+                    weekendProductId = 10;
+                    holidayProductId = 10;
+                }
+                else
+                {
+                    workdayProductId = 5;
+                    weekendProductId = 6;
+                    holidayProductId = 6;
+                }
+                
             }
         }
         Product workdayProduct = new Product(workdayProductId);
