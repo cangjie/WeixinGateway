@@ -220,4 +220,4 @@ pages/upload/*
 /pages/admin/sale_lists/downloads
 images/qrcode/*
 payment/payment_result.txt
-Web.config
+*.config
