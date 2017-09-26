@@ -103,7 +103,7 @@
                 <%}
                     else
                     {
-                        if (p._fields["name"].ToString().IndexOf("八易") >= 0)
+                        if (p._fields["name"].ToString().IndexOf("八") >= 0)
                         {
                         %>
                 <p><font color="red" >只支持自带板！</font></p>
