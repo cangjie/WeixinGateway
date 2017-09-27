@@ -97,6 +97,7 @@
         catch(Exception err)
         {
             Response.Write(err.ToString().Trim() + "<br/>");
+            Response.Write(postData.Trim() + "<br/>");
             Response.Write(str.Trim());
         }
     }
