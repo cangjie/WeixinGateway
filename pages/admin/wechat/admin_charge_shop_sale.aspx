@@ -207,7 +207,7 @@
             document.getElementById("product_info_" + i.toString()).innerHTML
                 = "<font color='red' >" + message + "</font>";
             if (message == "") {
-                json = "{\"name\": \"" + name.trim() + "\", \"num\": \"" + num.toString() + "\", \"market_price\": \"" + market_price.toString() + "\", \"deal_price\": \"" + deal_price.toString() + "\" }";
+                json = "{\"name\": \"" + name.trim() + "\", \"num\": \"" + num.toString() + "\", \"market_price\": \"" + sale_price.toString() + "\", \"deal_price\": \"" + deal_price.toString() + "\" }";
             }
             else {
                 json = "";
