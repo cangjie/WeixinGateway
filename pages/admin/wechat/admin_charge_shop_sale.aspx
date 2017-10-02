@@ -106,20 +106,27 @@
         }
 
         function get_qrcode() {
-            alert(get_product_list_json());
-            return;
+            //alert(get_product_list_json());
+            //return;
             var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
-                + "&shop=" + document.getElementById("shop").value.trim();
+                + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail=" + get_product_list_json();
             $.ajax({
                 url: ajax_url,
                 type: "GET",
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
                     var qrcode_id = msg_object.charge_id;
+                    var qr_code_url = "";
+                    if (qrcode_id != null) {
+                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?sceneid=" + qrcode_id.trim();
+                    }
+                    else {
+                        qr_code_url = msg_object.qr_code_url.trim();
+                    }
                     var td_cell = document.getElementById("qrcode_td");
-                    td_cell.innerHTML = "<img style='width:200px' src='http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?sceneid=" + qrcode_id + "' />";
+                    td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
                 }
             });
         }
@@ -134,13 +141,12 @@
                         set_product_line_display_status(i, true);
                         document.getElementById("product_info_" + i.toString()).innerHTML = "";
                     }
-                    break;
                 }
                 else {
                     json = json + ((json.trim() != '') ? ", " : "") + product_json.trim();
                 }
             }
-            return json;
+            return "{\order_details\" : [" + json + "] }";
         }
 
         function get_product_json(i) {
@@ -315,7 +321,6 @@
                     <option>刷卡</option>
                     <option>微信</option>
                     <option>支付宝</option>
-                    <option>哆啦宝</option>
                 </select>
             </td>
         </tr>
@@ -323,10 +328,10 @@
             <td>门店：</td>
             <td>
                 <select id="shop" >
-                    <option <% if (currentUser.OpenId.Trim().Equals("oZBHkjiTuhOFyMpdfqQmyz5Tg96M") || currentUser.OpenId.Trim().Equals("oZBHkjrzPAvGSSYXVvmHOSsDaA-E"))
-                        { %> "selected" <%} %> >南山</option>
-                    <option  <% if (currentUser.OpenId.Trim().Equals("oZBHkjqXCnpfu0bvS0SNEPaTR_FI") || currentUser.OpenId.Trim().Equals("oZBHkjjEWyPvCFy1ghiFaw21ePtU"))
-                        { %> "selected" <%} %> >八亿</option>
+                    <option>乔波</option>
+                    <option>南山</option>
+                    <option>八易</option>
+                    <option>万龙</option>
                 </select>
             </td>
         </tr>
