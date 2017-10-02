@@ -123,7 +123,7 @@
                         qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?sceneid=" + qrcode_id.trim();
                     }
                     else {
-                        qr_code_url = msg_object.qr_code_url.trim();
+                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + msg_object.qr_code_url.trim();
                     }
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
