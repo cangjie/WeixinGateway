@@ -292,14 +292,14 @@
         <tr>
             <td style="width:140px">零售价(元)：</td>
             <td style="white-space:nowrap; overflow:hidden">
-                <input type="text" id="txt_market_price" style="width:100px"  oninput="compute_score()" />
+                <input type="text" id="txt_market_price" style="width:100px"  oninput="compute_score()" readonly="1" />
                 <span style="color:red; width:10px; word-wrap:break-word" ></span>
             </td>
         </tr>
         <tr>
             <td>成交价(元)：</td>
             <td>
-                <input type="text" id="txt_sale_price"  style="width:100px"  oninput="compute_score()"  />
+                <input type="text" id="txt_sale_price"  style="width:100px"  oninput="compute_score()" readonly="1" />
                 <span style="color:red; width:10px; word-wrap:break-word" ></span>
             </td>
         </tr>
