@@ -141,8 +141,8 @@
             {
                 var product_json = get_product_json(i);
                 if (product_json.trim() == "") {
-                    if (get_product_line_display_status(i) == "none") {
-                        set_product_line_display_status(i, true && !display_new);
+                    if (get_product_line_display_status(i) == "none" && !display_new ) {
+                        set_product_line_display_status(i, true);
                         document.getElementById("product_info_" + i.toString()).innerHTML = "";
                         display_new = true;
                     }
