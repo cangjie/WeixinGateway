@@ -133,19 +133,33 @@
 
         function get_product_list_json() {
             var json = "";
+            var display_new = false;
+            var sum_market_price = 0;
+            var sum_deal_price = 0;
+            var count = 1;
             for(var i = 0; i < 5; i++)
             {
                 var product_json = get_product_json(i);
                 if (product_json.trim() == "") {
                     if (get_product_line_display_status(i) == "none") {
-                        set_product_line_display_status(i, true);
+                        set_product_line_display_status(i, true && !display_new);
                         document.getElementById("product_info_" + i.toString()).innerHTML = "";
+                        display_new = true;
                     }
                 }
                 else {
                     json = json + ((json.trim() != '') ? ", " : "") + product_json.trim();
+                    var product_object = eval("(" + product_json + ")");
+                    count = parseInt(product_object.num);
+                    sum_market_price = sum_market_price + parseFloat(product_object.market_price);
+                    sum_deal_price = sum_deal_price + parseFloat(product_object.deal_price);
+
                 }
             }
+
+            document.getElementById("txt_market_price").value = sum_market_price;
+            document.getElementById("txt_sale_price").value = sum_deal_price;
+
             return "{\order_details\" : [" + json + "] }";
         }
 
