@@ -205,8 +205,13 @@
             catch (err) {
                 message = "请填写正确的成交价。";
             }
-            document.getElementById("product_info_" + i.toString()).innerHTML
-                = "<font color='red' >" + message + "</font>";
+            if (name.trim() != "" || !isNaN(sale_price) || !isNaN(deal_price)) {
+                document.getElementById("product_info_" + i.toString()).innerHTML
+                    = "<font color='red' >" + message + "</font>";
+            }
+            else {
+                message = "";
+            }
             if (message == "") {
                 json = "{\"name\": \"" + name.trim() + "\", \"num\": \"" + num.toString() + "\", \"market_price\": \"" + sale_price.toString() + "\", \"deal_price\": \"" + deal_price.toString() + "\" }";
             }
