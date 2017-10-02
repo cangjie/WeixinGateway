@@ -144,8 +144,9 @@
                     if (get_product_line_display_status(i) == "none" && !display_new ) {
                         set_product_line_display_status(i, true);
                         document.getElementById("product_info_" + i.toString()).innerHTML = "";
-                        display_new = true;
+                        
                     }
+                    display_new = true;
                 }
                 else {
                     json = json + ((json.trim() != '') ? ", " : "") + product_json.trim();
