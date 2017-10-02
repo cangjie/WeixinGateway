@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string qrCodeText = Util.GetSafeRequestValue(Request, "qrcodetext", "");
+        string qrCodeText = Util.GetSafeRequestValue(Request, "qrcodetext", "https%3a%2f%2fqr.alipay.com%2fbax0364050gripraioyb6066");
         if (qrCodeText.Trim().Equals(""))
         {
             long sceneId = long.Parse(Util.GetSafeRequestValue(Request, "sceneid", "1"));
