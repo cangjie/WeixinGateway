@@ -205,7 +205,7 @@
             catch (err) {
                 message = "请填写正确的成交价。";
             }
-            if (name.trim() != "" || !isNaN(sale_price) || !isNaN(deal_price)) {
+            if (name.trim() == "" && isNaN(sale_price) && isNaN(deal_price)) {
                 document.getElementById("product_info_" + i.toString()).innerHTML
                     = "<font color='red' >" + message + "</font>";
             }
