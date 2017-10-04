@@ -37,6 +37,7 @@
     <form id="form1" runat="server">
     <div>
         <%=openId %> 您需要支付0.01元。
+        <a href="weixin://contacts/profile/029ha94PAhbAe1VE8R1p1u" >打开微信号</a>
     </div>
     </form>
 </body>
