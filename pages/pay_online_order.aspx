@@ -24,6 +24,8 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
 
+        currentUser = new WeixinUser(openId);
+
     }
 </script>
 
@@ -34,7 +36,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        您需要支付0.01元。
+        <%=openId %> <%=currentUser.Nick.Trim()%>您需要支付0.01元。
     </div>
     </form>
 </body>
