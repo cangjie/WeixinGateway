@@ -28,8 +28,9 @@
 
         int chargeId = OrderTemp.AddNewOrderTemp(marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson);
-        if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
-            Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\" }");
+        //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
+        Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\" }");
+        /*
         else
         {
             string mchid = "eA8qkhmq2M";
@@ -86,6 +87,7 @@
             string qrCodeUrl = Util.GetSimpleJsonValueByKey(str, "qrcode");
             Response.Write("{\"status\":0, \"qr_code_url\":\"" + Server.UrlEncode(qrCodeUrl.Trim()) + "\" }");
             //Response.Write("");
-        }
+            
+        }*/
     }
 </script>
