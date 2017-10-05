@@ -8,8 +8,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        //OrderTemp orderTemp = new OrderTemp(1);
-        //orderTemp.PlaceOnlineOrder("oZBHkjhdFpC5ScK5FUU7HKXE3PJM");
+        OrderTemp orderTemp = new OrderTemp(25);
+        orderTemp.PlaceOnlineOrder("oZBHkjhdFpC5ScK5FUU7HKXE3PJM");
     }
 </script>
 

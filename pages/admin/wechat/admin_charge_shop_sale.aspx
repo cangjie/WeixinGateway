@@ -161,7 +161,7 @@
             document.getElementById("txt_market_price").value = sum_market_price;
             document.getElementById("txt_sale_price").value = sum_deal_price;
 
-            return "{\order_details\" : [" + json + "] }";
+            return "{\"order_details\" : [" + json + "] }";
         }
 
         function get_product_json(i) {
