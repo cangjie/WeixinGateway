@@ -34,8 +34,9 @@
 
         detailArr = Util.GetObjectArrayFromJsonByKey(orderTemp._fields["order_detail_json"].ToString().Trim(), "order_details");
 
-        DBHelper.UpdateData("order_online_temp", new string[,] { { "customer_open_id", "varchar", openId.Trim() } },
-            new string[,] { { "id", "int", orderTemp._fields["id"].ToString().Trim() } }, Util.conStr.Trim());
+
+        //DBHelper.UpdateData("order_online_temp", new string[,] { { "customer_open_id", "varchar", openId.Trim() } },
+        //    new string[,] { { "id", "int", orderTemp._fields["id"].ToString().Trim() } }, Util.conStr.Trim());
 
 
     }

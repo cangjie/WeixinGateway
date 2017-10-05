@@ -215,6 +215,9 @@ public class DealMessage
             int i = orderTemp.PlaceOnlineOrder(receivedMessage.from);
             if (i > 0)
             {
+                OnlineOrder order = new OnlineOrder(i);
+                order.SetOrderPaySuccess(DateTime.Now);
+                orderTemp.FinishOrder();
                 Point.AddNew(receivedMessage.from.Trim(), int.Parse(orderTemp._fields["generate_score"].ToString()),
                     DateTime.Now, orderTemp._fields["memo"].ToString());
                 replyMessage.content = "感谢惠顾，您已经获得" + orderTemp._fields["generate_score"].ToString()

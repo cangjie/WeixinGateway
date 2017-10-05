@@ -130,7 +130,7 @@ public class OnlineOrder
     {
         get
         {
-            return "haojin";
+            return _fields["pay_method"].ToString().Trim();
         }
     }
 

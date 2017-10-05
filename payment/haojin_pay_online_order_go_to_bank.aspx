@@ -63,7 +63,8 @@
         req.Method = "POST";
         req.ContentType = "application/x-www-form-urlencoded";
         req.Headers.Add("X-QF-APPCODE", appCode);
-        req.Headers.Add("X-QF-SIGN", Util.GetHaojinMd5Sign(postData, md5Key));
+        string sign = Util.GetHaojinMd5Sign(postData, md5Key);
+        req.Headers.Add("X-QF-SIGN", sign.Trim());
         Stream requestStream = req.GetRequestStream();
         StreamWriter sw = new StreamWriter(requestStream);
         sw.Write(postData);
@@ -98,6 +99,7 @@
         {
             Response.Write(err.ToString().Trim() + "<br/>");
             Response.Write(postData.Trim() + "<br/>");
+            Response.Write(sign + "<br/>");
             Response.Write(str.Trim());
         }
     }
@@ -105,7 +107,8 @@
 
     public string GetMchId(OnlineOrder order)
     {
-        string mchId = "eA8qkhmq2M";
+        //string mchId = "eA8qkhmq2M";
+        string mchId = "wQ2V3sdZ95";
         if (order.Type.Trim().Equals("雪票"))
         {
             mchId = "wQ2V3sdZ95";
