@@ -210,24 +210,31 @@ public class DealMessage
         replyMessage.to = receivedMessage.from;
         int chargeId = int.Parse(receivedMessage.eventKey.Replace("qrscene_", "").Substring(4, 6));
         OrderTemp orderTemp = new OrderTemp(chargeId);
-        int i = orderTemp.PlaceOnlineOrder(receivedMessage.from);
-        if (i > 0)
+        if (orderTemp._fields["pay_method"].ToString().Trim().Equals("现金") || orderTemp._fields["pay_method"].ToString().Trim().Equals("刷卡"))
         {
-            Point.AddNew(receivedMessage.from.Trim(), int.Parse(orderTemp._fields["generate_score"].ToString()),
-                DateTime.Now, orderTemp._fields["memo"].ToString());
-            replyMessage.content = "感谢惠顾，您已经获得" + orderTemp._fields["generate_score"].ToString()
-                + "颗龙珠，您可以<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/dragon_ball_list.aspx\" >点击查看详情</a>。";
+            int i = orderTemp.PlaceOnlineOrder(receivedMessage.from);
+            if (i > 0)
+            {
+                Point.AddNew(receivedMessage.from.Trim(), int.Parse(orderTemp._fields["generate_score"].ToString()),
+                    DateTime.Now, orderTemp._fields["memo"].ToString());
+                replyMessage.content = "感谢惠顾，您已经获得" + orderTemp._fields["generate_score"].ToString()
+                    + "颗龙珠，您可以<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/dragon_ball_list.aspx\" >点击查看详情</a>。";
+                replyMessage.type = "text";
+            }
+            WeixinUser user = new WeixinUser(receivedMessage.from);
+            ServiceMessage serviceMessage = new ServiceMessage();
+            serviceMessage.from = receivedMessage.to;
+            serviceMessage.to = orderTemp._fields["admin_open_id"].ToString();
+            serviceMessage.content = user.Nick.Trim() + "因店铺销售，已经获得" + orderTemp._fields["generate_score"].ToString()
+                + "颗龙珠";
+            serviceMessage.type = "text";
+            ServiceMessage.SendServiceMessage(serviceMessage);
+        }
+        if (orderTemp._fields["pay_method"].ToString().Trim().Equals("支付宝") || orderTemp._fields["pay_method"].ToString().Trim().Equals("微信"))
+        {
+            replyMessage.content = "<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/confirm_order_info.aspx?id=" + orderTemp._fields["id"].ToString() + "\" >请点击确认支付</a>。";
             replyMessage.type = "text";
         }
-        WeixinUser user = new WeixinUser(receivedMessage.from);
-        ServiceMessage serviceMessage = new ServiceMessage();
-        serviceMessage.from = receivedMessage.to;
-        serviceMessage.to = orderTemp._fields["admin_open_id"].ToString();
-        serviceMessage.content = user.Nick.Trim() + "因店铺销售，已经获得" + orderTemp._fields["generate_score"].ToString()
-            + "颗龙珠";
-        serviceMessage.type = "text";
-        ServiceMessage.SendServiceMessage(serviceMessage);
-
         return replyMessage;
     }
 
