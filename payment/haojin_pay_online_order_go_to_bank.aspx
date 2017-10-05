@@ -79,6 +79,11 @@
         //Response.End();
         try
         {
+
+            Response.Write(postData.Trim() + "<br/>");
+            Response.Write(sign + "<br/>");
+            Response.Write(str.Trim());
+
             Dictionary<string, object> payParam = Util.GetObjectFromJsonByKey(str, "pay_params");
             KeyValuePair<string, object>[] keyValuePairArray = payParam.ToArray();
 
@@ -93,7 +98,10 @@
                 + "&paySign=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "paySign")
                 + "&appId=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "appId")
                 + "&nonceStr=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "nonceStr");
-            Response.Redirect(jumpPayUrl, true);
+
+            Response.Write("<a href=\"" + jumpPayUrl + "\" >" + jumpPayUrl + "</a>");
+
+            //Response.Redirect(jumpPayUrl, true);
         }
         catch(Exception err)
         {
