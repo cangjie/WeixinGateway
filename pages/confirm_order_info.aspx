@@ -16,7 +16,7 @@
     {
         orderTemp = new OrderTemp(int.Parse(Util.GetSafeRequestValue(Request, "id", "35")));
 
-        /*
+
         string currentPageUrl = Server.UrlEncode("/pages/confirm_order_info.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -31,8 +31,13 @@
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
         if (currentUser.CellNumber.Trim().Equals(""))
             Response.Redirect("register_cell_number.aspx", true);
-            */
+
         detailArr = Util.GetObjectArrayFromJsonByKey(orderTemp._fields["order_detail_json"].ToString().Trim(), "order_details");
+
+        DBHelper.UpdateData("order_online_temp", new string[,] { { "customer_open_id", "varchar", openId.Trim() } },
+            new string[,] { { "id", "int", orderTemp._fields["id"].ToString().Trim() } }, Util.conStr.Trim());
+
+
     }
 </script>
 
