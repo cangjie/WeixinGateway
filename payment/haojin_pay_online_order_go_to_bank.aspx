@@ -52,7 +52,7 @@
 
         if (order.Type.Trim().Equals("店销"))
         {
-            goods_name = order._fields["shop"].ToString().Trim() + " " + order._fields["type"].ToString() + " " + order._fields["pay_method"].ToString() 
+            goods_name = order._fields["shop"].ToString().Trim() + " " + order._fields["type"].ToString() + " " + order._fields["pay_method"].ToString()
                 + " " + order._fields["id"].ToString();
         }
 
@@ -115,10 +115,51 @@
     {
         string mchId = "eA8qkhmq2M";
         //string mchId = "wQ2V3sdZ95";
-        if (order.Type.Trim().Equals("雪票"))
+        if (order._fields["shop"].ToString().Trim().Equals("乔波"))
         {
-            mchId = "eA8qkhmq2M";
+            if (order.Type.Trim().Equals("雪票"))
+            {
+                mchId = "wQ2V3sdZ95";
+            }
+            if (order.Type.Trim().Equals("店销"))
+            {
+                mchId = "eA8qkhmq2M";
+            }
         }
+        if (order._fields["shop"].ToString().Trim().Equals("南山"))
+        {
+            if (order.Type.Trim().Equals("雪票"))
+            {
+                mchId = "rGrVYFadKD";
+            }
+            if (order.Type.Trim().Equals("店销"))
+            {
+                mchId = "DdAjZF6rrY";
+            }
+        }
+        if (order._fields["shop"].ToString().Trim().Equals("八易"))
+        {
+            if (order.Type.Trim().Equals("雪票"))
+            {
+                mchId = "29dx6UlV5k";
+            }
+            if (order.Type.Trim().Equals("店销"))
+            {
+                mchId = "wQ2V3sMj71";
+            }
+        }
+        if (order._fields["shop"].ToString().Trim().Equals("万龙"))
+        {
+            if (order.Type.Trim().Equals("雪票"))
+            {
+                mchId = "7BR7rSr3Kx";
+            }
+            if (order.Type.Trim().Equals("店销"))
+            {
+                mchId = "g6VB7srLmY";
+            }
+        }
+
         return mchId.Trim();
     }
 </script>
