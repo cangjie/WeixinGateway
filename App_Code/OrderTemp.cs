@@ -41,7 +41,8 @@ public class OrderTemp
         {"pay_method", "varchar", _fields["pay_method"].ToString().Trim() },{ "pay_state", "int", "1" },
         {"order_price", "float", _fields["market_price"].ToString() }, {"shop", "varchar", _fields["shop"].ToString().Trim() } ,
         {"order_real_pay_price", "float", _fields["real_paid_price"].ToString() }, {"memo", "varchar", _fields["memo"].ToString().Trim() },
-        {"pay_time", "datetime", DateTime.Now.ToString() } };
+        {"pay_time", "datetime", DateTime.Now.ToString() }, {"ticket_amount", "float", _fields["ticket_amount"].ToString() },
+        {"score_rate", "float", _fields["score_rate"].ToString() }, {"generate_score", "float", _fields["generate_score"].ToString() }, {"order_temp_id", "float", _fields["id"].ToString() } };
         int i = DBHelper.InsertData("order_online", insertParam);
         if (i == 1)
         {
