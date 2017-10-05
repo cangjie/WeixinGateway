@@ -52,7 +52,7 @@
 
         if (order.Type.Trim().Equals("店销"))
         {
-            goods_name = order.Memo.Trim();
+            goods_name = "店铺销售订单";
         }
 
         string postData = "txamt=" + txamt + "&txcurrcd=" + txcurrcd + "&pay_type=" + pay_type + "&out_trade_no=" + out_trade_no
