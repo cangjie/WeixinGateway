@@ -119,12 +119,12 @@
                     var msg_object = eval("(" + msg + ")");
                     var qrcode_id = msg_object.charge_id;
                     var qr_code_url = "";
-                    if (qrcode_id != null) {
-                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?sceneid=" + qrcode_id.trim();
-                    }
-                    else {
-                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + msg_object.qr_code_url.trim();
-                    }
+                    //if (qrcode_id != null) {
+                    qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?sceneid=" + qrcode_id.trim();
+                    //}
+                    //else {
+                    //    qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + msg_object.qr_code_url.trim();
+                    //}
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
                 }
