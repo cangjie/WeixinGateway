@@ -52,7 +52,8 @@
 
         if (order.Type.Trim().Equals("店销"))
         {
-            goods_name = "店铺销售订单";
+            goods_name = order._fields["shop"].ToString().Trim() + " " + order._fields["type"].ToString() + " " + order._fields["pay_method"].ToString() 
+                + " " + order._fields["id"].ToString();
         }
 
         string postData = "txamt=" + txamt + "&txcurrcd=" + txcurrcd + "&pay_type=" + pay_type + "&out_trade_no=" + out_trade_no
@@ -80,9 +81,6 @@
         try
         {
 
-            Response.Write(postData.Trim() + "<br/>");
-            Response.Write(sign + "<br/>");
-            Response.Write(str.Trim());
 
             Dictionary<string, object> payParam = Util.GetObjectFromJsonByKey(str, "pay_params");
             KeyValuePair<string, object>[] keyValuePairArray = payParam.ToArray();
