@@ -107,11 +107,11 @@
 
     public string GetMchId(OnlineOrder order)
     {
-        //string mchId = "eA8qkhmq2M";
-        string mchId = "wQ2V3sdZ95";
+        string mchId = "eA8qkhmq2M";
+        //string mchId = "wQ2V3sdZ95";
         if (order.Type.Trim().Equals("雪票"))
         {
-            mchId = "wQ2V3sdZ95";
+            mchId = "eA8qkhmq2M";
         }
         return mchId.Trim();
     }
