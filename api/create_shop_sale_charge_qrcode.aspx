@@ -84,7 +84,7 @@
             res.Close();
             req.Abort();
             string qrCodeUrl = Util.GetSimpleJsonValueByKey(str, "qrcode");
-            Response.Write("{\"status\":0, \"qr_code_url\":\"" + qrCodeUrl.Trim() + "\" }");
+            Response.Write("{\"status\":0, \"qr_code_url\":\"" + Server.UrlEncode(qrCodeUrl.Trim()) + "\" }");
             //Response.Write("");
         }
     }
