@@ -97,9 +97,9 @@
                 + "&appId=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "appId")
                 + "&nonceStr=" + Util.GetSimpleJsonValueByKey(weixinPaymentJson, "nonceStr");
 
-            Response.Write("<a href=\"" + jumpPayUrl + "\" >" + jumpPayUrl + "</a>");
+            //Response.Write("<a href=\"" + jumpPayUrl + "\" >" + jumpPayUrl + "</a>");
 
-            //Response.Redirect(jumpPayUrl, true);
+            Response.Redirect(jumpPayUrl, true);
         }
         catch(Exception err)
         {
