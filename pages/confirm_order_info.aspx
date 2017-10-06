@@ -12,6 +12,8 @@
 
     public Dictionary<string, object>[] detailArr;
 
+    public string token = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         orderTemp = new OrderTemp(int.Parse(Util.GetSafeRequestValue(Request, "id", "35")));
@@ -23,6 +25,7 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         string userToken = Session["user_token"].ToString();
+        token = userToken.Trim();
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
@@ -55,6 +58,36 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" >
+
+        function show_alipay_metion() {
+            $("alipay_modal").modal();
+        }
+
+        function go_to_payment(order_id, pay_method) {
+            if (pay_method == '微信') {
+                window.location.href = "../payment/haojin_pay_online_order.aspx?orderid=" + order_id;
+            }
+            if (pay_method == '支付宝') {
+                show_alipay_metion();
+            }
+
+        }
+
+        function confirm_order() {
+            $.ajax({
+                url:    "../api/place_online_order_from_temp.aspx?temporderid=<%=orderTemp._fields["id"].ToString().Trim()%>&token=<%=token%>",
+                type:   "get",
+                success: function (msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    if (msg_object.status == 0) {
+                        go_to_payment(msg_object.order_id, msg_object.pay_method);
+                    }
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -118,12 +151,19 @@
             <td><%=orderTemp._fields["shop"].ToString() %></td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align:center"><button type="button" class="btn btn-default" >支付</button></td>
+            <td colspan="2" style="text-align:center"><button type="button" class="btn btn-default" onclick="confirm_order()" >支付</button></td>
         </tr>
         <tr>
             <td colspan="2" id="qrcode_td" style="text-align:center"></td>
         </tr>
     </table>
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="alipay_modal">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                您的订单已经确认，请打开支付宝扫描店员手机上的二维码。
+            </div>
+        </div>
+    </div>
     </form>
 </body>
 </html>
