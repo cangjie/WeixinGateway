@@ -57,6 +57,7 @@
     <script src="js/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" scr="js/modal.js" ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
 
