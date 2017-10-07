@@ -3,7 +3,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int deviceId = int.Parse(Util.GetSafeRequestValue(Request, "deviceid", "1"));
+        int deviceId = int.Parse(Util.GetSafeRequestValue(Request, "deviceid", "2"));
         Device device = new Device(deviceId);
         Response.Write("{\"device_id\": \"" + deviceId.ToString() + "\" , \"nick\": \"" + device._lastScan["nick"].ToString().Trim()
             + "\", \"head_image\":\"" + device._lastScan["head_image"].ToString()  + "\", \"scan_time\":\""

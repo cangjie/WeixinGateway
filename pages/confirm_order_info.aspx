@@ -62,7 +62,7 @@
     <script type="text/javascript" >
 
         function show_alipay_metion() {
-            $("alipay_modal").modal();
+            $("#alipay_modal").modal();
         }
 
         function go_to_payment(order_id, pay_method) {
