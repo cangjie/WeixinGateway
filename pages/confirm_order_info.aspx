@@ -162,11 +162,11 @@
     <div class="modal-content">
 
       <div class="modal-body">
-        <p>One fine body&hellip;</p>
+        <p>请打开支付宝，扫描店员手机上的二维码。</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">确 认</button>
+        
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
