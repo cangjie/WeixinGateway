@@ -263,7 +263,7 @@
                             success: function (msg, statue) {
                                 var msg_object = eval("(" + msg + ")");
                                 if (msg_object.pay_state == 1) {
-                                    launch_pay_success_info();
+                                    launch_pay_success_info(msg_object.id.toString());
                                 }
                                 if (msg_object.pay_method == "支付宝" && msg_object.pay_state == 0) {
                                     launch_alipay_qrcode();
@@ -277,9 +277,11 @@
             });
         }
 
-        function launch_alipay_qrcode() {
+        function launch_alipay_qrcode(order_id) {
 
-
+            var td_cell = document.getElementById("qrcode_td");
+            td_cell.innerHTML = "<img style='width:200px' src='../../../payment/haojin_qrcode_pay_ali.aspx?orderid=" + order_id + "' />";
+            alert("已更新为支付宝二维码，请顾客扫描。");
         }
 
         function launch_pay_success_info() {

@@ -14,7 +14,7 @@
 
         string txamt = "1";
         string txcurrcd = "CNY";
-        string pay_type = "800201";
+        string pay_type = "800101";
         string out_trade_no = "qr_test_100";
         string txdtm = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "-"
             + DateTime.Now.Day.ToString().PadLeft(2,'0') + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":"

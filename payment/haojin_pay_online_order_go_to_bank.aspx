@@ -34,7 +34,7 @@
             + DateTime.Now.Minute.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
         string sub_openid = openId;
 
-        string mchid = GetMchId(order);
+        string mchid = Util.GetMchId(order);
 
         order.UpdateMchId(mchid);
 
@@ -42,6 +42,9 @@
 
         if (order.OrderDetails.Length > 0)
             goods_name = order.OrderDetails[0].productName.Trim();
+
+        if (order.OrderDetails.Length > 1)
+            goods_name = goods_name + " 等" + order.orderDetails.Length.ToString() + "件商品";
 
 
         if (order.OrderDetails.Length > 1 && order.OrderDetails[1].productName.Trim().IndexOf("押金") >= 0)
@@ -111,55 +114,5 @@
     }
 
 
-    public string GetMchId(OnlineOrder order)
-    {
-        string mchId = "eA8qkhmq2M";
-        //string mchId = "wQ2V3sdZ95";
-        if (order._fields["shop"].ToString().Trim().Equals("乔波"))
-        {
-            if (order.Type.Trim().Equals("雪票"))
-            {
-                mchId = "wQ2V3sdZ95";
-            }
-            if (order.Type.Trim().Equals("店销"))
-            {
-                mchId = "eA8qkhmq2M";
-            }
-        }
-        if (order._fields["shop"].ToString().Trim().Equals("南山"))
-        {
-            if (order.Type.Trim().Equals("雪票"))
-            {
-                mchId = "rGrVYFadKD";
-            }
-            if (order.Type.Trim().Equals("店销"))
-            {
-                mchId = "DdAjZF6rrY";
-            }
-        }
-        if (order._fields["shop"].ToString().Trim().Equals("八易"))
-        {
-            if (order.Type.Trim().Equals("雪票"))
-            {
-                mchId = "29dx6UlV5k";
-            }
-            if (order.Type.Trim().Equals("店销"))
-            {
-                mchId = "wQ2V3sMj71";
-            }
-        }
-        if (order._fields["shop"].ToString().Trim().Equals("万龙"))
-        {
-            if (order.Type.Trim().Equals("雪票"))
-            {
-                mchId = "7BR7rSr3Kx";
-            }
-            if (order.Type.Trim().Equals("店销"))
-            {
-                mchId = "g6VB7srLmY";
-            }
-        }
-
-        return mchId.Trim();
-    }
+    
 </script>
