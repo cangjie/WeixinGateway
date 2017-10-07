@@ -49,15 +49,14 @@
 <head runat="server">
     <title></title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/normalize.css" />
     <!-- 可选的Bootstrap主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="js/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" scr="js/modal.js" ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
 
@@ -158,17 +157,20 @@
             <td colspan="2" id="qrcode_td" style="text-align:center"></td>
         </tr>
     </table>
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="alipay_modal">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                您的订单已经确认，请打开支付宝扫描店员手机上的二维码。
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">确 认</button>
-        
-            </div>
-        </div>
-    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="alipay_modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
     </form>
 </body>
 </html>
