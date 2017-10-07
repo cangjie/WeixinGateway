@@ -105,6 +105,9 @@
             return valid;
         }
 
+        var temp_order_id = 0;
+        var intervalId = 0;
+
         function get_qrcode() {
             //alert(get_product_list_json());
             //return;
@@ -127,6 +130,9 @@
                     //}
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
+                    temp_order_id = msg_object.temp_order_id;
+                    if (temp_order_id>0)
+                        intervalId = setInterval("refresh_order_state()", 1000);
                 }
             });
         }
@@ -237,7 +243,51 @@
             return status;
         }
 
+        function refresh_order_state() {
+            $.ajax({
+                url:    "../../../api/get_order_temp_info.aspx?temporderid=" + temp_order_id,
+                type: "GET",
+                success: function (msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    var order_id = 0;
+                    try{
+                        order_id = parseInt(msg_object.order_id);
+                    }
+                    catch (ex) {
 
+                    }
+                    if (order_id > 0) {
+                        $.ajax({
+                            url: "../../../api/get_online_order_info.aspx?orderid=" + order_id.toString(),
+                            type: "GET",
+                            success: function (msg, statue) {
+                                var msg_object = eval("(" + msg + ")");
+                                if (msg_object.pay_state == 1) {
+                                    launch_pay_success_info();
+                                }
+                                if (msg_object.pay_method == "支付宝" && msg_object.pay_state == 0) {
+                                    launch_alipay_qrcode();
+                                }
+
+
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        function launch_alipay_qrcode() {
+
+
+        }
+
+        function launch_pay_success_info() {
+            clearInterval(intervalId);
+            alert("支付成功");
+            window.close();
+
+        }
     </script>
 </head>
 <body>

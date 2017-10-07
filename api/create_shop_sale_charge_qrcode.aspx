@@ -29,7 +29,7 @@
         int chargeId = OrderTemp.AddNewOrderTemp(marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson);
         //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
-        Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\" }");
+        Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\", \"temp_order_id\":" + chargeId.ToString() + " }");
         /*
         else
         {
