@@ -7,6 +7,7 @@
         Device device = new Device(deviceId);
         Response.Write("{\"device_id\": \"" + deviceId.ToString() + "\" , \"nick\": \"" + device._lastScan["nick"].ToString().Trim()
             + "\", \"head_image\":\"" + device._lastScan["head_image"].ToString()  + "\", \"scan_time\":\""
-            + device._lastScan["timestamp"].ToString() + "\", \"next_qrcode\":\"" + device._lastScan["qrcode_url"].ToString().Trim() + "\"}");
+            + device._lastScan["timestamp"].ToString() + "\", \"next_qrcode\":\"" + device._lastScan["qrcode_url"].ToString().Trim() + "\", " 
+            + "\"open_id\": \"" + device._lastScan["open_id"].ToString().Trim() + "\"  }");
         }
 </script>
