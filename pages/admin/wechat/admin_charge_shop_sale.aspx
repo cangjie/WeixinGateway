@@ -277,17 +277,21 @@
             });
         }
 
-        function launch_alipay_qrcode(order_id) {
+        var alipay_qrcode_launched = false;
 
+        function launch_alipay_qrcode(order_id) {
+            if (alipay_qrcode_launched)
+                return;
             var td_cell = document.getElementById("qrcode_td");
             td_cell.innerHTML = "<img style='width:200px' src='../../../payment/haojin_qrcode_pay_ali.aspx?orderid=" + order_id + "' />";
             alert("已更新为支付宝二维码，请顾客扫描。");
+            alipay_qrcode_launched = true;
         }
 
         function launch_pay_success_info() {
             clearInterval(intervalId);
             alert("支付成功");
-            window.close();
+            //window.close();
 
         }
     </script>
