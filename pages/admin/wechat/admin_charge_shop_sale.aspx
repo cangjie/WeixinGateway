@@ -288,10 +288,14 @@
             alipay_qrcode_launched = true;
         }
 
+        var launch_successed_info = false;
+
         function launch_pay_success_info() {
+            if (launch_pay_success_info)
+                return;
             clearInterval(intervalId);
             alert("支付成功");
-            //window.close();
+            launch_successed_info = true;
 
         }
     </script>
