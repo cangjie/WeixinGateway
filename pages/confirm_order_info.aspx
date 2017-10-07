@@ -19,7 +19,7 @@
         orderTemp = new OrderTemp(int.Parse(Util.GetSafeRequestValue(Request, "id", "35")));
 
 
-        string currentPageUrl = Server.UrlEncode("/pages/confirm_order_info.aspx");
+        string currentPageUrl = Server.UrlEncode("/pages/confirm_order_info.aspx?id=" + orderTemp._fields["id"].ToString().Trim());
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
@@ -162,6 +162,10 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 您的订单已经确认，请打开支付宝扫描店员手机上的二维码。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确 认</button>
+        
             </div>
         </div>
     </div>
