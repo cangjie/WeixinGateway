@@ -251,7 +251,7 @@
                     var msg_object = eval("(" + msg + ")");
                     var order_id = 0;
                     try{
-                        order_id = parseInt(msg_object.order_id);
+                        order_id = parseInt(msg_object.online_order_id);
                     }
                     catch (ex) {
 
