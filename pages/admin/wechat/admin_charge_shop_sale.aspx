@@ -263,10 +263,10 @@
                             success: function (msg, statue) {
                                 var msg_object = eval("(" + msg + ")");
                                 if (msg_object.pay_state == 1) {
-                                    launch_pay_success_info(msg_object.id.toString());
+                                    launch_pay_success_info();
                                 }
                                 if (msg_object.pay_method == "支付宝" && msg_object.pay_state == 0) {
-                                    launch_alipay_qrcode();
+                                    launch_alipay_qrcode(msg_object.id.toString());
                                 }
 
 
