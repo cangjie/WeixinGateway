@@ -291,7 +291,7 @@
         var launch_successed_info = false;
 
         function launch_pay_success_info() {
-            if (launch_pay_success_info)
+            if (launch_successed_info)
                 return;
             clearInterval(intervalId);
             alert("支付成功");
