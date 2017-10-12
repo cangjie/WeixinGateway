@@ -437,7 +437,7 @@
                     'content': '支付成功,自动跳转',
                     'closeTime': 2000,
                     'closeFunction': function () {
-                        window.location = "http://www.baidu.com";
+                        window.location = "admin_charge_shop_sale_finish.aspx";
                     },
                 })
             }
