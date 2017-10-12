@@ -60,7 +60,7 @@
         }
 
         string postData = "txamt=" + txamt + "&txcurrcd=" + txcurrcd + "&pay_type=" + pay_type + "&out_trade_no=" + out_trade_no
-            + "&txdtm=" + txdtm + "&sub_openid=" + sub_openid + "&goods_name=" + goods_name+"&mchid=" + mchid.Trim();
+            + "&txdtm=" + txdtm + "&sub_openid=" + sub_openid + "&goods_name=" + goods_name.Replace(" ", "") +"&mchid=" + mchid.Trim();
 
         jumpUrl = "https://" + paymentDomain + "/trade/v1/payment";
         req = (HttpWebRequest)WebRequest.Create(jumpUrl);
@@ -114,5 +114,5 @@
     }
 
 
-    
+
 </script>
