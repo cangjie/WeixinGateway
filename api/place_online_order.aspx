@@ -2,8 +2,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = Util.GetSafeRequestValue(Request, "token", "43d806b4f81884fcbcce63a3b9f94f47b80384ba5b1fc31165283a9a84ac3ffa88a3ece3");
-        string cartJson = Util.GetSafeRequestValue(Request, "cart", "{\"cart_array\" : [{\"product_id\" : \"1\", \"count\" : \"3\" },{\"product_id\" : \"2\", \"count\" : \"1\" }], \"memo\" :{\"rent\" : \"\" , \"use_date\" : \"2017-1-5\" } }");
+        string token = Util.GetSafeRequestValue(Request, "token", "c4fb9144da5fb1ebbbcf928242b0fa4565f4769866a5d1fd44a1294a2ad7fe333afb8f3a");
+        string cartJson = Util.GetSafeRequestValue(Request, "cart", "{\"cart_array\" : [{ \"product_id\": \"5\", \"count\": \"1\" }, { \"product_id\": \"8\", \"count\": \"1\" }], \"memo\" : {\"rent\" : \"1\", \"use_date\" : \"2017/10/17\"   }}");
         string openId = WeixinUser.CheckToken(token);
         if (openId.Trim().Equals(""))
         {

@@ -130,7 +130,10 @@ public class OnlineOrder
     {
         get
         {
-            return _fields["pay_method"].ToString().Trim();
+            if (_fields != null)
+                return _fields["pay_method"].ToString().Trim();
+            else
+                return "微信";
         }
     }
 

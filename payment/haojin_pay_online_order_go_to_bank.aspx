@@ -6,7 +6,7 @@
     public string weixinPaymentJson = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "93"));
         OnlineOrder order = new OnlineOrder(orderId);
 
         string paymentDomain = System.Configuration.ConfigurationSettings.AppSettings["payment_haojin_domain_name"];
