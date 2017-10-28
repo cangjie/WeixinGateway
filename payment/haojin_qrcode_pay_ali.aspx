@@ -17,7 +17,7 @@
             OnlineOrder order = new OnlineOrder(orderId);
             if (order.PayMethod.Trim().Equals("支付宝") && order._fields["pay_state"].ToString().Trim().Equals("0"))
             {
-                string txamt = "1";
+                string txamt = Math.Round(double.Parse(order._fields["order_real_pay_price"].ToString()) * 100, 0).ToString();
                 string txcurrcd = "CNY";
                 string pay_type = "800101";
                 string out_trade_no = orderId.ToString();
