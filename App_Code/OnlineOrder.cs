@@ -17,6 +17,8 @@ public class OnlineOrder
 
     private string type = "雪票";
 
+    public string shop = "乔波";
+
     public OnlineOrder()
     {
         //
@@ -45,6 +47,7 @@ public class OnlineOrder
                     {"pay_method", "varchar", PayMethod.Trim() },
                     {"order_price", "float", OrderPrice.ToString() },
                     {"order_real_pay_price", "float", OrderPrice.ToString() },
+                    {"shop", "varchar", shop.Trim() },
                     {"memo", "varchar", memo.Trim() } };
                 int i = DBHelper.InsertData("order_online", insertParam);
                 if (i == 1)
