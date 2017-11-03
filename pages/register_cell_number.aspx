@@ -46,7 +46,13 @@
             nick = Util.GetSimpleJsonValueByKey(userInfoJson, "nickname");
             string fatherOpenId = currentUser.FatherOpenId.Trim();
             if (fatherOpenId.Trim().Equals(""))
+            {
                 fatherOpenId = currentUser.LastScanedOpenId;
+                if (fatherOpenId.Trim().Equals(""))
+                {
+                    fatherOpenId = Util.GetSafeRequestValue(Request, "openid", "");
+                }
+            }
             if (!fatherOpenId.Trim().Equals(""))
             {
                 WeixinUser fatherUser = new WeixinUser(fatherOpenId);

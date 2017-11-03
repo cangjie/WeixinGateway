@@ -260,6 +260,9 @@ public class DealMessage
                 repliedMessage.type = "text";
                 repliedMessage.content = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/admin_charge_shop_sale_new.aspx";
                 break;
+            case "邀请":
+                repliedMessage = GetInviteMessage(receivedMessage);
+                break;
             default:
                 break;
         }
@@ -416,6 +419,21 @@ public class DealMessage
         repliedMessage.to = receivedMessage.from;
         repliedMessage.type = "text";
         repliedMessage.content = "您的" + content.Trim();
+        return repliedMessage;
+    }
+
+    public static RepliedMessage GetInviteMessage(ReceivedMessage receiveMessage)
+    {
+        RepliedMessage repliedMessage = new RepliedMessage();
+        repliedMessage.from = receiveMessage.to;
+        repliedMessage.to = receiveMessage.from;
+        repliedMessage.type = "news";
+        RepliedMessage.news content = new RepliedMessage.news();
+        content.title = "易龙雪聚会籍邀请";
+        content.picUrl = "http://weixin-snowmeet.chinacloudsites.cn/images/invite_ticket.jpg";
+        content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/register_cell_number.aspx?openid=" + receiveMessage.from;
+        content.description = "请将此消息转发给他人。";
+        repliedMessage.newsContent = new RepliedMessage.news[] { content };
         return repliedMessage;
     }
 

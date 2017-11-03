@@ -10,7 +10,7 @@
         string md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_key"];
         string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_code"];
 
-        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "118"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "170"));
 
         if (orderId > 0)
         {
