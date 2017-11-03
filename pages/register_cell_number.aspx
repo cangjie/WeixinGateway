@@ -115,7 +115,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">推荐人手机号(若没有，可不填)：</p></div>
-                <div class="col-xs-8" ><input type="text" id="father_cell_number"  style="width:150px" value="<%=fatherCellNumber %>"/></div>
+                <div class="col-xs-8" ><input type="text" id="father_cell_number" <%if (!fatherCellNumber.Trim().Equals("")) {%> readonly  <% } %> style="width:150px" value="<%=fatherCellNumber %>"/></div>
             </div>
             <div class="row" >
                 <div class="col-xs-12 center-block"><button id="bind_cell_number_button" style="width:100px;" type="button"  onclick="bind_cell_number_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button></div>
