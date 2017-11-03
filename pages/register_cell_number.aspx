@@ -50,7 +50,7 @@
                 fatherOpenId = currentUser.LastScanedOpenId;
                 if (fatherOpenId.Trim().Equals(""))
                 {
-                    fatherOpenId = Util.GetSafeRequestValue(Request, "openid", "");
+                    fatherOpenId = Util.GetSafeRequestValue(Request, "fatheropenid", "");
                 }
             }
             if (!fatherOpenId.Trim().Equals(""))

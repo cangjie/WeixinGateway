@@ -431,7 +431,7 @@ public class DealMessage
         RepliedMessage.news content = new RepliedMessage.news();
         content.title = "易龙雪聚会籍邀请";
         content.picUrl = "http://weixin-snowmeet.chinacloudsites.cn/images/invite_ticket.jpg";
-        content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/register_cell_number.aspx?openid=" + receiveMessage.from;
+        content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/register_cell_number.aspx?fatheropenid=" + receiveMessage.from;
         content.description = "请将此消息转发给他人。";
         repliedMessage.newsContent = new RepliedMessage.news[] { content };
         return repliedMessage;
