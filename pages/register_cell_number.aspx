@@ -18,7 +18,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string currentPageUrl = Server.UrlEncode("/pages/register_cell_number.aspx");
+        string currentPageUrl = Server.UrlEncode("/pages/register_cell_number.aspx?fatheropenid=" + Util.GetSafeRequestValue(Request, "fatheropenid", "").Trim());
 
         refUrl = Server.UrlDecode(Util.GetSafeRequestValue(Request, "refurl", "/pages/ski_pass_product_list.aspx"));
 
