@@ -665,6 +665,11 @@ public class Util
             {
                 mchId = "eA8qkhmq2M";
             }
+            if (order.Type.Trim().Equals("打赏"))
+            {
+                mchId = "eA8qkhmq2M";
+            }
+
         }
         if (order._fields["shop"].ToString().Trim().Equals("南山"))
         {
@@ -673,6 +678,10 @@ public class Util
                 mchId = "rGrVYFadKD";
             }
             if (order.Type.Trim().Equals("店销"))
+            {
+                mchId = "DdAjZF6rrY";
+            }
+            if (order.Type.Trim().Equals("打赏"))
             {
                 mchId = "DdAjZF6rrY";
             }
@@ -687,6 +696,10 @@ public class Util
             {
                 mchId = "wQ2V3sMj71";
             }
+            if (order.Type.Trim().Equals("打赏"))
+            {
+                mchId = "wQ2V3sMj71";
+            }
         }
         if (order._fields["shop"].ToString().Trim().Equals("万龙"))
         {
@@ -697,6 +710,10 @@ public class Util
             if (order.Type.Trim().Equals("店销"))
             {
                 mchId = "g6VB7srLmY";
+            }
+            if (order.Type.Trim().Equals("打赏"))
+            {
+                mchId = "wQ2V3sMj71";
             }
         }
 
