@@ -8,12 +8,13 @@
     {
         int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "93"));
         OnlineOrder order = new OnlineOrder(orderId);
+        string mchid = Util.GetMchId(order);
 
         string paymentDomain = System.Configuration.ConfigurationSettings.AppSettings["payment_haojin_domain_name"];
         string md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_key"];
         string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_code"];
         string code = Request["code"].Trim();
-        string jumpUrl = "https://" + paymentDomain + "/tool/v1/get_weixin_openid?code=" + code;
+        string jumpUrl = "https://" + paymentDomain + "/tool/v1/get_weixin_openid?code=" + code+"&mchid=" + mchid.Trim();
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(jumpUrl);
         req.Headers.Add("X-QF-APPCODE", appCode);
         req.Headers.Add("X-QF-SIGN", Util.GetHaojinMd5Sign("code=" + code, md5Key));
@@ -34,7 +35,7 @@
             + DateTime.Now.Minute.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
         string sub_openid = openId;
 
-        string mchid = Util.GetMchId(order);
+        
 
         order.UpdateMchId(mchid);
 
