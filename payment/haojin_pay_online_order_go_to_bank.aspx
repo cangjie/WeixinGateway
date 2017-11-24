@@ -9,7 +9,7 @@
         int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "93"));
         OnlineOrder order = new OnlineOrder(orderId);
         string mchid = Util.GetMchId(order);
-
+        order.UpdateMchId(mchid);
         string paymentDomain = System.Configuration.ConfigurationSettings.AppSettings["payment_haojin_domain_name"];
         string md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_key"];
         string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_code"];
@@ -37,7 +37,7 @@
 
 
 
-        order.UpdateMchId(mchid);
+        
 
         string goods_name = "易龙雪聚";
 
