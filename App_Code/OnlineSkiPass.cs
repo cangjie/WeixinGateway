@@ -75,7 +75,7 @@ public class OnlineSkiPass
             }
             catch
             {
-                return DateTime.Parse(DateTime.Parse(associateOnlineOrder._fields["crt"].ToString()).AddDays(1).ToShortDateString());
+                return DateTime.Parse(DateTime.Parse(associateOnlineOrder._fields["create_date"].ToString()).AddDays(1).ToShortDateString());
             }
             
         }
@@ -108,7 +108,7 @@ public class OnlineSkiPass
 
     public static OnlineSkiPass[] GetLastWeekOnlineSkiPass()
     {
-        DataTable dt = DBHelper.GetDataTable(" select code from order_online left join card on card_no = code where   card.type = '雪票' and code <> '' and code is not null   and pay_state = 1   and card.crt >= '" + DateTime.Now.AddDays(-30).ToShortDateString() + "' order by [id] desc ");
+        DataTable dt = DBHelper.GetDataTable(" select code from order_online left join card on card_no = code where   card.type = '雪票' and code <> '' and code is not null   and pay_state = 1   and card.create_date >= '" + DateTime.Now.AddDays(-30).ToShortDateString() + "' order by [id] desc ");
         OnlineSkiPass[] passArr = new OnlineSkiPass[dt.Rows.Count];
         for (int i = 0; i < passArr.Length; i++)
         {
