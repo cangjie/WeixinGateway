@@ -3,7 +3,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "205"));
         OnlineOrder order = new OnlineOrder(orderId);
         string appCodeConfig = "haojin_code";
         string md5KeyConfig = "haojin_key";

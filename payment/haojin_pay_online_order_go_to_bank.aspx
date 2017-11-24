@@ -6,14 +6,14 @@
     public string weixinPaymentJson = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "93"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "204"));
         OnlineOrder order = new OnlineOrder(orderId);
         string mchid = Util.GetMchId(order);
         order.UpdateMchId(mchid);
         string paymentDomain = System.Configuration.ConfigurationSettings.AppSettings["payment_haojin_domain_name"];
         string md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_key"];
         string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_code"];
-        string code = Request["code"].Trim();
+        string code = Util.GetSafeRequestValue(Request, "code", "081YvVAU1SsndV0yJPBU1ftKAU1YvVAa");//Request["code"].Trim();
         string jumpUrl = "https://" + paymentDomain + "/tool/v1/get_weixin_openid?code=" + code +"&mchid=" + mchid.Trim();
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(jumpUrl);
         req.Headers.Add("X-QF-APPCODE", appCode);
@@ -24,8 +24,16 @@
         sr.Close();
         res.Close();
         req.Abort();
-        string openId = Util.GetSimpleJsonValueByKey(str, "openid");
-
+        string openId = "";
+        try
+        {
+            openId = Util.GetSimpleJsonValueByKey(str, "openid");
+        }
+        catch
+        {
+            Response.Write(str);
+            Response.End();
+        }
         string txamt = (order.OrderPrice*100).ToString();
         string txcurrcd = "CNY";
         string pay_type = "800207";
@@ -37,7 +45,7 @@
 
 
 
-        
+
 
         string goods_name = "易龙雪聚";
 
