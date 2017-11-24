@@ -36,7 +36,7 @@
             Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
 
 
-        string resort = Util.GetSafeRequestValue(Request, "resort", "");
+        string resort = Util.GetSafeRequestValue(Request, "resort", "nanshan");
         if (!resort.Trim().Equals(""))
         {
             currentResort = resort;
