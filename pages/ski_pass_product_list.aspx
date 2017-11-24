@@ -371,7 +371,7 @@
         }
 
         function select_rent() {
-            var rent_box = document.getElementById("rent");
+            var rent_box = document.getElementById("rent_box");
             if (rent_box.checked) {
                 current_rent = true;
             }
@@ -529,7 +529,7 @@
                             </span>
                         </div>
 			            <br/>
-                        <div id="rent" ><input type="checkbox" id="rent" onclick="select_rent()" />我要租板</div>
+                        <div id="rent" ><input type="checkbox" id="rent_box" onclick="select_rent()" />我要租板</div>
                         <div id="summary" >小计：</div>
                     </div>
                     <div class="modal-footer" ><button type="button" class="btn btn-default" onclick="book_ski_pass()"> 确 认 预 定 </button></div>
