@@ -56,7 +56,7 @@
             <td><%=pass.associateOnlineOrderDetail.count.ToString() %></td>
             <td><%=(pass.used? "已验":"未验") %></td>
             <td><%=(pass.used? pass.useDate.ToString() : "---") %></td>
-            <td><%=pass.associateOnlineOrder._fields["crt"].ToString() %></td>
+            <td><%=pass.associateOnlineOrder._fields["create_date"].ToString() %></td>
         </tr>
                     <%
             }
