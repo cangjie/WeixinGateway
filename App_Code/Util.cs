@@ -659,7 +659,8 @@ public class Util
         {
             if (order.Type.Trim().Equals("雪票"))
             {
-                mchId = "wQ2V3sdZ95";
+                //mchId = "wQ2V3sdZ95";
+                mchId = "rGrVYFadKD";
             }
             if (order.Type.Trim().Equals("店销"))
             {
@@ -675,7 +676,8 @@ public class Util
         {
             if (order.Type.Trim().Equals("雪票"))
             {
-                mchId = "rGrVYFadKD";
+                //mchId = "rGrVYFadKD";
+                mchId = "wQ2V3sdZ95";
             }
             if (order.Type.Trim().Equals("店销"))
             {
