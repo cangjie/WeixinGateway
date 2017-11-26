@@ -37,6 +37,10 @@
         switch (shop)
         {
             case "南山":
+                productId = 15;
+                break;
+            case "八易":
+                productId = 16;
                 break;
             default:
                 productId = 12;
