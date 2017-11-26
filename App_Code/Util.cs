@@ -715,7 +715,7 @@ public class Util
             }
             if (order.Type.Trim().Equals("打赏"))
             {
-                mchId = "wQ2V3sMj71";
+                mchId = "g6VB7srLmY";
             }
         }
 
