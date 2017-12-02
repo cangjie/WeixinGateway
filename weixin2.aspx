@@ -79,7 +79,7 @@
             text = sqlDr["wxreceivemsg_content"].ToString().Trim();
         }
         sqlDr.Close();
-        cmd.CommandText = " update wxreceivemsg set wxreceivemsg_deal = 1 , wxreceivemsg_upd = getdate() where wxreceivemsg_id = @id  ";
+        cmd.CommandText = " update wxreceivemsg set wxreceivemsg_deal = 1 , wxreceivemsg_upd = dbo.GetLocalDate(DEFAULT) where wxreceivemsg_id = @id  ";
         cmd.ExecuteNonQuery();
         conn.Close();
         
@@ -116,7 +116,7 @@
             text = sqlDr["wxreceivemsg_content"].ToString().Trim();
         }
         sqlDr.Close();
-        cmd.CommandText = " update wxreceivemsg set wxreceivemsg_deal = 1 , wxreceivemsg_upd = getdate() where wxreceivemsg_id = @id  ";
+        cmd.CommandText = " update wxreceivemsg set wxreceivemsg_deal = 1 , wxreceivemsg_upd = dbo.GetLocalDate(DEFAULT) where wxreceivemsg_id = @id  ";
         cmd.ExecuteNonQuery();
         conn.Close();
 
@@ -405,7 +405,7 @@
         
         if (i == 1)
         {
-            cmd.CommandText = " update wxreceivemsg set wxreceivemsg_isreply = 1 , wxreceivemsg_upd = getdate() where wxreceivemsg_id = @id ";
+            cmd.CommandText = " update wxreceivemsg set wxreceivemsg_isreply = 1 , wxreceivemsg_upd = dbo.GetLocalDate(DEFAULT) where wxreceivemsg_id = @id ";
             cmd.ExecuteNonQuery();
             cmd.CommandText = " select top 1 wxreplymsg_id from wxreplymsg where wxreplymsg_rootid = @id and wxreplymsg_isservice = 0 order by wxreplymsg_id desc ";
             sqlDr = cmd.ExecuteReader();

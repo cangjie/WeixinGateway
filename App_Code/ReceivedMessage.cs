@@ -335,7 +335,7 @@ public class ReceivedMessage
             + " wxreceivemsg_recognition = '" + receivedMessage.recognition.Trim().Replace("'", "") + "'  , "
             + " wxreceivemsg_isreply = '" + (receivedMessage.hasReplied ? "1" : "0") + "'  , "
             + " wxreceivemsg_deal = '" + (receivedMessage.hasDealed ? "1" : "0") + "'  , "
-            + " wxreceivemsg_upd = getdate()   "
+            + " wxreceivemsg_upd = dbo.GetLocalDate(DEFAULT)   "
             + " where  wxreceivemsg_id = '" + receivedMessage.id.Trim().Replace("'", "") + "'   ";
         SqlConnection conn = new SqlConnection(Util.conStr.Trim());
         SqlCommand cmd = new SqlCommand(sqlStr, conn);

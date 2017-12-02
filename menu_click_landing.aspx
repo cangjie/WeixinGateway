@@ -43,7 +43,7 @@
         if (!openId.Equals(""))
         {
             SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim());
-            SqlCommand cmd = new SqlCommand(" update WxLoginRequest set WxLoginRequest_deal = 1, WxLoginRequest_upd = getdate() where WxLoginRequest_openid = '" + openId.Trim()+"'", conn);
+            SqlCommand cmd = new SqlCommand(" update WxLoginRequest set WxLoginRequest_deal = 1, WxLoginRequest_upd = dbo.GetLocalDate(DEFAULT) where WxLoginRequest_openid = '" + openId.Trim()+"'", conn);
             conn.Open();
             cmd.ExecuteNonQuery();
             conn.Close();

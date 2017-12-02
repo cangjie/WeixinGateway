@@ -271,7 +271,7 @@ public class WeixinUser : ObjectHelper
 
     public static string CheckToken(string token)
     {
-        DataTable dt = DBHelper.GetDataTable(" select * from m_token where expire > getdate() and isvalid = 1 and token = '" + token.Trim().Replace("'", "").Trim() + "'  ");
+        DataTable dt = DBHelper.GetDataTable(" select * from m_token where expire > dbo.GetLocalDate(DEFAULT) and isvalid = 1 and token = '" + token.Trim().Replace("'", "").Trim() + "'  ");
         string ret = "";
         if (dt.Rows.Count > 0)
             ret = dt.Rows[0]["open_id"].ToString().Trim();
@@ -302,7 +302,7 @@ public class WeixinUser : ObjectHelper
     public static string GetOpenIdByToken(string token)
     { 
        DataTable dt = DBHelper.GetDataTable(" select * from tokens where token = '" 
-        + token.Replace("'","").Trim() + "'  and expire_date <= getdate() and valid = 1 order by crt desc ", 
+        + token.Replace("'","").Trim() + "'  and expire_date <= dbo.GetLocalDate(DEFAULT) and valid = 1 order by crt desc ", 
         new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[0]);
 
         //bool ret = false;
