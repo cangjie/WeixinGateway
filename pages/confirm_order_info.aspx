@@ -16,7 +16,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        orderTemp = new OrderTemp(int.Parse(Util.GetSafeRequestValue(Request, "id", "35")));
+        orderTemp = new OrderTemp(int.Parse(Util.GetSafeRequestValue(Request, "id", "180")));
 
 
         string currentPageUrl = Server.UrlEncode("/pages/confirm_order_info.aspx?id=" + orderTemp._fields["id"].ToString().Trim());
