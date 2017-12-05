@@ -82,8 +82,8 @@
         string postData = "txamt=" + txamt + "&txcurrcd=" + txcurrcd + "&pay_type=" + pay_type + "&out_trade_no=" + out_trade_no
             + "&txdtm=" + txdtm + "&sub_openid=" + sub_openid + "&goods_name=" + goods_name.Replace(" ", "") +"&mchid=" + mchid.Trim();
 
-        jumpUrl = "https://" + paymentDomain + "/trade/v1/payment";
-        req = (HttpWebRequest)WebRequest.Create(jumpUrl);
+        string jumpUrl = "https://" + paymentDomain + "/trade/v1/payment";
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(jumpUrl);
         req.Method = "POST";
         req.ContentType = "application/x-www-form-urlencoded";
         req.Headers.Add("X-QF-APPCODE", appCode);
@@ -93,9 +93,9 @@
         StreamWriter sw = new StreamWriter(requestStream);
         sw.Write(postData);
         sw.Close();
-        res = (HttpWebResponse)req.GetResponse();
-        sr = new StreamReader(res.GetResponseStream());
-        str = sr.ReadToEnd();
+        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        StreamReader sr = new StreamReader(res.GetResponseStream());
+        string str = sr.ReadToEnd();
         sr.Close();
         res.Close();
         req.Abort();
