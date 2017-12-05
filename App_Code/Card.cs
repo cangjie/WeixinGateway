@@ -78,7 +78,40 @@ public class Card
             no = Ticket.GetRandomString(digit);
         }
         string[,] insertParam = { { "card_no", "varchar", no.Trim()}, { "batch_id", "int", batchId.ToString()} };
-        int i = DBHelper.InsertData("card", insertParam);
+        int i = 0;
+        try
+        {
+            i = DBHelper.InsertData("card", insertParam);
+        }
+        catch
+        {
+
+        }
+        if (i == 1)
+            return no;
+        else
+            return "";
+    }
+
+    public static string GenerateCardNoWithPassword(int digit, int batchId, int passwordDigit, string cardType)
+    {
+        string no = Ticket.GetRandomString(digit);
+        for (; ExsitsCardNo(no);)
+        {
+            no = Ticket.GetRandomString(digit);
+        }
+        string password = Ticket.GetRandomString(passwordDigit);
+        string[,] insertParam = { { "card_no", "varchar", no.Trim() }, { "batch_id", "int", batchId.ToString() }, 
+            {"password", "varchar", password.Trim() }, {"type", "varchar", cardType.Trim() } };
+        int i = 0;
+        try
+        {
+            i = DBHelper.InsertData("card", insertParam);
+        }
+        catch(Exception err)
+        {
+            Console.WriteLine(err.ToString());
+        }
         if (i == 1)
             return no;
         else

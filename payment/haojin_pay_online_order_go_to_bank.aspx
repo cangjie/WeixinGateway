@@ -6,6 +6,10 @@
     public string weixinPaymentJson = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+        Response.Write(Session["user_token"].ToString().Trim());
+        Response.End();
+
+
         int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "204"));
         OnlineOrder order = new OnlineOrder(orderId);
         string mchid = Util.GetMchId(order);
