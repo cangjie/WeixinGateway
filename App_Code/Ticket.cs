@@ -73,7 +73,7 @@ public class Ticket
     {
         get
         {
-            return new WeixinUser(_fields["user_open_id"].ToString().Trim());
+            return new WeixinUser(_fields["open_id"].ToString().Trim());
         }
     }
 
