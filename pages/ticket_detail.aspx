@@ -118,7 +118,7 @@
 
 
     function render_page() {
-        shareUrl = '<%=Request.Url.Authority.Trim() %>/pages/ticket_transfer.aspx?code=<%=ticket.Code.Trim()%>&fatheropenid=<%=openId.Trim()%>';
+        shareUrl = 'http://<%=Request.Url.Authority.Trim() %>/pages/ticket_transfer.aspx?code=<%=ticket.Code.Trim()%>&fatheropenid=<%=openId.Trim()%>';
         title = '易龙雪聚测试券';
         imgUrl = 'https://mmbiz.qlogo.cn/mmbiz_jpg/pibCAzzGRCmPEQ0Zgvf2K7evvuY23Stw2lQ99EiaOoSzsiaJicFGXNpIq7eUHssUlibnGrNDBSFzNCOu9EDj3Fzicvzg/0?wx_fmt=jpeg';
 
