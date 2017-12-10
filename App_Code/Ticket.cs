@@ -249,7 +249,7 @@ public class Ticket
 
     public static Ticket[] GetUserAllTickets(string openId)
     {
-        DataTable dt = DBHelper.GetDataTable(" select * from ticket where user_open_id = '" + openId + "'  order by expire_date ");
+        DataTable dt = DBHelper.GetDataTable(" select * from ticket where user_open_id = '" + openId + "'  order by create_date ");
         Ticket[] ticketArray = new Ticket[dt.Rows.Count];
         for (int i = 0; i < ticketArray.Length; i++)
         {
@@ -261,9 +261,9 @@ public class Ticket
 
     public static Ticket[] GetUserTickets(string openId, bool isUsed)
     {
-        DataTable dt = DBHelper.GetDataTable(" select * from ticket where user_open_id = '" + openId + "' "
+        DataTable dt = DBHelper.GetDataTable(" select * from ticket where open_id = '" + openId + "' "
             + " and " + (isUsed?" used = 1 ":" used = 0 ")
-            + "  order by expire_date ");
+            + "  order by create_date  ");
         Ticket[] ticketArray = new Ticket[dt.Rows.Count];
         for (int i = 0; i < ticketArray.Length; i++)
         {
