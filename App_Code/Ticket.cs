@@ -89,7 +89,7 @@ public class Ticket
     {
         get
         {
-            return DateTime.MaxValue;// DateTime.Parse(_fields["expire_date"].ToString());
+            return DateTime.Parse(_fields["expire_date"].ToString());
         }
     }
 
