@@ -58,7 +58,7 @@ public class Ticket
         {
             return false;
         }
-       
+
     }
 
     public string Code
@@ -99,6 +99,12 @@ public class Ticket
         {
             return _fields["used"].ToString().Equals("1");
         }
+    }
+
+    public static int Share(string code, int type)
+    {
+        return DBHelper.UpdateData("ticket", new string[,] { { "shared", "int", type.ToString() }, { "shared_time", "datetime", DateTime.Now.ToString() } },
+            new string[,] { { "code", "varchar", code.Trim() } }, Util.conStr.Trim());
     }
 
     public static TicketTemplate GetTicketTemplate(int templateId)

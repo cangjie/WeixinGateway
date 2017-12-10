@@ -17,6 +17,9 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
+
+
         string currentPageUrl = Request.Url.LocalPath.Trim().ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
