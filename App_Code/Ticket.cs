@@ -81,7 +81,7 @@ public class Ticket
     {
         get
         {
-            return double.Parse(_fields["amount"].ToString());
+            return 0;// double.Parse(_fields["amount"].ToString());
         }
     }
 
