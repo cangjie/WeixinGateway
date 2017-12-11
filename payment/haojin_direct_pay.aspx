@@ -7,6 +7,11 @@
     public string weixinPaymentJson = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+
+
+
+
+
         string shop = Util.GetSafeRequestValue(Request, "shop", "南山");
         string type = Util.GetSafeRequestValue(Request, "type", "雪票");
 
@@ -100,7 +105,7 @@
         string txamt = amnt.ToString();
         string txcurrcd = "CNY";
         string pay_type = "800207";
-        string out_trade_no = txamt;
+        string out_trade_no = Util.GetTimeStamp() + "0" + txamt.PadLeft(2,'0');
         string txdtm = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "-"
             + DateTime.Now.Day.ToString().PadLeft(2,'0') + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":"
             + DateTime.Now.Minute.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
