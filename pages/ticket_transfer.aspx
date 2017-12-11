@@ -26,10 +26,25 @@
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
-        currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+        //currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
-        if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
-            Response.Redirect("register_cell_number.aspx?fatheropenid=" + fatherOpenId.Trim() + "&refurl=" + Server.UrlEncode(currentPageUrl), true);
+        //string openId = WeixinUser.CheckToken(userToken);
+
+        bool followed = true;
+
+        try
+        {
+            currentUser = new WeixinUser(openId);
+        }
+        catch
+        {
+            followed = false;
+        }
+
+        if (!followed || currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
+        {
+            Response.Redirect("register_cell_number.aspx?fatheropenid=" + fatherOpenId.Trim() + "&refurl=" + Server.UrlEncode(currentPageUrl) + (!followed? "&unfollow=1": ""), true);
+        }
 
     }
 </script>
