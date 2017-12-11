@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#"%>
-
+<%@ Import Namespace="System.Data" %>
 <!DOCTYPE html>
 
 <script runat="server">
@@ -46,31 +46,42 @@
         {
             followed = false;
         }
-        if (!followed || currentUser.VipLevel == 0)
-        {
 
-            string userInfoJson = Util.GetWebContent("http://" + Util.domainName.Trim() + "/get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
-            headImage = Util.GetSimpleJsonValueByKey(userInfoJson, "headimgurl");
-            nick = Util.GetSimpleJsonValueByKey(userInfoJson, "nickname");
-            string fatherOpenId = currentUser.FatherOpenId.Trim();
-            if (fatherOpenId.Trim().Equals(""))
+
+        if (followed)
+        {
+            if (currentUser.VipLevel == 0)
             {
-                fatherOpenId = currentUser.LastScanedOpenId;
+                string userInfoJson = Util.GetWebContent("http://" + Util.domainName.Trim() + "/get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
+                headImage = Util.GetSimpleJsonValueByKey(userInfoJson, "headimgurl");
+                nick = Util.GetSimpleJsonValueByKey(userInfoJson, "nickname");
+                string fatherOpenId = currentUser.FatherOpenId.Trim();
                 if (fatherOpenId.Trim().Equals(""))
                 {
-                    fatherOpenId = Util.GetSafeRequestValue(Request, "fatheropenid", "");
+                    fatherOpenId = currentUser.LastScanedOpenId;
+                    if (fatherOpenId.Trim().Equals(""))
+                    {
+                        fatherOpenId = Util.GetSafeRequestValue(Request, "fatheropenid", "");
+                    }
+                }
+                if (!fatherOpenId.Trim().Equals(""))
+                {
+                    WeixinUser fatherUser = new WeixinUser(fatherOpenId);
+                    fatherCellNumber = fatherUser.CellNumber.Trim();
                 }
             }
-            if (!fatherOpenId.Trim().Equals(""))
+            else
             {
-                WeixinUser fatherUser = new WeixinUser(fatherOpenId);
-                fatherCellNumber = fatherUser.CellNumber.Trim();
+                Response.Redirect(refUrl, true);
             }
         }
         else
         {
-            Response.Redirect(refUrl, true);
+            Response.Write(openId.Trim());
         }
+
+
+       
 
     }
 </script>
