@@ -36,9 +36,17 @@
 
         refUrl = Util.GetSafeRequestValue(Request, "refurl", refUrl);
 
-        currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+        bool followed = true;
 
-        if (currentUser.VipLevel == 0)
+        try
+        {
+            currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+        }
+        catch
+        {
+            followed = false;
+        }
+        if (!followed || currentUser.VipLevel == 0)
         {
 
             string userInfoJson = Util.GetWebContent("http://" + Util.domainName.Trim() + "/get_user_info.aspx?openid=" + openId.Trim(), "GET", "", "text/html");
