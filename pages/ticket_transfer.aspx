@@ -46,6 +46,12 @@
             Response.Redirect("register_cell_number.aspx?fatheropenid=" + fatherOpenId.Trim() + "&refurl=" + Server.UrlEncode(currentPageUrl) + (!followed? "&unfollow=1": ""), true);
         }
 
+        Ticket ticket = new Ticket(code.Trim());
+
+        if (!ticket.Owner.OpenId.Trim().Equals(fatherOpenId.Trim()) && !ticket._fields["shared"].ToString().Equals("1"))
+        {
+            Response.End();
+        }
     }
 </script>
 
@@ -56,7 +62,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
+        <img src="../show_qrcode.aspx?sceneid=3<%=ticket.Code %>" style="width:200px; text-align:center"  />
     </div>
     </form>
 </body>
