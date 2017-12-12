@@ -114,7 +114,13 @@
         alert("error");
     });
 
-
+    function share(code) {
+        $.ajax({
+            url: "/api/share_ticket.aspx?code=<%=ticket.Code.Trim()%>&token=<%=Session["user_token"].ToString().Trim()%>",
+            method: "GET",
+            async: false
+        });
+    }
 
 
     function render_page() {
@@ -131,7 +137,10 @@
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function () {
                 // 用户确认分享后执行的回调函数
-                alert("share");
+
+                share("<%=ticket.Code.Trim()%>");
+
+                alert("shared");
             },
             cancel: function () {
                 // 用户取消分享后执行的回调函数
