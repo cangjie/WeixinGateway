@@ -62,7 +62,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <img src="../show_qrcode.aspx?sceneid=3<%=ticket.Code %>" style="width:200px; text-align:center"  />
+        <img src="../show_qrcode.aspx?sceneid=3<%=code%>" style="width:200px; text-align:center"  />
     </div>
     </form>
 </body>
