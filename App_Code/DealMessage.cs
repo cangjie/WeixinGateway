@@ -196,47 +196,48 @@ public class DealMessage
                 string eventKey = receivedMessage.eventKey.Replace("qrscene_", "").Trim();
                 if (eventKey.Length == 10)
                 {
-                    if (int.Parse(eventKey.Substring(0, 2)) > 13)
+                    if (int.Parse(eventKey.Substring(0, 2)) > 13 && eventKey.StartsWith("1"))
                     {
                         repliedMessage = ScanDeviceQrCode(receivedMessage);
                     }
-
-                    if (eventKey.StartsWith("4294"))
+                    else
                     {
-                        repliedMessage = GenerateChargeMessage(receivedMessage);
-                    }
-                    if (eventKey.StartsWith("4293"))
-                    {
-                        repliedMessage = ExchangHandRing(receivedMessage);
-                    }
-                    if (eventKey.StartsWith("3"))
-                    {
-                        string ticketCode = receivedMessage.eventKey.Substring(1, 9);
-                        Card card = new Card(ticketCode);
-                        switch (card._fields["type"].ToString().Trim())
+                        if (eventKey.StartsWith("4294"))
                         {
-                            case "雪票":
-                               
-                                break;
-                            default:
-                                Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
-                                WeixinUser currentUser = new WeixinUser(receivedMessage.from.Trim());
-                                if (currentUser.VipLevel == 0 && currentUser.FatherOpenId.Trim().Equals(""))
-                                {
-                                    currentUser.FatherOpenId = ticket.Owner.OpenId.Trim();
-                                }
-                                WeixinUser fatherUser = ticket.Owner;
-                                bool ret = ticket.Transfer(receivedMessage.from.Trim());
-                                if (ret)
-                                {
-                                    repliedMessage.type = "text";
-                                    repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
-                                }
-                                
-                                break;
+                            repliedMessage = GenerateChargeMessage(receivedMessage);
+                        }
+                        if (eventKey.StartsWith("4293"))
+                        {
+                            repliedMessage = ExchangHandRing(receivedMessage);
+                        }
+                        if (eventKey.StartsWith("3"))
+                        {
+                            string ticketCode = receivedMessage.eventKey.Substring(1, 9);
+                            Card card = new Card(ticketCode);
+                            switch (card._fields["type"].ToString().Trim())
+                            {
+                                case "雪票":
+
+                                    break;
+                                default:
+                                    Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
+                                    WeixinUser currentUser = new WeixinUser(receivedMessage.from.Trim());
+                                    if (currentUser.VipLevel == 0 && currentUser.FatherOpenId.Trim().Equals(""))
+                                    {
+                                        currentUser.FatherOpenId = ticket.Owner.OpenId.Trim();
+                                    }
+                                    WeixinUser fatherUser = ticket.Owner;
+                                    bool ret = ticket.Transfer(receivedMessage.from.Trim());
+                                    if (ret)
+                                    {
+                                        repliedMessage.type = "text";
+                                        repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
+                                    }
+
+                                    break;
+                            }
                         }
                     }
-
                 }
                 else
                 {
