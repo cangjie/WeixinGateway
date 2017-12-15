@@ -49,6 +49,7 @@
             */
         if (!currentUser.OpenId.Trim().Equals(ticket.Owner.OpenId))
         {
+            Response.Write("error");
             Response.End();
         }
 
