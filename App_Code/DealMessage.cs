@@ -165,7 +165,8 @@ public class DealMessage
                         }
                         catch
                         {
-
+                            repliedMessage.type = "text";
+                            repliedMessage.content = "精彩活动，正在路上";
                         }
                     }
 
