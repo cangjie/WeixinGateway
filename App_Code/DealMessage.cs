@@ -149,7 +149,7 @@ public class DealMessage
                                     }
                                     break;
                                 default:
-                                    Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
+                                    Ticket ticket = new Ticket(ticketCode.Trim());
                                     WeixinUser fatherUser = ticket.Owner;
                                     bool ret = ticket.Transfer(receivedMessage.from.Trim());
                                     if (ret)
@@ -215,7 +215,7 @@ public class DealMessage
                         }
                         if (eventKey.StartsWith("3"))
                         {
-                            string ticketCode = receivedMessage.eventKey.Substring(1, 9);
+                            string ticketCode = eventKey.Substring(1, 9);
                             Card card = new Card(ticketCode);
                             switch (card._fields["type"].ToString().Trim())
                             {
@@ -224,7 +224,7 @@ public class DealMessage
                                     break;
                                 default:
                                     
-                                    Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
+                                    Ticket ticket = new Ticket(ticketCode.Trim());
                                     WeixinUser currentUser = new WeixinUser(receivedMessage.from.Trim());
                                     if (currentUser.VipLevel == 0 && currentUser.FatherOpenId.Trim().Equals(""))
                                     {
@@ -236,8 +236,9 @@ public class DealMessage
                                     bool ret = ticket.Transfer(receivedMessage.from.Trim());
                                     if (ret)
                                     {
-                                        
-                                        
+
+                                        repliedMessage.type = "text";
+                                        repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
                                     }
 
                                     break;

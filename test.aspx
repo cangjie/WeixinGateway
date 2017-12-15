@@ -8,10 +8,12 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Ticket t = new Ticket("345678923");
+        //Ticket t = new Ticket("345678923");
         //t.IsSharing = true;
-        t.Transfer("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
+        //t.Transfer("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
 
+        ReceivedMessage rec = new ReceivedMessage("event_20171215170518698");
+        DealMessage.DealEventMessage(rec);
 
         /*
         string no = "";
