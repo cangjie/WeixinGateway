@@ -194,6 +194,8 @@ public class DealMessage
                 break;
             case "SUBSCRIBE":
                 string eventKey = receivedMessage.eventKey.Replace("qrscene_", "").Trim();
+                repliedMessage.type = "text";
+                repliedMessage.content = eventKey.Trim();
                 if (eventKey.Length == 10)
                 {
                     if (int.Parse(eventKey.Substring(0, 2)) > 13 && eventKey.StartsWith("1"))
@@ -220,7 +222,7 @@ public class DealMessage
 
                                     break;
                                 default:
-                                    repliedMessage.type = "text";
+                                    
                                     Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
                                     WeixinUser currentUser = new WeixinUser(receivedMessage.from.Trim());
                                     if (currentUser.VipLevel == 0 && currentUser.FatherOpenId.Trim().Equals(""))
