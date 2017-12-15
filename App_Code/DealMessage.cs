@@ -220,6 +220,7 @@ public class DealMessage
 
                                     break;
                                 default:
+                                    repliedMessage.type = "text";
                                     Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
                                     WeixinUser currentUser = new WeixinUser(receivedMessage.from.Trim());
                                     if (currentUser.VipLevel == 0 && currentUser.FatherOpenId.Trim().Equals(""))
@@ -227,11 +228,13 @@ public class DealMessage
                                         currentUser.FatherOpenId = ticket.Owner.OpenId.Trim();
                                     }
                                     WeixinUser fatherUser = ticket.Owner;
+                                    repliedMessage.content = eventKey.Trim();
+                                    //repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
                                     bool ret = ticket.Transfer(receivedMessage.from.Trim());
                                     if (ret)
                                     {
-                                        repliedMessage.type = "text";
-                                        repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
+                                        
+                                        
                                     }
 
                                     break;

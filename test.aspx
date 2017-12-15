@@ -8,9 +8,9 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Ticket t = new Ticket("345678924");
-        t.IsSharing = true;
-        //t.Transfer("aaa");
+        Ticket t = new Ticket("345678923");
+        //t.IsSharing = true;
+        t.Transfer("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
 
 
         /*
