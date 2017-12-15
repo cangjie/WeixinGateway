@@ -207,8 +207,15 @@ public class DealMessage
                         switch (card._fields["type"].ToString().Trim())
                         {
                             case "内购券":
+                                Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
+                                if (ticket._fields["shared"].ToString().Equals("1"))
+                                {
 
+                                }
+                                else
+                                {
 
+                                }
                                 break;
                             default:
                                 break;

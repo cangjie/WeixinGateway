@@ -8,6 +8,12 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+        Ticket t = new Ticket("345678924");
+        t.IsSharing = true;
+        //t.Transfer("aaa");
+
+
+        /*
         string no = "";
         for (int i = 0; i < 500; i++)
         {
@@ -15,6 +21,7 @@
             if (no.Trim().Equals(""))
                 i--;
         }
+        */
         //OrderTemp orderTemp = new OrderTemp(25);
         //orderTemp.PlaceOnlineOrder("oZBHkjhdFpC5ScK5FUU7HKXE3PJM");
     }

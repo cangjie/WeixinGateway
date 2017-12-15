@@ -76,8 +76,10 @@
                     <%=ticket._fields["memo"].ToString().Trim() %>
                 <br />
                 <div style="text-align:center" >
-                    <img src="../show_qrcode.aspx?sceneid=3<%=ticket.Code %>" style="width:200px; text-align:center"  />
+
+                    <img src="images/ticket.jpg"  id="ticket_img" onclick="show_ticket_qrcode('<%=ticket.Code.Trim() %>')"  style="width:200px; text-align:center"  />
                     <br />
+                    <a href="#"  onclick="show_ticket_qrcode('<%=ticket.Code.Trim() %>')" >当面分享</a>
                     <b style="text-align:center" ><%=ticket.Code.Substring(0,3) %>-<%=ticket.Code.Substring(3,3) %>-<%=ticket.Code.Substring(6,3) %></b>
                 </div>
             </div>
@@ -94,6 +96,13 @@
     var title = '';
     
     var imgUrl = '';
+
+    var qrCodeUrl = '../show_qrcode.aspx?sceneid=2<%=ticket.Code %>';
+
+    function show_ticket_qrcode(code) {
+        share(code);
+        document.getElementById("ticket_img").src = qrCodeUrl;
+    }
 
      wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。

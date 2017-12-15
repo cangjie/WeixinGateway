@@ -61,12 +61,59 @@ public class Ticket
 
     }
 
+    public bool Transfer(string openId)
+    {
+        if (Owner.OpenId.Trim().Equals(openId.Trim()) || !_fields["shared"].ToString().Equals("1"))
+        {
+            return false;
+        }
+        else
+        {
+            int i = DBHelper.InsertData("ticket_log",
+                new string[,] { {"code", "varchar", _fields["code"].ToString() }, { "sender_open_id", "varchar", Owner.OpenId.Trim() },
+                { "accepter_open_id", "varchar", openId.Trim() }, {"transact_time", "datetime", DateTime.Now.ToString() } });
+            if (i == 1)
+            {
+                i = DBHelper.UpdateData("ticket", new string[,] { { "open_id", "varchar", openId.Trim() }, { "shared", "int", "0" } },
+                    new string[,] { { "code", "varchar", _fields["code"].ToString().Trim() } }, Util.conStr);
+                if (i == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
     public string Code
     {
         get
         {
             return _fields["code"].ToString();
         }
+    }
+
+    public bool IsSharing
+    {
+        get
+        {
+            return _fields["shared"].ToString().Equals("1") ? true : false;
+        }
+        set
+        {
+            int share = value ? 1 : 0;
+            DBHelper.UpdateData("ticket", new string[,] { { "shared", "int", share.ToString() }, { "shared_time", "datetime", DateTime.Now.ToString() } },
+                new string[,] { { "code", "varchar", _fields["code"].ToString().Trim() } }, Util.conStr.Trim());
+        }
+
+        
     }
 
     public WeixinUser Owner
