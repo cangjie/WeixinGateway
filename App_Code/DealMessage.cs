@@ -150,7 +150,7 @@ public class DealMessage
                                     break;
                                 default:
                                     Ticket ticket = new Ticket(ticketCode.Trim());
-                                    WeixinUser fatherUser = ticket.Owner;
+                                    WeixinUser fatherUser = new WeixinUser(ticket.Owner.OpenId.Trim());
                                     bool ret = ticket.Transfer(receivedMessage.from.Trim());
                                     if (ret)
                                     {
@@ -224,18 +224,19 @@ public class DealMessage
                                 default:
                                     
                                     Ticket ticket = new Ticket(ticketCode.Trim());
+                                    string fatherOpenId = ticket.Owner.OpenId.Trim();
+                                    WeixinUser fatherUser = new WeixinUser(fatherOpenId);
                                     WeixinUser currentUser = new WeixinUser(receivedMessage.from.Trim());
                                     if (currentUser.VipLevel == 0 && currentUser.FatherOpenId.Trim().Equals(""))
                                     {
-                                        currentUser.FatherOpenId = ticket.Owner.OpenId.Trim();
+                                        currentUser.FatherOpenId = fatherOpenId.Trim();
                                     }
-                                    WeixinUser fatherUser = ticket.Owner;
+                                    
                                     repliedMessage.content = eventKey.Trim();
                                     //repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
                                     bool ret = ticket.Transfer(receivedMessage.from.Trim());
                                     if (ret)
                                     {
-
                                         repliedMessage.type = "text";
                                         repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
                                     }
