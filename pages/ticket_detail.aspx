@@ -90,7 +90,7 @@
                     <img src="images/ticket.jpg"  id="ticket_img" onclick="show_ticket_qrcode('<%=ticket.Code.Trim() %>')"  style="width:200px; text-align:center"  />
                     <br />
                     <a href="#"  onclick="show_ticket_qrcode('<%=ticket.Code.Trim() %>')" >当面分享</a>
-                    <b style="text-align:center" ><%=ticket.Code.Substring(0,3) %>-<%=ticket.Code.Substring(3,3) %>-<%=ticket.Code.Substring(6,3) %></b>
+                    <br /><b style="text-align:center" ><%=ticket.Code.Substring(0,3) %>-<%=ticket.Code.Substring(3,3) %>-<%=ticket.Code.Substring(6,3) %></b>
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@
     
     var imgUrl = '';
 
-    var qrCodeUrl = '../show_qrcode.aspx?sceneid=2<%=ticket.Code %>';
+    var qrCodeUrl = '../show_qrcode.aspx?sceneid=3<%=ticket.Code %>';
 
     function show_ticket_qrcode(code) {
         share(code);

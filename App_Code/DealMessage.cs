@@ -104,7 +104,7 @@ public class DealMessage
             case "SCAN":
                 if (receivedMessage.eventKey.Length == 10)
                 {
-                    if (receivedMessage.eventKey.Trim().StartsWith("3") && user.IsAdmin)
+                    if (receivedMessage.eventKey.Trim().StartsWith("3"))
                     {
                         try
                         {
@@ -114,41 +114,50 @@ public class DealMessage
                             RepliedMessage.news content = new RepliedMessage.news();
                             switch (card._fields["type"].ToString().Trim())
                             {
-                                case "内购券":
-
-
-                                    break;
+    
                                 case "雪票":
-                                    if (card.Used)
+                                    if (user.IsAdmin)
                                     {
-                                        repliedMessage.type = "text";
-                                        repliedMessage.content = card._fields["type"].ToString() + ":"
-                                            + ticketCode.Trim() + "已经使用，点击<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/card_confirm_finish.aspx?code=" + ticketCode.Trim() + "\" >这里</a>查看详情";
-
-                                    }
-                                    else
-                                    {
-                                        if (card._fields["type"].ToString().Equals("雪票"))
+                                        if (card.Used)
                                         {
-                                            content.title = "确认雪票-" + ticketCode;
-                                            content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                                            content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
-                                            content.description = "";
+                                            repliedMessage.type = "text";
+                                            repliedMessage.content = card._fields["type"].ToString() + ":"
+                                                + ticketCode.Trim() + "已经使用，点击<a href=\"http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/card_confirm_finish.aspx?code=" + ticketCode.Trim() + "\" >这里</a>查看详情";
+
                                         }
                                         else
                                         {
-                                            content.title = "确认消费抵用券-" + ticketCode;
-                                            content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                                            content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
-                                            content.description = "";
+                                            if (card._fields["type"].ToString().Equals("雪票"))
+                                            {
+                                                content.title = "确认雪票-" + ticketCode;
+                                                content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
+                                                content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
+                                                content.description = "";
+                                            }
+                                            else
+                                            {
+                                                content.title = "确认消费抵用券-" + ticketCode;
+                                                content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
+                                                content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
+                                                content.description = "";
+                                            }
+
+
+                                            repliedMessage.newsContent = new RepliedMessage.news[] { content };
+
                                         }
-
-
-                                        repliedMessage.newsContent = new RepliedMessage.news[] { content };
-
                                     }
                                     break;
                                 default:
+                                    Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
+                                    WeixinUser fatherUser = ticket.Owner;
+                                    bool ret = ticket.Transfer(receivedMessage.from.Trim());
+                                    if (ret)
+                                    {
+                                        repliedMessage.type = "text";
+                                        repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
+                                    }
+
                                     break;
                             }
                             
@@ -206,18 +215,24 @@ public class DealMessage
                         Card card = new Card(ticketCode);
                         switch (card._fields["type"].ToString().Trim())
                         {
-                            case "内购券":
-                                Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
-                                if (ticket._fields["shared"].ToString().Equals("1"))
-                                {
-
-                                }
-                                else
-                                {
-
-                                }
+                            case "雪票":
+                               
                                 break;
                             default:
+                                Ticket ticket = new Ticket(card._fields["code"].ToString().Trim());
+                                WeixinUser currentUser = new WeixinUser(receivedMessage.from.Trim());
+                                if (currentUser.VipLevel == 0 && currentUser.FatherOpenId.Trim().Equals(""))
+                                {
+                                    currentUser.FatherOpenId = ticket.Owner.OpenId.Trim();
+                                }
+                                WeixinUser fatherUser = ticket.Owner;
+                                bool ret = ticket.Transfer(receivedMessage.from.Trim());
+                                if (ret)
+                                {
+                                    repliedMessage.type = "text";
+                                    repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
+                                }
+                                
                                 break;
                         }
                     }

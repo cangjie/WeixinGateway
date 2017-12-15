@@ -92,6 +92,15 @@ public class Ticket
         }
     }
 
+    public string Name
+    {
+        get
+        {
+            Card card = new Card(Code.Trim());
+            return card._fields["type"].ToString().Trim();
+        }
+    }
+
     public string Code
     {
         get
