@@ -14,17 +14,26 @@
     public WeixinUser currentUser;
     public string openId = "";
     public Ticket ticket;
+    public string userToken = "";
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        ticket = new Ticket(Util.GetSafeRequestValue(Request, "code", ""));
+        ticket = new Ticket(Util.GetSafeRequestValue(Request, "code", "345678923"));
+
+        userToken = Util.GetSafeRequestValue(Request, "token", "");
 
         string currentPageUrl = Server.UrlEncode("/pages/ticket_detail.aspx?code=" + ticket.Code);
-        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+        if (userToken.Trim().Equals("") && (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals("")))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
-        string userToken = Session["user_token"].ToString();
+        if (userToken.Trim().Equals(""))
+        {
+            userToken = Session["user_token"].ToString();
+        }
+        //userToken = "6960cc569dbfd6e617f614c70b3077a146b26129011246b1dc2b0f26b0f1a542d5fc838f";
+
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
@@ -125,7 +134,7 @@
 
     function share(code) {
         $.ajax({
-            url: "/api/share_ticket.aspx?code=<%=ticket.Code.Trim()%>&token=<%=Session["user_token"].ToString().Trim()%>",
+            url: "/api/share_ticket.aspx?code=<%=ticket.Code.Trim()%>&token=<%=userToken.Trim()%>",
             method: "GET",
             async: false
         });
