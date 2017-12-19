@@ -133,7 +133,7 @@ public class DealMessage
                                     else
                                     {
                                         Ticket ticket = new Ticket(ticketCode.Trim());
-                                        content.title = "确认消费-" + ticket._fields["type"].ToString().Trim() + "-" + ticketCode;
+                                        content.title = "确认消费-" + ticket.Type.Trim() + "-" + ticketCode;
                                         content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
                                         content.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
                                         content.description = "";

@@ -18,6 +18,7 @@ public class Ticket
         public string memo;
         public int neetPoints;
         public string type;
+
     }
 
     public DataRow _fields;
@@ -155,6 +156,26 @@ public class Ticket
         get
         {
             return _fields["used"].ToString().Equals("1");
+        }
+    }
+
+    public string Type
+    {
+        get
+        {
+            string ret = "";
+            DataTable dt = DBHelper.GetDataTable(" select * from ticket_template where [id] = " + _fields["template_id"].ToString());
+            if (dt.Rows.Count == 0)
+            {
+                ret = "";
+            }
+            else
+            {
+                ret = dt.Rows[0]["type"].ToString().Trim();
+            }
+
+
+            return ret;
         }
     }
 
