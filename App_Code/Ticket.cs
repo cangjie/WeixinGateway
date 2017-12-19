@@ -190,7 +190,7 @@ public class Ticket
             DateTime expireDate = DateTime.Now.AddDays(int.Parse(dtTemplate.Rows[0]["available_days"].ToString().Trim()));
             string memo = dtTemplate.Rows[0]["memo"].ToString().Trim();
             string[,] insertParameters = { {"code", "varchar", code },
-                {"user_open_id", "varchar", openId.Trim() },
+                {"open_id", "varchar", openId.Trim() },
                 {"template_id", "int", templateId.ToString() },
                 {"amount", "float", Math.Round(amount,2).ToString() },
                 {"expire_date", "datetime", expireDate.ToString() },
