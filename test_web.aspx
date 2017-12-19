@@ -6,7 +6,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Ticket.GenerateNewTicket("adfasdfasdf", 1);
+        //Ticket.GenerateNewTicket("adfasdfasdf", 1);
     }
 </script>
 

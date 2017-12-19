@@ -180,7 +180,7 @@ public class Ticket
         return tt;
     }
 
-    public static void GenerateNewTicket(string code, string openId, int templateId)
+    public static int GenerateNewTicket(string code, string openId, int templateId)
     {
         DataTable dtTemplate = DBHelper.GetDataTable(" select * from ticket_template where [id] = " + templateId.ToString());
         int i = 0;
@@ -198,8 +198,9 @@ public class Ticket
             i = DBHelper.InsertData("ticket", insertParameters);
         }
         dtTemplate.Dispose();
+        return i;
     }
-
+    /*
     public static string GenerateNewTicket(string openId, int templateId)
     {
         string code = GenerateNewTicketCode();
@@ -224,7 +225,7 @@ public class Ticket
         else
             return "";
     }
-
+    */
     public static string GenerateNewTicketCode()
     {
         string code = "";

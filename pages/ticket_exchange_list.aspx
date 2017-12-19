@@ -91,7 +91,7 @@
 </head>
 <body>
     <div style="margin-left: 5px" >
-        <h1>龙珠兑换代金券</h1>
+        <h1>积分商城</h1>
         <h6>你目前拥有龙珠：<%=userPoints.ToString() %>颗</h6>
 <%
     for (int i = 0; i < ticketTemplateArray.Length; i++)
@@ -109,7 +109,7 @@
         <div id="ticket-<%=ticketTemplateArray[i].id.ToString() %>" name="ticket" class="<%=className %>" style="width:350px" <%if (!onClick.Trim().Equals(""))
             { %> onclick="<%=onClick.Trim() %>" <%} %> >
             <div class="panel-heading">
-                <h3 class="panel-title"><%=ticketTemplateArray[i].neetPoints.ToString() %>龙珠兑换代金券<%=ticketTemplateArray[i].currencyValue.ToString() %>元</h3>
+                <h3 class="panel-title"><%=ticketTemplateArray[i].neetPoints.ToString() %>龙珠兑换暖宝券</h3>
             </div>
             <div class="panel-body">
                 <%=ticketTemplateArray[i].memo %>
