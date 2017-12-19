@@ -17,6 +17,7 @@ public class Ticket
         public int availableDays;
         public string memo;
         public int neetPoints;
+        public string type;
     }
 
     public DataRow _fields;
@@ -176,6 +177,7 @@ public class Ticket
             tt.availableDays = int.Parse(dt.Rows[0]["available_days"].ToString());
             tt.memo = dt.Rows[0]["memo"].ToString().Trim();
             tt.neetPoints = int.Parse(dt.Rows[0]["need_points"].ToString());
+            tt.type = dt.Rows[0]["type"].ToString();
         }
         return tt;
     }

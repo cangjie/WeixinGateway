@@ -11,10 +11,10 @@
         WeixinUser user = new WeixinUser(userOpenId);
         if (user.Points >= ticketTemplate.neetPoints)
         {
-            int i = Point.AddNew(userOpenId, -1 * ticketTemplate.neetPoints, DateTime.Now, "兑换代金券");
+            int i = Point.AddNew(userOpenId, -1 * ticketTemplate.neetPoints, DateTime.Now, "兑换" + ticketTemplate.type.Trim());
             if (i > 0)
             {
-                string code = Card.GenerateCardNo(9, 0, "代金券");
+                string code = Card.GenerateCardNo(9, 0, ticketTemplate.type.Trim());
                 Ticket.GenerateNewTicket(code, userOpenId, templateId);
                 Response.Write("{\"status\" : 0, \"ticket_code\" : \"" + code.Trim() + "\" }");
             }
