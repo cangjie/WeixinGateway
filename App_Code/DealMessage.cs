@@ -297,7 +297,30 @@ public class DealMessage
                         }
                         else
                         {
-                            DataTable dtRent = DBHelper.GetDataTable(" select * from rent_log where product_id = " + rent_id.Trim() + " and return_time is null order by [id] desc ")
+                            DataTable dtRent = DBHelper.GetDataTable(" select * from rent_log where product_id = " + rent_id.Trim() + " and return_time is null order by [id] desc ");
+                            string openId = "";
+                            //string productId = "";
+                            DateTime rentTime = DateTime.MinValue;
+                            foreach (DataRow drRent in dtRent.Rows)
+                            {
+                                if (openId.Trim().Equals(""))
+                                {
+                                    openId = drRent["rent_user_open_id"].ToString().Trim();
+                                    rentTime = DateTime.Parse(drRent["rent_time"].ToString());
+                                }
+                                DBHelper.UpdateData("rent_log", new string[,] { { "return_time", "datetime", DateTime.Now.ToString() } },
+                                    new string[,] { { "id", "int", drRent["id"].ToString().Trim() } }, Util.conStr.Trim());
+                            }
+
+                            repliedMessage.from = receivedMessage.to.Trim();
+                            repliedMessage.to = receivedMessage.from.Trim();
+                            WeixinUser returnUser = new WeixinUser(openId.Trim());
+                            TimeSpan rentTimeSpan = DateTime.Now - rentTime;
+
+                            repliedMessage.content = (rentTimeSpan.Hours >= 2 ? "超时" : "正常") + "  " + returnUser.Nick.Trim() + " 试滑 " + rent_id.Trim() + " 时长为：" 
+                                + rentTimeSpan.Hours.ToString() + "小时 " + rentTimeSpan.Minutes.ToString() + "分钟";
+                            repliedMessage.type = "text";
+
                         }
 
                     }
