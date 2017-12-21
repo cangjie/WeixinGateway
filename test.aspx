@@ -12,7 +12,7 @@
         //t.IsSharing = true;
         //t.Transfer("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
 
-        ReceivedMessage rec = new ReceivedMessage("event_20171215170518698");
+        ReceivedMessage rec = new ReceivedMessage("event_20171221151543921");
         DealMessage.DealEventMessage(rec);
 
         /*

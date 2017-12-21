@@ -250,11 +250,18 @@ public class DealMessage
                         {
                             if (rentUser.VipLevel > 0)
                             {
-                                repliedMessage.from = receivedMessage.to.Trim();
-                                repliedMessage.to = "oZBHkjhdFpC5ScK5FUU7HKXE3PJM";
-                                repliedMessage.content = rentUser.Nick.Trim() + "  要求试滑 " + receivedMessage.eventKey.Trim().Replace("20171223_shijinglong_shihua_", "")
+                                ServiceMessage rentRequestMessage = new ServiceMessage();
+                                rentRequestMessage.from = receivedMessage.to;
+                                rentRequestMessage.to = "oZBHkjhdFpC5ScK5FUU7HKXE3PJM";
+                                rentRequestMessage.type = "text";
+                                rentRequestMessage.content = rentUser.Nick.Trim() + "  要求试滑 " + receivedMessage.eventKey.Trim().Replace("20171223_shijinglong_shihua_", "")
                                     + " <a href='http://weixin-snowmeet.chinacloudsites.cn/pages/admin/confirm_rent.aspx' >点击确认</a>";
-                                repliedMessage.content = "text";
+                                ServiceMessage.SendServiceMessage(rentRequestMessage);
+
+                                repliedMessage.from = receivedMessage.to.Trim();
+                                repliedMessage.to = receivedMessage.from.Trim();
+                                repliedMessage.content = "  请支付押金4000元。";
+                                repliedMessage.type = "text";
                             }
                             else
                             {
