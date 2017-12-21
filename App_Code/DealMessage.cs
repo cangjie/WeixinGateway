@@ -286,7 +286,14 @@ public class DealMessage
                                     repliedMessage.content = "请支付押金4000元。";
                                     repliedMessage.type = "text";
 
-                                    //Util.UploadImageToWeixin();
+                                    string medaId = Util.UploadImageToWeixin(@"D:\home\site\wwwroot\pages\images\cuiyangpay.jpeg", Util.GetToken());
+
+                                    ServiceMessage serviceQrCode = new ServiceMessage();
+                                    serviceQrCode.from = repliedMessage.from;
+                                    serviceQrCode.to = repliedMessage.to;
+                                    serviceQrCode.type = "image";
+                                    serviceQrCode.content = medaId.Trim();
+                                    ServiceMessage.SendServiceMessage(serviceQrCode);
 
                                 }
                             }
