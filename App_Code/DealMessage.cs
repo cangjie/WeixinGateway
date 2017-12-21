@@ -285,6 +285,9 @@ public class DealMessage
                                     repliedMessage.to = receivedMessage.from.Trim();
                                     repliedMessage.content = "请支付押金4000元。";
                                     repliedMessage.type = "text";
+
+                                    Util.UploadImageToWeixin()
+
                                 }
                             }
                             else

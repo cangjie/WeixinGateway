@@ -8,12 +8,13 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+        Response.Write(Server.MapPath("/pages/images/cuiyangpay.jpeg"));
         //Ticket t = new Ticket("345678923");
         //t.IsSharing = true;
         //t.Transfer("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
 
-        ReceivedMessage rec = new ReceivedMessage("event_20171221151543921");
-        DealMessage.DealEventMessage(rec);
+        //ReceivedMessage rec = new ReceivedMessage("event_20171221151543921");
+        //DealMessage.DealEventMessage(rec);
 
         /*
         string no = "";
