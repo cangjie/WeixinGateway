@@ -276,8 +276,8 @@ public class DealMessage
                                     rentRequestMessage.to = "oZBHkjhdFpC5ScK5FUU7HKXE3PJM";
                                     rentRequestMessage.type = "text";
                                     
-                                    rentRequestMessage.content = rentUser.Nick.Trim() + "  要求试滑 " + rent_id.Trim() + " <a href='http://weixin-snowmeet.chinacloudsites.cn/pages/admin/confirm_rent.aspx?id='"
-                                        + rent_id.Trim() + "&openid=" + rentUser.OpenId.Trim() + " >点击确认</a>";
+                                    rentRequestMessage.content = rentUser.Nick.Trim() + "  要求试滑 " + rent_id.Trim() + " <a href='http://weixin-snowmeet.chinacloudsites.cn/pages/admin/confirm_rent.aspx?id="
+                                        + rent_id.Trim() + "&openid=" + rentUser.OpenId.Trim() + "' >点击确认</a>";
                                     ServiceMessage.SendServiceMessage(rentRequestMessage);
 
                                     repliedMessage.from = receivedMessage.to.Trim();
