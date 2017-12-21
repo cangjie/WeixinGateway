@@ -248,11 +248,18 @@ public class DealMessage
                         WeixinUser rentUser = new WeixinUser(receivedMessage.from.Trim());
                         if (!rentUser.IsAdmin)
                         {
-                            repliedMessage.from = receivedMessage.to.Trim();
-                            repliedMessage.to = "oZBHkjhdFpC5ScK5FUU7HKXE3PJM";
-                            repliedMessage.content = rentUser.Nick.Trim() + "  要求试滑 " + receivedMessage.eventKey.Trim().Replace("20171223_shijinglong_shihua_", "")
-                                + " <a href='http://weixin-snowmeet.chinacloudsites.cn/pages/admin/confirm_rent.aspx' >点击确认</a>";
-                            repliedMessage.content = "text";
+                            if (rentUser.VipLevel > 0)
+                            {
+                                repliedMessage.from = receivedMessage.to.Trim();
+                                repliedMessage.to = "oZBHkjhdFpC5ScK5FUU7HKXE3PJM";
+                                repliedMessage.content = rentUser.Nick.Trim() + "  要求试滑 " + receivedMessage.eventKey.Trim().Replace("20171223_shijinglong_shihua_", "")
+                                    + " <a href='http://weixin-snowmeet.chinacloudsites.cn/pages/admin/confirm_rent.aspx' >点击确认</a>";
+                                repliedMessage.content = "text";
+                            }
+                            else
+                            {
+
+                            }
                         }
                         else
                         {
