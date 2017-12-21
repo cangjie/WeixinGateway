@@ -246,11 +246,12 @@ public class DealMessage
                     if (receivedMessage.eventKey.Trim().StartsWith("20171223_shijinglong_shihua_"))
                     {
                         WeixinUser rentUser = new WeixinUser(receivedMessage.from.Trim());
+                        string rent_id = receivedMessage.eventKey.Trim().Replace("20171223_shijinglong_shihua_", "");
                         if (!rentUser.IsAdmin)
                         {
                             if (rentUser.VipLevel > 0)
                             {
-                                string rent_id = receivedMessage.eventKey.Trim().Replace("20171223_shijinglong_shihua_", "");
+                                
                                 bool canRent = false;
                                 DataTable dt = DBHelper.GetDataTable(" select top 1 * from rent_log where product_id = " + rent_id.Trim() + "  order by [id] desc");
                                 if (dt.Rows.Count == 0)
@@ -296,7 +297,7 @@ public class DealMessage
                         }
                         else
                         {
-
+                            DataTable dtRent = DBHelper.GetDataTable(" select * from rent_log where product_id = " + rent_id.Trim() + " and return_time is null order by [id] desc ")
                         }
 
                     }

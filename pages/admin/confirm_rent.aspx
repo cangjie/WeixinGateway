@@ -10,9 +10,14 @@
     {
         string id = Util.GetSafeRequestValue(Request, "id", "1");
         string openId = Util.GetSafeRequestValue(Request, "openid", "aaa");
-        i = DBHelper.InsertData("rent_log", new string[,] {
+
+        if (DBHelper.GetDataTable(" select * from rent_log where product_id = " + id.Trim() + " and return_time is null ").Rows.Count == 0)
+        {
+
+            i = DBHelper.InsertData("rent_log", new string[,] {
             {"product_id", "int", id.Trim() }, {"rent_user_open_id", "varchar", openId.Trim() },
             {"rent_time", "datetime", DateTime.Now.ToString() }});
+        }
     }
 </script>
 
