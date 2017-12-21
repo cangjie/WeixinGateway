@@ -274,7 +274,7 @@ public class DealMessage
                                 {
                                     ServiceMessage rentRequestMessage = new ServiceMessage();
                                     rentRequestMessage.from = receivedMessage.to;
-                                    rentRequestMessage.to = "oZBHkjhdFpC5ScK5FUU7HKXE3PJM";
+                                    rentRequestMessage.to = "oZBHkjiR5fkJmzqt7fLyR0aaRguE";
                                     rentRequestMessage.type = "text";
                                     
                                     rentRequestMessage.content = rentUser.Nick.Trim() + "  要求试滑 " + rent_id.Trim() + " <a href='http://weixin-snowmeet.chinacloudsites.cn/pages/admin/confirm_rent.aspx?id="
