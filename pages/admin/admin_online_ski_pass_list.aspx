@@ -39,6 +39,8 @@
             <!--td>票种</td-->
             <td>单价</td>
             <td>张数</td>
+            <td>租板</td>
+            <td>支付金额</td>
             <td>验票</td>
             <td>验票时间</td>
             <td>购买日期</td>
@@ -46,6 +48,7 @@
         <%
             foreach(OnlineSkiPass pass in passArr)
             {
+                
                 %>
         <tr>
             <td><%=pass.cardCode.Trim()%></td>
@@ -54,6 +57,8 @@
             <!--td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td-->
             <td><%=pass.associateOnlineOrderDetail.price.ToString() %></td>
             <td><%=pass.associateOnlineOrderDetail.count.ToString() %></td>
+            <td><%=(pass.Rent? "需要" : "不需要") %></td>
+            <td><%=Math.Round(double.Parse(pass.associateOnlineOrder._fields["order_real_pay_price"].ToString()),2).ToString() %></td>
             <td><%=(pass.used? "已验":"未验") %></td>
             <td><%=(pass.used? pass.useDate.ToString() : "---") %></td>
             <td><%=pass.associateOnlineOrder._fields["create_date"].ToString() %></td>
