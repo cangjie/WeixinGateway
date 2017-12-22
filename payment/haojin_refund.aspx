@@ -7,6 +7,12 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string token = Util.GetSafeRequestValue(Request, "token", "");
+        string openId = WeixinUser.CheckToken(token);
+        WeixinUser adminUser = new WeixinUser(openId.Trim());
+        if (!adminUser.IsAdmin)
+        {
+            Response.End();
+        }
         int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "341"));
         OnlineOrder order = new OnlineOrder(orderId);
         int txamt =  int.Parse(Util.GetSafeRequestValue(Request, "txamt", "1000"));
