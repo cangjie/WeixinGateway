@@ -10,10 +10,11 @@
         string status = Util.GetSimpleJsonValueByKey(paymentResult, "status").Trim();
         string out_trade_no = Util.GetSimpleJsonValueByKey(paymentResult, "out_trade_no").Trim();
         string notify_type = Util.GetSimpleJsonValueByKey(paymentResult, "notify_type").Trim();
+        string syssn = Util.GetSimpleJsonValueByKey(paymentResult, "syssn").Trim();
         if (notify_type.Trim().Equals("payment") && status.Trim().Equals("1"))
         {
             OnlineOrder order = new OnlineOrder(int.Parse(out_trade_no));
-            order.SetOrderPaySuccess(DateTime.Now);
+            order.SetOrderPaySuccess(DateTime.Now, syssn.Trim());
             if (order.Type.Trim().Equals("雪票"))
             {
                 order.CreateSkiPass();

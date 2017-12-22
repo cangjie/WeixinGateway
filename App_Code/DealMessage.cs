@@ -417,7 +417,7 @@ public class DealMessage
             if (i > 0)
             {
                 OnlineOrder order = new OnlineOrder(i);
-                order.SetOrderPaySuccess(DateTime.Now);
+                order.SetOrderPaySuccess(DateTime.Now, "");
                 orderTemp.FinishOrder();
                 Point.AddNew(receivedMessage.from.Trim(), int.Parse(orderTemp._fields["generate_score"].ToString()),
                     DateTime.Now, orderTemp._fields["memo"].ToString());

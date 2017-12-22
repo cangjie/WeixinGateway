@@ -176,11 +176,12 @@ public class OnlineOrder
         }
     }
 
-    public void SetOrderPaySuccess(DateTime successTime)
+    public void SetOrderPaySuccess(DateTime successTime, string syssn)
     {
         if (_fields["pay_state"].ToString().Equals("0"))
         {
-            string[,] updateParam = { { "pay_state", "int", "1" }, { "pay_time", "datetime", successTime.ToString() } };
+            string[,] updateParam = { { "pay_state", "int", "1" }, { "pay_time", "datetime", successTime.ToString() },
+                {"syssn", "varchar", syssn.Trim() } };
             string[,] keyParam = { { "id", "int", _fields["id"].ToString() } };
             DBHelper.UpdateData("order_online", updateParam, keyParam, Util.conStr.Trim());
         }
