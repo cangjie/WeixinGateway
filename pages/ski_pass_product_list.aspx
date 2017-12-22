@@ -414,8 +414,8 @@
                 { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=nanshan">南山</a></li>
             <li role="presentation" <%if (currentResort.Trim().Equals("bayi"))
                 { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=bayi">八易</a></li>
-            <li role="presentation" <%if (currentResort.Trim().Equals("qiaobo"))
-                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=qiaobo">乔波</a></li>
+            <!--li role="presentation" <%if (currentResort.Trim().Equals("qiaobo"))
+                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=qiaobo">乔波</a></li-->
         </ul>
         <%
             foreach (Product p in prodArr)
