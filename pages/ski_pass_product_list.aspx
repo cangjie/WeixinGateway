@@ -102,6 +102,15 @@
                 dayName = dayName + "(大后天)";
             switch (startDate.Year.ToString()+"-"+startDate.Month.ToString()+"-"+startDate.Day.ToString())
             {
+                case "2017-12-30":
+                    dayName = "元旦";
+                    break;
+                case "2017-12-31":
+                    dayName = "元旦";
+                    break;
+                case "2018-1-1":
+                    dayName = "元旦";
+                    break;
                 case "2017-1-27":
                     dayName = "除夕";
                     break;
@@ -352,7 +361,7 @@
                 current_title = product_title_weekend;
                 current_price = product_price_weekend;
             }
-            else if (day_name.indexOf("除夕") >= 0 || day_name.indexOf("初") >= 0) {
+            else if (day_name.indexOf("除夕") >= 0 || day_name.indexOf("初") >= 0 || day_name.indexOf("元旦") >= 0) {
                 current_product_id = product_id_holiday;
                 current_title = product_title_holiday;
                 current_price = product_price_holiday;
