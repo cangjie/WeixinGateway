@@ -21,7 +21,7 @@
 
         FillSelectedDate();
 
-        /*
+        
         string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -37,7 +37,7 @@
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
             Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
 
-        */
+        
         string resort = Util.GetSafeRequestValue(Request, "resort", "nanshan");
         if (!resort.Trim().Equals(""))
         {
