@@ -20,6 +20,8 @@
     {
 
         FillSelectedDate();
+
+        /*
         string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -35,7 +37,7 @@
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
             Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
 
-
+        */
         string resort = Util.GetSafeRequestValue(Request, "resort", "nanshan");
         if (!resort.Trim().Equals(""))
         {
@@ -280,8 +282,14 @@
             if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
                 day_name = "大后天";
             }
-            if (date.getMonth() == 1 && date.getDate() == 2) {
-                day_name = day_name + " 初六";
+            if (date.getMonth() == 11 && date.getDate() == 30) {
+                day_name = day_name + " 元旦";
+            }
+            if (date.getMonth() == 11 && date.getDate() == 31) {
+                day_name = day_name + " 元旦";
+            }
+            if (date.getMonth() == 0 && date.getDate() == 1) {
+                day_name = day_name + " 元旦";
             }
             return day_name;
         }
