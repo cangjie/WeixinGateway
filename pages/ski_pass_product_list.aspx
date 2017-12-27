@@ -100,15 +100,15 @@
                 dayName = dayName + "(后天)";
             if (startDate.Day == DateTime.Now.AddDays(3).Day)
                 dayName = dayName + "(大后天)";
-            switch (startDate.Year.ToString()+"-"+startDate.Month.ToString()+"-"+startDate.Day.ToString())
+            switch (startDate.Year.ToString()+"/"+startDate.Month.ToString()+"/"+startDate.Day.ToString())
             {
-                case "2017-12-30":
+                case "2017/12/30":
                     dayName = "元旦";
                     break;
-                case "2017-12-31":
+                case "2017/12/31":
                     dayName = "元旦";
                     break;
-                case "2018-1-1":
+                case "2018/1/1":
                     dayName = "元旦";
                     break;
                 case "2017-1-27":
