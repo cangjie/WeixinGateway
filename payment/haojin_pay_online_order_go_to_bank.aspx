@@ -127,10 +127,11 @@
         catch(Exception err)
         {
             Response.Write(err.ToString().Trim() + "<br/>");
-            Response.Write(postData.Trim() + "<br/>");
-            Response.Write(sign + "<br/>");
-            Response.Write(str.Trim());
         }
+        
+        Response.Write(postData.Trim() + "<br/>");
+        Response.Write(sign + "<br/>");
+        Response.Write(str.Trim());
     }
 
 
