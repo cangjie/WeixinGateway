@@ -129,7 +129,7 @@
             Response.Write(err.ToString().Trim() + "<br/>");
             Response.Write(postData.Trim() + "<br/>");
             Response.Write(sign + "<br/>");
-            Response.Write(str.Trim());
+            Response.Write(Encoding.Unicode.GetString(Encoding.Unicode.GetBytes(str.Trim())));
             Response.End();
         }
         
