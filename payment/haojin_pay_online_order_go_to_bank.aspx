@@ -19,31 +19,32 @@
         string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_code"];
         string code = Util.GetSafeRequestValue(Request, "code", "081YvVAU1SsndV0yJPBU1ftKAU1YvVAa");//Request["code"].Trim();
 
-        /*
-        string jumpUrl = "https://" + paymentDomain + "/tool/v1/get_weixin_openid?code=" + code +"&mchid=" + mchid.Trim();
-        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(jumpUrl);
-        req.Headers.Add("X-QF-APPCODE", appCode);
-        req.Headers.Add("X-QF-SIGN", Util.GetHaojinMd5Sign("code=" + code + "&mchid=" + mchid.Trim(), md5Key));
-        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
-        StreamReader sr = new StreamReader(res.GetResponseStream());
-        string str = sr.ReadToEnd();
-        sr.Close();
-        res.Close();
-        req.Abort();
         
-
+        string jumpUrlOpenId = "https://" + paymentDomain + "/tool/v1/get_weixin_openid?code=" + code +"&mchid=" + mchid.Trim();
+        HttpWebRequest reqOpenId = (HttpWebRequest)WebRequest.Create(jumpUrlOpenId);
+        reqOpenId.Headers.Add("X-QF-APPCODE", appCode);
+        reqOpenId.Headers.Add("X-QF-SIGN", Util.GetHaojinMd5Sign("code=" + code + "&mchid=" + mchid.Trim(), md5Key));
+        HttpWebResponse resOpenId = (HttpWebResponse)reqOpenId.GetResponse();
+        StreamReader srOpenId = new StreamReader(resOpenId.GetResponseStream());
+        string strOpenId = srOpenId.ReadToEnd();
+        srOpenId.Close();
+        resOpenId.Close();
+        reqOpenId.Abort();
+        
+        
         string openId = "";
         try
         {
-            openId = Util.GetSimpleJsonValueByKey(str, "openid");
+            openId = Util.GetSimpleJsonValueByKey(strOpenId, "openid");
         }
         catch
         {
-            Response.Write(str);
+            Response.Write(strOpenId);
             Response.End();
-        }*/
+        }
+        
 
-        string openId = WeixinUser.CheckToken(Session["user_token"].ToString().Trim());
+        //string openId = WeixinUser.CheckToken(Session["user_token"].ToString().Trim());
 
         string txamt = (order.OrderPrice*100).ToString();
         string txcurrcd = "CNY";
