@@ -130,6 +130,7 @@
             Response.Write(postData.Trim() + "<br/>");
             Response.Write(sign + "<br/>");
             Response.Write(str.Trim());
+            Response.End();
         }
         
         
