@@ -19,7 +19,7 @@
         string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_code"];
         string code = Util.GetSafeRequestValue(Request, "code", "081YvVAU1SsndV0yJPBU1ftKAU1YvVAa");//Request["code"].Trim();
 
-        
+        /*
         string jumpUrlOpenId = "https://" + paymentDomain + "/tool/v1/get_weixin_openid?code=" + code +"&mchid=" + mchid.Trim();
         HttpWebRequest reqOpenId = (HttpWebRequest)WebRequest.Create(jumpUrlOpenId);
         reqOpenId.Headers.Add("X-QF-APPCODE", appCode);
@@ -43,8 +43,8 @@
             Response.End();
         }
         
-
-        //string openId = WeixinUser.CheckToken(Session["user_token"].ToString().Trim());
+        */
+        string openId = WeixinUser.CheckToken(Session["user_token"].ToString().Trim());
 
         string txamt = (order.OrderPrice*100).ToString();
         string txcurrcd = "CNY";
