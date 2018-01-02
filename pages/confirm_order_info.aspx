@@ -8,7 +8,7 @@
 
     public string openId = "";
 
-    public WeixinUser currentUser;
+    //public WeixinUser currentUser;
 
     public Dictionary<string, object>[] detailArr;
 
@@ -31,9 +31,9 @@
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
-        currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
-        if (currentUser.CellNumber.Trim().Equals(""))
-            Response.Redirect("register_cell_number.aspx?refurl=" + Server.UrlEncode("confirm_order_info.aspx?id=" + orderTemp._fields["id"].ToString()), true);
+        //currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+        //if (currentUser.CellNumber.Trim().Equals(""))
+        //    Response.Redirect("register_cell_number.aspx?refurl=" + Server.UrlEncode("confirm_order_info.aspx?id=" + orderTemp._fields["id"].ToString()), true);
 
         detailArr = Util.GetObjectArrayFromJsonByKey(orderTemp._fields["order_detail_json"].ToString().Trim(), "order_details");
 
