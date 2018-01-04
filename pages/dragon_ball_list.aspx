@@ -34,7 +34,7 @@
         //Point.ImportPointsByNumber(currentUser.CellNumber.Trim());
         //Order.ImportUserOrderDragonBall(currentUser.CellNumber.Trim());
 
-        Point.ImportPointsByNumber(currentUser.CellNumber.Trim());
+        //Point.ImportPointsByNumber(currentUser.CellNumber.Trim());
 
 
         Point[] userPointArray = Point.GetUserBalance(currentUser.OpenId);
