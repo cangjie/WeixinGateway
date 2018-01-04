@@ -128,7 +128,7 @@ public class Point
                 try
                 {
                     int tmp = int.Parse(dt.Rows[0][i].ToString().Trim());
-                    if (i <= 16)
+                    if (i <= 17)
                     {
                         points = points + tmp;
                     }
