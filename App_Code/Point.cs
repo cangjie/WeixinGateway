@@ -55,28 +55,34 @@ public class Point
         return i;
     }
 
-    public static void ImportPointsByNumber(string number)
+
+    public static bool ImportPointsByNumber(string number)
     {
         string openId = "";
         string[] openIdArr = WeixinUser.GetOpenIdByCellNumber(number);
         if (openIdArr.Length == 0)
-            return;
+            return false;
         else if (openIdArr[0].Trim().Equals(""))
-            return;
+            return false;
         else
             openId = openIdArr[0];
-        DataTable dt = DBHelper.GetDataTable(" select * from points_imported where deal = 0 and number = '" + number.Replace("'","") + "'  ");
-        foreach (DataRow dr in dt.Rows)
+        int points = GetOldPoints(number);
+
+        if (points > 0)
         {
-            int i = Point.AddNew(openId, int.Parse(dr["points"].ToString()), DateTime.Parse("2016-12-1"), "16~17雪季前导入");
-            string[,] updateParameter = { { "deal", "int", i.ToString() } };
-            string[,] keyParameter = { { "id", "int", dr["id"].ToString() } };
-            int j = DBHelper.UpdateData("points_imported", updateParameter, keyParameter, Util.conStr);
-            if (j == 0)
+            int i = Point.AddNew(openId, points, DateTime.Parse("2018-1-1"), "17~18雪季前导入");
+            if (i == 1)
             {
-                string[,] deleteKeyParameter = { { "id", "int", i.ToString() } };
-                DBHelper.DeleteData("user_point_balace", deleteKeyParameter, Util.conStr);
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -92,6 +98,36 @@ public class Point
         }
         return pointArray;
 
+    }
+
+    public static int GetOldPoints(string number)
+    {
+        int points = 0;
+        DataTable dt = DBHelper.GetDataTable(" select * from new_dragon_balll where [电话] = '" + number.Trim() + "' ");
+        if (dt.Rows.Count > 0)
+        {
+            for (int i = 1; i < dt.Columns.Count; i++)
+            {
+                try
+                {
+                    int tmp = int.Parse(dt.Rows[0][i].ToString().Trim());
+                    if (i <= 16)
+                    {
+                        points = points + tmp;
+                    }
+                    else
+                    {
+                        points = points - tmp;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+        dt.Dispose();
+        return points;
     }
 
 }
