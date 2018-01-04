@@ -70,14 +70,31 @@ public class Point
 
         if (points > 0)
         {
-            int i = Point.AddNew(openId, points, DateTime.Parse("2018-1-1"), "17~18雪季前导入");
-            if (i == 1)
+            Point[] pointArr = Point.GetUserBalance(openId.Trim());
+            bool exists = false;
+            foreach (Point point in pointArr)
             {
-                return true;
+                if (point.Points == points && point.TransactDate == DateTime.Parse("2018-1-1"))
+                {
+                    exists = true;
+                    break;
+                }
+            }
+            if (exists)
+            {
+                return false;
             }
             else
             {
-                return false;
+                int i = Point.AddNew(openId, points, DateTime.Parse("2018-1-1"), "17~18雪季前导入");
+                if (i == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         else
