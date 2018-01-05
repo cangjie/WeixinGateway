@@ -121,13 +121,13 @@ public class Point
     {
         int points = 0;
         DataTable dt = DBHelper.GetDataTable(" select * from new_dragon_balll where [电话] = '" + number.Trim() + "' ");
-        if (dt.Rows.Count > 0)
+        for (int j = 0;  j < dt.Rows.Count; j++)
         {
             for (int i = 1; i < dt.Columns.Count; i++)
             {
                 try
                 {
-                    int tmp = int.Parse(dt.Rows[0][i].ToString().Trim());
+                    int tmp = int.Parse(dt.Rows[j][i].ToString().Trim());
                     if (i <= 17)
                     {
                         points = points + tmp;
