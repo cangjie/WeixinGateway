@@ -57,7 +57,24 @@
                 var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                 var speed = res.speed; // 速度，以米/每秒计
                 var accuracy = res.accuracy; // 位置精度
-                alert(latitude + " " + longitude);
+                if (longitude < 115.75 && latitude > 40)
+                {
+                    alert("万龙");
+                }
+                if (longitude > 115.75 && longitude < 116.25 && latitude < 40)
+                {
+                    alert("八易");
+                }
+                if (longitude > 116.5 && longitude < 116.75 && latitude > 40 && latitude < 40.25)
+                {
+                    alert("乔波");
+                }
+                if (longitude > 116.75 && latitude > 40.25)
+                {
+                    alert("南山");
+                }
+
+                //alert(latitude + " " + longitude);
             }
         });
     });
