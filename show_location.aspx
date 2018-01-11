@@ -80,7 +80,8 @@
                 }
                 if (!done)
                 {
-                    alert(longitude + " " + latitude);
+                    //alert(longitude + " " + latitude);
+                    alert("万龙" + " " + longitude + " " + latitude);
                 }
                 //alert(latitude + " " + longitude);
             }
