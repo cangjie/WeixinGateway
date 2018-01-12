@@ -11,7 +11,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         productId = int.Parse(Util.GetSafeRequestValue(Request, "productid", "5").Trim());
-        string currentPageUrl = Server.UrlEncode("/pages/ski_pass_today.aspx");
+        string currentPageUrl = Request.Url.ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
