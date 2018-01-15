@@ -37,6 +37,15 @@ public class Point
 
     public static int AddNew(string openId, int points, DateTime transDate, string memo)
     {
+        DataTable dtDup = DBHelper.GetDataTable(" select * from  user_point_balance where points = " + points.ToString() + " and memo = '" + memo.Trim() + "'  "
+            + " and  user_open_id = '" + openId.Trim() + "' and transact_date >= '" + transDate.ToShortDateString() + "' and transact_date < '"
+            + transDate.AddDays(1).ToShortDateString() + "'  ");
+        if (dtDup.Rows.Count > 0)
+        {
+            dtDup.Dispose();
+            return 0;
+        }
+        dtDup.Dispose();
         string[,] insertParameters = {{"user_open_id", "varchar", openId.Trim() },
             {"points", "int", points.ToString() },
             { "memo", "varchar", memo.Trim()},

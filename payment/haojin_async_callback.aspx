@@ -40,7 +40,8 @@
                     toSales.to = tempOrder._fields["admin_open_id"].ToString();
                     toSales.content = customer.Nick.Trim() + " 的订单" + order.Memo.Trim() + "，已经支付成功，支付金额：" + order.OrderPrice.ToString() + "元。";
                     ServiceMessage.SendServiceMessage(toSales);
-                    Point.AddNew(customer.OpenId.Trim(), int.Parse(tempOrder._fields["generate_score"].ToString()), DateTime.Now, "店内购买" + order.Memo.Trim());
+                    Point.AddNew(customer.OpenId.Trim(), int.Parse(tempOrder._fields["generate_score"].ToString()), DateTime.Now, "店内购买 订单号：" + order._fields["id"].ToString().Trim()
+                        + "  " + order.Memo.Trim());
                 }
             }
         }
