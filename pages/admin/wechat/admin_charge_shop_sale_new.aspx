@@ -15,13 +15,14 @@
     public string shaParam = "";
     public string appId = System.Configuration.ConfigurationManager.AppSettings["wxappid"];
     public string customerOpenId = "";
+    public WeixinUser customerUser;
 
     public Ticket[] tickets;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        customerOpenId = Util.GetSafeRequestValue(Request, "openid", "").Trim();
-
+        customerOpenId = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM").Trim();
+        customerUser = new WeixinUser(customerOpenId);
         tickets = Ticket.GetUserTickets(customerOpenId, false);
 
         string currentPageUrl = Request.Url.ToString();
@@ -82,6 +83,12 @@
 </head>
 <body>
     <table class="table table-striped">
+        <tr>
+            <td>用户信息：</td>
+            <td>
+                <img src="<%=customerUser.HeadImage.Trim() %>" width="30" height="30" /> 昵称：<%=customerUser.Nick.Trim() %> 电话：<%=customerUser.CellNumber.Trim() %>
+            </td>
+        </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
         </tr>
@@ -153,30 +160,17 @@
         </tr>
         <tr>
             <td colspan="2">
-                <div id="ticket1" name="ticket" class="panel panel-default" style="width:350px" onclick="select_ticket(1)" >
+                <%foreach (Ticket ticket in tickets)
+                    { %>
+                <div id="ticket<%=ticket._fields["id"].ToString() %>" name="ticket" class="panel panel-default" style="width:350px" onclick="select_ticket(<%=ticket._fields["id"].ToString() %>)" >
                     <div class="panel-heading">
-                        <h3 class="panel-title">内购券</h3>
+                        <h3 class="panel-title"><%=ticket.Name.Trim() %></h3>
                     </div>
                     <div class="panel-body">
-                        内购券打多少折，我也不知道。
+                        <%=ticket._fields["memo"].ToString() %>
                     </div>
                 </div>
-                <div id="ticket2" name="ticket" class="panel panel-default" style="width:350px"  onclick="select_ticket(2)" >
-                    <div class="panel-heading">
-                        <h3 class="panel-title">头盔9折券</h3>
-                    </div>
-                    <div class="panel-body">
-                        内购券打多少折，我也不知道。
-                    </div>
-                </div>
-                <div id="ticket3" name="ticket" class="panel panel-default" style="width:350px"  onclick="select_ticket(3)" >
-                    <div class="panel-heading">
-                        <h3 class="panel-title">手套8折券</h3>
-                    </div>
-                    <div class="panel-body">
-                        内购券打多少折，我也不知道。
-                    </div>
-                </div>
+                <%} %>
             </td>
         </tr>
         <tr>
