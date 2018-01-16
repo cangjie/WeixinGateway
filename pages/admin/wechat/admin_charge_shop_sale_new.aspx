@@ -373,7 +373,7 @@
             var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
-                + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail=" + get_product_list_json();
+                + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail=" + get_product_list_json()+"&ticketcode=" + ticket_id.trim();
             $.ajax({
                 url: ajax_url,
                 type: "GET",

@@ -18,6 +18,7 @@
         string recommenderType = Util.GetSafeRequestValue(Request, "recommendertype", "");
         string name = Util.GetSafeRequestValue(Request, "name", "");
         string orderDetailJson = Util.GetSafeRequestValue(Request, "reforderdetail", "");
+        string ticketCode = Util.GetSafeRequestValue(Request, "ticketcode", "");
         WeixinUser currentUser = new WeixinUser(openId);
 
         if (!currentUser.IsAdmin)
@@ -27,7 +28,7 @@
         }
 
         int chargeId = OrderTemp.AddNewOrderTemp(marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
-            memberType, recommenderNumber, recommenderType, name, orderDetailJson);
+            memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode);
         //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
         Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\", \"temp_order_id\":" + chargeId.ToString() + " }");
         /*
