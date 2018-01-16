@@ -388,7 +388,7 @@
                     var pay_url = "";
                     var qr_code_url = "";
                     if (pay_method.trim() == '支付宝') {
-                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/haojin_qrcode_ali.aspx?orderid=" + order_id.toString().trim();
+                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/haojin_qrcode_pay_ali.aspx?orderid=" + order_id.toString().trim();
                     }
                     if (pay_method.trim() == '微信') {
                         pay_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/haojin_pay_online_order.aspx?orderid=" + order_id.toString();
