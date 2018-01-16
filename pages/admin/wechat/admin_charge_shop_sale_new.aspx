@@ -359,7 +359,7 @@
             return valid;
         }
 
-        var temp_order_id = 0;
+        var order_id = 0;
         var intervalId = 0;
         //获取二维码
         function get_qrcode() {
@@ -383,7 +383,7 @@
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
 
-                    var order_id = msg_object.order_id;
+                    order_id = msg_object.order_id;
                     var pay_method = msg_object.pay_method;
                     var pay_url = "";
                     var qr_code_url = "";
@@ -398,8 +398,8 @@
 
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
-                    temp_order_id = msg_object.temp_order_id;
-                    if (temp_order_id > 0)
+                    //temp_order_id = msg_object.temp_order_id;
+                    if (order_id > 0)
                         intervalId = setInterval("refresh_order_state()", 1000);
                 }
             });
@@ -512,7 +512,7 @@
 
         function refresh_order_state() {
             $.ajax({
-                url: "../../../api/get_order_temp_info.aspx?temporderid=" + temp_order_id,
+                url: "../../../api/get_online_order_info.aspx?temporderid=" + temp_order_id,
                 type: "GET",
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
@@ -532,10 +532,11 @@
                                 if (msg_object.pay_state == 1) {
                                     launch_pay_success_info();
                                 }
+                                /*
                                 if (msg_object.pay_method == "支付宝" && msg_object.pay_state == 0) {
                                     launch_alipay_qrcode(msg_object.id.toString());
                                 }
-
+                                */
 
                             }
                         });
@@ -569,7 +570,7 @@
                     'content': '支付成功,自动跳转',
                     'closeTime': 2000,
                     'closeFunction': function () {
-                        window.location = "admin_charge_shop_sale_finish.aspx";
+                        window.location = "admin_charge_shop_sale_finish.aspx?orderid=" + order_id.toString().trim();
                     },
                 })
             }
