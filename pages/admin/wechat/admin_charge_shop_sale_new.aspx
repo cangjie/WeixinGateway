@@ -24,7 +24,7 @@
 
         tickets = Ticket.GetUserTickets(customerOpenId, false);
 
-        string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/admin_charge_shop_sale.aspx");
+        string currentPageUrl = Request.Url.ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
@@ -68,6 +68,7 @@
             if (ori_ticket_id != id) {
                 var ticket = document.getElementById("ticket" + id.toString());
                 ticket.className = "panel panel-danger";
+                ticket_id = id;
             }
         }
         function un_select_tickets() {
@@ -168,7 +169,7 @@
                         内购券打多少折，我也不知道。
                     </div>
                 </div>
-                <div id="ticket2" name="ticket" class="panel panel-default" style="width:350px"  onclick="select_ticket(3)" >
+                <div id="ticket3" name="ticket" class="panel panel-default" style="width:350px"  onclick="select_ticket(3)" >
                     <div class="panel-heading">
                         <h3 class="panel-title">手套8折券</h3>
                     </div>
