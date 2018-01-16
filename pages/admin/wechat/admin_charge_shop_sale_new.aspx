@@ -62,19 +62,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" ></script>
     <script type="text/javascript" >
-        var ticket_id = 0;
+        var ticket_id = "";
         function select_ticket(id) {
             var ori_ticket_id = ticket_id;
             un_select_tickets();
             if (ori_ticket_id != id) {
-                var ticket = document.getElementById("ticket" + id.toString());
+                var ticket = document.getElementById("ticket" + id.trim());
                 ticket.className = "panel panel-danger";
                 ticket_id = id;
             }
         }
         function un_select_tickets() {
             var div_tickets = document.getElementsByName("ticket");
-            ticket_id = 0;
+            ticket_id = "";
             for (var i = 0; i < div_tickets.length; i++) {
                 div_tickets[i].className = "panel panel-default";
             }
@@ -162,7 +162,7 @@
             <td colspan="2">
                 <%foreach (Ticket ticket in tickets)
                     { %>
-                <div id="ticket<%=ticket._fields["id"].ToString() %>" name="ticket" class="panel panel-default" style="width:350px" onclick="select_ticket(<%=ticket._fields["id"].ToString() %>)" >
+                <div id="ticket<%=ticket.Code.Trim() %>" name="ticket" class="panel panel-default" style="width:350px" onclick="select_ticket('<%=ticket.Code %>')" >
                     <div class="panel-heading">
                         <h3 class="panel-title"><%=ticket.Name.Trim() %></h3>
                     </div>
