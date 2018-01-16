@@ -510,37 +510,21 @@
             return status;
         }
 
-        function refresh_order_state() {
+        function refresh_order_state() {   
             $.ajax({
-                url: "../../../api/get_online_order_info.aspx?temporderid=" + temp_order_id,
+                url: "../../../api/get_online_order_info.aspx?orderid=" + order_id.toString(),
                 type: "GET",
-                success: function (msg, status) {
+                success: function (msg, statue) {
                     var msg_object = eval("(" + msg + ")");
-                    var order_id = 0;
-                    try {
-                        order_id = parseInt(msg_object.online_order_id);
+                    if (msg_object.pay_state == 1) {
+                        launch_pay_success_info();
                     }
-                    catch (ex) {
+                    /*
+                    if (msg_object.pay_method == "支付宝" && msg_object.pay_state == 0) {
+                        launch_alipay_qrcode(msg_object.id.toString());
+                    }
+                    */
 
-                    }
-                    if (order_id > 0) {
-                        $.ajax({
-                            url: "../../../api/get_online_order_info.aspx?orderid=" + order_id.toString(),
-                            type: "GET",
-                            success: function (msg, statue) {
-                                var msg_object = eval("(" + msg + ")");
-                                if (msg_object.pay_state == 1) {
-                                    launch_pay_success_info();
-                                }
-                                /*
-                                if (msg_object.pay_method == "支付宝" && msg_object.pay_state == 0) {
-                                    launch_alipay_qrcode(msg_object.id.toString());
-                                }
-                                */
-
-                            }
-                        });
-                    }
                 }
             });
         }
