@@ -133,7 +133,7 @@
             <td colspan="2" >已有券卡：</td>
         </tr>
         <tr>
-            <td>
+            <td colspan="2">
                 <div id="ticket1" name="ticket" class="panel panel-default" style="width:350px" >
                     <div class="panel-heading">
                         <h3 class="panel-title">内购券</h3>
