@@ -31,7 +31,17 @@
         int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode);
         //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
-        Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\", \"temp_order_id\":" + chargeId.ToString() + " }");
+        if (customerOpenId.Trim().Equals(""))
+        {
+            Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\", \"temp_order_id\":" + chargeId.ToString() + " }");
+        }
+        else
+        {
+            OrderTemp orderTemp = new OrderTemp(chargeId);
+            int orderId = orderTemp.PlaceOnlineOrder(customerOpenId.Trim());
+            OnlineOrder order = new OnlineOrder(orderId);
+            Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }"); 
+        }
         /*
         else
         {

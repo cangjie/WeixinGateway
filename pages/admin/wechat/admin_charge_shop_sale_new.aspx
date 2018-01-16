@@ -204,8 +204,8 @@
             <td>支付方式：</td>
             <td>
                 <select id="pay_method" >
-                    <option>现金</option>
-                    <option>刷卡</option>
+                    <!--option>现金</!--option>
+                    <option>刷卡</option-->
                     <option>微信</option>
                     <option>支付宝</option>
                 </select>
@@ -382,14 +382,20 @@
                 type: "GET",
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
-                    var qrcode_id = msg_object.charge_id;
+
+                    var order_id = msg_object.order_id;
+                    var pay_method = msg_object.pay_method;
+                    var pay_url = "";
                     var qr_code_url = "";
-                    //if (qrcode_id != null) {
-                    qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?sceneid=" + qrcode_id.trim();
-                    //}
-                    //else {
-                    //    qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + msg_object.qr_code_url.trim();
-                    //}
+                    if (pay_method.trim() == '支付宝') {
+                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/haojin_qrcode_ali.aspx?orderid=" + order_id.toString().trim();
+                    }
+                    if (pay_method.trim() == '微信') {
+                        pay_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/haojin_pay_online_order.aspx?orderid=" + order_id.toString();
+                        pay_url = encodeURI(pay_url);
+                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + pay_url;
+                    }
+
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
                     temp_order_id = msg_object.temp_order_id;
