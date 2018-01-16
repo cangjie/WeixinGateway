@@ -60,6 +60,24 @@
     <link type="text/css" href="../../third/alertjs/alert.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" ></script>
+    <script type="text/javascript" >
+        var ticket_id = 0;
+        function select_ticket(id) {
+            var ori_ticket_id = ticket_id;
+            un_select_tickets();
+            if (ori_ticket_id != id) {
+                var ticket = document.getElementById("ticket" + id.toString());
+                ticket.className = "panel panel-danger";
+            }
+        }
+        function un_select_tickets() {
+            var div_tickets = document.getElementsByName("ticket");
+            ticket_id = 0;
+            for (var i = 0; i < div_tickets.length; i++) {
+                div_tickets[i].className = "panel panel-default";
+            }
+        }
+    </script>
 </head>
 <body>
     <table class="table table-striped">
@@ -134,7 +152,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <div id="ticket1" name="ticket" class="panel panel-default" style="width:350px" >
+                <div id="ticket1" name="ticket" class="panel panel-default" style="width:350px" onclick="select_ticket(1)" >
                     <div class="panel-heading">
                         <h3 class="panel-title">内购券</h3>
                     </div>
@@ -142,7 +160,7 @@
                         内购券打多少折，我也不知道。
                     </div>
                 </div>
-                <div id="ticket2" name="ticket" class="panel panel-default" style="width:350px" >
+                <div id="ticket2" name="ticket" class="panel panel-default" style="width:350px"  onclick="select_ticket(2)" >
                     <div class="panel-heading">
                         <h3 class="panel-title">头盔9折券</h3>
                     </div>
@@ -150,7 +168,7 @@
                         内购券打多少折，我也不知道。
                     </div>
                 </div>
-                <div id="ticket2" name="ticket" class="panel panel-default" style="width:350px" >
+                <div id="ticket2" name="ticket" class="panel panel-default" style="width:350px"  onclick="select_ticket(3)" >
                     <div class="panel-heading">
                         <h3 class="panel-title">手套8折券</h3>
                     </div>
