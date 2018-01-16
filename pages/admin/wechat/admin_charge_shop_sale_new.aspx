@@ -84,8 +84,10 @@
 <body>
     <table class="table table-striped">
         <tr>
-            <td>用户信息：</td>
-            <td>
+            <td colspan="2" >用户信息：</td>
+        </tr>
+        <tr>
+            <td colspan="2">
                 <img src="<%=customerUser.HeadImage.Trim() %>" width="30" height="30" /> 昵称：<%=customerUser.Nick.Trim() %> 电话：<%=customerUser.CellNumber.Trim() %>
             </td>
         </tr>
@@ -373,7 +375,8 @@
             var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
-                + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail=" + get_product_list_json()+"&ticketcode=" + ticket_id.trim();
+                + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail=" + get_product_list_json()
+                + "&ticketcode=" + ticket_id.trim()+"&openid=<%=customerOpenId%>";
             $.ajax({
                 url: ajax_url,
                 type: "GET",
