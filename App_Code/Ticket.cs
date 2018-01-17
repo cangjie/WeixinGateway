@@ -68,7 +68,7 @@ public class Ticket
         if (!Used)
         {
             string[,] updateParameters = new string[,] { { "used", "int", "1" },
-                {"use_date", "datetime", DateTime.Now.ToString() },
+                {"used_time", "datetime", DateTime.Now.ToString() },
                 {"use_memo", "varchar", word } };
             string[,] keyParameter = new string[,] { { "code", "varchar", Code.Trim() } };
             int i = DBHelper.UpdateData("ticket", updateParameters, keyParameter, Util.conStr);
@@ -76,7 +76,7 @@ public class Ticket
             {
                 string[,] updateParameter = new string[,] { { "ticket_code", "varchar", Code.Trim() } };
                 string[,] keyParam = new string[,] { { "id", "int", orderId.ToString() } };
-                i = DBHelper.UpdateData("order_online", keyParam, keyParameter, Util.conStr);
+                i = DBHelper.UpdateData("order_online", updateParameter, keyParam, Util.conStr);
                 if (i == 1)
                     return true;
                 else

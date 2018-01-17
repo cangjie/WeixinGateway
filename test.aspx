@@ -8,8 +8,13 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        int i = Point.AddNew("aaa", 10, DateTime.Now, "111");
-        Response.Write(i.ToString());
+        OnlineOrder order = new OnlineOrder(772);
+        OrderTemp tempOrder = OrderTemp.GetFinishedOrder(int.Parse(order._fields["id"].ToString()));
+        Ticket ticket = new Ticket(tempOrder._fields["ticket_code"].ToString().Trim());
+        ticket.Use(int.Parse(order._fields["id"].ToString()), "订单支付成功，此券核销。订单号：" + order._fields["id"].ToString());
+
+        //int i = Point.AddNew("aaa", 10, DateTime.Now, "111");
+        //Response.Write(i.ToString());
         //Point.ImportPointsByNumber("13910071912");
 
         //string jsonStr = "{\"pay_type\": \"800207\", \"sysdtm\": \"2018-01-02 16:46:54\", \"cardcd\": \"\", \"txdtm\": \"2018-01-02 16:46:46\", \"resperr\": \"\u7f51\u7edc\u6709\u4e9b\u62e5\u5835\uff0c\u5ba2\u5b98\u83ab\u6025\uff0c\u5207\u52ff\u91cd\u590d\u652f\u4ed8\uff0c\u5982\u5df2\u652f\u4ed8\u8bf7\u7a0d\u540e\u786e\u8ba4\u7ed3\u679c(1298)\", \"txcurrcd\": \"CNY\", \"txamt\": \"38500\", \"respmsg\": \"\", \"out_trade_no\": \"515\", \"syssn\": \"20180102000300020047092609\", \"respcd\": \"1298\"}";
