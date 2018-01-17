@@ -3,6 +3,15 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        string currentPageUrl = Request.Url.ToString();
+
+        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+        {
+            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+        }
+
+
+
         int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "205"));
         OnlineOrder order = new OnlineOrder(orderId);
         string appCodeConfig = "haojin_code";
