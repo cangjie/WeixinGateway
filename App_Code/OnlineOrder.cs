@@ -38,7 +38,7 @@ public class OnlineOrder
         if (_fields == null)
         {
             WeixinUser user = new WeixinUser(openId.Trim());
-            if (user != null && !user.CellNumber.Trim().Equals("") )
+            if (user != null)
             {
                 string[,] insertParam = { {"type", "varchar", Type.Trim() },
                     {"open_id", "varchar", openId.Trim() },
