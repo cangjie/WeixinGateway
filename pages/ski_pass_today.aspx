@@ -49,7 +49,7 @@
                 data: { "cart": cart_json, "token": "<%=token%>" },
                 success: function(msg, status) {
                     var msg_object = eval("(" + msg + ")");
-                    window.location.href = "../payment/haojin_pay_online_order.aspx?orderid=" + msg_object.order_id;
+                    window.location.href = "../payment/haojin_pay_online_order.aspx?orderid=" + msg_object.order_id+"&token=<%=token%>";
                 }
             });
 </script>
