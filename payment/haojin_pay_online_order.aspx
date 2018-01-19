@@ -10,7 +10,8 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
 
-
+        string openId = WeixinUser.CheckToken(Session["user_token"].ToString());
+        WeixinUser user = new WeixinUser(openId);
 
         int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "205"));
         OnlineOrder order = new OnlineOrder(orderId);
