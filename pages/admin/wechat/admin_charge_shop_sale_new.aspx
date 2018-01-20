@@ -88,7 +88,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <img src="<%=customerUser.HeadImage.Trim() %>" width="30" height="30" /> 昵称：<%=customerUser.Nick.Trim() %> 电话：<%=customerUser.CellNumber.Trim() %>
+                <img src="<%=customerUser.HeadImage.Trim() %>" width="30" height="30" /> 昵称：<%=customerUser.Nick.Trim() %> 电话：<input type="text" id="cell" value="<%=customerUser.CellNumber.Trim() %>" />
             </td>
         </tr>
         <tr>
@@ -376,7 +376,7 @@
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail=" + get_product_list_json()
-                + "&ticketcode=" + ticket_id.trim()+"&openid=<%=customerOpenId%>";
+                + "&ticketcode=" + ticket_id.trim()+"&openid=<%=customerOpenId%>&cell=" + document.getElementById("cell").value.trim() ;
             $.ajax({
                 url: ajax_url,
                 type: "GET",

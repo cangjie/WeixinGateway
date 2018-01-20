@@ -638,4 +638,30 @@ public class DealMessage
         return repliedMessage;
     }
 
+    public static void SendCustomeRequestToAssistant(ReceivedMessage receivedMessage)
+    {
+        string content = receivedMessage.eventKey.Trim().Replace("qrscene_", "").Trim();
+        if (content.StartsWith("sale_"))
+        {
+            string assistantOpenId = content.Replace("sale_", "");
+            WeixinUser assistant = new WeixinUser(assistantOpenId.Trim());
+            if (assistant.IsAdmin)
+            {
+                ServiceMessage serviceMessage = new ServiceMessage();
+                serviceMessage.from = receivedMessage.to.Trim();
+                serviceMessage.to = assistantOpenId;
+                WeixinUser customer = new WeixinUser(receivedMessage.from.Trim());
+                serviceMessage.type = "news";
+                RepliedMessage.news newsMessage = new RepliedMessage.news();
+                newsMessage.picUrl = customer.HeadImage;
+                newsMessage.title = customer.Nick.Trim() + " 请求结账";
+                newsMessage.description = newsMessage.title.Trim();
+                newsMessage.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/admin_charge_shop_sale_new.aspx?openid="
+                    + customer.OpenId.Trim();
+                serviceMessage.newsArray = new RepliedMessage.news[] { newsMessage }; 
+                ServiceMessage.SendServiceMessage(serviceMessage);
+            }
+        }
+    }
+
 }
