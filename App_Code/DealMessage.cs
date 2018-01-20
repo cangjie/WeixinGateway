@@ -221,6 +221,8 @@ public class DealMessage
                         }
                     }
 
+                 
+
                     if (int.Parse(receivedMessage.eventKey.Substring(0,2))>13)
                     {
                         repliedMessage = ScanDeviceQrCode(receivedMessage);
@@ -242,7 +244,12 @@ public class DealMessage
                         repliedMessage = ScanSignin(receivedMessage);
                     }
 
+                    if (receivedMessage.eventKey.Trim().StartsWith("sale_"))
+                    {
+                        SendCustomeRequestToAssistant(receivedMessage);
+                    }
 
+                    /*
                     if (receivedMessage.eventKey.Trim().StartsWith("20171223_shijinglong_shihua_"))
                     {
                         WeixinUser rentUser = new WeixinUser(receivedMessage.from.Trim());
@@ -334,6 +341,7 @@ public class DealMessage
                         }
 
                     }
+                    */
                 }
 
                 break;
@@ -395,6 +403,10 @@ public class DealMessage
                     if (eventKey.Trim().Equals("1") || eventKey.Equals("2"))
                     {
                         repliedMessage = ScanSignin(receivedMessage);
+                    }
+                    if (eventKey.Trim().StartsWith("qrscene_sale_"))
+                    {
+                        SendCustomeRequestToAssistant(receivedMessage);
                     }
                 }
                 break;
