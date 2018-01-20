@@ -246,6 +246,9 @@ public class DealMessage
 
                     if (receivedMessage.eventKey.Trim().StartsWith("sale_"))
                     {
+                        WeixinUser assistant = new WeixinUser(receivedMessage.eventKey.Trim().Replace("sale_", ""));
+                        repliedMessage.type = "text";
+                        repliedMessage.content = "请找" + assistant.Nick.Trim() + "在手机上完成操作";
                         SendCustomeRequestToAssistant(receivedMessage);
                     }
 
@@ -406,6 +409,8 @@ public class DealMessage
                     }
                     if (eventKey.Trim().StartsWith("sale_"))
                     {
+                        repliedMessage.type = "text";
+                        repliedMessage.content = "请找" + assistant.Nick.Trim() + "在手机上完成操作";
                         SendCustomeRequestToAssistant(receivedMessage);
                     }
                 }
