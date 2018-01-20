@@ -20,6 +20,7 @@
         string orderDetailJson = Util.GetSafeRequestValue(Request, "reforderdetail", "");
         string ticketCode = Util.GetSafeRequestValue(Request, "ticketcode", "");
         string customerOpenId = Util.GetSafeRequestValue(Request, "openid", "");
+        string cell = Util.GetSafeRequestValue(Request, "cell", "");
         WeixinUser currentUser = new WeixinUser(openId);
 
         if (!currentUser.IsAdmin)
@@ -27,6 +28,8 @@
             Response.Write("{\"status\":1, \"err_msg\":\"Is not admin.\" }");
             Response.End();
         }
+
+
 
         int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode);
@@ -37,10 +40,23 @@
         }
         else
         {
+            try
+            {
+                if (!cell.Trim().Equals(""))
+                {
+                    WeixinUser customer = new WeixinUser(customerOpenId.Trim());
+                    customer.CellNumber = cell.Trim();
+                    customer.VipLevel = 1;
+                }
+            }
+            catch
+            {
+
+            }
             OrderTemp orderTemp = new OrderTemp(chargeId);
             int orderId = orderTemp.PlaceOnlineOrder(customerOpenId.Trim());
             OnlineOrder order = new OnlineOrder(orderId);
-            Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }"); 
+            Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
         }
         /*
         else
