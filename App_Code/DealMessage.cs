@@ -409,6 +409,7 @@ public class DealMessage
                     }
                     if (eventKey.Trim().StartsWith("sale_"))
                     {
+                        WeixinUser assistant = new WeixinUser(eventKey.Trim().Replace("sale_", ""));
                         repliedMessage.type = "text";
                         repliedMessage.content = "请找" + assistant.Nick.Trim() + "在手机上完成操作";
                         SendCustomeRequestToAssistant(receivedMessage);
