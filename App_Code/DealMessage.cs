@@ -404,7 +404,7 @@ public class DealMessage
                     {
                         repliedMessage = ScanSignin(receivedMessage);
                     }
-                    if (eventKey.Trim().StartsWith("qrscene_sale_"))
+                    if (eventKey.Trim().StartsWith("sale_"))
                     {
                         SendCustomeRequestToAssistant(receivedMessage);
                     }
