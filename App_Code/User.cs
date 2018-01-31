@@ -102,7 +102,7 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
-            return _fields["vip_level"].ToString().Trim();
+            return _fields["memo"].ToString().Trim();
         }
         set
         {

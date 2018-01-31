@@ -104,7 +104,7 @@
             </td>
         </tr>
         <tr>
-            <td>备注：<input id="customer_memo" type="text" width="80%" value="<%=currentUser.Memo.Trim() %>" /></td>
+            <td colspan="2">备注：<input id="customer_memo" type="text" width="80%" value="<%=currentUser.Memo.Trim() %>" /></td>
         </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
