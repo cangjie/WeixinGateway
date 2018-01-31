@@ -22,21 +22,14 @@
             if (order.Type.Trim().Equals("店销"))
             {
                 OrderTemp tempOrder = OrderTemp.GetFinishedOrder(int.Parse(order._fields["id"].ToString()));
-                //Ticket ticket = new Ticket(tempOrder._fields["ticket_code"].ToString().Trim());
-                //ticket.Use(int.Parse(order._fields["id"].ToString()), "订单支付成功，此券核销。订单号：" + order._fields["id"].ToString());
-
-                if (order.HaveFinishedShopSaleOrder())
+                if (order._fields["pay_state"].ToString().Equals("1") && !order.HaveFinishedShopSaleOrder())
                 {
-                    //OrderTemp orderTemp = new OrderTemp()
-
-                    OrderTemp orderTmep = OrderTemp.GetFinishedOrder(int.Parse(order._fields["id"].ToString()));
-                    string[] ticketCodeArr = orderTmep._fields["ticket_code"].ToString().Trim().Split(',');
+                    string[] ticketCodeArr = tempOrder._fields["ticket_code"].ToString().Trim().Split(',');
                     foreach (string tickCode in ticketCodeArr)
                     {
                         Ticket ticket = new Ticket(tickCode.Trim());
                         ticket.Use(int.Parse(order._fields["id"].ToString()), "订单支付成功，此券核销。订单号：" + order._fields["id"].ToString());
                     }
-
                     ServiceMessage toCustomerMessage = new ServiceMessage();
                     toCustomerMessage.from = "";
                     toCustomerMessage.to = order._fields["open_id"].ToString();

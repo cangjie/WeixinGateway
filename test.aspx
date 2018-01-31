@@ -8,8 +8,12 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        ReceivedMessage receivedMessage = new ReceivedMessage("event_20180120213621556");
-        DealMessage.SendCustomeRequestToAssistant(receivedMessage);
+        //ReceivedMessage receivedMessage = new ReceivedMessage("event_20180120213621556");
+        //DealMessage.SendCustomeRequestToAssistant(receivedMessage);
+        OrderTemp tempOrder = OrderTemp.GetFinishedOrder(1065);
+        if (order.HaveFinishedShopSaleOrder())
+        {
+        }
 
     }
 </script>
