@@ -86,7 +86,7 @@
             if (!isNaN(market_price) && !isNaN(discount_rate)) {
                 var sale_price = discount_rate * market_price / 10;
                 var txt_sale_price = document.getElementById("sale_price_" + id.trim());
-                txt_market_price.value = Math.round(sale_price * 100) / 100;
+                txt_sale_price.value = Math.round(sale_price * 100) / 100;
             }
         }
 
