@@ -74,12 +74,9 @@
             }
             else {
                 ticket.className = "panel panel-default";
-                if (ticket_id.indexOf(id + ",") >= 0) {
-                    ticket_id = ticket_id.replace(id + ",", "");
-                }
-                else {
-                    ticket_id = ticket_id.replace(id, "");
-                }
+                ticket_id = ticket_id.replace(id + ",", "");
+                ticket_id = ticket_id.replace("," + id, "");
+                ticket_id = ticket_id.replace(id, "");
             }
         }
         function un_select_tickets() {
@@ -114,7 +111,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">备注：<input id="customer_memo" type="text" width="80%" value="<%=currentUser.Memo.Trim() %>" /></td>
+            <td colspan="2">备注：<input id="customer_memo" type="text" width="95%" value="<%=currentUser.Memo.Trim() %>" /></td>
         </tr>
         <tr>
             <td colspan="2" >&nbsp;</td>
