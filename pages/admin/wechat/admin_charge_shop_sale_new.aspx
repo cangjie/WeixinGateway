@@ -87,6 +87,7 @@
                 var sale_price = discount_rate * market_price / 10;
                 var txt_sale_price = document.getElementById("sale_price_" + id.trim());
                 txt_sale_price.value = Math.round(sale_price * 100) / 100;
+                get_product_list_json();
             }
         }
 
@@ -428,7 +429,6 @@
                     if (get_product_line_display_status(i) == "none" && !display_new) {
                         set_product_line_display_status(i, true);
                         document.getElementById("product_info_" + i.toString()).innerHTML = "";
-
                     }
                     display_new = true;
                 }
@@ -501,6 +501,9 @@
             }
             else {
                 json = "";
+            }
+            if (!isNaN(sale_price) && !isNaN(deal_price)) {
+                document.getElementById("discount_rate_" + i.toString()).value = Math.round(100 * deal_price / sale_price) / 10;
             }
             return json;
         }
