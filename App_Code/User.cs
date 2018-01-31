@@ -98,7 +98,30 @@ public class WeixinUser : ObjectHelper
         }
     }
 
-    
+    public string Memo
+    {
+        get
+        {
+            return _fields["vip_level"].ToString().Trim();
+        }
+        set
+        {
+            KeyValuePair<string, KeyValuePair<SqlDbType, object>> memo
+                = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>("memo",
+                    new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)value));
+
+            KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] updateDataArr
+                = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] { memo };
+
+            KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] keyDataArr
+                = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] {
+                    new KeyValuePair<string , KeyValuePair<SqlDbType, object>>( "open_id",
+                        new KeyValuePair<SqlDbType,object>(SqlDbType.VarChar, _fields["open_id"]))};
+            int i = DBHelper.UpdateData(tableName.Trim(), updateDataArr, keyDataArr);
+            if (i == 0)
+                throw new Exception("update failed");
+        }
+    }
 
     public int VipLevel
     {

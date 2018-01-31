@@ -21,6 +21,7 @@
         string ticketCode = Util.GetSafeRequestValue(Request, "ticketcode", "");
         string customerOpenId = Util.GetSafeRequestValue(Request, "openid", "");
         string cell = Util.GetSafeRequestValue(Request, "cell", "");
+        string customerMemo =  Util.GetSafeRequestValue(Request, "customermemo", "");
         WeixinUser currentUser = new WeixinUser(openId);
 
         if (!currentUser.IsAdmin)
@@ -29,7 +30,8 @@
             Response.End();
         }
 
-
+        WeixinUser customer = new WeixinUser(customerOpenId.Trim());
+        customer.Memo = customerMemo.Trim();
 
         int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode);
@@ -44,9 +46,9 @@
             {
                 if (!cell.Trim().Equals(""))
                 {
-                    WeixinUser customer = new WeixinUser(customerOpenId.Trim());
                     customer.CellNumber = cell.Trim();
                     customer.VipLevel = 1;
+                    
                 }
             }
             catch
@@ -58,64 +60,6 @@
             OnlineOrder order = new OnlineOrder(orderId);
             Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
         }
-        /*
-        else
-        {
-            string mchid = "eA8qkhmq2M";
-            switch (shop)
-            {
-                case "南山":
-                    mchid = "DdAjZF6rrY";
-                    break;
-                case "八易":
-                    mchid = "wQ2V3sMj71";
-                    break;
-                case "乔波":
-                    mchid = "eA8qkhmq2M";
-                    break;
-                case "万龙":
-                    mchid = "g6VB7srLmY";
-                    break;
-                default:
-                    break;
-            }
-            string pay_type = payMethod.Trim().Equals("微信") ? "800201" : "800101";
-
-            string paymentDomain = System.Configuration.ConfigurationSettings.AppSettings["payment_haojin_domain_name"];
-            string md5Key = System.Configuration.ConfigurationSettings.AppSettings["haojin_key"];
-            string appCode = System.Configuration.ConfigurationSettings.AppSettings["haojin_code"];
-
-            string txamt = "1";
-            string txcurrcd = "CNY";
-            string out_trade_no = "shop_sale_charge_" + chargeId.ToString();
-            string txdtm = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "-"
-                + DateTime.Now.Day.ToString().PadLeft(2,'0') + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":"
-                + DateTime.Now.Minute.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
-            string goods_name = "snowmeet test";
-
-            string postData = "txamt=" + txamt + "&txcurrcd=" + txcurrcd + "&pay_type=" + pay_type + "&out_trade_no=" + out_trade_no
-                + "&txdtm=" + txdtm +  "&goods_name=" + goods_name+"&mchid=" + mchid.Trim();
-
-            string jumpUrl = "https://" + paymentDomain + "/trade/v1/payment";
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(jumpUrl);
-            req.Method = "POST";
-            req.ContentType = "application/x-www-form-urlencoded";
-            req.Headers.Add("X-QF-APPCODE", appCode);
-            req.Headers.Add("X-QF-SIGN", Util.GetHaojinMd5Sign(postData, md5Key));
-            Stream requestStream = req.GetRequestStream();
-            StreamWriter sw = new StreamWriter(requestStream);
-            sw.Write(postData);
-            sw.Close();
-            HttpWebResponse res = (HttpWebResponse)req.GetResponse();
-            StreamReader sr = new StreamReader(res.GetResponseStream());
-            string str = sr.ReadToEnd();
-            sr.Close();
-            res.Close();
-            req.Abort();
-            string qrCodeUrl = Util.GetSimpleJsonValueByKey(str, "qrcode");
-            Response.Write("{\"status\":0, \"qr_code_url\":\"" + Server.UrlEncode(qrCodeUrl.Trim()) + "\" }");
-            //Response.Write("");
-            
-        }*/
+      
     }
 </script>

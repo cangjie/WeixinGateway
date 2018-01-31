@@ -104,6 +104,9 @@
             </td>
         </tr>
         <tr>
+            <td>备注：<input id="customer_memo" type="text" width="80%" value="<%=currentUser.Memo.Trim() %>" /></td>
+        </tr>
+        <tr>
             <td colspan="2" >&nbsp;</td>
         </tr>
         <tr name="product_tr_0" >
@@ -388,7 +391,8 @@
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail=" + get_product_list_json()
-                + "&ticketcode=" + ticket_id.trim()+"&openid=<%=customerOpenId%>&cell=" + document.getElementById("cell").value.trim() ;
+                + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" + document.getElementById("cell").value.trim()
+                + "&customermemo=" + document.getElementById("customer_memo").value.trim();
             $.ajax({
                 url: ajax_url,
                 type: "GET",
