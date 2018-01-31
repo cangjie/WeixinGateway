@@ -66,10 +66,20 @@
         function select_ticket(id) {
             var ori_ticket_id = ticket_id;
             //un_select_tickets();
+            var ticket = document.getElementById("ticket" + id.trim());
             if (ori_ticket_id.indexOf(id) < 0) {
-                var ticket = document.getElementById("ticket" + id.trim());
+                
                 ticket.className = "panel panel-danger";
                 ticket_id = ticket_id + ((ticket_id.trim() == '') ? '' : ',') + id;
+            }
+            else {
+                ticket.className = "panel panel-default";
+                if (ticket_id.indexOf("," + id) > 0) {
+                    ticket_id = ticket_id.replace("," + id, "");
+                }
+                else {
+                    ticket_id = ticket_id.replace(id, "");
+                }
             }
         }
         function un_select_tickets() {
