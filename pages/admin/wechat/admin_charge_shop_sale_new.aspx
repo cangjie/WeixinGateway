@@ -79,6 +79,17 @@
                 div_tickets[i].className = "panel panel-default";
             }
         }
+
+        function compute_sale_price(id) {
+            var market_price = parseFloat(document.getElementById("market_price_" + id.trim()));
+            var discount_rate = parseFloat(document.getElementById("discount_rate_" + id.trim()));
+            if (!isNaN(market_price) && !isNaN(discount_rate)) {
+                var sale_price = discount_rate * market_price / 10;
+                var txt_sale_price = document.getElementById("sale_price_" + id.trim());
+                txt_market_price.value = Math.round(sale_price * 100) / 100;
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -98,7 +109,7 @@
             <td colspan="2" >商品1：<input type="text" id="product_name_0" onchange="get_product_list_json()" /> 数量：<input type="text" id="product_num_0" style="width:50px" value="1" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr name="product_tr_0" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_0" style="width:75px" onchange="get_product_list_json()"  /> 成交价：<input type="text" id="sale_price_0" style="width:75px" onchange="get_product_list_json()"   /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_0" style="width:75px" onchange="get_product_list_json()"  /> 折扣：<input type="text" id="discount_rate_0" onchange="compute_sale_price('0')" /> 成交价：<input type="text" id="sale_price_0" style="width:75px" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr name="product_tr_0" >
             <td colspan="2" id="product_info_0" >&nbsp;</td>
@@ -108,7 +119,7 @@
             <td colspan="2" >商品2：<input type="text" id="product_name_1" onchange="get_product_list_json()"  /> 数量：<input type="text" id="product_num_1" style="width:50px" value="1" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_1" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_1" style="width:75px" onchange="get_product_list_json()"  /> 成交价：<input type="text" id="sale_price_1" style="width:75px" onchange="get_product_list_json()"  /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_1" style="width:75px" onchange="get_product_list_json()"  /> 折扣：<input type="text" id="discount_rate_1" onchange="compute_sale_price('1')" /> 成交价：<input type="text" id="sale_price_1" style="width:75px" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_1" >
             <td colspan="2"  id="product_info_1" >&nbsp;</td>
@@ -118,7 +129,7 @@
             <td colspan="2" >商品3：<input type="text" id="product_name_2" onchange="get_product_list_json()"   /> 数量：<input type="text" id="product_num_2" style="width:50px" value="1" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr style="display:none" name="product_tr_2" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_2" style="width:75px" onchange="get_product_list_json()"   /> 成交价：<input type="text" id="sale_price_2" style="width:75px" onchange="get_product_list_json()"  /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_2" style="width:75px" onchange="get_product_list_json()"   /> 折扣：<input type="text" id="discount_rate_2" onchange="compute_sale_price('2')" /> 成交价：<input type="text" id="sale_price_2" style="width:75px" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_2" >
             <td colspan="2" id="product_info_2"  >&nbsp;</td>
@@ -128,7 +139,7 @@
             <td colspan="2" >商品4：<input type="text" id="product_name_3" onchange="get_product_list_json()"   /> 数量：<input type="text" id="product_num_3" style="width:50px" value="1" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr style="display:none" name="product_tr_3" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_3" style="width:75px" onchange="get_product_list_json()"   /> 成交价：<input type="text" id="sale_price_3" style="width:75px" onchange="get_product_list_json()"  /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_3" style="width:75px" onchange="get_product_list_json()"   /> 折扣：<input type="text" id="discount_rate_3" onchange="compute_sale_price('3')" /> 成交价：<input type="text" id="sale_price_3" style="width:75px" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_3" >
             <td colspan="2" id="product_info_3" >&nbsp;</td>
@@ -137,7 +148,7 @@
             <td colspan="2" >商品5：<input type="text" id="product_name_4" onchange="get_product_list_json()"  /> 数量：<input type="text" id="product_num_4" style="width:50px" value="1" onchange="get_product_list_json()"   /></td>
         </tr>
         <tr style="display:none" name="product_tr_4" >
-            <td colspan="2" >零售价：<input type="text" id="market_price_4" style="width:75px" onchange="get_product_list_json()"  /> 成交价：<input type="text" id="sale_price_4" style="width:75px" onchange="get_product_list_json()"  /></td>
+            <td colspan="2" >零售价：<input type="text" id="market_price_4" style="width:75px" onchange="get_product_list_json()"  /> 折扣：<input type="text" id="discount_rate_4" onchange="compute_sale_price('4')" /> 成交价：<input type="text" id="sale_price_4" style="width:75px" onchange="get_product_list_json()"  /></td>
         </tr>
         <tr style="display:none" name="product_tr_4" >
             <td colspan="2" id="product_info_4" >&nbsp;</td>
