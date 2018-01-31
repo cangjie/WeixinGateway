@@ -74,8 +74,8 @@
             }
             else {
                 ticket.className = "panel panel-default";
-                if (ticket_id.indexOf("," + id) > 0) {
-                    ticket_id = ticket_id.replace("," + id, "");
+                if (ticket_id.indexOf(id + ",") >= 0) {
+                    ticket_id = ticket_id.replace(id + ",", "");
                 }
                 else {
                     ticket_id = ticket_id.replace(id, "");
