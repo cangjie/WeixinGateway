@@ -81,8 +81,8 @@
         }
 
         function compute_sale_price(id) {
-            var market_price = parseFloat(document.getElementById("market_price_" + id.trim()));
-            var discount_rate = parseFloat(document.getElementById("discount_rate_" + id.trim()));
+            var market_price = parseFloat(document.getElementById("market_price_" + id.trim()).value);
+            var discount_rate = parseFloat(document.getElementById("discount_rate_" + id.trim()).value);
             if (!isNaN(market_price) && !isNaN(discount_rate)) {
                 var sale_price = discount_rate * market_price / 10;
                 var txt_sale_price = document.getElementById("sale_price_" + id.trim());
