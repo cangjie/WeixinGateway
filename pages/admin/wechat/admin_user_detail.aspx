@@ -57,7 +57,7 @@
                 }
             }
 
-            save2.Attributes.Add("onclick", "disable_button");
+            save2.Attributes.Add("onclick", "disable_button()");
 
         }
     }
