@@ -120,12 +120,12 @@
 </head>
 <body>
     <form id="form" runat="server" >
-    <table width="100%" border="1"  >
+    <table width="100%" border="1" style="font-size: xx-large"  >
         <tr>
             <td colspan="3" ><asp:Label ID="LblInfo" runat="server" Font-Bold="True" Font-Size="Small" ForeColor="Red" Width="100%" ></asp:Label></td>
         </tr>
         <tr>
-            <td rowspan="5" ><asp:Image ID="ImgHead" runat="server" /></td>
+            <td rowspan="5" ><asp:Image ID="ImgHead" runat="server" Width="150px" /></td>
             <td>昵称：</td>
             <td><asp:TextBox ID="TxtNick" runat="server" ReadOnly="True" ></asp:TextBox></td>
         </tr>
