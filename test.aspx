@@ -11,9 +11,7 @@
         //ReceivedMessage receivedMessage = new ReceivedMessage("event_20180120213621556");
         //DealMessage.SendCustomeRequestToAssistant(receivedMessage);
         OrderTemp tempOrder = OrderTemp.GetFinishedOrder(1065);
-        if (order.HaveFinishedShopSaleOrder())
-        {
-        }
+        
 
     }
 </script>

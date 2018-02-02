@@ -112,6 +112,17 @@ public class Point
         }
     }
 
+    public static int GetUserPoints(string openId)
+    {
+        int total = 0;
+        DataTable dt = DBHelper.GetDataTable(" select sum(points) from user_point_balance where user_open_id = '" + openId.Trim() + "' ");
+        if (dt.Rows.Count > 0 && !dt.Rows[0][0].ToString().Trim().Equals(""))
+        {
+            total = int.Parse(dt.Rows[0][0].ToString().Trim());
+        }
+        return total;
+    }
+
     public static Point[] GetUserBalance(string openId)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from user_point_balance where user_open_id = '" + openId.Trim().Replace("'", "") 
