@@ -121,6 +121,7 @@
         function disable_button() {
             var button = document.getElementById("save2");
             button.disabled = true;
+            document.getElementById("form").submit();
         }
     </script>
 </head>
