@@ -20,6 +20,7 @@
         customOpenId = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM").Trim();
         dtTicketTemplate = DBHelper.GetDataTable(" select * from ticket_template where hide = 0 ");
         
+        
         string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/admin_charge_shop_sale.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -35,6 +36,8 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
+            
+
 
         if (!IsPostBack)
         {
@@ -56,9 +59,6 @@
 
                 }
             }
-
-            save2.Attributes.Add("onclick", "disable_button()");
-
         }
     }
 
@@ -117,13 +117,6 @@
             height: 20px;
         }
     </style>
-    <script type="text/javascript" >
-        function disable_button() {
-            var button = document.getElementById("save2");
-            button.disabled = true;
-            document.getElementById("form").submit();
-        }
-    </script>
 </head>
 <body>
     <form id="form" runat="server" >
