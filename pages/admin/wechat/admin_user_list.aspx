@@ -96,7 +96,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:DataGrid ID="dg" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" Width="100%" Font-Size="Large" >
+        <asp:DataGrid ID="dg" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" Width="100%" Font-Size="XX-Large" >
             <AlternatingItemStyle BackColor="#DCDCDC" />
             <Columns>
                 <asp:BoundColumn DataField="头像" HeaderText="头像"></asp:BoundColumn>
