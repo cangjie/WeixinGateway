@@ -107,6 +107,16 @@
         }
         LblInfo.Text = "成功送出。";
     }
+    public string GetTicketSummary(string openId)
+    {
+        DataTable dt = Ticket.GetUserTiketSummary(openId, false);
+        string str = "";
+        foreach (DataRow dr in dt.Rows)
+        {
+            str = str + " " + dr["name"].ToString().Trim() + ": " + dr["count"].ToString();  
+        }
+        return str;
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -149,7 +159,7 @@
             <td colspan="3" ><asp:Button ID="save1" runat="server" Text="保存" OnClick="save1_Click" /></td>
         </tr>
         <tr>
-            <td colspan="3"><hr /></td>
+            <td colspan="3">未使用卡券：<%=GetTicketSummary(customOpenId) %></td>
         </tr>
         <tr>
             <td>赠送龙珠：</td>

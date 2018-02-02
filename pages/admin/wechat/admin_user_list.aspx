@@ -57,7 +57,7 @@
             dr["电话"] = dtOri.Rows[i]["cell_number"].ToString().Trim();
             dr["龙珠"] = Point.GetUserPoints(dtOri.Rows[i]["open_id"].ToString().Trim());
             dr["标签"] = dtOri.Rows[i]["memo"].ToString();
-            dr["卡券"] = "";
+            dr["卡券"] = GetTicketSummary(dtOri.Rows[i]["open_id"].ToString().Trim());
             string fatherInfo = "";
             if (!dtOri.Rows[i]["father_open_id"].ToString().Trim().Equals(""))
             {
@@ -86,6 +86,17 @@
             dtNew.Rows.Add(drNew);
         }
         return dtNew;
+    }
+
+    public string GetTicketSummary(string openId)
+    {
+        DataTable dt = Ticket.GetUserTiketSummary(openId, false);
+        string str = "";
+        foreach (DataRow dr in dt.Rows)
+        {
+            str = str + " " + dr["name"].ToString().Trim() + ": " + dr["count"].ToString();  
+        }
+        return str;
     }
 </script>
 
