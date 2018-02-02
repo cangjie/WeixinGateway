@@ -52,7 +52,7 @@
             dr["头像"] = "<a href=\"admin_user_detail.aspx?openid=" + dtOri.Rows[i]["open_id"].ToString().Trim()
                 + "\" ><img src=\"" + dtOri.Rows[i]["head_image"].ToString().Trim()
                 + "\" width=\"25\" height=\"25\" border=\"0\"  /></a>";
-            dr["昵称"] = "<a href=\"admin_user_detail.aspx?openid=" + dtOri.Rows[i]["nick"].ToString().Trim()
+            dr["昵称"] = "<a href=\"admin_user_detail.aspx?openid=" + dtOri.Rows[i]["open_id"].ToString().Trim()
                 + "\" >" + dtOri.Rows[i]["nick"].ToString().Trim() + "</a>";
             dr["电话"] = dtOri.Rows[i]["cell_number"].ToString().Trim();
             dr["龙珠"] = Point.GetUserPoints(dtOri.Rows[i]["open_id"].ToString().Trim());
@@ -96,7 +96,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:DataGrid ID="dg" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" Width="100%" Font-Size="X-Large" >
+        <asp:DataGrid ID="dg" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" Width="100%" Font-Size="XX-Large" >
             <AlternatingItemStyle BackColor="#DCDCDC" />
             <Columns>
                 <asp:BoundColumn DataField="头像" HeaderText="头像"></asp:BoundColumn>
