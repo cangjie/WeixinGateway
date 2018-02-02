@@ -57,6 +57,8 @@
                 }
             }
 
+            save2.Attributes.Add("onclick", "disable_button");
+
         }
     }
 
@@ -70,6 +72,7 @@
 
     protected void save2_Click(object sender, EventArgs e)
     {
+        save2.Enabled = false;
         WeixinUser customUser = new WeixinUser(customOpenId.Trim());
         int score = 0;
         try
@@ -114,6 +117,12 @@
             height: 20px;
         }
     </style>
+    <script type="text/javascript" >
+        function disable_button() {
+            var button = document.getElementById("save2");
+            button.disabled = true;
+        }
+    </script>
 </head>
 <body>
     <form id="form" runat="server" >
