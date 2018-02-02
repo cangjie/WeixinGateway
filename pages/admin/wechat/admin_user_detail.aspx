@@ -17,7 +17,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        customOpenId = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM").Trim();
         dtTicketTemplate = DBHelper.GetDataTable(" select * from ticket_template where hide = 0 ");
         
         string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/admin_charge_shop_sale.aspx");
