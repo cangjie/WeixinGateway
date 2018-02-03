@@ -126,13 +126,21 @@ public class Ticket
     {
         get
         {
+            DataTable dt = DBHelper.GetDataTable(" select * from ticket_template where [id] = " + _fields["template_id"].ToString());
+            string ret = "";
+            if (dt.Rows.Count == 0)
+            {
+                ret = dt.Rows[0]["name"].ToString().Trim();
+            }
+            dt.Dispose();
+            return ret.Trim();
             /*
             TicketTemplate template = new TicketTemplate();
 
             Card card = new Card(Code.Trim());
             return card._fields["type"].ToString().Trim();
             */
-            return _fields["name"].ToString().Trim();
+            //return _fields["name"].ToString().Trim();
         }
     }
     
