@@ -4,6 +4,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
         StreamReader sr = new StreamReader(Request.InputStream);
         string paymentResult = sr.ReadToEnd();
         sr.Close();
@@ -11,6 +12,13 @@
         string out_trade_no = Util.GetSimpleJsonValueByKey(paymentResult, "out_trade_no").Trim();
         string notify_type = Util.GetSimpleJsonValueByKey(paymentResult, "notify_type").Trim();
         string syssn = Util.GetSimpleJsonValueByKey(paymentResult, "syssn").Trim();
+
+        /*
+        string status = "1";
+        string out_trade_no = "1180";
+        string notify_type = "payment";
+        string syssn = "xxxxxxx";
+        */
         if (notify_type.Trim().Equals("payment") && status.Trim().Equals("1"))
         {
             OnlineOrder order = new OnlineOrder(int.Parse(out_trade_no));
@@ -31,8 +39,19 @@
                     string[] ticketCodeArr = tempOrder._fields["ticket_code"].ToString().Trim().Split(',');
                     foreach (string tickCode in ticketCodeArr)
                     {
-                        Ticket ticket = new Ticket(tickCode.Trim());
-                        ticket.Use(int.Parse(order._fields["id"].ToString()), "订单支付成功，此券核销。订单号：" + order._fields["id"].ToString());
+                        if (tickCode.Trim().Equals(""))
+                        {
+                            continue;
+                        }
+                        try
+                        {
+                            Ticket ticket = new Ticket(tickCode.Trim());
+                            ticket.Use(int.Parse(order._fields["id"].ToString()), "订单支付成功，此券核销。订单号：" + order._fields["id"].ToString());
+                        }
+                        catch
+                        {
+
+                        }
                     }
                     ServiceMessage toCustomerMessage = new ServiceMessage();
                     toCustomerMessage.from = "";
