@@ -14,7 +14,11 @@
         if (notify_type.Trim().Equals("payment") && status.Trim().Equals("1"))
         {
             OnlineOrder order = new OnlineOrder(int.Parse(out_trade_no));
-            order.SetOrderPaySuccess(DateTime.Now, syssn.Trim());
+            bool isNewFinishedOrder = order.SetOrderPaySuccess(DateTime.Now, syssn.Trim());
+            if (isNewFinishedOrder)
+            {
+                order = new OnlineOrder(int.Parse(out_trade_no));
+            }
             if (order.Type.Trim().Equals("雪票"))
             {
                 order.CreateSkiPass();
