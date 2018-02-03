@@ -10,8 +10,9 @@
     {
         //ReceivedMessage receivedMessage = new ReceivedMessage("event_20180120213621556");
         //DealMessage.SendCustomeRequestToAssistant(receivedMessage);
-        OrderTemp tempOrder = OrderTemp.GetFinishedOrder(1065);
-        
+        //OrderTemp tempOrder = OrderTemp.GetFinishedOrder(1065);
+        Ticket ticket = new Ticket("667120871");
+        Response.Write(ticket.Name.Trim());
 
     }
 </script>

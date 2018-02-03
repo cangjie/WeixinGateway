@@ -33,7 +33,7 @@ public class Ticket
         //
         // TODO: Add constructor logic here
         //
-        DataTable dt = DBHelper.GetDataTable(" select * from ticket where code = '" + code.Trim() + "'  ");
+        DataTable dt = DBHelper.GetDataTable(" select * from ticket  left join ticket_template on template_id = ticket_template.[id]  where code = '" + code.Trim() + "'  ");
         if (dt.Rows.Count == 0)
             throw new Exception("Ticket is not exists.");
         else
@@ -121,16 +121,21 @@ public class Ticket
             }
         }
     }
-
+    
     public string Name
     {
         get
         {
+            /*
+            TicketTemplate template = new TicketTemplate();
+
             Card card = new Card(Code.Trim());
             return card._fields["type"].ToString().Trim();
+            */
+            return _fields["name"].ToString().Trim();
         }
     }
-
+    
     public string Code
     {
         get
