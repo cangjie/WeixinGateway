@@ -546,14 +546,11 @@
                             </span>
                         </div>
 			            <br/>
-                        <%
-                            if (currentResort.Trim().Equals("nanshan"))
-                            {
-                             %>
-                        <div id="rent" ><input type="checkbox" id="rent_box" onclick="select_rent()" />我要租板</div>
-                        <%
-                            }
-                             %>
+                      
+                        <div id="rent"  <% if (currentResort.Trim().Equals("nanshan"))
+                            { %> style="display:block" <%}
+                            else {%>  style="display:none" <% } %> ><input type="checkbox" id="rent_box" onclick="select_rent()" />我要租板</div>
+                       
                         <div id="summary" >小计：</div>
                     </div>
                     <div class="modal-footer" ><button type="button" class="btn btn-default" onclick="book_ski_pass()"> 确 认 预 定 </button></div>
