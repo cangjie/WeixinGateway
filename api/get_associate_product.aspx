@@ -27,6 +27,7 @@
                 holidayProductId = 4;
             }
         }
+
         if (product._fields["name"].ToString().StartsWith("八易"))
         {
             if (product._fields["name"].ToString().IndexOf("夜场")>=0)
@@ -86,6 +87,12 @@
                 }
 
             }
+        }
+        if (product._fields["name"].ToString().StartsWith("万龙"))
+        {
+            workdayProductId = productId;
+            weekendProductId = productId;
+            holidayProductId = productId;
         }
         Product workdayProduct = new Product(workdayProductId);
         Product weekendProduct = new Product(weekendProductId);
