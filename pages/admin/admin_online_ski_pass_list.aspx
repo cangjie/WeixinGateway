@@ -37,7 +37,7 @@
             <td>票号</td>
             <td>手机号</td>
             <td>昵称</td>
-            <!--td>票种</td-->
+            <td>雪场</td>
             <td>单价</td>
             <td>张数</td>
             <td>租板</td>
@@ -55,7 +55,7 @@
             <td><%=pass.cardCode.Trim()%></td>
             <td><%=pass.owner.CellNumber.Trim() %></td>
             <td><%=pass.owner.Nick.Trim() %></td>
-            <!--td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td-->
+            <td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td>
             <td><%=pass.associateOnlineOrderDetail.price.ToString() %></td>
             <td><%=pass.associateOnlineOrderDetail.count.ToString() %></td>
             <td><%=(pass.Rent? "需要" : "不需要") %></td>
