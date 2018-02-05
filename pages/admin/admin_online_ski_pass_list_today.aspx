@@ -53,6 +53,7 @@
         <li role="presentation" <%if (resort.Trim().StartsWith("南山") && rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
         <li role="presentation" <%if (resort.Trim().StartsWith("八易") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=0" >八易今日自带</a></li>
         <li role="presentation" <%if (resort.Trim().StartsWith("八易") && rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=1" >八易今日租板</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("万龙") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=0" >万龙今日自带</a></li>
     </ul>
     <table class="table table-striped">
         <tr>
