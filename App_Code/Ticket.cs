@@ -290,20 +290,19 @@ public class Ticket
             return "";
     }
     */
-    public static string GenerateNewTicketCode()
+    public static string GenerateNewTicketCode(int ticketTemplateId)
     {
-        string code = "";
-        for (; code.Trim().Equals("");)
+        string templateName = "";
+        DataTable dtTemplate = DBHelper.GetDataTable(" select * from ticket_template where [id] = " + ticketTemplateId.ToString());
+        if (dtTemplate.Rows.Count == 1)
         {
-            string codeTemp = GetRandomString(9);
-            DataTable dt = DBHelper.GetDataTable(" select * from ticket where code = '" + codeTemp.Trim() + "'  ");
-            if (dt.Rows.Count == 0)
-            {
-                code = codeTemp.Trim();
-            }
-            dt.Dispose();
+            templateName = dtTemplate.Rows[0]["type"].ToString().Trim();
         }
-        return code;
+        string code = Card.GenerateCardNo(9, -1);
+        Card card = new Card(code);
+        card.Type = templateName.Trim();
+        return code.Trim();
+        
     }
 
     public static string GetRandomString(int digit)

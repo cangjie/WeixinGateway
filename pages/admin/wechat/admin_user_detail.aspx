@@ -95,7 +95,7 @@
                     for (int i = 0; i < count; i++)
                     {
                         int templateId = int.Parse(key.Replace("ticket_num_", "").Trim());
-                        string code = Ticket.GenerateNewTicketCode();
+                        string code = Ticket.GenerateNewTicketCode(templateId);
                         Ticket.GenerateNewTicket(code, customOpenId.Trim(), templateId);
                     }
                 }

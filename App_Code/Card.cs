@@ -69,6 +69,19 @@ public class Card
         }
     }
 
+    public string Type
+    {
+        get
+        {
+            return _fields["type"].ToString().Trim();
+        }
+        set
+        {
+            DBHelper.UpdateData("card", new string[,] { { "type", "varchar", value.Trim() } },
+                new string[,] { { "card_no", "varchar", _fields["card_no"].ToString().Trim() } }, Util.conStr.Trim());
+        }
+    }
+
     public static string GenerateCardNo(int digit, int batchId)
     {
         
