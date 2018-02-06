@@ -62,6 +62,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        请长按识别此二维码。<br />
         <img src="../show_qrcode.aspx?sceneid=3<%=code%>" style="width:200px; text-align:center"  />
     </div>
     </form>

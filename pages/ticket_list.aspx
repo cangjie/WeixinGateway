@@ -73,7 +73,10 @@
                  %>
             <div id="ticket-<%=t.Code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px" onclick="go_to_ticket_detail('<%=t.Code.Trim() %>')" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">代金券<%=Math.Round(t.Amount, 2).ToString() %>元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期日：<%=t.ExpireDate.ToShortDateString() %></h3>
+                    <h3 class="panel-title"><%if (t.Amount > 0)
+                                                {%>代金券<%=Math.Round(t.Amount, 2).ToString() %>元<%}
+    else
+    { %><%=t.Name.Trim() %><%} %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期日：<%=t.ExpireDate.ToShortDateString() %></h3>
                 </div>
                 <div class="panel-body">
                     <%=t._fields["memo"].ToString().Trim() %>
