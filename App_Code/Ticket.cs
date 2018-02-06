@@ -18,7 +18,35 @@ public class Ticket
         public string memo;
         public int neetPoints;
         public string type;
+        public string name;
+        public DateTime expireDate;
 
+       
+    }
+
+    public static TicketTemplate GetTicetTemplate(int templateId)
+    {
+        TicketTemplate template = new TicketTemplate();
+        template.id = templateId;
+        DataTable dt = DBHelper.GetDataTable(" select * from ticket_template where [id] = " + templateId.ToString());
+        if (dt.Rows.Count == 1)
+        {
+            template.currencyValue = double.Parse(dt.Rows[0]["currency_value"].ToString().Trim());
+            template.availableDays = int.Parse(dt.Rows[0]["available_days"].ToString().Trim());
+            template.memo = dt.Rows[0]["memo"].ToString().Trim();
+            template.type = dt.Rows[0]["type"].ToString().Trim();
+            template.name = dt.Rows[0]["name"].ToString().Trim();
+            if (!dt.Rows[0]["expire_date"].ToString().Equals(""))
+            {
+                template.expireDate = DateTime.Parse(dt.Rows[0]["expire_date"].ToString().Trim());
+            }
+            else
+            {
+                template.expireDate = DateTime.MinValue;
+            }
+
+        }
+        return template;
     }
 
     public DataRow _fields;

@@ -79,7 +79,7 @@
     { %><%=t.Name.Trim() %><%} %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期日：<%=t.ExpireDate.ToShortDateString() %></h3>
                 </div>
                 <div class="panel-body">
-                    <%=t._fields["memo"].ToString().Trim() %>
+                  <%=Ticket.GetTicetTemplate(int.Parse(t._fields["template_id"].ToString().Trim())).memo.Trim() %>
                 </div>
             </div>
             <%}
