@@ -128,7 +128,7 @@ public class Ticket
         {
             DataTable dt = DBHelper.GetDataTable(" select * from ticket_template where [id] = " + _fields["template_id"].ToString());
             string ret = "";
-            if (dt.Rows.Count == 0)
+            if (dt.Rows.Count > 0)
             {
                 ret = dt.Rows[0]["name"].ToString().Trim();
             }
