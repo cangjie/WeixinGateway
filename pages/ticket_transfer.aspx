@@ -40,12 +40,12 @@
         {
             followed = false;
         }
-
+        /*
         if (!followed || currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
         {
             Response.Redirect("register_cell_number.aspx?fatheropenid=" + fatherOpenId.Trim() + "&refurl=" + Server.UrlEncode(currentPageUrl) + (!followed? "&unfollow=1": ""), true);
         }
-
+        */
         Ticket ticket = new Ticket(code.Trim());
 
         if (!ticket.Owner.OpenId.Trim().Equals(fatherOpenId.Trim()) && !ticket._fields["shared"].ToString().Equals("1"))
