@@ -99,7 +99,7 @@
                         //Ticket.GenerateNewTicket(code, customOpenId.Trim(), templateId);
                         Ticket.GenerateNewTicket(code, currentUser.OpenId.Trim(), templateId);
                         Ticket ticket = new Ticket(code);
-                        ticket.Transfer(customOpenId.Trim());
+                        ticket.Transfer(customOpenId.Trim(), "管理员赠送");
                     }
                 }
                 catch

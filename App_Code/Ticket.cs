@@ -119,6 +119,32 @@ public class Ticket
         }
     }
 
+
+    public bool Transfer(string openId, string memo)
+    {
+        int i = DBHelper.InsertData("ticket_log",
+            new string[,] { {"code", "varchar", _fields["code"].ToString() }, { "sender_open_id", "varchar", Owner.OpenId.Trim() },
+                { "accepter_open_id", "varchar", openId.Trim() }, {"transact_time", "datetime", DateTime.Now.ToString() },
+                {"memo", "varchar", memo.Trim() } });
+        if (i == 1)
+        {
+            i = DBHelper.UpdateData("ticket", new string[,] { { "open_id", "varchar", openId.Trim() }, { "shared", "int", "0" } },
+                new string[,] { { "code", "varchar", _fields["code"].ToString().Trim() } }, Util.conStr);
+            if (i == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public bool Transfer(string openId)
     {
         if (Owner.OpenId.Trim().Equals(openId.Trim()) || !_fields["shared"].ToString().Equals("1"))
