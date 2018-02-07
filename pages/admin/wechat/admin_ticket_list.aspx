@@ -46,7 +46,7 @@
             }
             try
             {
-                WeixinUser holder = new WeixinUser(Ticket.GetSenderOpenId(dtOri.Rows[i]["open_id"].ToString()));
+                WeixinUser holder = new WeixinUser(dtOri.Rows[i]["open_id"].ToString());
                 dr["持有者"] = holder.Nick;
                 dr["持有者电话"] = holder.CellNumber.Trim();
             }
