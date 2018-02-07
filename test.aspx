@@ -8,7 +8,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        Ticket.GenerateNewTicket("aaa", "aaa", 1);
         //ReceivedMessage receivedMessage = new ReceivedMessage("event_20180120213621556");
         //DealMessage.SendCustomeRequestToAssistant(receivedMessage);
         //OrderTemp tempOrder = OrderTemp.GetFinishedOrder(1065);

@@ -471,4 +471,16 @@ public class Ticket
             + " group by  template_id, [name], ticket_template.memo ");
         return dt;
     }
+
+    public static string GetSenderOpenId(string code)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select top 1 * from ticket_log left join users on open_id = sender_open_id where code = '" 
+            + code.Trim() + "' and is_admin = 1  order by transact_time   ");
+        string sender = "";
+        if (dt.Rows.Count == 1)
+        {
+            sender = dt.Rows[0]["open_id"].ToString().Trim();
+        }
+        return sender.Trim();
+    }
 }
