@@ -280,6 +280,15 @@ public class Ticket
         {
             double amount = double.Parse(dtTemplate.Rows[0]["currency_value"].ToString().Trim());
             DateTime expireDate = DateTime.Now.AddDays(int.Parse(dtTemplate.Rows[0]["available_days"].ToString().Trim()));
+            DateTime templateExpireDate = DateTime.MaxValue;
+            if (!dtTemplate.Rows[0]["expire_date"].ToString().Trim().Equals(""))
+            {
+                templateExpireDate = DateTime.Parse(dtTemplate.Rows[0]["expire_date"].ToString().Trim());
+            }
+            if (templateExpireDate < expireDate)
+            {
+                expireDate = templateExpireDate;
+            }
             string memo = dtTemplate.Rows[0]["memo"].ToString().Trim();
             string[,] insertParameters = { {"code", "varchar", code },
                 {"open_id", "varchar", openId.Trim() },

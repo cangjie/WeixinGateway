@@ -96,7 +96,10 @@
                     {
                         int templateId = int.Parse(key.Replace("ticket_num_", "").Trim());
                         string code = Ticket.GenerateNewTicketCode(templateId);
-                        Ticket.GenerateNewTicket(code, customOpenId.Trim(), templateId);
+                        //Ticket.GenerateNewTicket(code, customOpenId.Trim(), templateId);
+                        Ticket.GenerateNewTicket(code, currentUser.OpenId.Trim(), templateId);
+                        Ticket ticket = new Ticket(code);
+                        ticket.Transfer(customOpenId.Trim());
                     }
                 }
                 catch
