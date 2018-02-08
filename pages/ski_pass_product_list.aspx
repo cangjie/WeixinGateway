@@ -113,25 +113,25 @@
                 case "2018/1/1":
                     dayName = "元旦";
                     break;
-                case "2017-1-27":
+                case "2018/2/15":
                     dayName = "除夕";
                     break;
-                case "2017-1-28":
+                case "2018/2/16":
                     dayName = "初一";
                     break;
-                case "2017-1-29":
+                case "2018/2/17":
                     dayName = "初二";
                     break;
-                case "2017-1-30":
+                case "2018/2/18":
                     dayName = "初三";
                     break;
-                case "2017-1-31":
+                case "2018/2/19":
                     dayName = "初四";
                     break;
-                case "2017-2-1":
+                case "2018/2/20":
                     dayName = "初五";
                     break;
-                case "2017-2-2":
+                case "2018/2/21":
                     dayName = "初六";
                     break;
                 default:
@@ -291,6 +291,32 @@
             if (date.getMonth() == 0 && date.getDate() == 1) {
                 day_name = day_name + " 元旦";
             }
+            if (date.getMonth() == 1 && date.getDate() == 15) {
+                day_name = day_name + " 除夕";
+            }
+            if (date.getMonth() == 1 && date.getDate() == 16) {
+                day_name = day_name + " 初一";
+            }
+            if (date.getMonth() == 1 && date.getDate() == 17) {
+                day_name = day_name + " 初二";
+            }
+            if (date.getMonth() == 1 && date.getDate() == 18) {
+                day_name = day_name + " 初三";
+            }
+            if (date.getMonth() == 1 && date.getDate() == 19) {
+                day_name = day_name + " 初四";
+            }
+            if (date.getMonth() == 1 && date.getDate() == 20) {
+                day_name = day_name + " 初五";
+            }
+            if (date.getMonth() == 1 && date.getDate() == 21) {
+                day_name = day_name + " 初六";
+            }
+
+
+
+
+
             return day_name;
         }
 
