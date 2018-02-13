@@ -51,9 +51,51 @@ public class OnlineSkiPass
         }
     }
 
+
+
     public OnlineSkiPass()
     {
 
+    }
+
+    public string CardCode
+    {
+        get
+        {
+            if (cardCode.Trim().Equals(""))
+            {
+                return _fields["code"].ToString().Trim();
+            }
+            else
+            {
+                return cardCode.Trim();
+            }
+        }
+
+    }
+
+    public bool Used
+    {
+        get
+        {
+            if (_fields["used"].ToString().Equals("1"))
+            {
+                used = true;
+                try
+                {
+                    useDate = DateTime.Parse(_fields["use_date"].ToString());
+                }
+                catch
+                {
+
+                }
+            }
+            else
+            {
+                used = false;
+            }
+            return used;
+        }
     }
 
     public bool Rent

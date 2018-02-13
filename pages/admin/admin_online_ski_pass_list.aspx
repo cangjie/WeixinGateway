@@ -52,7 +52,7 @@
                 
                 %>
         <tr>
-            <td><%=pass.cardCode.Trim()%></td>
+            <td><%=pass.CardCode.Trim()%></td>
             <td><%=pass.Owner.CellNumber.Trim() %></td>
             <td><%=pass.Owner.Nick.Trim() %></td>
             <%
@@ -63,8 +63,8 @@
             <td><%=dtl.count.ToString() %></td>
             <td><%=(pass.Rent? "需要" : "不需要") %></td>
             <td><%=Math.Round(double.Parse(pass.AssociateOnlineOrder._fields["order_real_pay_price"].ToString()),2).ToString() %></td>
-            <td><%=(pass.used? "已验":"未验") %></td>
-            <td><%=(pass.used? pass.useDate.ToString() : "---") %></td>
+            <td><%=(pass.Used? "已验":"未验") %></td>
+            <td><%=(pass.Used? pass.useDate.ToString() : "---") %></td>
             <td><%=pass.AssociateOnlineOrder._fields["create_date"].ToString() %></td>
         </tr>
                     <%
