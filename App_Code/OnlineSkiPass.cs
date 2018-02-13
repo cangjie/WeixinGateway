@@ -19,6 +19,8 @@ public class OnlineSkiPass
     public OnlineOrderDetail associateOnlineOrderDetail;
     public Card associateCard;
 
+    public DataRow _fields;
+
     public OnlineSkiPass(string code)
     {
         cardCode = code;
@@ -49,12 +51,17 @@ public class OnlineSkiPass
         }
     }
 
+    public OnlineSkiPass()
+    {
+
+    }
+
     public bool Rent
     {
         get
         {
             bool ret = false;
-            foreach (OnlineOrderDetail detail in associateOnlineOrder.OrderDetails)
+            foreach (OnlineOrderDetail detail in AssociateOnlineOrder.OrderDetails)
             {
                 if (detail.productName.IndexOf("押金") >= 0)
                 {
@@ -78,6 +85,53 @@ public class OnlineSkiPass
                 return DateTime.Parse(DateTime.Parse(associateOnlineOrder._fields["create_date"].ToString()).AddDays(1).ToShortDateString());
             }
             
+        }
+    }
+
+    public WeixinUser Owner
+    {
+        get
+        {
+            if (owner != null)
+            {
+                return owner;
+            }
+            else
+            {
+                if (_fields != null)
+                {
+                    return new WeixinUser(_fields["open_id"].ToString().Trim());
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+    }
+
+    public OnlineOrder AssociateOnlineOrder
+    {
+        get
+        {
+            if (associateOnlineOrder != null)
+            {
+                return associateOnlineOrder;
+            }
+            else
+            {
+                OnlineOrder order = new OnlineOrder();
+                order._fields = this._fields;
+                return order;
+            }
+        }
+    }
+
+    public OnlineOrderDetail AssociateOnlineOrderDetail
+    {
+        get
+        {
+            return AssociateOnlineOrder.OrderDetails[0];
         }
     }
 
@@ -106,7 +160,7 @@ public class OnlineSkiPass
         return passArr;
     }
 
-    public static OnlineSkiPass[] GetLastWeekOnlineSkiPass()
+    public static OnlineSkiPass[] GetLastWeekOnlineSkiPass1()
     {
         DataTable dt = DBHelper.GetDataTable(" select code from order_online left join card on card_no = code where   card.type = '雪票' and code <> '' and code is not null   and pay_state = 1   and card.create_date >= '" + DateTime.Now.AddDays(-30).ToShortDateString() + "' order by [id] desc ");
         OnlineSkiPass[] passArr = new OnlineSkiPass[dt.Rows.Count];
@@ -118,5 +172,17 @@ public class OnlineSkiPass
         return passArr;
     }
 
+    public static OnlineSkiPass[] GetLastWeekOnlineSkiPass()
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from order_online left join card on card_no = code where   card.type = '雪票' and code <> '' and code is not null   and pay_state = 1   and card.create_date >= '" + DateTime.Now.AddDays(-30).ToShortDateString() + "' order by [id] desc ");
+        OnlineSkiPass[] passArr = new OnlineSkiPass[dt.Rows.Count];
+        for (int i = 0; i < passArr.Length; i++)
+        {
+            passArr[i] = new OnlineSkiPass();
+            passArr[i]._fields = dt.Rows[i];
+        }
+        dt.Dispose();
+        return passArr;
+    }
 
 }

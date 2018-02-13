@@ -53,16 +53,19 @@
                 %>
         <tr>
             <td><%=pass.cardCode.Trim()%></td>
-            <td><%=pass.owner.CellNumber.Trim() %></td>
-            <td><%=pass.owner.Nick.Trim() %></td>
-            <td><%=pass.associateOnlineOrderDetail.productName.Trim() %></td>
-            <td><%=pass.associateOnlineOrderDetail.price.ToString() %></td>
-            <td><%=pass.associateOnlineOrderDetail.count.ToString() %></td>
+            <td><%=pass.Owner.CellNumber.Trim() %></td>
+            <td><%=pass.Owner.Nick.Trim() %></td>
+            <%
+                OnlineOrderDetail dtl = pass.AssociateOnlineOrderDetail;
+                 %>
+            <td><%=dtl.productName.Trim() %></td>
+            <td><%=dtl.price.ToString() %></td>
+            <td><%=dtl.count.ToString() %></td>
             <td><%=(pass.Rent? "需要" : "不需要") %></td>
-            <td><%=Math.Round(double.Parse(pass.associateOnlineOrder._fields["order_real_pay_price"].ToString()),2).ToString() %></td>
+            <td><%=Math.Round(double.Parse(pass.AssociateOnlineOrder._fields["order_real_pay_price"].ToString()),2).ToString() %></td>
             <td><%=(pass.used? "已验":"未验") %></td>
             <td><%=(pass.used? pass.useDate.ToString() : "---") %></td>
-            <td><%=pass.associateOnlineOrder._fields["create_date"].ToString() %></td>
+            <td><%=pass.AssociateOnlineOrder._fields["create_date"].ToString() %></td>
         </tr>
                     <%
             }
