@@ -120,11 +120,11 @@ public class OnlineSkiPass
         {
             try
             {
-                return DateTime.Parse(Util.GetSimpleJsonValueByKey(associateOnlineOrder._fields["memo"].ToString(), "use_date"));
+                return DateTime.Parse(Util.GetSimpleJsonValueByKey(AssociateOnlineOrder._fields["memo"].ToString(), "use_date"));
             }
             catch
             {
-                return DateTime.Parse(DateTime.Parse(associateOnlineOrder._fields["create_date"].ToString()).AddDays(1).ToShortDateString());
+                return DateTime.Parse(DateTime.Parse(AssociateOnlineOrder._fields["create_date"].ToString()).AddDays(1).ToShortDateString());
             }
             
         }

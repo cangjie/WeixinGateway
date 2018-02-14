@@ -22,10 +22,10 @@
         passArr = OnlineSkiPass.GetLastWeekOnlineSkiPass();
     }
 
-    public bool CanDisplay(OnlineSkiPass pass)
+    public bool CanDisplay(OnlineSkiPass pass, OnlineOrderDetail dtl)
     {
         bool ret = true;
-        if (pass.productName.IndexOf(resort) < 0 || pass.AppointDate != currentDate || pass.Rent != rent)
+        if (dtl.productName.IndexOf(resort) < 0 || pass.AppointDate != currentDate || pass.Rent != rent)
             ret = false;
         return ret;
 
@@ -69,26 +69,27 @@
         <%
             foreach (OnlineSkiPass pass in passArr)
             {
-                if (CanDisplay(pass))
+                OnlineOrderDetail dtl = pass.AssociateOnlineOrderDetail;
+                if (CanDisplay(pass, dtl))
                 {
-                    if (pass.associateOnlineOrderDetail.productName.IndexOf("日场") >= 0)
+                    if (pass.AssociateOnlineOrderDetail.productName.IndexOf("日场") >= 0)
                     {
                         dayNum++;
                     }
-                    if (pass.associateOnlineOrderDetail.productName.IndexOf("夜场") >= 0)
+                    if (pass.AssociateOnlineOrderDetail.productName.IndexOf("夜场") >= 0)
                     {
                         nightNum++;
                     }
                 %>
         <tr>
-            <td><%=pass.cardCode.Trim()%></td>
-            <td><%=pass.owner.CellNumber.Trim() %></td>
-            <td><%=pass.owner.Nick.Trim() %></td>
-            <td><%=pass.associateOnlineOrderDetail.price.ToString() %></td>
-            <td><%=pass.associateOnlineOrderDetail.count.ToString() %></td>
-            <td><%=(pass.used ? "已验" : "未验") %></td>
-            <td><%=(pass.used ? pass.useDate.ToString() : "---") %></td>
-            <td><%=pass.associateOnlineOrder._fields["crt"].ToString() %></td>
+            <td><%=pass.CardCode.Trim()%></td>
+            <td><%=pass.Owner.CellNumber.Trim() %></td>
+            <td><%=pass.Owner.Nick.Trim() %></td>
+            <td><%=pass.AssociateOnlineOrderDetail.price.ToString() %></td>
+            <td><%=pass.AssociateOnlineOrderDetail.count.ToString() %></td>
+            <td><%=(pass.Used ? "已验" : "未验") %></td>
+            <td><%=(pass.Used ? pass.useDate.ToString() : "---") %></td>
+            <td><%=pass.AssociateOnlineOrder._fields["crt"].ToString() %></td>
         </tr>
                     <%
                             }
