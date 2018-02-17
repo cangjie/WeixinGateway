@@ -11,6 +11,8 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string currentPageUrl = Request.Url.ToString().Trim();
+
+        
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
@@ -25,12 +27,12 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
-
+            
 
         if (!IsPostBack)
         {
-            dg.DataSource = GetData();
-            dg.DataBind();
+            //dg.DataSource = GetData();
+            //dg.DataBind();
         }
     }
 
@@ -45,7 +47,8 @@
         dt.Columns.Add("卡券");
         dt.Columns.Add("介绍人");
 
-        DataTable dtOri = DBHelper.GetDataTable(" select * from users order by nick ");
+        DataTable dtOri = DBHelper.GetDataTable(" select * from users a left join users b on  a.father_open_id = b.open_id where a.nick like  '%" 
+            + TxtKey.Text.Trim().Replace("'", "").Trim() + "%' or a.cell_number like  '%" + TxtKey.Text.Trim().Replace("'", "").Trim()  + "%'  order by a.nick ");
         for (int i = 0; i < dtOri.Rows.Count; i++)
         {
             DataRow dr = dt.NewRow();
@@ -63,8 +66,8 @@
             {
                 try
                 {
-                    WeixinUser fatherUser = new WeixinUser(dtOri.Rows[i]["father_open_id"].ToString().Trim());
-                    fatherInfo = "<a href=\"admin_user_detail.aspx?openid=" + fatherUser.OpenId + "\" >" + fatherUser.Nick.Trim() + "</a>";
+                    //WeixinUser fatherUser = new WeixinUser(dtOri.Rows[i]["father_open_id"].ToString().Trim());
+                    fatherInfo = "<a href=\"admin_user_detail.aspx?openid=" + dtOri.Rows[i]["father_open_id"].ToString().Trim() + "\" >" +dtOri.Rows[i]["nick1"].ToString().Trim() + "</a>";
                 }
                 catch
                 {
@@ -94,9 +97,15 @@
         string str = "";
         foreach (DataRow dr in dt.Rows)
         {
-            str = str + " " + dr["name"].ToString().Trim() + ": " + dr["count"].ToString();  
+            str = str + " " + dr["name"].ToString().Trim() + ": " + dr["count"].ToString();
         }
         return str;
+    }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        dg.DataSource = GetData();
+        dg.DataBind();
     }
 </script>
 
@@ -107,6 +116,9 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <div>
+            <asp:TextBox ID="TxtKey" runat="server" ></asp:TextBox><asp:Button ID="btnSearch"  runat="server" Text="搜索" OnClick="btnSearch_Click" />
+        </div>
         <asp:DataGrid ID="dg" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" Width="100%" Font-Size="XX-Large" >
             <AlternatingItemStyle BackColor="#DCDCDC" />
             <Columns>
