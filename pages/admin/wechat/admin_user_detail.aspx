@@ -5,7 +5,7 @@
 
 <script runat="server">
 
-    
+
     public string openId = "";
     public string userToken = "";
 
@@ -19,8 +19,8 @@
     {
         customOpenId = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM").Trim();
         dtTicketTemplate = DBHelper.GetDataTable(" select * from ticket_template where hide = 0 ");
-        
-        
+
+
         string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/admin_charge_shop_sale.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -36,7 +36,7 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
-            
+
 
 
         if (!IsPostBack)
@@ -116,9 +116,14 @@
         string str = "";
         foreach (DataRow dr in dt.Rows)
         {
-            str = str + " " + dr["name"].ToString().Trim() + ": " + dr["count"].ToString();  
+            str = str + " " + dr["name"].ToString().Trim() + ": " + dr["count"].ToString();
         }
         return str;
+    }
+
+    protected void addTag_Click(object sender, EventArgs e)
+    {
+
     }
 </script>
 
@@ -155,11 +160,30 @@
             <td><asp:Label runat="server" ID="LblFather" ></asp:Label></td>
         </tr>
         <tr>
-            <td>标签：</td>
+            <td>备注：</td>
             <td><asp:TextBox ID="TxtMemo" runat="server" Width="310px" ></asp:TextBox></td>
         </tr>
         <tr>
             <td colspan="3" ><asp:Button ID="save1" runat="server" Text="保存" OnClick="save1_Click" /></td>
+        </tr>
+        <tr>
+            <td colspan="3">标签：<asp:Button runat="server" ID="addTag" Text="新增标签" OnClick="addTag_Click" /></td>
+        </tr>
+        <tr>
+            <td colspan="3"><asp:DataGrid runat="server" Width="100%" ID="dg" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" >
+                <AlternatingItemStyle BackColor="#DCDCDC" />
+                <Columns>
+                    <asp:EditCommandColumn CancelText="取消" EditText="编辑" UpdateText="更新"></asp:EditCommandColumn>
+                    <asp:ButtonColumn CommandName="Delete" Text="删除"></asp:ButtonColumn>
+                    <asp:BoundColumn DataField="tag" HeaderText="标签"></asp:BoundColumn>
+                    <asp:BoundColumn DataField="tag_value" HeaderText="内容"></asp:BoundColumn>
+                </Columns>
+                <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
+                <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
+                <ItemStyle BackColor="#EEEEEE" ForeColor="Black" />
+                <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" Mode="NumericPages" />
+                <SelectedItemStyle BackColor="#008A8C" Font-Bold="True" ForeColor="White" />
+                </asp:DataGrid></td>
         </tr>
         <tr>
             <td colspan="3">未使用卡券：<%=GetTicketSummary(customOpenId) %></td>

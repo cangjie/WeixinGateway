@@ -379,4 +379,33 @@ public class WeixinUser : ObjectHelper
         return openId.Trim();
     }
 
+    public static string[] GetTagList()
+    {
+        DataTable dt = DBHelper.GetDataTable(" select distinct tag from users_tag ");
+        string[] tagArr = new string[dt.Rows.Count];
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+            tagArr[i] = dt.Rows[i][0].ToString().Trim();
+        }
+        dt.Dispose();
+        return tagArr;
+    }
+
+    public static string GetUserTagValue(string openId, string tag)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from users_tag where open_id = '" + openId.Trim() + "' and  tag = '" + tag.Replace("'", "").Trim() + "' ");
+        string ret = "";
+        if (dt.Rows.Count == 1)
+        {
+            ret = dt.Rows[0]["tag_value"].ToString().Trim();
+        }
+        dt.Dispose();
+        return ret;
+    }
+
+    public static void DeleteUserTag(string openId, string tag)
+    {
+        DBHelper.DeleteData("users_tag", new string[,] { { "open_id", "varchar", openId.Trim() }, {"tag", "varchar", tag.Trim() } }, Util.conStr.Trim());
+    }
+
 }
