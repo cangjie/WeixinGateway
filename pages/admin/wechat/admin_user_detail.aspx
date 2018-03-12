@@ -22,8 +22,8 @@
         customOpenId = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM").Trim();
         dtTicketTemplate = DBHelper.GetDataTable(" select * from ticket_template where hide = 0 ");
 
-
-        string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/admin_charge_shop_sale.aspx");
+        
+        string currentPageUrl = Request.Url.ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
@@ -38,12 +38,12 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
+            
 
-
-
+        customUser = new WeixinUser(customOpenId.Trim());
         if (!IsPostBack)
         {
-            customUser = new WeixinUser(customOpenId.Trim());
+
             TxtNick.Text = customUser.Nick.Trim();
             TxtCell.Text = customUser.CellNumber.Trim();
             LblScore.Text = Point.GetUserPoints(customOpenId.Trim()).ToString();
@@ -60,9 +60,10 @@
                 {
 
                 }
-                dg.DataSource = GetTagData();
-                dg.DataBind();
+
             }
+            dg.DataSource = GetTagData();
+            dg.DataBind();
         }
     }
 
@@ -132,7 +133,50 @@
 
     protected void addTag_Click(object sender, EventArgs e)
     {
+        DataTable dt = GetTagData();
+        DataRow dr = dt.NewRow();
+        dr[0] = "";
+        dr[1] = "";
+        dt.Rows.Add(dr);
+        dg.DataSource = dt;
+        dg.EditItemIndex = dt.Rows.Count - 1;
+        dg.DataBind();
+    }
 
+    protected void dg_UpdateCommand(object source, DataGridCommandEventArgs e)
+    {
+        string tag = ((TextBox)dg.Items[e.Item.ItemIndex].Cells[2].Controls[0]).Text.Trim();
+        string tagValue = ((TextBox)dg.Items[e.Item.ItemIndex].Cells[3].Controls[0]).Text.Trim();
+        if (!tag.Trim().Equals("") && !tagValue.Trim().Equals(""))
+        {
+            WeixinUser.SaveUserTag(customOpenId.Trim(), tag, tagValue);
+        }
+        dg.DataSource = GetTagData();
+        dg.EditItemIndex = -1;
+        dg.DataBind();
+    }
+
+    protected void dg_DeleteCommand(object source, DataGridCommandEventArgs e)
+    {
+        string tag = dg.DataKeys[e.Item.ItemIndex].ToString().Trim();
+        WeixinUser.DeleteUserTag(customOpenId, tag);
+        dg.DataSource = GetTagData();
+        dg.EditItemIndex = -1;
+        dg.DataBind();
+    }
+
+    protected void dg_CancelCommand(object source, DataGridCommandEventArgs e)
+    {
+        dg.DataSource = GetTagData();
+        dg.EditItemIndex = -1;
+        dg.DataBind();
+    }
+
+    protected void dg_EditCommand(object source, DataGridCommandEventArgs e)
+    {
+        dg.DataSource = GetTagData();
+        dg.EditItemIndex = e.Item.ItemIndex;
+        dg.DataBind();
     }
 </script>
 
@@ -179,7 +223,7 @@
             <td colspan="3">标签：<asp:Button runat="server" ID="addTag" Text="新增标签" OnClick="addTag_Click" /></td>
         </tr>
         <tr>
-            <td colspan="3"><asp:DataGrid runat="server" Width="100%" ID="dg" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" >
+            <td colspan="3"><asp:DataGrid runat="server" Width="100%" ID="dg" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" OnUpdateCommand="dg_UpdateCommand" OnDeleteCommand="dg_DeleteCommand" OnCancelCommand="dg_CancelCommand" DataKeyField="tag" OnEditCommand="dg_EditCommand" >
                 <AlternatingItemStyle BackColor="#DCDCDC" />
                 <Columns>
                     <asp:EditCommandColumn CancelText="取消" EditText="编辑" UpdateText="更新"></asp:EditCommandColumn>
