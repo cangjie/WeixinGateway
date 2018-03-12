@@ -15,6 +15,8 @@
 
     public WeixinUser currentUser = new WeixinUser("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
 
+    public WeixinUser customUser;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         customOpenId = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM").Trim();
@@ -41,7 +43,7 @@
 
         if (!IsPostBack)
         {
-            WeixinUser customUser = new WeixinUser(customOpenId.Trim());
+            customUser = new WeixinUser(customOpenId.Trim());
             TxtNick.Text = customUser.Nick.Trim();
             TxtCell.Text = customUser.CellNumber.Trim();
             LblScore.Text = Point.GetUserPoints(customOpenId.Trim()).ToString();
@@ -58,6 +60,8 @@
                 {
 
                 }
+                dg.DataSource = GetTagData();
+                dg.DataBind();
             }
         }
     }
@@ -68,6 +72,11 @@
         customUser.CellNumber = TxtCell.Text.Trim();
         customUser.Memo = TxtMemo.Text.Trim();
         LblInfo.Text = "保存成功。";
+    }
+
+    public DataTable GetTagData()
+    {
+        return WeixinUser.GetUserTagTable(customUser.OpenId.Trim());
     }
 
     protected void save2_Click(object sender, EventArgs e)
