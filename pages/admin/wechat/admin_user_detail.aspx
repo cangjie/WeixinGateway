@@ -22,7 +22,7 @@
         customOpenId = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM").Trim();
         dtTicketTemplate = DBHelper.GetDataTable(" select * from ticket_template where hide = 0 ");
 
-        
+
         string currentPageUrl = Request.Url.ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -38,7 +38,7 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
-            
+
 
         customUser = new WeixinUser(customOpenId.Trim());
         if (!IsPostBack)
@@ -77,7 +77,18 @@
 
     public DataTable GetTagData()
     {
-        return WeixinUser.GetUserTagTable(customUser.OpenId.Trim());
+        string[] tagArr = WeixinUser.GetTagList();
+        DataTable dt = new DataTable();
+        dt.Columns.Add("tag");
+        dt.Columns.Add("tag_value");
+        for (int i = 0; i < tagArr.Length; i++)
+        {
+            DataRow dr = dt.NewRow();
+            dr[0] = tagArr[i].Trim();
+            dr[1] = WeixinUser.GetUserTagValue(customOpenId, tagArr[i].Trim());
+            dt.Rows.Add(dr);
+        }
+        return dt;
     }
 
     protected void save2_Click(object sender, EventArgs e)

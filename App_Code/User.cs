@@ -381,7 +381,7 @@ public class WeixinUser : ObjectHelper
 
     public static string[] GetTagList()
     {
-        DataTable dt = DBHelper.GetDataTable(" select distinct tag from users_tag ");
+        DataTable dt = DBHelper.GetDataTable(" select distinct tag from users_tag order by tag ");
         string[] tagArr = new string[dt.Rows.Count];
         for (int i = 0; i < dt.Rows.Count; i++)
         {
