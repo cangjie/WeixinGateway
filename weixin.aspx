@@ -9,7 +9,7 @@
 <%@ Import Namespace="System.Net" %>
 <script runat="server">
 
-    public string token = "n-t-english";
+    public string token = "newtimeenglish";
     public string validResult = "";
 
     protected void Page_Load(object sender, EventArgs e)
