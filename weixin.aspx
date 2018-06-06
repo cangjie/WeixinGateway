@@ -16,8 +16,8 @@
     {
         if (valid())
         {
-            Response.Write(Request["echostr"].Trim());
-            Response.End();
+            //Response.Write(Request["echostr"].Trim());
+            //Response.End();
             Stream s = Request.InputStream;
             XmlDocument xmlD = new XmlDocument();
             xmlD.Load(s);
