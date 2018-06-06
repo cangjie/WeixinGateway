@@ -13,7 +13,7 @@
             + "&redirect_uri=" + Server.UrlEncode("http://"
             + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
             + "/authorize_callback.aspx?callback=" + Server.UrlEncode(callBack))
-            + "&response_type=code&scope=snsapi_base&state=1000#wechat_redirect", true);
+            + "&response_type=code&scope=snsapi_userinfo&state=1000#wechat_redirect", true);
     }
 </script>
 
