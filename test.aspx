@@ -12,7 +12,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         //string openId = WeixinUser.CheckToken("044d8678dbc82fc2ae4e2f8680c49b8449d2da7e72ed5325494202bba809c8c232e8cd55");
-
+        Response.Write(Util.GetToken());
         
         
     }
