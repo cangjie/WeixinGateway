@@ -206,13 +206,20 @@
 
     public static void AddShopToList(string shopId, string shopName, string type)
     {
-        DBHelper.InsertData("b2cmonitor_taobao_shop_list",
-            new string[,] {
+        try
+        {
+            DBHelper.InsertData("b2cmonitor_taobao_shop_list",
+                new string[,] {
                 { "id", "varchar", shopId.Trim()},
                 { "type", "varchar", type.Trim()},
                 { "shop_name", "varchar", shopName.Trim()},
 
-            });
+                });
+        }
+        catch
+        {
+
+        }
     }
 
 </script>
