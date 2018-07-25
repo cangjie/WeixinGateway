@@ -186,6 +186,7 @@
 
     protected void dg_DeleteCommand(object source, DataGridCommandEventArgs e)
     {
+        keyWord = keyword.Text.Trim();
         string shopId = dg.DataKeys[e.Item.ItemIndex].ToString();
         AddShopToList(shopId, "", "black");
         dg.DataSource = GetHTMLData(keyWord.Trim());
@@ -195,6 +196,7 @@
 
     protected void dg_SelectedIndexChanged(object sender, EventArgs e)
     {
+        keyWord = keyword.Text.Trim();
         string shopId = dg.DataKeys[dg.SelectedIndex].ToString();
         AddShopToList(shopId, "", "white");
         dg.DataSource = GetHTMLData(keyWord.Trim());
