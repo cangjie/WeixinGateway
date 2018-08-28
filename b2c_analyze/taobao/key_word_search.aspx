@@ -16,7 +16,7 @@
 
     public DataTable GetHTMLData(string keyWord)
     {
-        DataTable dtList = DBHelper.GetDataTable("select * from b2cmonitor_taobao_shop_list");
+        DataTable dtList = DBHelper.GetDataTable("select * from b2cmonitor_taobao_shop_list where keyword = '" + keyWord.Trim().Replace("'","") + "' ");
         DataTable dtOri = GetData(keyWord);
         DataTable dt = dtOri.Clone();
         for (int i = 0; i < dtOri.Rows.Count && dt.Rows.Count < 500; i++)
@@ -188,7 +188,7 @@
     {
         keyWord = keyword.Text.Trim();
         string shopId = dg.DataKeys[e.Item.ItemIndex].ToString();
-        AddShopToList(shopId, "", "black");
+        AddShopToList(shopId, keyword.Text.Trim(), "black");
         dg.DataSource = GetHTMLData(keyWord.Trim());
         dg.SelectedIndex = -1;
         dg.DataBind();
@@ -198,13 +198,13 @@
     {
         keyWord = keyword.Text.Trim();
         string shopId = dg.DataKeys[dg.SelectedIndex].ToString();
-        AddShopToList(shopId, "", "white");
+        AddShopToList(shopId, keyword.Text.Trim(), "white");
         dg.DataSource = GetHTMLData(keyWord.Trim());
         dg.SelectedIndex = -1;
         dg.DataBind();
     }
 
-    public static void AddShopToList(string shopId, string shopName, string type)
+    public static void AddShopToList(string shopId, string keyWord, string type)
     {
         try
         {
@@ -212,7 +212,7 @@
                 new string[,] {
                 { "id", "varchar", shopId.Trim()},
                 { "type", "varchar", type.Trim()},
-                { "shop_name", "varchar", shopName.Trim()},
+                { "keyword", "varchar", keyWord.Trim()},
 
                 });
         }

@@ -96,7 +96,34 @@ public class Util
         return ((request[parameterName] == null) ? defaultValue : request[parameterName].Trim()).Replace("'","");
     }
 
-    
+    public static string GetWebContent(string url, string method, string content, string contentType, CookieCollection cookieCollection, Encoding enc)
+    {
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+        req.Method = method.Trim();
+        req.ContentType = contentType;
+        if (!content.Trim().Equals(""))
+        {
+            StreamWriter sw = new StreamWriter(req.GetRequestStream());
+            sw.Write(content);
+            sw.Close();
+        }
+        //CookieContainer cookieContainer = new CookieContainer();
+        string cookieString = "";
+        foreach (Cookie c in cookieCollection)
+        {
+            cookieString = cookieString + (cookieString.Trim().Equals("") ? "" : "&") + c.Name.Trim() + "=" + c.Value.Trim();
+        }
+        req.Headers.Add("Cookie", cookieString);
+        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        Stream s = res.GetResponseStream();
+        StreamReader sr = new StreamReader(s, enc);
+        string str = sr.ReadToEnd();
+        sr.Close();
+        s.Close();
+        res.Close();
+        req.Abort();
+        return str;
+    }
 
     public static string GetWebContent(string url, string method, string content, string contentType)
     {
@@ -124,6 +151,8 @@ public class Util
     {
         return GetWebContent(url, "GET", "", "html/text");
     }
+
+
 
     public static string UploadImageToWeixin(string path, string token)
     {
