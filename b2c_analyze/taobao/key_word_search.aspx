@@ -222,6 +222,42 @@
         }
     }
 
+    protected void BtnDownload_Click(object sender, EventArgs e)
+    {
+        keyWord = keyword.Text.Trim();
+        DataTable dt = GetData(keyWord.Trim());
+        string content = "";
+        string captionContent = "";
+        foreach (DataColumn c in dt.Columns)
+        {
+            captionContent = captionContent +
+                (captionContent.Trim().Equals("") ? "" : ",") + c.Caption.Trim();
+        }
+        content = captionContent.Trim();
+        HttpContext.Current.Response.Clear();
+        System.IO.StringWriter sw = new System.IO.StringWriter();
+        sw.Write(captionContent.Trim());
+        foreach (DataRow dr in dt.Rows)
+        {
+            string lineContent = "";
+            foreach (DataColumn c in dt.Columns)
+            {
+                lineContent = lineContent
+                    + (lineContent.Trim().Equals("") ? "" : ",") + dr[c].ToString().Trim();
+            }
+            //content = content + "\r\n" + lineContent.Trim();
+            sw.Write(sw.NewLine);
+            sw.Write(lineContent);
+        }
+        sw.Close();
+        string fileName = Encoding.GetEncoding("GB2312").GetString(Encoding.UTF8.GetBytes(keyWord.Trim())) + Util.GetTimeStamp().Trim() + ".csv";
+        HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + fileName.Trim());
+        HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+        HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("GB2312");
+        HttpContext.Current.Response.Write(sw);
+        HttpContext.Current.Response.End();
+        dt.Dispose();
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -231,7 +267,9 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <div style="text-align: left"><asp:TextBox ID="keyword" runat="server" Width="294px" /> &nbsp; <asp:Button ID="btn" text="Search" runat="server" OnClick="btn_Click" /></div>
+        <div style="text-align: left"><asp:TextBox ID="keyword" runat="server" Width="294px" /> &nbsp; <asp:Button ID="btn" text="Search" runat="server" OnClick="btn_Click" />&nbsp; 
+            <asp:Button ID="BtnDownload" text="Download CSV" runat="server" OnClick="BtnDownload_Click"  />
+        </div>
         <div><br /></div>
         <div><asp:DataGrid runat="server" ID="dg" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" style="text-align: left" Width="100%" Font-Size="Small" OnDeleteCommand="dg_DeleteCommand" OnSelectedIndexChanged="dg_SelectedIndexChanged" DataKeyField="店铺ID"  >
             <AlternatingItemStyle BackColor="#DCDCDC" />
