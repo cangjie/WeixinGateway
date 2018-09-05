@@ -13,6 +13,18 @@
         dg.DataBind();
     }
 
+    public static string GetRidOfHTMLTag(string content)
+    {
+        Regex reg = new Regex("<.*?>");
+        MatchCollection mc = reg.Matches(content);
+        foreach (Match m in mc)
+        {
+            content = content.Replace(m.Value.Trim(), "");
+        }
+        return content;
+    }
+
+
 
     public DataTable GetHTMLData(string keyWord)
     {
@@ -161,7 +173,7 @@
                 dr["商品ID"] = productId.Trim();
                 dr["店铺"] = auction["nick"].ToString().Trim();
                 dr["店铺ID"] = auction["user_id"].ToString().Trim();
-                dr["商品"] = auction["title"].ToString().Trim();
+                dr["商品"] = GetRidOfHTMLTag(auction["title"].ToString().Trim());
                 dr["图片"] = auction["pic_url"].ToString().Trim();
                 dr["商品URL"] = auction["detail_url"].ToString().Trim();
                 dr["价格"] = auction["view_price"].ToString().Trim();
