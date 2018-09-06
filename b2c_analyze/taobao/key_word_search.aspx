@@ -6,6 +6,10 @@
 
     public string keyWord = "";
 
+
+
+
+
     protected void btn_Click(object sender, EventArgs e)
     {
         keyWord = keyword.Text.Trim();
@@ -29,7 +33,18 @@
     public DataTable GetHTMLData(string keyWord)
     {
         DataTable dtList = DBHelper.GetDataTable("select * from b2cmonitor_taobao_shop_list where keyword = '" + keyWord.Trim().Replace("'","") + "' ");
-        DataTable dtOri = GetData(keyWord);
+        //DataTable dtOri = GetData(keyWord);
+        DataTable dtOri = new DataTable();
+        SearchResultCache result = SearchResultCache.GetResultByKeyword(keyWord.Trim());
+        if (result.keyword.Trim().Equals(""))
+        {
+            dtOri = GetData(keyWord);
+            SearchResultCache.AddCache(keyWord.Trim(), dtOri);
+        }
+        else
+        {
+            dtOri = result.resultTable;
+        }
         DataTable dt = dtOri.Clone();
         for (int i = 0; i < dtOri.Rows.Count && dt.Rows.Count < 500; i++)
         {
