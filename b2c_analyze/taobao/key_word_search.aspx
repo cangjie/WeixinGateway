@@ -6,10 +6,6 @@
 
     public string keyWord = "";
 
-
-
-
-
     protected void btn_Click(object sender, EventArgs e)
     {
         keyWord = keyword.Text.Trim();
