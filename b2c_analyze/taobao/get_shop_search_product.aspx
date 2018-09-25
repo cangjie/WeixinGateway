@@ -5,9 +5,14 @@
 
 <script runat="server">
 
+    public static string taobaoCookie = "_cc_=U%2BGCWk%2F7og%3D%3D; isg=BHNzIm1sLLjhceAs0koBefZHCnedqAdq81bNiCUQwxLJJJPGrX6wut_32pZvn19i; thw=cn; uc3=vt3=F8dBzrVHvlfZ8HiHo%2Fg%3D&id2=UUjQkfQWp0U%3D&nk2=AHtzPWJHZuQ%3D&lg2=Vq8l%2BKCLz3%2F65A%3D%3D; t=aebd3876f101f4cb03a4e8cf8698442d; mt=ci=9_1&np=; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; lgc=cang_jie; cna=OH/rEDrVX0UCAXt467nw59F8; tracknick=cang_jie; tg=0; hng=CN%7Czh-CN%7CCNY%7C156; cookie2=305409b95652c7cc5756c5c9455495c3; v=0; _tb_token_=e3d3e386783fb; unb=20190672; uc1=cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=VFC%2FuZ9ainBZ&cookie15=UtASsssmOIJ0bQ%3D%3D&existShop=false&pas=0&cookie14=UoTfLJZsiH7hxw%3D%3D&tag=8&lng=zh_CN; sg=e26; _l_g_=Ug%3D%3D; skt=7ebec4a6e30d5680; publishItemObj=Ng%3D%3D; cookie1=ACOw2OO77SjEiZ%2Bnmt3Qj1nG3vmE9i44AgY9dTKFXUA%3D; csg=e2497b23; existShop=MTUzNzM2Mzk1MA%3D%3D; dnk=cang_jie; _nk_=cang_jie; cookie17=UUjQkfQWp0U%3D; whl=-1%260%260%261537363997303; _uab_collina=153664080870812149011691; _umdata=E2AE90FA4E0E42DEC03C2D871D8699C6E3828FD9AABB6ABE270F0E3F28C8BC95D6427B091B97AF8DCD43AD3E795C914C661D5033D7B04A3CC5837D827B7D734E; pnm_cku822=; swfstore=215388; x5sec=7b2273686f7073797374656d3b32223a2261666435626233633734393235353238653237643863343566636630326235614350326669643046454932496e646966695a576c4e526f4b4d6a41784f5441324e7a49374d513d3d227d";
+
+    public static string tmallCookie = "uss=; isg=BBsbImrKxAvpVTj_EBIEASGNon-F8C_yG251sA1Y8Jox7DvOlcarQrAngo5HV4fq; cna=OH/rEDrVX0UCAXt467nw59F8; lid=cang_jie; hng=CN%7Czh-CN%7CCNY%7C156; uc1=cookie16=UIHiLt3xCS3yM2h4eKHS9lpEOw%3D%3D&cookie21=WqG3DMC9FxUx&cookie15=V32FPkk%2Fw0dUvg%3D%3D&existShop=false&pas=0&cookie14=UoTfLJ1cO3AXPQ%3D%3D&tag=8&lng=zh_CN; uc3=vt3=F8dByRuSY%2FkucQchG0g%3D&id2=UUjQkfQWp0U%3D&nk2=AHtzPWJHZuQ%3D&lg2=VFC%2FuZ9ayeYq2g%3D%3D; tracknick=cang_jie; _l_g_=Ug%3D%3D; ck1=; unb=20190672; lgc=cang_jie; cookie1=ACOw2OO77SjEiZ%2Bnmt3Qj1nG3vmE9i44AgY9dTKFXUA%3D; login=true; cookie17=UUjQkfQWp0U%3D; cookie2=1407f288d1b77ab4258c686d57100de6; _nk_=cang_jie; t=aebd3876f101f4cb03a4e8cf8698442d; csg=be284e98; skt=35c679e8af8bb85e; _tb_token_=f3e7e85ba4671";
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        Core.TaobaoSnap.taobaoCookie = "_cc_=U%2BGCWk%2F7og%3D%3D; isg=BHNzIm1sLLjhceAs0koBefZHCnedqAdq81bNiCUQwxLJJJPGrX6wut_32pZvn19i; thw=cn; uc3=vt3=F8dBzrVHvlfZ8HiHo%2Fg%3D&id2=UUjQkfQWp0U%3D&nk2=AHtzPWJHZuQ%3D&lg2=Vq8l%2BKCLz3%2F65A%3D%3D; t=aebd3876f101f4cb03a4e8cf8698442d; mt=ci=9_1&np=; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; lgc=cang_jie; cna=OH/rEDrVX0UCAXt467nw59F8; tracknick=cang_jie; tg=0; hng=CN%7Czh-CN%7CCNY%7C156; cookie2=305409b95652c7cc5756c5c9455495c3; v=0; _tb_token_=e3d3e386783fb; unb=20190672; uc1=cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=VFC%2FuZ9ainBZ&cookie15=UtASsssmOIJ0bQ%3D%3D&existShop=false&pas=0&cookie14=UoTfLJZsiH7hxw%3D%3D&tag=8&lng=zh_CN; sg=e26; _l_g_=Ug%3D%3D; skt=7ebec4a6e30d5680; publishItemObj=Ng%3D%3D; cookie1=ACOw2OO77SjEiZ%2Bnmt3Qj1nG3vmE9i44AgY9dTKFXUA%3D; csg=e2497b23; existShop=MTUzNzM2Mzk1MA%3D%3D; dnk=cang_jie; _nk_=cang_jie; cookie17=UUjQkfQWp0U%3D; whl=-1%260%260%261537363997303; _uab_collina=153664080870812149011691; _umdata=E2AE90FA4E0E42DEC03C2D871D8699C6E3828FD9AABB6ABE270F0E3F28C8BC95D6427B091B97AF8DCD43AD3E795C914C661D5033D7B04A3CC5837D827B7D734E; pnm_cku822=; swfstore=215388; x5sec=7b2273686f7073797374656d3b32223a2261666435626233633734393235353238653237643863343566636630326235614350326669643046454932496e646966695a576c4e526f4b4d6a41784f5441324e7a49374d513d3d227d";
+
+        //Core.TaobaoSnap.taobaoCookie = 
 
     }
 
@@ -21,6 +26,14 @@
 
     public DataTable GetData()
     {
+        if (TxtUrl.Text.Trim().IndexOf("tmall.com/") > 0)
+        {
+            Core.TaobaoSnap.taobaoCookie = tmallCookie;
+        }
+        else
+        {
+            Core.TaobaoSnap.taobaoCookie = taobaoCookie;
+        }
         string productUrl = Core.TaobaoSnap.GetFormattedProductUrl(TxtUrl.Text.Trim()).Replace("&amp;", "&").Trim();
         return Core.TaobaoSnap.GetProductTable(productUrl.Trim());
     }
