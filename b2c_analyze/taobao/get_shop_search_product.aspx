@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" %>
-<%@ Import Namespace="Core" %>
+
 <%@ Import Namespace="System.Data" %>
 <!DOCTYPE html>
 
@@ -21,9 +21,45 @@
 
     public DataTable GetData()
     {
-        return Core.TaobaoSnap.GetProductTable(TxtUrl.Text.Trim());
+        string productUrl = Core.TaobaoSnap.GetFormattedProductUrl(TxtUrl.Text.Trim()).Replace("&amp;", "&").Trim();
+        return Core.TaobaoSnap.GetProductTable(productUrl.Trim());
     }
 
+    protected void BtnDownload_Click(object sender, EventArgs e)
+    {
+        DataTable dt = GetData();
+        string content = "";
+        string captionContent = "";
+        foreach (DataColumn c in dt.Columns)
+        {
+            captionContent = captionContent +
+                (captionContent.Trim().Equals("") ? "" : ",") + c.Caption.Trim();
+        }
+        content = captionContent.Trim();
+        HttpContext.Current.Response.Clear();
+        System.IO.StringWriter sw = new System.IO.StringWriter();
+        sw.Write(captionContent.Trim());
+        foreach (DataRow dr in dt.Rows)
+        {
+            string lineContent = "";
+            foreach (DataColumn c in dt.Columns)
+            {
+                lineContent = lineContent
+                    + (lineContent.Trim().Equals("") ? "" : ",") + dr[c].ToString().Trim();
+            }
+            //content = content + "\r\n" + lineContent.Trim();
+            sw.Write(sw.NewLine);
+            sw.Write(lineContent);
+        }
+        sw.Close();
+        string fileName = Util.GetTimeStamp() + ".csv";
+        HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + fileName.Trim());
+        HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+        HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("GB2312");
+        HttpContext.Current.Response.Write(sw);
+        HttpContext.Current.Response.End();
+        dt.Dispose();
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -33,7 +69,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:TextBox ID="TxtUrl" runat="server" Width="1091px" ></asp:TextBox> <asp:Button ID="BtnSearch" Text="Search" runat="server" OnClick="BtnSearch_Click" /> &nbsp;<asp:Button runat="server" ID="BtnDownload" Text="Download CSV" />
+        <asp:TextBox ID="TxtUrl" runat="server" Width="1091px" ></asp:TextBox> <asp:Button ID="BtnSearch" Text="Search" runat="server" OnClick="BtnSearch_Click" /> &nbsp;<asp:Button runat="server" ID="BtnDownload" Text="Download CSV" OnClick="BtnDownload_Click" />
     </div>
     <div>
         <asp:DataGrid runat="server" ID="dg" width="100%" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical">
