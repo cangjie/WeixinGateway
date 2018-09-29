@@ -11,9 +11,10 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        Core.TaobaoSnap.taobaoCookie = taobaoCookie;
-        Core.TaobaoSnap.tmallCookie = tmallCookie;
+        if (Core.TaobaoSnap.taobaoCookie.Trim().Equals(""))
+            Core.TaobaoSnap.taobaoCookie = taobaoCookie;
+        if (Core.TaobaoSnap.tmallCookie.Trim().Equals(""))
+            Core.TaobaoSnap.tmallCookie = tmallCookie;
 
     }
 
