@@ -48,6 +48,7 @@
                 continue;
             }
             string productUrl = Core.TaobaoSnap.GetFormattedProductUrl(url.Trim()).Replace("&amp;", "&").Trim();
+            int historyId = Core.TaobaoSnap.AddUrlSearchHistory(url.Trim(), productUrl.Trim(), DateTime.Now);
             DataTable tempDt = Core.TaobaoSnap.GetProductTable(productUrl.Trim());
             if (dt.Columns.Count == 0)
             {

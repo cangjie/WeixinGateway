@@ -6,7 +6,7 @@
     {
         // Code that runs on application startup
         Util.conStr = System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim();
-
+        Core.Util.conStr = Util.conStr;
         
         
     }
