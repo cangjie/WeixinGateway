@@ -129,8 +129,8 @@
             <SelectedItemStyle BackColor="#008A8C" Font-Bold="True" ForeColor="White" />
         </asp:DataGrid>
     </div>
-    <div>Taobao Cookie:<%=Core.TaobaoSnap.taobaoCookie.Trim() %></div>
-    <div>Tmall Cookie:<%=Core.TaobaoSnap.tmallCookie.Trim()%></div>
+    <!--div>Taobao Cookie:<%=Core.TaobaoSnap.taobaoCookie.Trim() %></div>
+    <div>Tmall Cookie:<%=Core.TaobaoSnap.tmallCookie.Trim()%></div-->
     </form>
 </body>
 </html>
