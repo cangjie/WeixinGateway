@@ -35,7 +35,10 @@
         if (result.keyword.Trim().Equals(""))
         {
             dtOri = GetData(keyWord);
-            SearchResultCache.AddCache(keyWord.Trim(), dtOri);
+            if (dtOri.Rows.Count > 0)
+            {
+                SearchResultCache.AddCache(keyWord.Trim(), dtOri);
+            }
         }
         else
         {
@@ -79,7 +82,7 @@
 
         int pageSize = 0;
         int totalCount = 0;
-        for (int i = 0; (i == 0 && pageSize == 0 && totalCount == 0) || (i < totalCount); i = i + pageSize)
+        for (int i = 0; ((i == 0 && pageSize == 0 && totalCount == 0) || (i < totalCount)) && i < 1000; i = i + pageSize)
         {
             try
             {
@@ -114,7 +117,7 @@
     {
         //string ret = Util.GetWebContent("https://s.taobao.com/search?q=" + keyWord.Trim()  + (index>0? "&s=" + index.ToString():"")<a href="../../C94AC000">../../C94AC000</a>, "GET", "", "text/html", new System.Net.CookieCollection(), System.Text.Encoding.GetEncoding("GB2312"));
         string ret = Core.Util.GetWebContent("https://s.taobao.com/search?q=" + keyWord.Trim() + (index > 0 ? "&s=" + index.ToString() : ""), "GET", "", "text/html",
-            Core.TaobaoSnap.taobaoCookie, System.Text.Encoding.GetEncoding("GB2312"));
+            Core.TaobaoSnap.taobaoCookie, System.Text.Encoding.UTF8);
         int startIndex = ret.IndexOf("{\"pageName\":\"mainsrp\"");
         ret = ret.Substring(startIndex, ret.Length - startIndex);
         int endIndex = ret.IndexOf("};");
@@ -174,7 +177,9 @@
 
     public static void FillDataTable(string json, DataTable dt)
     {
-        Dictionary<string, object> dataObject = (Dictionary<string, object>)((Dictionary<string, object>)((Dictionary<string, object>)Util.GetObjectFromJsonByKey(json, "mods"))["itemlist"])["data"];
+        Dictionary<string, object> objMods = (Dictionary<string, object>)Util.GetObjectFromJsonByKey(json, "mods");
+        
+        Dictionary<string, object> dataObject = (Dictionary<string, object>)((Dictionary<string, object>)objMods["itemlist"])["data"];
         object[] auctionObjectArray = (object[])dataObject["auctions"];
         foreach (object auctionObject in auctionObjectArray)
         {
