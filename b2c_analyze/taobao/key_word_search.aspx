@@ -8,7 +8,7 @@
 
     protected void btn_Click(object sender, EventArgs e)
     {
-        keyWord = keyword.Text.Trim();
+        keyWord = Server.UrlEncode(keyword.Text.Trim());
         dg.DataSource = GetHTMLData(keyWord.Trim());
         dg.DataBind();
     }
@@ -104,7 +104,7 @@
             }
             catch
             {
-
+                break;
             }
         }
         return dt;
@@ -112,7 +112,10 @@
 
     public static string GetTaobaoSearchJson(string keyWord, int index)
     {
-        string ret = Util.GetWebContent("https://s.taobao.com/search?q=" + keyWord.Trim()+ (index>0? "&s=" + index.ToString():""));
+        //string ret = Util.GetWebContent("https://s.taobao.com/search?q=" + keyWord.Trim()  + (index>0? "&s=" + index.ToString():""), "GET", "", "text/html", new System.Net.CookieCollection(), System.Text.Encoding.GetEncoding("GB2312"));
+        string ret = Core.Util.GetWebContent("https://s.taobao.com/search?q=" + keyWord.Trim() + (index > 0 ? "&s=" + index.ToString() : ""), "GET", "", "text/html",
+            "isg=BEhIJ0Umh4piouoGK2jp7_mRG7Ba8az7i_zMCgL5lEO23ehHqgF8i97fUT2tdmTT; uc1=cookie14=UoTYN4WjIlwnqw%3D%3D; JSESSIONID=EDD5A4483FA75E76F8AFD95D4C072A4D; alitrackid=www.taobao.com; lastalitrackid=www.taobao.com; _tb_token_=ee311e37eee8f; cookie2=39974bd27b6fcc7a98a8e7c8caaa0933; v=0; mt=ci=-1_0; _cc_=W5iHLLyFfA%3D%3D; lgc=cang_jie; t=d1965bdc83444abf5d7da8a91b1733ac; tg=0; tracknick=cang_jie; uc3=vt3=F8dByRjI4mpUE6LfHQQ%3D&id2=UUjQkfQWp0U%3D&nk2=AHtzPWJHZuQ%3D&lg2=W5iHLLyFOGW7aA%3D%3D; UM_distinctid=166af84270ceae-00aadc0f527de78-53774277-1aeaa0-166af84270dcb3; cna=UcRTE+Ii/kcCAd9IUAR05wPT; miid=34017171592307999; enc=s4%2Ffi0IKXvGV9dFSRwlxImLOvjSxECcfBNVmt3buw60wMECiJvbCPihU4Lcpkjf8%2B2ijT6wI3mD8pFhPqhHuSQ%3D%3D; hng=CN%7Czh-CN%7CCNY%7C156; thw=cn; l=Ari406Nqq9Z0CbRnqRhuis9BiGlLsByr",
+             System.Text.Encoding.GetEncoding("GB2312"));
         int startIndex = ret.IndexOf("{\"pageName\":\"mainsrp\"");
         ret = ret.Substring(startIndex, ret.Length - startIndex);
         int endIndex = ret.IndexOf("};");
