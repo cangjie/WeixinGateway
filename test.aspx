@@ -8,13 +8,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Ticket.GenerateNewTicket("aaa", "aaa", 1);
-        //ReceivedMessage receivedMessage = new ReceivedMessage("event_20180120213621556");
-        //DealMessage.SendCustomeRequestToAssistant(receivedMessage);
-        //OrderTemp tempOrder = OrderTemp.GetFinishedOrder(1065);
-        //Ticket ticket = new Ticket("667120871");
-        //Response.Write(ticket.Name.Trim());
-
+       
     }
 </script>
 
@@ -24,7 +18,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div></div>
+    <div>taobao cookie: <%=Core.TaobaoSnap.taobaoCookie.Trim() %></div>
+    <div>tmall cookie: <%=Core.TaobaoSnap.tmallCookie.Trim() %></div>
     </form>
 </body>
 </html>

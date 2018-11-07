@@ -6,7 +6,6 @@
 
     protected void BtnSetTaobaoCookie_Click(object sender, EventArgs e)
     {
-
         System.IO.File.AppendAllText(Server.MapPath("taobao_cookie.txt"), TxtTaobaoCookie.Text.Trim());
    
     }
@@ -14,7 +13,6 @@
     protected void BtnSetTmallCookie_Click(object sender, EventArgs e)
     {
         System.IO.File.AppendAllText(Server.MapPath("tmall_cookie.txt"), TxtTaobaoCookie.Text.Trim());
-        //Core.TaobaoSnap.tmallCookie = TxtTmallCookie.Text.Trim();
     }
 </script>
 

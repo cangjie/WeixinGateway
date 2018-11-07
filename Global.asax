@@ -7,6 +7,10 @@
         // Code that runs on application startup
         Util.conStr = System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim();
         Core.Util.conStr = Util.conStr;
+
+        Core.TaobaoSnap.taobaoCookiePath = Server.MapPath("/b2c_analyze/taobao/taobao_cookie.txt");
+
+        Core.TaobaoSnap.tmallCookiePath = Server.MapPath("/b2c_analyze/taobao/tmall_cookie.txt");
         
         
     }
