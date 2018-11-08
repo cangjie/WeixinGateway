@@ -11,12 +11,12 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        /*
         if (Core.TaobaoSnap.taobaoCookie.Trim().Equals(""))
             Core.TaobaoSnap.taobaoCookie = taobaoCookie;
         if (Core.TaobaoSnap.tmallCookie.Trim().Equals(""))
             Core.TaobaoSnap.tmallCookie = tmallCookie;
-
+*/
     }
 
     protected void BtnSearch_Click(object sender, EventArgs e)

@@ -11,11 +11,12 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        /*
         if (Core.TaobaoSnap.taobaoCookie.Trim().Equals(""))
             Core.TaobaoSnap.taobaoCookie = taobaoCookie;
         if (Core.TaobaoSnap.tmallCookie.Trim().Equals(""))
             Core.TaobaoSnap.tmallCookie = tmallCookie;
-
+*/
     }
 
     protected void BtnSearch_Click(object sender, EventArgs e)
@@ -88,6 +89,7 @@
     <div>
         <asp:TextBox ID="TxtUrl" runat="server" Width="1091px" ></asp:TextBox> <asp:Button ID="BtnSearch" Text="Search" runat="server" OnClick="BtnSearch_Click" /> &nbsp;<asp:Button runat="server" ID="BtnDownload" Text="Download CSV" OnClick="BtnDownload_Click" />
     </div>
+        <br />
     <div>
         <asp:DataGrid runat="server" ID="dg" width="100%" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical">
             <AlternatingItemStyle BackColor="#DCDCDC" />
