@@ -169,11 +169,10 @@
 
         try
         {
-            string outTradeNo = rootXmlNode.SelectSingleNode("out_trade_no").InnerText.Trim();
-            Response.Write(outTradeNo.Trim());
-            Response.End();
+        
+
             WeixinPaymentOrder.CreateOrder(
-                outTradeNo.Trim(),
+                rootXmlNode.SelectSingleNode("out_trade_no").InnerText.Trim(),
                 rootXmlNode.SelectSingleNode("appid").InnerText.Trim(),
                 rootXmlNode.SelectSingleNode("mch_id").InnerText.Trim(),
                 rootXmlNode.SelectSingleNode("nonce_str").InnerText.Trim(),
