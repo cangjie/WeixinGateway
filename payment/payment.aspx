@@ -210,10 +210,11 @@
 
             return prepayId.Trim();
         }
-        catch
+        catch(Exception err)
         {
-            //Response.Write(prepayXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
-            //Response.End();
+            Response.Write(err.ToString() + "<br/>");
+            Response.Write(prepayXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
+            Response.End();
             return "";
         }
     }
