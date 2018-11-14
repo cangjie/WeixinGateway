@@ -21,7 +21,10 @@ public class WeixinPaymentOrder
         DataTable dt = new DataTable();
         da.Fill(dt);
         da.Dispose();
-        _fields = dt.Rows[0];
+        if (dt.Rows.Count > 0)
+        {
+            _fields = dt.Rows[0];
+        }
     }
 
     public string PrepayId
