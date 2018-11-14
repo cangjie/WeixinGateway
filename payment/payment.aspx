@@ -183,9 +183,9 @@
 
 
         }
-        catch
+        catch(Exception err)
         {
-
+            Response.Write(err.ToString());
         }
 
         string prepayXml = Util.GetWebContent("https://api.mch.weixin.qq.com/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
