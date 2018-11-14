@@ -170,6 +170,8 @@
         try
         {
             string outTradeNo = rootXmlNode.SelectSingleNode("out_trade_no").InnerText.Trim();
+            Response.Write(outTradeNo.Trim());
+            Response.End();
             WeixinPaymentOrder.CreateOrder(
                 outTradeNo.Trim(),
                 rootXmlNode.SelectSingleNode("appid").InnerText.Trim(),
