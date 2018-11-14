@@ -151,6 +151,7 @@
         function jsApiCall() {
             //alert('prepare to pay');
 
+            alert('<%=prepayId.Trim()%>');
 
             WeixinJSBridge.invoke('getBrandWCPayRequest',
                                 {
