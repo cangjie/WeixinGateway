@@ -72,7 +72,7 @@
                         <asp:Label runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.brand_name") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateColumn>
-                <asp:TemplateColumn HeaderText="别名(多个别名用逗号分隔)">
+                <asp:TemplateColumn HeaderText="关键词(用逗号分隔)">
                     <EditItemTemplate>
                         <asp:TextBox runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.alias") %>' Width="100%"></asp:TextBox>
                     </EditItemTemplate>
