@@ -186,6 +186,7 @@
         catch(Exception err)
         {
             Response.Write(err.ToString());
+            Response.Write("<br/>" + rootXmlNode.InnerXml.Trim());
             Response.End();
         }
 
