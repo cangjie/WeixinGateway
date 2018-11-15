@@ -20,6 +20,9 @@
     public string jsPatameter = "";
     public string shaStr = "";
     public string shaStrOri = "";
+
+    public string jsApi = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -207,13 +210,9 @@
             WeixinPaymentOrder order = new WeixinPaymentOrder(rootXmlNode.SelectSingleNode("out_trade_no").InnerText.Trim());
             order.PrepayId = prepayId.Trim();
 
-            Response.Write(rootXmlNode.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;") + "<br/>");
-            Response.Write(prepayXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
-            Response.End();
-            return "";
-
-
-            return prepayId.Trim();
+            jsApi = xmlDPrepayId.SelectSingleNode("//xml/jsapi").InnerText.Trim();
+            //Session["jsapi"] = jsApi;
+            return jsApi.Trim();
         }
         catch(Exception err)
         {
