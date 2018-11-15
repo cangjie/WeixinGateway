@@ -82,11 +82,10 @@
                 string prepayId = GetPrepayId(out product_id);
 
                 Response.Write(prepayId.Trim());
-                /*
-                string redirectUrl = "payment_goto_bank.aspx?timestamp=" + timeStamp.Trim()+product_id + "&noncestr="
-                    + nonce_str.Trim() + "&prepayid=" + prepayId.Trim() + "&callback=" + callBackUrl;
+                
+                string redirectUrl = "payment_goto_bank.aspx?no=" + out_trade_no.Trim() + "&callback=" + callBackUrl;
                 Response.Redirect(redirectUrl, true);
-                */
+                
 
             }
         }
@@ -165,6 +164,7 @@
         timeStamp = Util.GetTimeStamp();
         product_id = rootXmlNode.SelectSingleNode("product_id").InnerText.Trim().PadLeft(6,'0');
         n.InnerText = timeStamp + rootXmlNode.SelectSingleNode("product_id").InnerText.Trim().PadLeft(6, '0');
+        out_trade_no = n.InnerText.Trim();
         rootXmlNode.AppendChild(n);
 
         string s = Util.ConverXmlDocumentToStringPair(xmlD);
