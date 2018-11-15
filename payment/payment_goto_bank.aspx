@@ -40,8 +40,8 @@
             ticket = Util.GetSimpleJsonValueByKey(jsonStrForTicket, "ticket");
         }
         catch
-        { 
-        
+        {
+
         }
         if (ticket.Trim().Equals(""))
         {
@@ -49,40 +49,53 @@
         }
         return ticket;
     }
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-        
-        timeStamp = ((Request["timestamp"] == null) ? "" : Request["timestamp"].Trim());
+
+        string no = Util.GetSafeRequestValue(Request, "no", "");
+        WeixinPaymentOrder payOrder = new WeixinPaymentOrder(no.Trim());
+        string jsApi = payOrder._fields["order_prepay_id"].ToString().Trim();
+
+
+
+        timeStamp = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "timeStamp").Trim();
         WeixinPaymentOrder order = new WeixinPaymentOrder(timeStamp);
-        nonceStr = order._fields["order_nonce_str"].ToString().Trim();
-        prepayId = order._fields["order_prepay_id"].ToString().Trim();
-        appId = order._fields["order_appid"].ToString().Trim();
+        nonceStr = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "nonceStr").Trim();
+        prepayId = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "package").Trim().Split('=')[1].Trim();
+        appId = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "appId").Trim();
+        signType = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "signType").Trim();
+        jsMd5 = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "paySign").Trim();
+        shaParam = jsMd5;
         /*
         string jsonStrForTicket = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="
             + Util.GetToken() + "&type=jsapi", "get", "", "form-data");
         ticket = Util.GetSimpleJsonValueByKey(jsonStrForTicket, "ticket");
          */
+        
+        /*
         ticket = GetTicket();
         string shaString = "jsapi_ticket=" + ticket.Trim() + "&noncestr=" + nonceStr.Trim()
             + "&timestamp=" + timeStamp.Trim() + "&url=" + Request.Url.ToString().Trim();
         shaParam = Util.GetSHA1(shaString);
-        
-        
-        
+
+
+
         string jsParameterStr = "timeStamp=" + timeStamp.Trim() + "&nonceStr=" + nonceStr.Trim()
                     + "&package=prepay_id=" + prepayId.Trim() + "&signType="+signType.Trim();
         if (jsVersion == 0)
             jsParameterStr = jsParameterStr.Replace("timeStamp", "timestamp");
         else
             jsParameterStr = "appId=" + appId.Trim() + "&" + jsParameterStr.Trim();
-        
+
         jsParameterStr = Util.GetSortedArrayString(jsParameterStr);
         if (signType.Trim().Equals("MD5"))
             jsMd5 = Util.GetMd5Sign(jsParameterStr.Trim(), "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0").ToUpper();
         else
             jsMd5 = Util.GetSHA1(jsParameterStr.Trim() + "&key=ubsyrgj6wy1fn8qbyjx68lgmvli6eod0");
+        */
+
+
         order.Status = 1;
 
         callBackUrl = (Request["callback"] == null) ? "" : Request["callback"].Trim();
