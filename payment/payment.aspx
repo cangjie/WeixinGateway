@@ -81,11 +81,12 @@
                 string product_id = "";
                 string prepayId = GetPrepayId(out product_id);
 
-
-
+                Response.Write(prepayId.Trim());
+                /*
                 string redirectUrl = "payment_goto_bank.aspx?timestamp=" + timeStamp.Trim()+product_id + "&noncestr="
                     + nonce_str.Trim() + "&prepayid=" + prepayId.Trim() + "&callback=" + callBackUrl;
                 Response.Redirect(redirectUrl, true);
+                */
 
             }
         }
