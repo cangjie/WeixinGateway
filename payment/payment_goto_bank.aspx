@@ -60,13 +60,15 @@
 
 
         timeStamp = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "timeStamp").Trim();
-        WeixinPaymentOrder order = new WeixinPaymentOrder(timeStamp);
         nonceStr = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "nonceStr").Trim();
         prepayId = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "package").Trim().Split('=')[1].Trim();
         appId = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "appId").Trim();
         signType = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "signType").Trim();
         jsMd5 = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "paySign").Trim();
         shaParam = jsMd5;
+
+
+
         /*
         string jsonStrForTicket = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="
             + Util.GetToken() + "&type=jsapi", "get", "", "form-data");
@@ -96,7 +98,7 @@
         */
 
 
-        order.Status = 1;
+        payOrder.Status = 1;
 
         callBackUrl = (Request["callback"] == null) ? "" : Request["callback"].Trim();
         callBackUrl = Server.UrlDecode(callBackUrl);
