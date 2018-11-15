@@ -3,6 +3,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        /*
 
         string token = Util.GetSafeRequestValue(Request, "token", "");
         int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
@@ -20,6 +21,8 @@
         {
             Response.Write("支付尚未成功");
         }
+
+        */
         /*
         string body = Util.GetSafeRequestValue(Request, "body", "卢勤问答平台微课教室");
         int productId = int.Parse(Util.GetSafeRequestValue(Request, "productid", "10000681"));
