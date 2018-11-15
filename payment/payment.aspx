@@ -207,6 +207,11 @@
             WeixinPaymentOrder order = new WeixinPaymentOrder(rootXmlNode.SelectSingleNode("out_trade_no").InnerText.Trim());
             order.PrepayId = prepayId.Trim();
 
+            Response.Write(rootXmlNode.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;") + "<br/>");
+            Response.Write(prepayXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
+            Response.End();
+            return "";
+
 
             return prepayId.Trim();
         }

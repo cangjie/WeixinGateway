@@ -116,7 +116,7 @@
 
         
         wx.ready(function() {
-            alert("config ready, start payment.");
+            //alert("config ready, start payment.");
 
             wx.chooseWXPay({
                 timestamp:'<%=timeStamp%>',
