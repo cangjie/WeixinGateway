@@ -80,6 +80,9 @@
                 callBackUrl = Server.UrlEncode(callBackUrl);
                 string product_id = "";
                 string prepayId = GetPrepayId(out product_id);
+
+
+
                 string redirectUrl = "payment_goto_bank.aspx?timestamp=" + timeStamp.Trim()+product_id + "&noncestr="
                     + nonce_str.Trim() + "&prepayid=" + prepayId.Trim() + "&callback=" + callBackUrl;
                 Response.Redirect(redirectUrl, true);
@@ -206,11 +209,11 @@
         try
         {
             string prepayId = xmlDPrepayId.SelectSingleNode("//xml/prepay_id").InnerText.Trim();
-
-            WeixinPaymentOrder order = new WeixinPaymentOrder(rootXmlNode.SelectSingleNode("out_trade_no").InnerText.Trim());
-            order.PrepayId = prepayId.Trim();
-
             jsApi = xmlDPrepayId.SelectSingleNode("//xml/jsapi").InnerText.Trim();
+            WeixinPaymentOrder order = new WeixinPaymentOrder(rootXmlNode.SelectSingleNode("out_trade_no").InnerText.Trim());
+            order.PrepayId = jsApi;
+
+            
             //Session["jsapi"] = jsApi;
             return jsApi.Trim();
         }
