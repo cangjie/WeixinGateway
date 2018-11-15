@@ -57,6 +57,10 @@
         WeixinPaymentOrder payOrder = new WeixinPaymentOrder(no.Trim());
         string jsApi = payOrder._fields["order_prepay_id"].ToString().Trim();
 
+        if (payOrder.Status != 0)
+        {
+            Response.End();
+        }
 
 
         timeStamp = Util.GetSimpleJsonValueByKey(jsApi.Trim(), "timeStamp").Trim();
@@ -74,7 +78,7 @@
             + Util.GetToken() + "&type=jsapi", "get", "", "form-data");
         ticket = Util.GetSimpleJsonValueByKey(jsonStrForTicket, "ticket");
          */
-        
+
         /*
         ticket = GetTicket();
         string shaString = "jsapi_ticket=" + ticket.Trim() + "&noncestr=" + nonceStr.Trim()
