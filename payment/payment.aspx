@@ -192,7 +192,7 @@
             Response.End();
         }
 
-        string prepayXml = Util.GetWebContent("https://api.mch.weixin.qq.com/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
+        string prepayXml = Util.GetWebContent("https://payapi.mch.weixin.semoor.cn/4.0", "post", xmlD.InnerXml.Trim(), "raw");
 
         //Response.Write(xmlD.InnerXml.Replace("<", "&lt;").Replace(">", "&gt;"));
         //Response.End();
