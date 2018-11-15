@@ -169,7 +169,7 @@
 
         try
         {
-        
+
 
             WeixinPaymentOrder.CreateOrder(
                 rootXmlNode.SelectSingleNode("out_trade_no").InnerText.Trim(),
@@ -213,6 +213,7 @@
         catch(Exception err)
         {
             Response.Write(err.ToString() + "<br/>");
+            Response.Write(rootXmlNode.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;") + "<br/>");
             Response.Write(prepayXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
             Response.End();
             return "";
