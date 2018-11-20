@@ -167,12 +167,19 @@
         out_trade_no = n.InnerText.Trim();
         rootXmlNode.AppendChild(n);
 
+
+
+
         string s = Util.ConverXmlDocumentToStringPair(xmlD);
         //     s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
         s = Util.GetMd5Sign(s, "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0");
         n = xmlD.CreateNode(XmlNodeType.Element, "sign", "");
         n.InnerText = s.Trim();
         rootXmlNode.AppendChild(n);
+
+        Response.Write("<br/>" + rootXmlNode.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
+
+        Response.End();
 
         try
         {
