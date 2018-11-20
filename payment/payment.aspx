@@ -174,16 +174,6 @@
         out_trade_no = n.InnerText.Trim();
         rootXmlNode.AppendChild(n);
 
-
-
-
-        string s = Util.ConverXmlDocumentToStringPair(xmlD);
-        //     s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
-        s = Util.GetMd5Sign(s, "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0");
-        n = xmlD.CreateNode(XmlNodeType.Element, "sign", "");
-        n.InnerText = s.Trim();
-        rootXmlNode.AppendChild(n);
-
         OnlineOrder onlineOrder = new OnlineOrder(int.Parse(product_id.Trim()));
         string body = onlineOrder._fields["shop"].ToString() + " " + onlineOrder._fields["type"].ToString().Trim();
         string detail = onlineOrder.OrderDetails[0].productName.Trim();
@@ -199,6 +189,16 @@
         n.InnerText = ((int)Math.Round(100 * double.Parse(onlineOrder._fields["order_real_pay_price"].ToString()), 0)).ToString();
         rootXmlNode.AppendChild(n);
 
+
+
+        string s = Util.ConverXmlDocumentToStringPair(xmlD);
+        //     s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
+        s = Util.GetMd5Sign(s, "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0");
+        n = xmlD.CreateNode(XmlNodeType.Element, "sign", "");
+        n.InnerText = s.Trim();
+        rootXmlNode.AppendChild(n);
+
+        
 
         try
         {
