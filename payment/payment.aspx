@@ -177,9 +177,6 @@
         n.InnerText = s.Trim();
         rootXmlNode.AppendChild(n);
 
-        Response.Write("<br/>" + rootXmlNode.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
-
-        Response.End();
 
         try
         {
@@ -202,7 +199,7 @@
         catch(Exception err)
         {
             Response.Write(err.ToString());
-            Response.Write("<br/>" + rootXmlNode.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
+            Response.Write("<br/>" + xmlD.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
             Response.End();
         }
 
