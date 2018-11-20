@@ -82,10 +82,10 @@
                 string prepayId = GetPrepayId(out product_id);
 
                 Response.Write(prepayId.Trim());
-                
+
                 string redirectUrl = "payment_goto_bank.aspx?no=" + out_trade_no.Trim() + "&callback=" + callBackUrl;
                 Response.Redirect(redirectUrl, true);
-                
+
 
             }
         }
@@ -122,7 +122,14 @@
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "openid", "");
-        n.InnerText = Session["user_open_id"].ToString().Trim();
+        try
+        {
+            n.InnerText = Session["user_open_id"].ToString().Trim();
+        }
+        catch
+        {
+            n.InnerText = "";
+        }
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "spbill_create_ip", "");
@@ -177,6 +184,21 @@
         n.InnerText = s.Trim();
         rootXmlNode.AppendChild(n);
 
+        OnlineOrder onlineOrder = new OnlineOrder(int.Parse(product_id.Trim()));
+        string body = onlineOrder._fields["shop"].ToString() + " " + onlineOrder._fields["type"].ToString().Trim();
+        string detail = onlineOrder.OrderDetails[0].productName.Trim();
+
+        n = xmlD.CreateNode(XmlNodeType.Element, "body", "");
+        n.InnerText = body.Trim();
+        rootXmlNode.AppendChild(n);
+        n = xmlD.CreateNode(XmlNodeType.Element, "detail", "");
+        n.InnerText = detail.Trim();
+        rootXmlNode.AppendChild(n);
+
+        n = xmlD.CreateNode(XmlNodeType.Element, "total_fee", "");
+        n.InnerText = ((int)Math.Round(100 * double.Parse(onlineOrder._fields["order_real_pay_price"].ToString()), 0)).ToString();
+        rootXmlNode.AppendChild(n);
+
 
         try
         {
@@ -218,7 +240,7 @@
             WeixinPaymentOrder order = new WeixinPaymentOrder(rootXmlNode.SelectSingleNode("out_trade_no").InnerText.Trim());
             order.PrepayId = jsApi;
 
-            
+
             //Session["jsapi"] = jsApi;
             return jsApi.Trim();
         }
