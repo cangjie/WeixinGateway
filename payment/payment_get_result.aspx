@@ -1,8 +1,20 @@
 ﻿<%@ Page Language="C#" %>
 <script runat="server">
 
-    protected void Page_Load(object sender, EventArgs e)
-    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
+            OnlineOrder order = new OnlineOrder(orderId);
+            if (order.Type.Trim().Equals("雪票"))
+            {
+                //order.CreateSkiPass();
+                Response.Redirect("../pages/ski_pass_list.aspx", true);
+            }
+            else
+            {
+                Response.Redirect("../pages/dragon_ball_list.aspx", true);
+            }
+        
         /*
 
         string token = Util.GetSafeRequestValue(Request, "token", "");
