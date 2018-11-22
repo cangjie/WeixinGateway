@@ -221,3 +221,5 @@ pages/upload/*
 images/qrcode/*
 payment/payment_result.txt
 /b2c_analyze/taobao/search.txt
+/b2c_analyze/taobao/taobao_cookie.txt
+/b2c_analyze/taobao/tmall_cookie.txt
