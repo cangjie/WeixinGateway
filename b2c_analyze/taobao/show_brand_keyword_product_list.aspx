@@ -88,6 +88,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <div>品牌：<%=brand.Trim() %> 关键词：<%=keyword.Trim() %></div>
     <div>
         <asp:DataGrid runat="server" ID="dg" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" style="text-align: left" Width="100%" Font-Size="Small" OnDeleteCommand="dg_DeleteCommand" OnSelectedIndexChanged="dg_SelectedIndexChanged" DataKeyField="店铺ID"  >
             <AlternatingItemStyle BackColor="#DCDCDC" />

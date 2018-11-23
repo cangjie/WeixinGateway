@@ -8,9 +8,39 @@
     {
         if (!IsPostBack)
         {
-            dg.DataSource = Core.Brand.GetBrandTable();
+            dg.DataSource = GetHtmlData(Core.Brand.GetBrandTable());
             dg.DataBind();
         }
+    }
+
+    public DataTable GetHtmlData(DataTable dtOri)
+    {
+        DataTable dt = dtOri.Clone();
+        foreach (DataRow drOri in dtOri.Rows)
+        {
+            DataRow dr = dt.NewRow();
+            foreach (DataColumn dc in dt.Columns)
+            {
+                dr[dc] = drOri[dc.Caption.Trim()];
+            }
+            string tmp = dr["alias"].ToString().Trim();
+            string linkStr = "";
+            foreach (string s in tmp.Split(','))
+            {
+                if (!s.Trim().Equals(""))
+                {
+                    linkStr = linkStr.Trim() + "<a href=\"show_brand_keyword_product_list.aspx?brand=" + Server.UrlEncode(dr["brand_name"].ToString().Trim())
+                        + "&keyword=" + Server.UrlEncode(s.Trim()) + "\" target=\"_blank\" >" + s.Trim() + "</a> , ";
+                }
+            }
+            if (linkStr.Trim().EndsWith(","))
+            {
+                linkStr = linkStr.Trim().Remove(linkStr.Trim().Length - 1, 1);
+            }
+            dr["alias"] = linkStr.Trim();
+            dt.Rows.Add(dr);
+        }
+        return dt;
     }
 
 
@@ -20,7 +50,7 @@
         if (!txtBrandName.Text.Trim().Equals(""))
         {
             Core.Brand.AddNew(txtBrandName.Text.Trim());
-            dg.DataSource = Core.Brand.GetBrandTable();
+            dg.DataSource = GetHtmlData(Core.Brand.GetBrandTable());
             dg.EditItemIndex = -1;
             dg.DataBind();
         }
@@ -38,14 +68,14 @@
         string newAlias = ((TextBox)dg.Items[e.Item.ItemIndex].Cells[2].Controls[1]).Text.Trim();
         string key = dg.DataKeys[e.Item.ItemIndex].ToString().Trim();
         Core.Brand.UpdateAlias(key, newAlias);
-        dg.DataSource = Core.Brand.GetBrandTable();
+        dg.DataSource = GetHtmlData(Core.Brand.GetBrandTable());
         dg.EditItemIndex = -1;
         dg.DataBind();
     }
 
     protected void dg_CancelCommand(object source, DataGridCommandEventArgs e)
     {
-        dg.DataSource = Core.Brand.GetBrandTable();
+        dg.DataSource = GetHtmlData(Core.Brand.GetBrandTable());
         dg.EditItemIndex = -1;
         dg.DataBind();
     }
