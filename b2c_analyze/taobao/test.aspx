@@ -5,6 +5,14 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        TaobaoShop shop = new TaobaoShop("1680678241");
+
+        Response.Write(shop.Name.Trim() + " " + shop.ShopId.Trim());
+    Response.End();
+
+
+
         GetProductTable(GetRealProdctListUrl("35022423"));
         //string domain = GetShopDomain("35022423");
         Response.End();

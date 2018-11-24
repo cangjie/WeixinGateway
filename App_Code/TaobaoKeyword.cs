@@ -31,7 +31,7 @@ public class TaobaoKeyword
 
     public void RefreshResultTable()
     {
-        resultTable = GetData(brand + " " + keyword);
+        resultTable = GetData(keyword);
         lastRefreshTime = DateTime.Now;
     }
 
