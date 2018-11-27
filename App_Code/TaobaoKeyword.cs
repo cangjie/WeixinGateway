@@ -142,7 +142,7 @@ public class TaobaoKeyword
             dr["店铺"] = drOri["shop_name"].ToString().Trim();
             dr["店铺ID"] = drOri["shop_id"].ToString().Trim();
             dr["店铺URL"] = "https://store.taobao.com/shop/view_shop.htm?spm=a230r.1.14.31.29a7478fzMmRwA&user_number_id=" + drOri["shop_id"].ToString().Trim();
-            dr["商品"] = drOri["'product_name"].ToString().Trim();
+            dr["商品"] = drOri["product_name"].ToString().Trim();
             dr["商品ID"] = drOri["product_id"].ToString().Trim();
             dr["商品URL"] = "https://item.taobao.com/item.htm?id=" + drOri["product_id"].ToString().Trim();
             dr["图片"] = drOri["pic"].ToString().Trim();
