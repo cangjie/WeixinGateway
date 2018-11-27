@@ -8,7 +8,11 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-       
+        Core.Util.SetSnapFailed("https://s.taobao.com/search?q=capita", DateTime.Now.Date);
+
+        //Response.Write(System.Text.Encoding.UTF8.ToString());
+        //System.Text.Encoding.GetEncoding("UTF-8");
+        Response.End();
     }
 </script>
 

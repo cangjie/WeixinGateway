@@ -31,7 +31,7 @@ public class TaobaoKeyword
 
     public void RefreshResultTable()
     {
-        resultTable = GetData(keyword);
+        resultTable = GetData(brand, keyword);
         lastRefreshTime = DateTime.Now;
     }
 
@@ -123,6 +123,35 @@ public class TaobaoKeyword
         return taobaoKeywordArr;
     }
 
+    public static DataTable GetData(string brand, string keyword)
+    {
+        DataTable dtOri = DBHelper.GetDataTable(" select * from b2cmonitor_taobao_homepage_search_result where snap_date = '" + DateTime.Now.Date.ToShortDateString()
+            + "' and brand = '" + brand.Trim() + "' and keyword = '" + keyword.Trim() + "' ");
+        DataTable dt = new DataTable();
+        dt.Columns.Add("店铺");
+        dt.Columns.Add("店铺ID");
+        dt.Columns.Add("店铺URL");
+        dt.Columns.Add("商品");
+        dt.Columns.Add("商品ID");
+        dt.Columns.Add("商品URL");
+        dt.Columns.Add("图片");
+        dt.Columns.Add("价格");
+        foreach (DataRow drOri in dtOri.Rows)
+        {
+            DataRow dr = dt.NewRow();
+            dr["店铺"] = drOri["shop_name"].ToString().Trim();
+            dr["店铺ID"] = drOri["shop_id"].ToString().Trim();
+            dr["店铺URL"] = "https://store.taobao.com/shop/view_shop.htm?spm=a230r.1.14.31.29a7478fzMmRwA&user_number_id=" + drOri["shop_id"].ToString().Trim();
+            dr["商品"] = drOri["'product_name"].ToString().Trim();
+            dr["商品ID"] = drOri["product_id"].ToString().Trim();
+            dr["商品URL"] = "https://item.taobao.com/item.htm?id=" + drOri["product_id"].ToString().Trim();
+            dr["图片"] = drOri["pic"].ToString().Trim();
+            dr["价格"] = drOri["price"].ToString().Trim();
+            dt.Rows.Add(dr);
+        }
+        return dt;
+    }
+
     public static DataTable GetData(string keyWord)
     {
         DataTable dt = new DataTable();
@@ -172,9 +201,14 @@ public class TaobaoKeyword
     public static string GetTaobaoSearchJson(string keyWord, int index)
     {
         //string ret = Util.GetWebContent("https://s.taobao.com/search?q=" + keyWord.Trim()  + (index>0? "&s=" + index.ToString():"")<a href="../../C94AC000">../../C94AC000</a>, "GET", "", "text/html", new System.Net.CookieCollection(), System.Text.Encoding.GetEncoding("GB2312"));
-        string ret = Core.Util.GetWebContent("https://s.taobao.com/search?q=" + keyWord.Trim() + (index > 0 ? "&s=" + index.ToString() : ""), "GET", "", "text/html",
-            Core.TaobaoSnap.taobaoCookie, System.Text.Encoding.UTF8);
+        string url = "https://s.taobao.com/search?q=" + HttpUtility.UrlEncode(keyWord.Trim()) + (index > 0 ? "&s=" + index.ToString() : "");
+        string ret = Core.Util.GetWebContentAsync(url, "UTF-8");
+        if (ret.Trim().Equals(""))
+        {
+            return ret;
+        }
         int startIndex = ret.IndexOf("{\"pageName\":\"mainsrp\"");
+        
         ret = ret.Substring(startIndex, ret.Length - startIndex);
         int endIndex = ret.IndexOf("};");
         ret = ret.Substring(0, endIndex + 1);
