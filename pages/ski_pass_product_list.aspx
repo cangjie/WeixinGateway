@@ -218,7 +218,7 @@
                 else {
                     if (title.indexOf("夜场") >= 0) {
                         if (title.indexOf("下午") >= 0) {
-                            if (now.getHours() > 10) {
+                            if (now.getHours() > 12) {
                                 now = new Date(now.valueOf() + 3600 * 24 * 1000);
                             }
                         }
