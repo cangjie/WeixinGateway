@@ -492,7 +492,7 @@
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
             <div class="panel-body">
-                <p>雪票价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元。</p>
+                <p>雪票价格：<font color="red" ><%=int.Parse(p._fields["sale_price"].ToString()) - 100 %></font>元。</p>
                 <%
                     if (p._fields["name"].ToString().IndexOf("南山")>=0)
                     {
@@ -500,7 +500,7 @@
 
                      %>
                 <p><font color="red" ><b>自带板，押金100元。</b></font></p>
-                <p>租板，押金200元。</p>
+                <p>租板，押金300元。</p>
                 <p>价格包括：门票、滑雪、<font color='red' ><b>押金100元</b></font>、缆车、拖牵、魔毯费用、（如租板，则包含雪具使用）。</p>
                 <p>如需租用雪板、雪鞋、雪杖以外的物品，如头盔、雪镜、雪服等物品，请额外准备现金，押金 100元/件。</p>
                 <p>使用说明：</p>
