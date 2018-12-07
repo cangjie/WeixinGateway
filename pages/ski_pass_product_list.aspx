@@ -216,8 +216,22 @@
                     }
                 }
                 else {
-                    if (now.getHours() > 8 || (now.getHours() ==8 && now.getMinutes() >= 30 ) ) {
-                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                    if (title.indexOf("夜场") >= 0) {
+                        if (title.indexOf("下午") >= 0) {
+                            if (now.getHours() > 10) {
+                                now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                            }
+                        }
+                        else {
+                            if (now.getHours() > 15) {
+                                now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                            }
+                        }
+                    }
+                    else {
+                        if (now.getHours() > 8 || (now.getHours() == 8 && now.getMinutes() >= 30)) {
+                            now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                        }
                     }
                 }
             }
