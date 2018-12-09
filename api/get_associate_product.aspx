@@ -22,9 +22,28 @@
             }
             else
             {
-                workdayProductId = 2;
-                weekendProductId = 4;
-                holidayProductId = 4;
+                if (product._fields["name"].ToString().IndexOf("下午") >= 0)
+                {
+                    workdayProductId = 26;
+                    weekendProductId = 25;
+                    holidayProductId = 25;
+                }
+                else
+                {
+                    if (product._fields["name"].ToString().IndexOf("夜场") >= 0)
+                    {
+                        workdayProductId = 24;
+                        weekendProductId = 24;
+                        holidayProductId = 24;
+                    }
+                    else
+                    {
+                        workdayProductId = 2;
+                        weekendProductId = 4;
+                        holidayProductId = 4;
+                    }
+                }
+                
             }
         }
 
