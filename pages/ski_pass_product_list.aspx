@@ -238,7 +238,7 @@
                     }
                 }
                 else {
-                    if (now.getHours() >= 7 || (now.getHours() == 7 && now.getMinutes() >= 30)) {
+                    if (now.getHours() > 7 || (now.getHours() == 7 && now.getMinutes() >= 30)) {
                         now = new Date(now.valueOf() + 3600 * 24 * 1000);
                     }
                 }
