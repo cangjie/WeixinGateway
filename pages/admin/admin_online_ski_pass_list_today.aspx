@@ -13,11 +13,13 @@
 
     public int nightNum = 0;
 
+    public bool isNight = false;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         rent = (Util.GetSafeRequestValue(Request, "rent", "0").Equals("0") ? false : true);
         resort = Util.GetSafeRequestValue(Request, "resort", "南山").Trim();
-
+        isNight = Util.GetSafeRequestValue(Request, "night", "0").Trim().Equals("0") ? false : true;
 
         passArr = OnlineSkiPass.GetLastWeekOnlineSkiPass();
     }
@@ -27,6 +29,10 @@
         bool ret = true;
         if (dtl.productName.IndexOf(resort) < 0 || pass.AppointDate != currentDate || pass.Rent != rent)
             ret = false;
+        if (isNight && dtl.productName.Trim().IndexOf("夜场") < 0)
+        {
+            ret = false;
+        }
         return ret;
 
     }
@@ -49,8 +55,10 @@
 <body>
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation"  ><a href="admin_online_ski_pass_list.aspx" >最近七日</a></li>
-        <li role="presentation" <%if (resort.Trim().StartsWith("南山") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0" >南山今日自带</a></li>
-        <li role="presentation" <%if (resort.Trim().StartsWith("南山") && rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("南山") && !rent && !isNight) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0" >南山今日自带</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("南山") && rent && !isNight) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("南山") && !rent && isNight) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0&night=1" >南山今日下午夜场自带</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("南山") && rent && isNight) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1&night=1" >南山今日下午夜场租板</a></li>
         <li role="presentation" <%if (resort.Trim().StartsWith("八易") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=0" >八易今日自带</a></li>
         <li role="presentation" <%if (resort.Trim().StartsWith("八易") && rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=1" >八易今日租板</a></li>
         <li role="presentation" <%if (resort.Trim().StartsWith("万龙") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=万龙&rent=0" >万龙今日自带</a></li>
