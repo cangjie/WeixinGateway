@@ -227,7 +227,7 @@
             if (title.indexOf("南山") >= 0) {
                 if (title.indexOf("夜场") >= 0) {
                     if (title.indexOf("下午") >= 0) {
-                        if (now.getHours() > 12) {
+                        if (now.getHours() > 7 || (now.getHours == 7 && now.getMinutes() >= 30)) {
                             now = new Date(now.valueOf() + 3600 * 24 * 1000);
                         }
                     }
