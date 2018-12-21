@@ -456,7 +456,17 @@
                 rent_cash = 200;
             }
             var summary_amount = (parseInt(current_price) + (current_rent ? rent_cash : 0)) * parseInt(current_num);
-            div_summary.innerHTML = "(雪票￥" + (parseInt(current_price) - 100).toString() + (current_rent ? (" + 押金￥" + (parseInt(rent_cash) + 100).toString()) : " + 押金￥100") + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
+            if (current_title.indexOf("南山") >= 0) {
+                div_summary.innerHTML = "(雪票￥" + (parseInt(current_price) - 100).toString() + (current_rent ? (" + 押金￥" + (parseInt(rent_cash) + 100).toString()) : " + 押金￥100") + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
+            }
+            if (current_title.indexOf("八易") >= 0) {
+                if (current_title.indexOf("租") >= 0) {
+                    div_summary.innerHTML = "雪票￥" + parseInt(current_price).toString() + " x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
+                }
+                else {
+                    div_summary.innerHTML = "(雪票￥" + (parseInt(current_price) - 200).toString() +  " + 押金￥20" + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
+                }
+            }
             if (current_title.indexOf("乔波") >= 0) {
                 document.getElementById("rent").style.display = "none";
             }
