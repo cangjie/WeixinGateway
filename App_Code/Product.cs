@@ -34,7 +34,7 @@ public class Product
         }
         if (resort.Trim().Equals("bayi"))
         {
-            sqlStr = sqlStr + " name like '八易%' ";
+            sqlStr = sqlStr + " name like '万龙八易%' ";
         }
         if (resort.Trim().Equals("qiaobo"))
         {
