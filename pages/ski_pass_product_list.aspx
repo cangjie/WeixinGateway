@@ -461,10 +461,11 @@
             }
             if (current_title.indexOf("八易") >= 0) {
                 if (current_title.indexOf("租") >= 0) {
-                    div_summary.innerHTML = "雪票￥" + parseInt(current_price).toString() + " x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
+                    div_summary.innerHTML = "(雪票￥" + (parseInt(current_price) - 200).toString() + " + 押金￥200" + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
                 }
                 else {
-                    div_summary.innerHTML = "(雪票￥" + (parseInt(current_price) - 200).toString() +  " + 押金￥20" + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
+                    div_summary.innerHTML = "雪票￥" + parseInt(current_price).toString() + " x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
+                    
                 }
             }
             if (current_title.indexOf("乔波") >= 0) {
