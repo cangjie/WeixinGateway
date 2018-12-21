@@ -18,10 +18,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
         FillSelectedDate();
-
-        
         string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list.aspx");
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -517,18 +514,27 @@
                     }
                     if (p._fields["name"].ToString().IndexOf("八")>=0)
                     {
-                        
+
                         %>
-                <p><font color="red" >只支持自带板！</font></p>
-                <p>价格包括：滑雪、缆车、魔毯费用及雪卡押金（10元）。</p>
+                <p>雪票价格：130元</p>
+                <%
+                    if (p._fields["name"].ToString().IndexOf("租") >= 0)
+                    {
+                        %>
+                <p>租板押金：200元</p>
+                            <%
+                    }
+                     %>
+                <p>价格包括：滑雪、缆车、拖牵、魔毯费用。</p>
                 <p>使用说明：</p>
                 <ul>
                     <li><font color="red" >出票日自动出票。</font></li>
-                    <li>来店请出示二维码验票、取票。</li>
-                    <li>滑雪结束后来店办理雪卡押金退还手续。</li>
+                    <li>前往易龙雪聚八易店出示二维码验票、取票。</li>
                     <li>此票售出后不予退换。</li>
+                    <li>滑雪时间：2018年12月24日18:00-22:00。</li>
+                    <li>用餐时间：2018年12月24日17:00-21:00</li>
                 </ul>
-                <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：15701179221</p>
+                <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：13714100910</p>
                 <%
                     }
                     if (p._fields["name"].ToString().IndexOf("乔波") >= 0)
