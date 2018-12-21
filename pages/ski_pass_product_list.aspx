@@ -19,12 +19,18 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         FillSelectedDate();
+        
         string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list.aspx");
+
+        
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         userToken = Session["user_token"].ToString();
+        
+
+        //userToken = "19a2e4470efc9cd1b25231415db5748dcb03833af007cc36a9b518c532ffa4f24f2e3cf3";
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
@@ -205,7 +211,7 @@
             });
 
             var now = new Date();
-            
+            /*
             if (title.indexOf("八易")>=0) {
                 if (title.indexOf("夜场") >= 0) {
                     if (now.getHours() >= 17) {
@@ -220,7 +226,7 @@
                     
                 }
             }
-
+            */
             if (title.indexOf("南山") >= 0) {
                 if (title.indexOf("夜场") >= 0) {
                     if (title.indexOf("下午") >= 0) {
@@ -497,7 +503,7 @@
             else
             {
                 Response.Write("success");
-            }%>" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString() %>','<%=p._fields["name"].ToString() %>' )" >
+            }%>" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>','<%=p._fields["name"].ToString().Trim() %>' )" >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>

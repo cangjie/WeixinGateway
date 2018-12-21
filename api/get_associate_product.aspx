@@ -49,6 +49,7 @@
 
         if (product._fields["name"].ToString().StartsWith("八易"))
         {
+
             if (product._fields["name"].ToString().IndexOf("夜场")>=0)
             {
                 workdayProductId = 8;
