@@ -28,9 +28,8 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         userToken = Session["user_token"].ToString();
-        
 
-        //userToken = "19a2e4470efc9cd1b25231415db5748dcb03833af007cc36a9b518c532ffa4f24f2e3cf3";
+        //userToken = "f10192787f4fe855aac1bf337e0925854eff0fb9914f89fe5c871db66c448b8a5b82fd46";
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
@@ -256,27 +255,32 @@
 
             drop_down_date.innerHTML = "";
 
-           
-            for (var i = 0; i < 5; i++) {
-                var iDate = new Date(now.valueOf() + 1000 * 3600 * 24 * i);
-                var iDayName = get_day_name(iDate);
-                
-                drop_down_date.innerHTML = drop_down_date.innerHTML
-                    + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
+            if (title.indexOf("平安夜") >= 0) {
+                select_date('2018-12-24', '周一');
+            }
+            else {
+                for (var i = 0; i < 5; i++) {
+                    var iDate = new Date(now.valueOf() + 1000 * 3600 * 24 * i);
+                    var iDayName = get_day_name(iDate);
 
-                    + iDate.getFullYear() + "/" + (iDate.getMonth()+1) + "/" + iDate.getDate() + "', '"
-                    + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
-                    + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth()+1) + "/" + iDate.getDate() + " "
-                    + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
-                if (i == 0) {
-                    current_date = iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate();
-                    current_day_name = get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")");
-                    document.getElementById("current_date").innerHTML = current_date + " " + current_day_name;
+                    drop_down_date.innerHTML = drop_down_date.innerHTML
+                        + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
+
+                        + iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + "', '"
+                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
+                        + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + " "
+                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
+                    if (i == 0) {
+                        current_date = iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate();
+                        current_day_name = get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")");
+                        document.getElementById("current_date").innerHTML = current_date + " " + current_day_name;
+                    }
+
                 }
-            
+                select_date(current_date, current_day_name);
             }
            
-            select_date(current_date, current_day_name)
+            
             fill_modal();
             
             $("#booking_modal").modal();
