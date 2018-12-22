@@ -53,6 +53,10 @@
         DataTable dt = new DataTable();
         da.Fill(dt);
         da.Dispose();
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+            dt.Rows[i]["链接"] = "<a href=\"" + dt.Rows[i]["链接"].ToString().Trim() + "\" >" + dt.Rows[i]["链接"].ToString().Trim() + "</a>";
+        }
         return dt;
     }
 
