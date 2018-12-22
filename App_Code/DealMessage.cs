@@ -389,6 +389,10 @@ public class DealMessage
             case "邀请":
                 repliedMessage = GetInviteMessage(receivedMessage);
                 break;
+            case "菜单":
+                repliedMessage.type = "text";
+                repliedMessage.content = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/admin_menu.aspx";
+                break;
             default:
                 break;
         }
