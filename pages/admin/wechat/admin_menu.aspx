@@ -18,7 +18,7 @@
 
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+            Response.Redirect("../../authorize.aspx?callback=" + currentPageUrl, true);
         }
         userToken = Session["user_token"].ToString();
 
