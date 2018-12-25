@@ -46,6 +46,7 @@
         dt.Columns.Add("标签");
         dt.Columns.Add("卡券");
         dt.Columns.Add("介绍人");
+        dt.Columns.Add("操作");
 
         DataTable dtOri = DBHelper.GetDataTable(" select * from users a left join users b on  a.father_open_id = b.open_id where a.nick like  '%" 
             + TxtKey.Text.Trim().Replace("'", "").Trim() + "%' or a.cell_number like  '%" + TxtKey.Text.Trim().Replace("'", "").Trim()  + "%'  order by a.nick ");
@@ -75,6 +76,7 @@
                 }
             }
             dr["介绍人"] = fatherInfo.Trim();
+            dr["操作"] = "<a href=\"admin_charge_shop_sale_simple.aspx?openid=" + dtOri.Rows[i]["open_id"].ToString().Trim() + "\" >店销</a>";
             dt.Rows.Add(dr);
         }
 
