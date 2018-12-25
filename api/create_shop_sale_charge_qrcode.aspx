@@ -5,12 +5,12 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = Util.GetSafeRequestValue(Request, "token", "01127366f2f219f3578b75fbd32a3bb2f200ac7fcf3051fa5bf5515f0321f86e43592f6e");
+        string token = Util.GetSafeRequestValue(Request, "token", "1289440d5ddfa8e0c5102279a19a1591218c692a2c253b0ea765353386432fd47a406daf");
         double marketPrice = double.Parse(Util.GetSafeRequestValue(Request, "marketprice", "2"));
         double salePrice = double.Parse(Util.GetSafeRequestValue(Request, "saleprice", "1.9"));
         double ticketAmount = double.Parse(Util.GetSafeRequestValue(Request, "ticketamount", "0"));
         string memo = Util.GetSafeRequestValue(Request, "memo", "测试店销产品");
-        string payMethod = Util.GetSafeRequestValue(Request, "paymethod", "哆啦宝");
+        string payMethod = Util.GetSafeRequestValue(Request, "paymethod", "微信");
         string shop = Util.GetSafeRequestValue(Request, "shop", "南山");
         string openId = WeixinUser.CheckToken(token);
         string memberType = Util.GetSafeRequestValue(Request, "membertype", "");
@@ -19,7 +19,7 @@
         string name = Util.GetSafeRequestValue(Request, "name", "");
         string orderDetailJson = Util.GetSafeRequestValue(Request, "reforderdetail", "");
         string ticketCode = Util.GetSafeRequestValue(Request, "ticketcode", "");
-        string customerOpenId = Util.GetSafeRequestValue(Request, "openid", "");
+        string customerOpenId = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
         string cell = Util.GetSafeRequestValue(Request, "cell", "");
         string customerMemo =  Util.GetSafeRequestValue(Request, "customermemo", "");
         WeixinUser currentUser = new WeixinUser(openId);

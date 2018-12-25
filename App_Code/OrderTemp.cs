@@ -35,7 +35,8 @@ public class OrderTemp
             
         }
         string detailJson = _fields["order_detail_json"].ToString().Trim();
-        Dictionary<string, object>[] detailDicArr = Util.GetObjectArrayFromJsonByKey(detailJson, "order_details");
+
+        
 
 
         OnlineOrder newOrder = new OnlineOrder();
@@ -53,14 +54,23 @@ public class OrderTemp
         {
             i = DBHelper.GetMaxId("order_online");
         }
-        foreach (Dictionary<string, object> detail in detailDicArr)
+
+
+        try
         {
-            string[,] detailInsertParam = { {"order_online_id", "int", i.ToString() }, {"product_id", "int", "0" }, 
+            Dictionary<string, object>[] detailDicArr = Util.GetObjectArrayFromJsonByKey(detailJson, "order_details");
+            foreach (Dictionary<string, object> detail in detailDicArr)
+            {
+                string[,] detailInsertParam = { {"order_online_id", "int", i.ToString() }, {"product_id", "int", "0" },
                 {"product_name", "varchar", detail["name"].ToString().Trim() }, {"price", "float", detail["deal_price"].ToString() },
                 {"count", "int", detail["num"].ToString() }, {"retail_price", "float", detail["market_price"].ToString() } };
-            DBHelper.InsertData("order_online_detail", detailInsertParam);
+                DBHelper.InsertData("order_online_detail", detailInsertParam);
+            }
         }
+        catch
+        {
 
+        }
 
         string[,] updateParam = { { "online_order_id", "int", i.ToString() } };
         string[,] keyParam = { {"id", "int", _fields["id"].ToString() } };

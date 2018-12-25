@@ -131,6 +131,7 @@
                 <asp:BoundColumn DataField="标签" HeaderText="标签"></asp:BoundColumn>
                 <asp:BoundColumn DataField="卡券" HeaderText="卡券"></asp:BoundColumn>
                 <asp:BoundColumn DataField="介绍人" HeaderText="介绍人"></asp:BoundColumn>
+                <asp:BoundColumn DataField="操作" HeaderText="操作"></asp:BoundColumn>
             </Columns>
             <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
             <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />

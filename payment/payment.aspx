@@ -176,8 +176,15 @@
 
         OnlineOrder onlineOrder = new OnlineOrder(int.Parse(product_id.Trim()));
         string body = onlineOrder._fields["shop"].ToString() + " " + onlineOrder._fields["type"].ToString().Trim();
-        string detail = onlineOrder.OrderDetails[0].productName.Trim();
-
+        string detail = "";
+        if (onlineOrder.OrderDetails.Length >= 1)
+        {
+            detail = onlineOrder.OrderDetails[0].productName.Trim();
+        }
+        else
+        {
+            detail = onlineOrder.Memo.Trim();
+        }
         n = xmlD.CreateNode(XmlNodeType.Element, "body", "");
         n.InnerText = body.Trim();
         rootXmlNode.AppendChild(n);
@@ -198,7 +205,7 @@
         n.InnerText = s.Trim();
         rootXmlNode.AppendChild(n);
 
-        
+
 
         try
         {
