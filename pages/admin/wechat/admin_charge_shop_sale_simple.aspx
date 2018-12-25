@@ -27,7 +27,7 @@
 
         string currentPageUrl = Request.Url.ToString();
 
-        /*
+        
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
@@ -39,12 +39,12 @@
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
-        */
+        
 
 
 
-        currentUser = new WeixinUser(WeixinUser.CheckToken("79d223efa6844150e1aabd70e919778975cbe439de97619f6ab5e365dddedb5f9261af0b"));
-        userToken = "79d223efa6844150e1aabd70e919778975cbe439de97619f6ab5e365dddedb5f9261af0b";
+        //currentUser = new WeixinUser(WeixinUser.CheckToken("79d223efa6844150e1aabd70e919778975cbe439de97619f6ab5e365dddedb5f9261af0b"));
+        //userToken = "79d223efa6844150e1aabd70e919778975cbe439de97619f6ab5e365dddedb5f9261af0b";
 
         if (!currentUser.IsAdmin)
             Response.End();
