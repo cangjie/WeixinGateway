@@ -183,7 +183,7 @@
         }
         else
         {
-            detail = onlineOrder.Memo.Trim();
+            detail = "店销备注：" + onlineOrder.Memo.Trim();
         }
         n = xmlD.CreateNode(XmlNodeType.Element, "body", "");
         n.InnerText = body.Trim();
