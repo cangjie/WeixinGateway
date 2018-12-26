@@ -13,7 +13,7 @@
         //System.Text.Encoding.GetEncoding("UTF-8");
 
         string ret = QrCode.GetStaticQrCode("openid_oZBHkjhdFpC5ScK5FUU7HKXE3PJM", "images\\qrcode");
-
+        Response.Write(ret.Trim());
         Response.End();
     }
 </script>
