@@ -106,13 +106,13 @@
                 dayName = dayName + "(大后天)";
             switch (startDate.Year.ToString()+"/"+startDate.Month.ToString()+"/"+startDate.Day.ToString())
             {
-                case "2017/12/30":
+                case "2018/12/30":
                     dayName = "元旦";
                     break;
-                case "2017/12/31":
+                case "2018/12/31":
                     dayName = "元旦";
                     break;
-                case "2018/1/1":
+                case "2019/1/1":
                     dayName = "元旦";
                     break;
                 case "2018/2/15":
