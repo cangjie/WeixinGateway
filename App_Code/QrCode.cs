@@ -189,4 +189,68 @@ public class QrCode
             return -1;
         }
     }
+
+    public static string GetStaticQrCode(string sceneName, string qrRootPath)
+    {
+        string ret = "";
+        ret = qrRootPath + "\\" + sceneName + ".jpg";
+        if (!File.Exists(ret))
+        {
+            ret = GenerateStaticQrcode(sceneName, qrRootPath);
+        }
+        return ret;
+    }
+
+    public static string GenerateStaticQrcode(string sceneName, string qrRootPath)
+    {
+        string webPhysicalPath = System.Configuration.ConfigurationSettings.AppSettings["web_site_physical_path"].Trim();
+        string qrCodePath = qrRootPath;// + "/" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0')
+            //+ DateTime.Now.Day.ToString().PadLeft(2, '0');// + "/" + sceneId.ToString() + ".jpg";
+        string qrCodePhysicalPath = webPhysicalPath + "\\" + qrCodePath.Replace("/", "\\").Trim();
+        if (!Directory.Exists(qrCodePhysicalPath))
+        {
+            Directory.CreateDirectory(qrCodePhysicalPath.Trim());
+        }
+        string token = Util.GetToken();
+        string ticketString = Util.GetSimpleJsonValueByKey(Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + token.Trim(), "POST",
+            "{\"action_name\": \"QR_LIMIT_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"" + sceneName.ToString() + "\" }}}", "text/html"), "ticket").Trim();
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" + ticketString.Trim());
+        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        Stream s = res.GetResponseStream();
+        int length = 0;
+        byte[] buffer = new byte[1024 * 1024 * 10];
+        for (int i = 0; i < buffer.Length; i++)
+        {
+            int currentByte = s.ReadByte();
+            if (currentByte < 0)
+            {
+                length = i;
+                break;
+            }
+            else
+            {
+                buffer[i] = (byte)currentByte;
+            }
+        }
+
+        if (File.Exists(qrCodePhysicalPath + "\\" + sceneName.ToString() + ".jpg"))
+        {
+            try
+            {
+                File.Delete(qrCodePhysicalPath + "\\" + sceneName.ToString() + ".jpg");
+            }
+            catch
+            {
+
+            }
+        }
+        FileStream fs = File.Create(qrCodePhysicalPath + "\\" + sceneName.ToString() + ".jpg");
+        for (int i = 0; i < length; i++)
+        {
+            fs.WriteByte(buffer[i]);
+        }
+        fs.Close();
+        return qrCodePath + "/" + sceneName.ToString() + ".jpg";
+
+    }
 }

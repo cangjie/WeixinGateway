@@ -393,6 +393,12 @@ public class DealMessage
                 repliedMessage.type = "text";
                 repliedMessage.content = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/admin_menu.aspx";
                 break;
+            case "我的二维码":
+                string qrCodePath = QrCode.GetStaticQrCode("openid_" + receivedMessage.from.Trim(), "images/qrcode");
+                string mediaId = Util.UploadImageToWeixin(System.Configuration.ConfigurationSettings.AppSettings["web_site_physical_path"].Trim() + "\\" + qrCodePath.Trim().Replace("/", "\\"), Util.GetToken().Trim());
+                repliedMessage.type = "image";
+                repliedMessage.content = mediaId.Trim();
+                break;
             default:
                 break;
         }
