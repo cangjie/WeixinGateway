@@ -251,6 +251,20 @@ public class DealMessage
                         repliedMessage.content = "请找" + assistant.Nick.Trim() + "在手机上完成操作";
                         SendCustomeRequestToAssistant(receivedMessage);
                     }
+                    if (receivedMessage.eventKey.Trim().StartsWith("openid"))
+                    {
+                        string[] commandArr = receivedMessage.eventKey.Split('_');
+                        if (commandArr.Length == 2)
+                        {
+                            string openId = commandArr[1].Trim();
+                            WeixinUser salesUser = new WeixinUser(openId.Trim());
+                            if (salesUser.IsAdmin)
+                            {
+                                repliedMessage.content = "请找" + salesUser.Nick.Trim() + "在手机上完成操作";
+                                SendCustomeRequestToAssistant(receivedMessage);
+                            }
+                        }
+                    }
                     
                 }
 
@@ -591,7 +605,7 @@ public class DealMessage
                 newsMessage.picUrl = customer.HeadImage;
                 newsMessage.title = customer.Nick.Trim() + " 请求结账";
                 newsMessage.description = newsMessage.title.Trim();
-                newsMessage.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/admin_charge_shop_sale_new.aspx?openid="
+                newsMessage.url = "http://weixin-snowmeet.chinacloudsites.cn/pages/admin/wechat/admin_charge_shop_sale_simple.aspx?openid="
                     + customer.OpenId.Trim();
                 serviceMessage.newsArray = new RepliedMessage.news[] { newsMessage }; 
                 ServiceMessage.SendServiceMessage(serviceMessage);
