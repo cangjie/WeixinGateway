@@ -269,7 +269,7 @@ public class DealMessage
                 break;
             case "SUBSCRIBE":
                 string eventKey = receivedMessage.eventKey.Replace("qrscene_", "").Trim();
-                
+                receivedMessage.eventKey = eventKey;
                 if (eventKey.Length == 10)
                 {
                     if (int.Parse(eventKey.Substring(0, 2)) > 13 && eventKey.StartsWith("1"))
