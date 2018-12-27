@@ -251,6 +251,7 @@ public class DealMessage
                         repliedMessage.content = "请找" + assistant.Nick.Trim() + "在手机上完成操作";
                         SendCustomeRequestToAssistant(receivedMessage);
                     }
+                    /*
                     if (receivedMessage.eventKey.Trim().StartsWith("openid"))
                     {
                         string[] commandArr = receivedMessage.eventKey.Split('_');
@@ -265,6 +266,7 @@ public class DealMessage
                             }
                         }
                     }
+                    */
                     
                 }
 
