@@ -261,9 +261,11 @@ public class DealMessage
                             WeixinUser salesUser = new WeixinUser(openId.Trim());
                             if (salesUser.IsAdmin)
                             {
+                                repliedMessage.type = "text";
                                 repliedMessage.content = "请找" + salesUser.Nick.Trim() + "在手机上完成操作";
                                 SendCustomeRequestToAssistant(receivedMessage);
                             }
+
                         }
                     }
                     
