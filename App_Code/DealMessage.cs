@@ -244,13 +244,7 @@ public class DealMessage
                         repliedMessage = ScanSignin(receivedMessage);
                     }
 
-                    if (receivedMessage.eventKey.Trim().StartsWith("sale_"))
-                    {
-                        WeixinUser assistant = new WeixinUser(receivedMessage.eventKey.Trim().Replace("sale_", ""));
-                        repliedMessage.type = "text";
-                        repliedMessage.content = "请找" + assistant.Nick.Trim() + "在手机上完成操作";
-                        SendCustomeRequestToAssistant(receivedMessage);
-                    }
+           
                     
                     if (receivedMessage.eventKey.Trim().StartsWith("openid"))
                     {
@@ -332,12 +326,22 @@ public class DealMessage
                     {
                         repliedMessage = ScanSignin(receivedMessage);
                     }
-                    if (eventKey.Trim().StartsWith("sale_"))
+           
+                    if (receivedMessage.eventKey.Trim().StartsWith("openid"))
                     {
-                        WeixinUser assistant = new WeixinUser(eventKey.Trim().Replace("sale_", ""));
-                        repliedMessage.type = "text";
-                        repliedMessage.content = "请找" + assistant.Nick.Trim() + "在手机上完成操作";
-                        SendCustomeRequestToAssistant(receivedMessage);
+                        string[] commandArr = receivedMessage.eventKey.Split('_');
+                        if (commandArr.Length == 2)
+                        {
+                            string openId = commandArr[1].Trim();
+                            WeixinUser salesUser = new WeixinUser(openId.Trim());
+                            if (salesUser.IsAdmin)
+                            {
+                                repliedMessage.type = "text";
+                                repliedMessage.content = "请找" + salesUser.Nick.Trim() + "在手机上完成操作";
+                                SendCustomeRequestToAssistant(receivedMessage);
+                            }
+
+                        }
                     }
                 }
                 break;
