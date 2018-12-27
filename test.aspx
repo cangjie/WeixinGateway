@@ -12,8 +12,13 @@
         //Response.Write(System.Text.Encoding.UTF8.ToString());
         //System.Text.Encoding.GetEncoding("UTF-8");
 
-        string ret = QrCode.GetStaticQrCode("openid_oZBHkjhdFpC5ScK5FUU7HKXE3PJM", "images\\qrcode");
-        Response.Write(ret.Trim());
+        //string ret = QrCode.GetStaticQrCode("openid_oZBHkjhdFpC5ScK5FUU7HKXE3PJM", "images\\qrcode");
+        //Response.Write(ret.Trim());
+
+
+        ReceivedMessage rec = new ReceivedMessage("event_20181227202900486");
+        RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
+
         Response.End();
     }
 </script>

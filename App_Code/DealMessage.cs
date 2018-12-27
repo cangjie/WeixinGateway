@@ -592,9 +592,9 @@ public class DealMessage
     public static void SendCustomeRequestToAssistant(ReceivedMessage receivedMessage)
     {
         string content = receivedMessage.eventKey.Trim().Replace("qrscene_", "").Trim();
-        if (content.StartsWith("sale_"))
+        if (content.StartsWith("openid"))
         {
-            string assistantOpenId = content.Replace("sale_", "");
+            string assistantOpenId = content.Replace("openid_", "");
             WeixinUser assistant = new WeixinUser(assistantOpenId.Trim());
             if (assistant.IsAdmin)
             {
