@@ -557,7 +557,7 @@
                                 else
                                 {
                                     %>
-                <p>雪票价格：130元</p>
+                <p>雪票价格：<%=p._fields["sale_price"].ToString().Trim() %></p>
                                         <%
                                 }
                      %>
