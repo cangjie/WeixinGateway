@@ -103,19 +103,51 @@
                 <%}
                     else
                     {
-                        if (p._fields["name"].ToString().IndexOf("八") >= 0)
+                        if (p._fields["name"].ToString().IndexOf("八易") >= 0)
                         {
                         %>
-                <p><font color="red" >只支持自带板！</font></p>
-                <p>价格包括：滑雪、缆车、魔毯费用及雪卡押金（10元）。</p>
+
+
+                <p>价格包括：滑雪、缆车、拖牵、魔毯费用。（不包含保险，保险请在窗口另行购买）</p>
                 <p>使用说明：</p>
                 <ul>
                     <li><font color="red" >出票日自动出票。</font></li>
-                    <li>来店请出示二维码验票、取票。</li>
-                    <li>滑雪结束后来店办理雪卡押金退还手续。</li>
+                    <li>前往易龙雪聚八易店出示二维码验票、取票。</li>
                     <li>此票售出后不予退换。</li>
+                    <%
+                        if (p._fields["name"].ToString().IndexOf("半天") >= 0)
+                        {
+                            %>
+                    <li>滑雪时间：刷第一次门禁（缆车/魔毯）开始计时</li>
+                                <%
+                                    }
+                                    if (p._fields["name"].ToString().IndexOf("全天") >= 0)
+                                    {
+                                        %>
+                    <li>滑雪时间：9:00-18:00</li>
+                    <%
+                        }
+                        if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
+                        {
+                            %>
+                    <li>滑雪时间：17:30-22:00</li>
+                                <%
+                                    }
+                                    if (p._fields["name"].ToString().IndexOf("自助餐") >= 0)
+                                    {
+                                        %>
+                    <li>用餐时间：17:00-21:00</li>
+                                            <%
+                                    }
+                         %>
+
+                    
                 </ul>
-                <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：15701179221</p>
+                <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：13714100910<br />日场时间：09:00-18:00<br />夜场时间：17:30-22:00（周日-周四）；
+                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17:30-22:30（周五、周六、
+                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 春节初一到初六、<font color='red' >除夕不营业</font>）</p>
+
+
                 <%
                         }
                         else if (p._fields["name"].ToString().IndexOf("乔波") >= 0)
