@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int productId = int.Parse(Util.GetSafeRequestValue(Request, "productid", "2"));
+        int productId = int.Parse(Util.GetSafeRequestValue(Request, "productid", "31"));
         Product product = new Product(productId);
 
         int weekendProductId = 0;
@@ -118,12 +118,13 @@
 
             }
         }
+        /*
         if (product._fields["name"].ToString().StartsWith("万龙"))
         {
             workdayProductId = productId;
             weekendProductId = productId;
             holidayProductId = productId;
-        }
+        }*/
         Product workdayProduct = new Product(workdayProductId);
         Product weekendProduct = new Product(weekendProductId);
         Product holidayProduct = new Product(holidayProductId);

@@ -28,8 +28,8 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         userToken = Session["user_token"].ToString();
-
-        //userToken = "f10192787f4fe855aac1bf337e0925854eff0fb9914f89fe5c871db66c448b8a5b82fd46";
+        
+        //userToken = "ad514ece68b68f296e0be0890545fadc833564aaf0a39438263394032c06a075f336a280";
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
