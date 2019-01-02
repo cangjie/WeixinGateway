@@ -43,32 +43,42 @@
                         holidayProductId = 4;
                     }
                 }
-                
+
             }
         }
 
-        if (product._fields["name"].ToString().StartsWith("八易"))
+        if (product._fields["shop"].ToString().Equals("八易"))
         {
 
             if (product._fields["name"].ToString().IndexOf("夜场")>=0)
             {
-                workdayProductId = 8;
-                weekendProductId = 8;
-                holidayProductId = 13;
+                if (product._fields["name"].ToString().IndexOf("自助餐") >= 0)
+                {
+                    workdayProductId = 34;
+                    weekendProductId = 38;
+                    holidayProductId = 38;
+                }
+                else
+                {
+                    workdayProductId = 33;
+                    weekendProductId = 37;
+                    holidayProductId = 37;
+                }
+                
             }
             else
             {
                 if (product._fields["name"].ToString().IndexOf("全天") >= 0)
                 {
-                    workdayProductId = 7;
-                    weekendProductId = 10;
-                    holidayProductId = 12;
+                    workdayProductId = 32;
+                    weekendProductId = 36;
+                    holidayProductId = 36;
                 }
                 else
                 {
-                    workdayProductId = 5;
-                    weekendProductId = 9;
-                    holidayProductId = 11;
+                    workdayProductId = 31;
+                    weekendProductId = 35;
+                    holidayProductId = 35;
                 }
             }
         }
