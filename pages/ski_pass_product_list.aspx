@@ -29,7 +29,7 @@
         }
         userToken = Session["user_token"].ToString();
         
-        //userToken = "ad514ece68b68f296e0be0890545fadc833564aaf0a39438263394032c06a075f336a280";
+        //userToken = "56d24ab588964bb983f37cb0ceec98d38f713fc199e87f1bb4979e3cbe18e484398a1e0b";
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
@@ -541,7 +541,7 @@
                 <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13693171170</p>
                 <%
                     }
-                    if (p._fields["name"].ToString().IndexOf("八")>=0)
+                    if (p._fields["name"].ToString().IndexOf("八") >= 0)
                     {
 
                         %>
@@ -561,16 +561,44 @@
                                         <%
                                 }
                      %>
-                <p>价格包括：滑雪、缆车、拖牵、魔毯费用。</p>
+                <p>价格包括：滑雪、缆车、拖牵、魔毯费用。（不包含保险，保险请在窗口另行购买）</p>
                 <p>使用说明：</p>
                 <ul>
                     <li><font color="red" >出票日自动出票。</font></li>
                     <li>前往易龙雪聚八易店出示二维码验票、取票。</li>
                     <li>此票售出后不予退换。</li>
-                    <li>滑雪时间：2018年12月24日18:00-22:00。</li>
-                    <li>用餐时间：2018年12月24日17:00-21:00</li>
+                    <%
+                        if (p._fields["name"].ToString().IndexOf("半天") >= 0)
+                        {
+                            %>
+                    <li>滑雪时间：刷第一次门禁（缆车/魔毯）开始计时</li>
+                                <%
+                                    }
+                                    if (p._fields["name"].ToString().IndexOf("全天") >= 0)
+                                    {
+                                        %>
+                    <li>滑雪时间：9:00-18:00</li>
+                    <%
+                        }
+                        if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
+                        {
+                            %>
+                    <li>滑雪时间：17:30-22:00</li>
+                                <%
+                                    }
+                                    if (p._fields["name"].ToString().IndexOf("自助餐") >= 0)
+                                    {
+                                        %>
+                    <li>用餐时间：17:00-21:00</li>
+                                            <%
+                                    }
+                         %>
+
+                    
                 </ul>
-                <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：13714100910</p>
+                <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：13714100910<br />日场时间：09:00-18:00<br />夜场时间：17:30-22:00（周日-周四）；
+                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17:30-22:30（周五、周六、
+                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 春节初一到初六、<font color='red' >除夕不营业</font>）</p>
                 <%
                     }
                     if (p._fields["name"].ToString().IndexOf("乔波") >= 0)
