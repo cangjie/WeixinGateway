@@ -246,24 +246,17 @@ public class DealMessage
 
            
                     
-                    if (receivedMessage.eventKey.Trim().StartsWith("openid"))
+                    if (receivedMessage.eventKey.Trim().StartsWith("openid_"))
                     {
-                        string[] commandArr = receivedMessage.eventKey.Split('_');
-                        if (commandArr.Length == 2)
+                        string openId = receivedMessage.eventKey.Trim().Replace("openid_", "");
+                        WeixinUser salesUser = new WeixinUser(openId.Trim());
+                        if (salesUser.IsAdmin)
                         {
-                            string openId = commandArr[1].Trim();
-                            WeixinUser salesUser = new WeixinUser(openId.Trim());
-                            if (salesUser.IsAdmin)
-                            {
-                                repliedMessage.type = "text";
-                                repliedMessage.content = "请找" + salesUser.Nick.Trim() + "在手机上完成操作";
-                                SendCustomeRequestToAssistant(receivedMessage);
-                            }
-
+                            repliedMessage.type = "text";
+                            repliedMessage.content = "请找" + salesUser.Nick.Trim() + "在手机上完成操作";
+                            SendCustomeRequestToAssistant(receivedMessage);
                         }
                     }
-                    
-                    
                 }
 
                 break;
@@ -329,18 +322,13 @@ public class DealMessage
            
                     if (receivedMessage.eventKey.Trim().StartsWith("openid"))
                     {
-                        string[] commandArr = receivedMessage.eventKey.Split('_');
-                        if (commandArr.Length == 2)
+                        string openId = receivedMessage.eventKey.Trim().Replace("openid_", "");
+                        WeixinUser salesUser = new WeixinUser(openId.Trim());
+                        if (salesUser.IsAdmin)
                         {
-                            string openId = commandArr[1].Trim();
-                            WeixinUser salesUser = new WeixinUser(openId.Trim());
-                            if (salesUser.IsAdmin)
-                            {
-                                repliedMessage.type = "text";
-                                repliedMessage.content = "请找" + salesUser.Nick.Trim() + "在手机上完成操作";
-                                SendCustomeRequestToAssistant(receivedMessage);
-                            }
-
+                            repliedMessage.type = "text";
+                            repliedMessage.content = "请找" + salesUser.Nick.Trim() + "在手机上完成操作";
+                            SendCustomeRequestToAssistant(receivedMessage);
                         }
                     }
                 }
