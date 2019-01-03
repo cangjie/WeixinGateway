@@ -119,7 +119,41 @@
                 }
             }
         }
+        if (product._fields["shop"].ToString().Equals("八易租双板"))
+        {
 
+            if (product._fields["name"].ToString().IndexOf("夜场")>=0)
+            {
+                if (product._fields["name"].ToString().IndexOf("自助餐") >= 0)
+                {
+                    workdayProductId = 50;
+                    weekendProductId = 54;
+                    holidayProductId = 54;
+                }
+                else
+                {
+                    workdayProductId = 49;
+                    weekendProductId = 53;
+                    holidayProductId = 53;
+                }
+                
+            }
+            else
+            {
+                if (product._fields["name"].ToString().IndexOf("全天") >= 0)
+                {
+                    workdayProductId = 48;
+                    weekendProductId = 52;
+                    holidayProductId = 52;
+                }
+                else
+                {
+                    workdayProductId = 47;
+                    weekendProductId = 51;
+                    holidayProductId = 51;
+                }
+            }
+        }
 
 
         if (product._fields["name"].ToString().StartsWith("乔波"))

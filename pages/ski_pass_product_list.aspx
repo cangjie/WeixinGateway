@@ -505,12 +505,12 @@
             <li role="presentation" <%if (currentResort.Trim().Equals("bayi"))
                 { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=bayi">八易自带
                                              </a></li>
-            <!--li role="presentation" <%if (currentResort.Trim().Equals("bayi"))
+            <li role="presentation" <%if (currentResort.Trim().Equals("bayi"))
                 { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=bayizudan">八易租单板
-                                             </a></!--li>
+                                             </a></li>
             <li role="presentation" <%if (currentResort.Trim().Equals("bayi"))
                 { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=bayizushuang">八易租双板
-                                             </a></li-->
+                                             </a></li>
             <li role="presentation" <%if (currentResort.Trim().Equals("wanlong"))
                 { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=wanlong">万龙</a></li>
         </ul>
