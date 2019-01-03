@@ -563,7 +563,7 @@
                     if (p._fields["name"].ToString().IndexOf("租") >= 0)
                     {
                         %>
-                <p>雪票价格：150元</p>
+                <p>雪票价格：<%=int.Parse(p._fields["sale_price"].ToString()) - 200 %></p>
                 <p>租板押金：200元</p>
                             <%
                                 }
