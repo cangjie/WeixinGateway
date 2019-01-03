@@ -246,6 +246,19 @@
                 }
             }
 
+            if (title.indexOf("八易") >= 0) {
+                if (title.indexOf("夜场") >= 0) {
+                    if ((now.getHours() == 15 && now.getMinutes() >= 30) || now.getHours() > 15) {
+                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                    }
+                }
+                else {
+                    if ((now.getHours() == 8 && now.getMinutes() >= 30) || now.getHours() > 8) {
+                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                    }
+                }
+            }
+
             var day_name = get_day_name(now);
             var week_day = get_week_day(now);
 
