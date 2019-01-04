@@ -443,6 +443,7 @@
                 current_price = product_price_work_day;
             }
 
+            alert(title);
 
             if (title.indexOf("夜场") >= 0 && title.indexOf("八易") >= 0) {
                 if (day_name.indexOf("周五") >= 0) {
