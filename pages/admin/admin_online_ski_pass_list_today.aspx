@@ -27,7 +27,40 @@
     public bool CanDisplay(OnlineSkiPass pass, OnlineOrderDetail dtl)
     {
         bool ret = true;
-        if (dtl.productName.IndexOf(resort) < 0 || pass.AppointDate != currentDate || pass.Rent != rent)
+
+        if (resort.Trim().IndexOf("八易") >= 0)
+        {
+            switch (resort)
+            {
+                case "八易租单板":
+                    if (dtl.productName.IndexOf("租单板") < 0 || dtl.productName.IndexOf("八易") < 0)
+                    {
+                        ret = false;
+                    }
+                    break;
+                case "八易租双板":
+                    if (dtl.productName.IndexOf("租双板") < 0 || dtl.productName.IndexOf("八易") < 0)
+                    {
+                        ret = false;
+                    }
+                    break;
+                default:
+                    if (dtl.productName.IndexOf("八易") < 0)
+                    {
+                        ret = false;
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            if (dtl.productName.IndexOf(resort) < 0)
+            {
+                ret = false;
+            }
+        }
+
+        if (pass.AppointDate != currentDate || pass.Rent != rent)
             ret = false;
         if (isNight && dtl.productName.Trim().IndexOf("夜场") < 0)
         {
