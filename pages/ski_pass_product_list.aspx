@@ -445,12 +445,12 @@
 
 
             if (title.indexOf("夜场") >= 0 && title.indexOf("八易") >= 0) {
-                if (current_day_name.indexOf("周五") >= 0) {
+                if (day_name.indexOf("周五") >= 0) {
                     current_product_id = product_id_weekend;
                     current_title = product_title_weekend;
                     current_price = product_price_weekend;
                 }
-                if (current_day_name.indexOf("周日") >= 0) {
+                if (day_name.indexOf("周日") >= 0) {
                     current_product_id = product_id_work_day;
                     current_title = product_title_work_day;
                     current_price = product_price_work_day;
