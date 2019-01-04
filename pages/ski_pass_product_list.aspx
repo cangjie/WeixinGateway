@@ -29,7 +29,7 @@
         }
         userToken = Session["user_token"].ToString();
         
-        //userToken = "56d24ab588964bb983f37cb0ceec98d38f713fc199e87f1bb4979e3cbe18e484398a1e0b";
+        //userToken = "d28e2f4750606d31e084808b6a22b7efa7643b34108daef68d92f883dafaa90ad554c75b";
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
@@ -269,7 +269,7 @@
             drop_down_date.innerHTML = "";
 
             if (title.indexOf("平安夜") >= 0) {
-                select_date('2018-12-24', '周一');
+                select_date('2018-12-24', '周一', title);
             }
             else {
                 for (var i = 0; i < 5; i++) {
@@ -281,7 +281,7 @@
 
                         + iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + "', '"
                         + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
-                        + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + " "
+                        + "', '" + title + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + " "
                         + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
                     if (i == 0) {
                         current_date = iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate();
@@ -290,7 +290,7 @@
                     }
 
                 }
-                select_date(current_date, current_day_name);
+                select_date(current_date, current_day_name, title);
                 
             }
            
@@ -423,7 +423,7 @@
             });
         }
 
-        function select_date(date, day_name) {
+        function select_date(date, day_name, title) {
             current_date = date;
             current_day_name = day_name;
             if (day_name.indexOf("周六") >=0 || day_name.indexOf("周日") >= 0 ) {
@@ -443,7 +443,6 @@
                 current_price = product_price_work_day;
             }
 
-            alert(title);
 
             if (title.indexOf("夜场") >= 0 && title.indexOf("八易") >= 0) {
                 if (day_name.indexOf("周五") >= 0) {
@@ -688,11 +687,11 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop-down-date" >
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[0].Key.ToShortDateString()%>', '<%= selectedDate[0].Value.Trim()%>')"><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[1].Key.ToShortDateString()%>', '<%= selectedDate[1].Value.Trim()%>')"><%=selectedDate[1].Key.ToShortDateString()%> <%=selectedDate[1].Value.Trim() %></a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[2].Key.ToShortDateString()%>', '<%= selectedDate[2].Value.Trim()%>')"><%=selectedDate[2].Key.ToShortDateString()%> <%=selectedDate[2].Value.Trim() %></a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[3].Key.ToShortDateString()%>', '<%= selectedDate[3].Value.Trim()%>')"><%=selectedDate[3].Key.ToShortDateString()%> <%=selectedDate[3].Value.Trim() %></a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[4].Key.ToShortDateString()%>', '<%= selectedDate[4].Value.Trim()%>')"><%=selectedDate[4].Key.ToShortDateString()%> <%=selectedDate[4].Value.Trim() %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[0].Key.ToShortDateString()%>', '<%= selectedDate[0].Value.Trim()%>', '')"><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[1].Key.ToShortDateString()%>', '<%= selectedDate[1].Value.Trim()%>', '')"><%=selectedDate[1].Key.ToShortDateString()%> <%=selectedDate[1].Value.Trim() %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[2].Key.ToShortDateString()%>', '<%= selectedDate[2].Value.Trim()%>', '')"><%=selectedDate[2].Key.ToShortDateString()%> <%=selectedDate[2].Value.Trim() %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[3].Key.ToShortDateString()%>', '<%= selectedDate[3].Value.Trim()%>', '')"><%=selectedDate[3].Key.ToShortDateString()%> <%=selectedDate[3].Value.Trim() %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[4].Key.ToShortDateString()%>', '<%= selectedDate[4].Value.Trim()%>', '')"><%=selectedDate[4].Key.ToShortDateString()%> <%=selectedDate[4].Value.Trim() %></a></li>
                                 </ul>
                             </span>
                         </div>
