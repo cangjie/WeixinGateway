@@ -45,7 +45,7 @@
                     }
                     break;
                 default:
-                    if (dtl.productName.IndexOf("八易") < 0)
+                    if (dtl.productName.IndexOf("八易") < 0 || (dtl.productName.Trim().IndexOf("八易") >= 0 && dtl.productName.Trim().IndexOf("租") >= 0))
                     {
                         ret = false;
                     }
