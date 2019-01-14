@@ -117,10 +117,11 @@
 <%
     try
     {
+        string imgUrl = customerUser.HeadImage.Trim();
      %>        
         <tr>
             <td colspan="2">
-                <img src="<%=customerUser.HeadImage.Trim() %>" width="30" height="30" /> 昵称：<%=customerUser.Nick.Trim() %> 电话：<input type="text" id="cell" value="<%=customerUser.CellNumber.Trim() %>" />
+                <img src="<%=imgUrl %>" width="30" height="30" /> 昵称：<%=customerUser.Nick.Trim() %> 电话：<input type="text" id="cell" value="<%=customerUser.CellNumber.Trim() %>" />
             </td>
         </tr>
         <tr>
