@@ -435,12 +435,11 @@
                 type: "GET",
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
-
-                    order_id = msg_object.order_id;
+                    order_id = msg_object.temp_order_id;
                     var pay_method = msg_object.pay_method;
                     var pay_url = "";
                     var qr_code_url = "";
-                    pay_url = "/pages/pay_temp_order.aspx?temporderid=" + order_id.toString();
+                    pay_url = "http://<%=System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()%>/pages/pay_temp_order.aspx?temporderid=" + order_id.toString();
                     pay_url = encodeURI(pay_url);
                     qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + pay_url;
 
