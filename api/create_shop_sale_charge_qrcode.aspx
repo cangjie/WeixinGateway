@@ -30,8 +30,7 @@
             Response.End();
         }
 
-        WeixinUser customer = new WeixinUser(customerOpenId.Trim());
-        customer.Memo = customerMemo.Trim();
+        
 
         int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode);
@@ -42,6 +41,8 @@
         }
         else
         {
+            WeixinUser customer = new WeixinUser(customerOpenId.Trim());
+            customer.Memo = customerMemo.Trim();
             try
             {
                 if (!cell.Trim().Equals(""))
