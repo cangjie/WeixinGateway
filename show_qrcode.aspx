@@ -6,6 +6,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string qrCodeText = Util.GetSafeRequestValue(Request, "qrcodetext", "");
+        qrCodeText = Server.UrlDecode(qrCodeText).Trim();
         if (qrCodeText.Trim().Equals(""))
         {
             long sceneId = long.Parse(Util.GetSafeRequestValue(Request, "sceneid", "1"));
