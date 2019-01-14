@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = Util.GetSafeRequestValue(Request, "token", "1289440d5ddfa8e0c5102279a19a1591218c692a2c253b0ea765353386432fd47a406daf");
+        string token = Util.GetSafeRequestValue(Request, "token", "");
         double marketPrice = double.Parse(Util.GetSafeRequestValue(Request, "marketprice", "2"));
         double salePrice = double.Parse(Util.GetSafeRequestValue(Request, "saleprice", "1.9"));
         double ticketAmount = double.Parse(Util.GetSafeRequestValue(Request, "ticketamount", "0"));
@@ -19,7 +19,7 @@
         string name = Util.GetSafeRequestValue(Request, "name", "");
         string orderDetailJson = Util.GetSafeRequestValue(Request, "reforderdetail", "");
         string ticketCode = Util.GetSafeRequestValue(Request, "ticketcode", "");
-        string customerOpenId = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
+        string customerOpenId = Util.GetSafeRequestValue(Request, "openid", "");
         string cell = Util.GetSafeRequestValue(Request, "cell", "");
         string customerMemo =  Util.GetSafeRequestValue(Request, "customermemo", "");
         WeixinUser currentUser = new WeixinUser(openId);
