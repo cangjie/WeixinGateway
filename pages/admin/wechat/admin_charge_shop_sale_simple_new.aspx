@@ -130,7 +130,17 @@
             }
             catch
             {
+                %>
+        <tr>
+            <td colspan="2">
+                电话：<input type="text" id="cell" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">备注：<input id="customer_memo" type="text" width="95%" value="" /></td>
+        </tr>
 
+                    <%
             }
              %>
         <tr>
