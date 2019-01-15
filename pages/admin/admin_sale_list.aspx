@@ -16,7 +16,10 @@
 
     public DataTable GetData()
     {
-        DataTable dtOri = DBHelper.GetDataTable("select * from order_online where type = '店销' and pay_state = 1 order by [id] desc");
+
+        DataTable dtAdmin = DBHelper.GetDataTable(" select * from users where is_admin = 1 ");
+
+        DataTable dtOri = DBHelper.GetDataTable("select * from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id]  where order_online.type = '店销' and order_online.pay_state = 1 order by order_online.[id] desc");
 
         DataTable dt = new DataTable();
         dt.Columns.Add("订单号", Type.GetType("System.Int32"));
@@ -31,6 +34,7 @@
         dt.Columns.Add("生成龙珠",  Type.GetType("System.Int32"));
         dt.Columns.Add("商品概要");
         dt.Columns.Add("备注");
+        dt.Columns.Add("销售");
 
         foreach (DataRow drOri in dtOri.Rows)
         {
@@ -38,7 +42,8 @@
             dr["订单号"] = int.Parse(drOri["id"].ToString().Trim());
             dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString());
             dr["店铺"] = drOri["shop"].ToString();
-            WeixinUser user = new WeixinUser(drOri["open_id"].ToString().Trim());
+            WeixinUser user = new WeixinUser();
+            user._fields = drOri;
             dr["头像"] = "<img src=\"" + user.HeadImage.Trim() + "\" width=\"30\" height=\"30\" />";
             dr["昵称"] = user.Nick.Trim();
             dr["电话"] = user.CellNumber.Trim();
@@ -55,6 +60,24 @@
             }
             dr["商品概要"] = detailStr.Trim();
             dr["备注"] = drOri["memo"].ToString().Trim();
+
+            if (!drOri["admin_open_id"].ToString().Trim().Equals(""))
+            {
+                DataRow[] drArrAdmin = dtAdmin.Select(" open_id = '" + drOri["admin_open_id"].ToString().Trim() + "' ");
+                if (drArrAdmin.Length > 0)
+                {
+                    dr["销售"] = drArrAdmin[0]["nick"].ToString().Trim();
+                }
+                else
+                {
+                    dr["销售"] = "";
+                }
+            }
+            else
+            {
+                dr["销售"] = "";
+            }
+
             dt.Rows.Add(dr);
         }
 
