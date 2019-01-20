@@ -15,7 +15,8 @@
             string currentPageUrl = Server.UrlEncode(Request.Url.LocalPath.Trim().ToString());
             if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
             {
-                Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+                Response.Write("<a href=\"../authorize.aspx?callback=" + currentPageUrl + "\" >../authorize.aspx?callback=" + currentPageUrl + "</a>");
+                //Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
             }
             string userToken = Session["user_token"].ToString();
             openId = WeixinUser.CheckToken(userToken);
