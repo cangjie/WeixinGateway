@@ -16,8 +16,10 @@
         //Response.Write(ret.Trim());
 
 
-        ReceivedMessage rec = new ReceivedMessage("event_20190102154904968");
-        RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
+        //ReceivedMessage rec = new ReceivedMessage("event_20190102154904968");
+        //RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
+
+        Response.Write(Request.Url.LocalPath.Trim().ToString() + "?" + Request.QueryString.ToString());
 
         Response.End();
     }
