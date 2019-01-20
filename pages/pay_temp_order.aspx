@@ -12,7 +12,7 @@
     {
         try
         {
-            string currentPageUrl = Request.Url.LocalPath.Trim().ToString();
+            string currentPageUrl = Server.UrlEncode(Request.Url.LocalPath.Trim().ToString());
             if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
             {
                 Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
