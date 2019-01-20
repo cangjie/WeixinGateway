@@ -413,6 +413,7 @@
         }
 
         var order_id = 0;
+        var temp_order_id = 0;
         var intervalId = 0;
         //获取二维码
         function get_qrcode() {
@@ -436,7 +437,7 @@
                 type: "GET",
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
-                    order_id = msg_object.temp_order_id;
+                    temp_order_id = msg_object.temp_order_id;
                     var pay_method = msg_object.pay_method;
                     var pay_url = "";
                     var qr_code_url = "";
@@ -457,7 +458,7 @@
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
                     //temp_order_id = msg_object.temp_order_id;
-                    if (order_id > 0 && pay_method.toString().trim() == '支付宝')
+                    if (temp_order_id > 0 && pay_method.toString().trim() == '支付宝')
                         intervalId = setInterval("refresh_order_state()", 1000);
                 }
             });
