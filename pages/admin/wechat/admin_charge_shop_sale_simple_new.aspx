@@ -441,7 +441,7 @@
                     var pay_method = msg_object.pay_method;
                     var pay_url = "";
                     var qr_code_url = "";
-                    pay_url = "http<%=Server.UrlEncode("://") + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim() + Server.UrlEncode("/") %>pages<%=Server.UrlEncode("/")%>pay_temp_order<%=Server.UrlEncode(".")%>aspx<%=Server.UrlEncode("?")%>temporderid<%=Server.UrlEncode("=")%>" + order_id.toString();
+                    pay_url = "http<%=Server.UrlEncode("://") + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim() + Server.UrlEncode("/") %>pages<%=Server.UrlEncode("/")%>pay_temp_order<%=Server.UrlEncode(".")%>aspx<%=Server.UrlEncode("?")%>temporderid<%=Server.UrlEncode("=")%>" + temp_order_id.toString();
                     pay_url = encodeURI(pay_url);
                     qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + pay_url;
 
