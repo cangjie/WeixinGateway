@@ -11,7 +11,7 @@
         {
             int tempOrderId = int.Parse(Util.GetSafeRequestValue(Request, "temporderid", "0"));
             OrderTemp orderTemp = new OrderTemp(tempOrderId);
-            orderId = int.Parse(orderTemp._fields["order_online_id"].ToString());
+            orderId = int.Parse(orderTemp._fields["online_order_id"].ToString());
         }
         OnlineOrder order = new OnlineOrder(orderId);
         string json = "";
