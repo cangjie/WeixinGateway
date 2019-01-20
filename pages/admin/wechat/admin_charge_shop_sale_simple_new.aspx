@@ -571,12 +571,17 @@
             return status;
         }
 
-        function refresh_order_state() {   
+        function refresh_order_state() {
+            var ajax_url = "../../../api/get_online_order_info.aspx?orderid=" + order_id.toString();
+            if (order_id == 0) {
+                ajax_url = "../../../api/get_online_order_info.aspx?temporderid=" + temp_order_id.toString();
+            }
             $.ajax({
-                url: "../../../api/get_online_order_info.aspx?orderid=" + order_id.toString(),
+                url: ajax_url,
                 type: "GET",
                 success: function (msg, statue) {
                     var msg_object = eval("(" + msg + ")");
+                    order_id = msg_object.id;
                     if (msg_object.pay_state == 1) {
                         launch_pay_success_info();
                     }

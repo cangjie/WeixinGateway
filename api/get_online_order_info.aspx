@@ -7,6 +7,12 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
+        if (orderId == 0)
+        {
+            int tempOrderId = int.Parse(Util.GetSafeRequestValue(Request, "temporderid", "0"));
+            OrderTemp orderTemp = new OrderTemp(tempOrderId);
+            orderId = int.Parse(orderTemp._fields["order_online_id"].ToString());
+        }
         OnlineOrder order = new OnlineOrder(orderId);
         string json = "";
         foreach(DataColumn c in order._fields.Table.Columns)
