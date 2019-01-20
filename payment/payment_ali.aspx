@@ -9,16 +9,28 @@
 <%@ Import Namespace="ThoughtWorks.QRCode.Codec.Data" %>
 <script runat="server">
 
+    public string orderId = "";
+    public string nick = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
+
         Config.alipay_public_key = Server.MapPath("rsa_public_key.pem");
         Config.merchant_private_key = Server.MapPath("rsa_private_key.pem");
         Config.merchant_public_key = Server.MapPath("rsa_public_key.pem");
+
+        nick = Util.GetSafeRequestValue(Request, "nick", "cangjie").Replace(" ", "").Trim();
+        orderId = Util.GetSafeRequestValue(Request, "orderid", "3062");
+
+        //Config.pid = nick;
         IAlipayTradeService serviceClient = F2FBiz.CreateClientInstance(Config.serverUrl, Config.appId, Config.merchant_private_key, Config.version,
                             Config.sign_type, Config.alipay_public_key, Config.charset);
         AlipayTradePrecreateContentBuilder builder = BuildPrecreateContent();
         AlipayF2FPrecreateResult precreateResult = serviceClient.tradePrecreate(builder);
         //Response.Write(precreateResult.Status.ToString());
+
+
+
         DoWaitProcess(precreateResult);
     }
 
@@ -35,7 +47,7 @@
         bt = qrCodeEncoder.Encode(enCodeString, Encoding.UTF8);
         Response.ContentType = "image/bitmap";
         bt.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Bmp);
-        
+
         //this.Image1.ImageUrl = "~/images/" + filename;
 
         //轮询订单结果
@@ -50,7 +62,17 @@
     private AlipayTradePrecreateContentBuilder BuildPrecreateContent()
     {
         //线上联调时，请输入真实的外部订单号。
-        string out_trade_no = "";
+        string out_trade_no = orderId.Trim();
+        OnlineOrder order = new OnlineOrder(int.Parse(orderId.Trim()));
+        bool canPay = false;
+        if (order._fields["pay_state"].ToString().Equals("0") && !order._fields["type"].ToString().Trim().Equals("雪票") && order._fields["pay_method"].ToString().Equals("支付宝"))
+        {
+            canPay = true;
+        }
+        if (!canPay)
+        {
+            Response.End();
+        }
         /*
         if (String.IsNullOrEmpty(WIDout_request_no.Text.Trim()))
         {
@@ -61,29 +83,30 @@
             out_trade_no = WIDout_request_no.Text.Trim();
         }
         */
-        out_trade_no = Util.GetTimeStamp();
+        //out_trade_no = Util.GetTimeStamp();
         AlipayTradePrecreateContentBuilder builder = new AlipayTradePrecreateContentBuilder();
         //收款账号
         builder.seller_id = Config.pid;
         //订单编号
         builder.out_trade_no = out_trade_no;
         //订单总金额
-        builder.total_amount = "1";//WIDtotal_fee.Text.Trim();
+        builder.total_amount = order._fields["order_real_pay_price"].ToString().Trim();//WIDtotal_fee.Text.Trim();
         //参与优惠计算的金额
         //builder.discountable_amount = "";
         //不参与优惠计算的金额
         //builder.undiscountable_amount = "";
         //订单名称
-        builder.subject = "test" + out_trade_no.Trim();//WIDsubject.Text.Trim();
+        builder.subject = order._fields["name"].ToString().Trim() + order._fields["cell_number"].ToString().Trim(); //"test" + out_trade_no.Trim();//WIDsubject.Text.Trim();
+        builder.subject = builder.subject.Replace(" ", "");
         //自定义超时时间
         builder.timeout_express = "5m";
         //订单描述
-        builder.body = "";
+        builder.body = order._fields["memo"].ToString().Trim().Replace(" ", "");
         //门店编号，很重要的参数，可以用作之后的营销
-        builder.store_id = "测试门店";
+        builder.store_id = order._fields["shop"].ToString().Trim();
         //操作员编号，很重要的参数，可以用作之后的营销
-        builder.operator_id = "苍杰";
-        
+        builder.operator_id = nick.Replace(" ", "").Trim();
+
         //传入商品信息详情
         //List<GoodsInfo> gList = new List<GoodsInfo>();
         //GoodsInfo goods = new GoodsInfo();

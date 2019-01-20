@@ -33,6 +33,12 @@
             {
                 Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString(), true);
             }
+            if (order._fields["pay_method"].ToString().Equals("支付宝"))
+            {
+                //Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString(), true);
+                Response.Write("请打开支付宝，重新扫描店员手机上的二维码。");
+            }
+
         }
         catch
         {

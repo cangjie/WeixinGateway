@@ -457,7 +457,7 @@
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
                     //temp_order_id = msg_object.temp_order_id;
-                    if (order_id > 0)
+                    if (order_id > 0 && pay_method.trim() == '支付宝')
                         intervalId = setInterval("refresh_order_state()", 1000);
                 }
             });
@@ -579,11 +579,11 @@
                     if (msg_object.pay_state == 1) {
                         launch_pay_success_info();
                     }
-                    /*
+                    
                     if (msg_object.pay_method == "支付宝" && msg_object.pay_state == 0) {
                         launch_alipay_qrcode(msg_object.id.toString());
                     }
-                    */
+                    
 
                 }
             });
@@ -595,7 +595,7 @@
             if (alipay_qrcode_launched)
                 return;
             var td_cell = document.getElementById("qrcode_td");
-            td_cell.innerHTML = "<img style='width:200px' src='../../../payment/haojin_qrcode_pay_ali.aspx?orderid=" + order_id + "' />";
+            td_cell.innerHTML = "<img style='width:200px' src='../../../payment/payment_ali.aspx?orderid=" + order_id + "' />";
             alert("已更新为支付宝二维码，请顾客扫描。");
             alipay_qrcode_launched = true;
         }
