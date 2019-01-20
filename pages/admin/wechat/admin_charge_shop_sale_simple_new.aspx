@@ -457,7 +457,7 @@
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
                     //temp_order_id = msg_object.temp_order_id;
-                    if (order_id > 0 && pay_method.trim() == '支付宝')
+                    if (order_id > 0 && pay_method.toString().trim() == '支付宝')
                         intervalId = setInterval("refresh_order_state()", 1000);
                 }
             });

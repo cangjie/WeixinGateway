@@ -40,9 +40,9 @@
             }
 
         }
-        catch
+        catch(Exception err)
         {
-            Response.Write("二维码已失效，请联系店员刷新此付款二维码。");
+            Response.Write("二维码已失效，请联系店员刷新此付款二维码。" + err.ToString());
         }
 
 
