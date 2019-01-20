@@ -37,7 +37,8 @@
         //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
         if (customerOpenId.Trim().Equals(""))
         {
-            Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\", \"temp_order_id\":" + chargeId.ToString() + " }");
+            Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\", \"temp_order_id\":" + chargeId.ToString() 
+                + ", \"pay_method\": \"" + payMethod.Trim() + "\" }");
         }
         else
         {
