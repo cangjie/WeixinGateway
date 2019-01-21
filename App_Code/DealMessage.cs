@@ -261,7 +261,7 @@ public class DealMessage
                     if (receivedMessage.eventKey.Trim().Equals("pinghuazhiwang"))
                     {
                         repliedMessage.type = "text";
-                        repliedMessage.content = "<a href='http://weixin-snowmeet.chinacloudsites.cn/scan_jump.aspx?scene='" + receivedMessage.eventKey.Trim() + " >参加活动</a>";
+                        repliedMessage.content = "<a href=\"http://weixin-snowmeet.chinacloudsites.cn/scan_jump.aspx?scene='" + receivedMessage.eventKey.Trim() + "\" >参加活动</a>";
                         //SendCustomeRequestToAssistant(receivedMessage);
                     }
 
@@ -342,7 +342,7 @@ public class DealMessage
                     if (receivedMessage.eventKey.Trim().Equals("pinghuazhiwang"))
                     {
                         repliedMessage.type = "text";
-                        repliedMessage.content = "<a href='http://weixin-snowmeet.chinacloudsites.cn/scan_jump.aspx?scene='" + receivedMessage.eventKey.Trim() +  " >参加活动</a>";
+                        repliedMessage.content = "<a href=\"http://weixin-snowmeet.chinacloudsites.cn/scan_jump.aspx?scene='" + receivedMessage.eventKey.Trim() +  "\" >参加活动</a>";
                         //SendCustomeRequestToAssistant(receivedMessage);
                     }
                 }
