@@ -38,7 +38,7 @@
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
-        //currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+        currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
         /*
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
