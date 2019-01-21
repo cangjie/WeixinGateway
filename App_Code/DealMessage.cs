@@ -257,6 +257,14 @@ public class DealMessage
                             SendCustomeRequestToAssistant(receivedMessage);
                         }
                     }
+
+                    if (receivedMessage.eventKey.Trim().Equals("pinghuazhiwang"))
+                    {
+                        repliedMessage.type = "text";
+                        repliedMessage.content = "<a href='http://weixin-snowmeet.chinacloudsites.cn/scan_jump.aspx?scene='" + receivedMessage.eventKey.Trim() + " >参加活动</a>";
+                        //SendCustomeRequestToAssistant(receivedMessage);
+                    }
+
                 }
 
                 break;
@@ -330,6 +338,12 @@ public class DealMessage
                             repliedMessage.content = "请找" + salesUser.Nick.Trim() + "在手机上完成操作";
                             SendCustomeRequestToAssistant(receivedMessage);
                         }
+                    }
+                    if (receivedMessage.eventKey.Trim().Equals("pinghuazhiwang"))
+                    {
+                        repliedMessage.type = "text";
+                        repliedMessage.content = "<a href='http://weixin-snowmeet.chinacloudsites.cn/scan_jump.aspx?scene='" + receivedMessage.eventKey.Trim() +  " >参加活动</a>";
+                        //SendCustomeRequestToAssistant(receivedMessage);
                     }
                 }
                 break;
