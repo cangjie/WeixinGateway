@@ -273,8 +273,29 @@
 
             drop_down_date.innerHTML = "";
 
-            if (title.indexOf("平安夜") >= 0) {
-                select_date('2018-12-24', '周一', title);
+            if (title.indexOf("海选") >= 0) {
+                var iDate = new Date("2019-1-24");
+                if (titl.indexOf("24")) {
+                    iDate = new Date("2019-1-24");
+                }
+                if (titl.indexOf("26")) {
+                    iDate = new Date("2019-1-26");
+                }
+                if (titl.indexOf("27")) {
+                    iDate = new Date("2019-1-27");
+                }
+                if (titl.indexOf("30")) {
+                    iDate = new Date("2019-1-30");
+                }
+                var iDayName = get_day_name(iDate);
+                current_day_name = get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")");
+                drop_down_date.innerHTML = drop_down_date.innerHTML
+                        + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
+                        + iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + "', '"
+                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
+                        + "', '" + title + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + " "
+                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
+                select_date(current_date, current_day_name, title);
             }
             else {
                 for (var i = 0; i < 5; i++) {
@@ -710,7 +731,8 @@
                         </div>
 			            <br/>
                         <div>
-                            人数：<span class="dropdown" >
+                            人数：<%if (!currentResort.Trim().Equals("haixuan"))
+                                   { %><span class="dropdown" >
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSelectNum" data-toggle="dropdown">
                                     <span id="current_num" >1</span>
                                     <span class="caret"></span>
@@ -723,6 +745,13 @@
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(5)" >5</a></li>
                                 </ul>
                             </span>
+                            <%}
+                                else
+                                {
+                                    %>
+                            <span id="current_num" >1</span>
+                                        <%
+                                } %>
                         </div>
 			            <br/>
                       
