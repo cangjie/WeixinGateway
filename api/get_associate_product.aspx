@@ -64,7 +64,7 @@
                     weekendProductId = 37;
                     holidayProductId = 37;
                 }
-                
+
             }
             else
             {
@@ -101,7 +101,7 @@
                     weekendProductId = 45;
                     holidayProductId = 45;
                 }
-                
+
             }
             else
             {
@@ -136,7 +136,7 @@
                     weekendProductId = 53;
                     holidayProductId = 53;
                 }
-                
+
             }
             else
             {
@@ -154,7 +154,12 @@
                 }
             }
         }
-
+        if (product._fields["shop"].ToString().Equals("单板海选"))
+        {
+            workdayProductId = productId;
+            weekendProductId = productId;
+            holidayProductId = productId;
+        }
 
         if (product._fields["name"].ToString().StartsWith("乔波"))
         {
