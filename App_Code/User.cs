@@ -197,6 +197,10 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
+            if (_fields == null)
+            {
+                return "";
+            }
             if (_fields["cell_number"] == null)
             {
                 return "";
