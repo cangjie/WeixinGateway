@@ -287,7 +287,7 @@
                 if (title.indexOf("30") >= 0) {
                     iDate = new Date(Date.parse("2019-1-30"));
                 }
-                //var iDayName = get_day_name(iDate);
+                var iDayName = get_day_name(iDate);
                 current_date = iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate();
                 current_day_name = get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")");
                 drop_down_date.innerHTML = drop_down_date.innerHTML
