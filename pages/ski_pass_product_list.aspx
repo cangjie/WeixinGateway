@@ -287,7 +287,7 @@
                 if (title.indexOf("30") >= 0) {
                     iDate = Date.parse("2019-1-30");
                 }
-                var iDayName = get_day_name(iDate);
+                //var iDayName = get_day_name(iDate);
                 current_day_name = "海选日";
                 drop_down_date.innerHTML = drop_down_date.innerHTML
                         + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
