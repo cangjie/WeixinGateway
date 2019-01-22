@@ -197,7 +197,14 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
-            return _fields["cell_number"].ToString().Trim();
+            if (_fields["cell_number"] == null)
+            {
+                return "";
+            }
+            else
+            {
+                return _fields["cell_number"].ToString().Trim();
+            }
         }
         set
         {
