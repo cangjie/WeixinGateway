@@ -294,8 +294,8 @@
                         + iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + "', '"
                         + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
                         + "', '" + title + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + " "
-                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
-                select_date(current_date, current_day_name, title);
+                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + current_day_name + ")") + "</a></li>";
+                select_date(iDate, current_day_name, title);
             }
             else {
                 for (var i = 0; i < 5; i++) {
