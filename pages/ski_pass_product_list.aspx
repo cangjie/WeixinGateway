@@ -32,7 +32,7 @@
         }
         userToken = Session["user_token"].ToString();
 
-        //userToken = "d28e2f4750606d31e084808b6a22b7efa7643b34108daef68d92f883dafaa90ad554c75b";
+        //userToken = "efa86b2cb53ff14b4500298208effda1652c863ac117668953d4ef93f807351b4ff11040";
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
@@ -521,7 +521,7 @@
             var span_current_date = document.getElementById("current_date");
             var span_current_num = document.getElementById("current_num");
             span_modal_header.innerHTML = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
-            span_current_date.innerHTML = current_date + " " + current_day_name;
+            span_current_date.innerHTML = current_date.toLocaleDateString() + " " + current_day_name;
             span_current_num.innerHTML = current_num;
             var rent_box = document.getElementById("rent");
             rent_box.checked = current_rent;
