@@ -275,16 +275,16 @@
 
             if (title.indexOf("海选") >= 0) {
                 var iDate = new Date("2019-1-24");
-                if (titl.indexOf("24")) {
+                if (title.indexOf("24")) {
                     iDate = new Date("2019-1-24");
                 }
-                if (titl.indexOf("26")) {
+                if (title.indexOf("26")) {
                     iDate = new Date("2019-1-26");
                 }
-                if (titl.indexOf("27")) {
+                if (title.indexOf("27")) {
                     iDate = new Date("2019-1-27");
                 }
-                if (titl.indexOf("30")) {
+                if (title.indexOf("30")) {
                     iDate = new Date("2019-1-30");
                 }
                 var iDayName = get_day_name(iDate);
