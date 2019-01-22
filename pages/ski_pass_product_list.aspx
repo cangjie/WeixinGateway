@@ -276,16 +276,16 @@
             if (title.indexOf("海选") >= 0) {
                 var iDate = new Date("2019-1-24");
                 if (title.indexOf("24")) {
-                    iDate = new Date("2019-1-24");
+                    iDate = Date.parse("2019-1-24");
                 }
                 if (title.indexOf("26")) {
-                    iDate = new Date("2019-1-26");
+                    iDate = Date.parse("2019-1-26");
                 }
                 if (title.indexOf("27")) {
-                    iDate = new Date("2019-1-27");
+                    iDate = Date.parse("2019-1-27");
                 }
                 if (title.indexOf("30")) {
-                    iDate = new Date("2019-1-30");
+                    iDate = Date.parse("2019-1-30");
                 }
                 var iDayName = get_day_name(iDate);
                 current_day_name = get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")");
