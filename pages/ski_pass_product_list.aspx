@@ -292,7 +292,7 @@
                 drop_down_date.innerHTML = drop_down_date.innerHTML
                         + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
                         + iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + "', '"
-                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
+                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + current_day_name + ")")
                         + "', '" + title + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + " "
                         + get_week_day(iDate) + (iDayName == "" ? "" : "(" + current_day_name + ")") + "</a></li>";
                 select_date(iDate, current_day_name, title);
