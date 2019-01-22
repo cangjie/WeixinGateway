@@ -189,6 +189,10 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
+            if (_fields == null)
+            {
+                return "";
+            }
             return _fields["nick"].ToString().Trim();
         }
     }
