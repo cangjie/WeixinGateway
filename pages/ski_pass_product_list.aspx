@@ -288,13 +288,13 @@
                     iDate = new Date(Date.parse("2019-1-30"));
                 }
                 //var iDayName = get_day_name(iDate);
-                current_day_name = "海选日";
+                current_day_name = "";
                 drop_down_date.innerHTML = drop_down_date.innerHTML
                         + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
                         + iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + "', '"
-                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + current_day_name + ")")
+                        + get_week_day(iDate) + (current_day_name == "" ? "" : "(" + current_day_name + ")")
                         + "', '" + title + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + " "
-                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + current_day_name + ")") + "</a></li>";
+                        + get_week_day(iDate) + (current_day_name == "" ? "" : "(" + current_day_name + ")") + "</a></li>";
                 select_date(iDate, current_day_name, title);
             }
             else {
