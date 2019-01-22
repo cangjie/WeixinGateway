@@ -14,24 +14,24 @@
 
     public KeyValuePair<DateTime, string>[] selectedDate = new KeyValuePair<DateTime, string>[5];
 
-    
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
         FillSelectedDate();
-        
+
         string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list.aspx");
         if (!Request.QueryString.ToString().Trim().Equals(""))
         {
             currentPageUrl = currentPageUrl + "?" + Request.QueryString.ToString().Trim();
         }
-        
+
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         userToken = Session["user_token"].ToString();
-        
+
         //userToken = "d28e2f4750606d31e084808b6a22b7efa7643b34108daef68d92f883dafaa90ad554c75b";
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
@@ -44,7 +44,7 @@
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
             Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
             */
-        
+
         string resort = Util.GetSafeRequestValue(Request, "resort", "nanshan");
         if (!resort.Trim().Equals(""))
         {
@@ -146,6 +146,14 @@
             }
             selectedDate[i] = new KeyValuePair<DateTime, string>(startDate, dayName.Trim());
             startDate = startDate.AddDays(1);
+
+            if (currentResort.Trim().Equals("haixuan"))
+            {
+                selectedDate = new KeyValuePair<DateTime, string>[1];
+                selectedDate[0] = new KeyValuePair<DateTime, string>(DateTime.Parse("2019-1-24"), "");
+
+            }
+
         }
     }
 
