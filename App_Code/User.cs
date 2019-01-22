@@ -37,33 +37,39 @@ public class WeixinUser : ObjectHelper
             }
             else
             {
-                JsonHelper jsonObject = new JsonHelper(json);
-                string nick = jsonObject.GetValue("nickname");
-                string headImageUrl = jsonObject.GetValue("headimgurl");
-
-                KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[5];
-                parameters[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                    "open_id", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)openId));
-                parameters[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                    "nick", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)nick.Trim()));
-                parameters[2] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                    "head_image", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)headImageUrl.Trim()));
-                parameters[3] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                    "vip_level", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
-                parameters[4] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                    "is_admin", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
-
-                int i = DBHelper.InsertData(tableName, parameters);
-
-                if (i == 0)
-                    throw new Exception("not inserted");
-                else
+                try
                 {
-                    dt.Dispose();
-                    dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
-                    _fields = dt.Rows[0];
-                }
+                    JsonHelper jsonObject = new JsonHelper(json);
+                    string nick = jsonObject.GetValue("nickname");
+                    string headImageUrl = jsonObject.GetValue("headimgurl");
 
+                    KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[5];
+                    parameters[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                        "open_id", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)openId));
+                    parameters[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                        "nick", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)nick.Trim()));
+                    parameters[2] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                        "head_image", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)headImageUrl.Trim()));
+                    parameters[3] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                        "vip_level", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
+                    parameters[4] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                        "is_admin", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
+
+                    int i = DBHelper.InsertData(tableName, parameters);
+
+                    if (i == 0)
+                        throw new Exception("not inserted");
+                    else
+                    {
+                        dt.Dispose();
+                        dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
+                        _fields = dt.Rows[0];
+                    }
+                }
+                catch
+                {
+
+                }
 
             }
         }
