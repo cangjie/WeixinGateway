@@ -521,7 +521,13 @@
             var span_current_date = document.getElementById("current_date");
             var span_current_num = document.getElementById("current_num");
             span_modal_header.innerHTML = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
-            span_current_date.innerHTML = current_date.toLocaleDateString() + " " + current_day_name;
+            try{
+                span_current_date.innerHTML = current_date.toLocaleDateString() + " " + current_day_name;
+            }
+            catch(err){
+                span_current_date.innerHTML = current_date + " " + current_day_name;
+            }
+                
             span_current_num.innerHTML = current_num;
             var rent_box = document.getElementById("rent");
             rent_box.checked = current_rent;
@@ -637,7 +643,7 @@
                         if (p._fields["name"].ToString().IndexOf("海选") >= 0)
                         {
                             %>
-                    <li><font color="red" >参加八易单板平花海选用户购票专用。</font></li>
+                    <li><font color="red" >参加八易单板平花海选用户购票专用，其他人员购票无效且不退换。</font></li>
                     <%
                         }
                          %>
