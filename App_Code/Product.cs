@@ -44,6 +44,10 @@ public class Product
         {
             sqlStr = sqlStr + " name like '万龙八易%' and shop = '八易租双板' ";
         }
+        if (resort.Trim().Equals("haixuan"))
+        {
+            sqlStr = sqlStr + "  shop = '单板海选' ";
+        }
 
         if (resort.Trim().Equals("qiaobo"))
         {

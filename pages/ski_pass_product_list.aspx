@@ -533,8 +533,8 @@
             <li role="presentation" <%if (currentResort.Trim().Equals("bayishuang"))
                 { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=bayishuang">八易租双板
                                              </a></li>
-            <!--li role="presentation" <%if (currentResort.Trim().Equals("wanlong"))
-                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=wanlong">万龙</a></li-->
+            <li role="presentation" <%if (currentResort.Trim().Equals("haixuan"))
+                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=wanlong">单板海选</a></li>
         </ul>
         <%
             foreach (Product p in prodArr)
@@ -599,6 +599,14 @@
                 <p>价格包括：滑雪、缆车、拖牵、魔毯费用。（不包含保险，保险请在窗口另行购买）</p>
                 <p>使用说明：</p>
                 <ul>
+                    <%
+                        if (p._fields["name"].ToString().IndexOf("海选") >= 0)
+                        {
+                            %>
+                    <li><font color="red" >参加八易单板平花海选用户购票专用。</font></li>
+                    <%
+                        }
+                         %>
                     <li><font color="red" >出票日自动出票。</font></li>
                     <li>前往易龙雪聚八易店出示二维码验票、取票。</li>
                     <li>此票售出后不予退换。</li>
