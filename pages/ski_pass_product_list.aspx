@@ -274,18 +274,18 @@
             drop_down_date.innerHTML = "";
 
             if (title.indexOf("海选") >= 0) {
-                var iDate = Date.parse("2019-1-24");
+                var iDate = new Date(Date.parse("2019-1-24"));
                 if (title.indexOf("24") >= 0) {
-                    iDate = Date.parse("2019-1-24");
+                    iDate = new Date(Date.parse("2019-1-24"));
                 }
                 if (title.indexOf("26") >= 0) {
-                    iDate = Date.parse("2019-1-26");
+                    iDate = new Date(Date.parse("2019-1-26"));
                 }
                 if (title.indexOf("27") >= 0) {
-                    iDate = Date.parse("2019-1-27");
+                    iDate = new Date(Date.parse("2019-1-27"));
                 }
                 if (title.indexOf("30") >= 0) {
-                    iDate = Date.parse("2019-1-30");
+                    iDate = new Date(Date.parse("2019-1-30"));
                 }
                 //var iDayName = get_day_name(iDate);
                 current_day_name = "海选日";
