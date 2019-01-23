@@ -46,17 +46,18 @@
         qrCodeEncoder.QRCodeVersion = 8;
         try
         {
-            
+
             bt = qrCodeEncoder.Encode(enCodeString, Encoding.UTF8);
             Response.ContentType = "image/bitmap";
             bt.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Bmp);
         }
         catch
         {
+
             Response.Write(precreateResult.response.Body.ToString());
         }
-        
-        
+
+
 
         //this.Image1.ImageUrl = "~/images/" + filename;
 
@@ -108,6 +109,10 @@
         //订单名称
         builder.subject = order._fields["name"].ToString().Trim() + order._fields["cell_number"].ToString().Trim(); //"test" + out_trade_no.Trim();//WIDsubject.Text.Trim();
         builder.subject = builder.subject.Replace(" ", "");
+        if (builder.subject.Trim().Equals(""))
+        {
+            builder.subject = "信息待完善客户";
+        }
         //自定义超时时间
         builder.timeout_express = "5m";
         //订单描述
