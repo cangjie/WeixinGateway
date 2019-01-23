@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" Debug="true" %>
 <%@ Import Namespace="Com.Alipay.Domain" %>
 <%@ Import Namespace="Com.Alipay" %>
 <%@ Import Namespace="Com.Alipay.Business" %>
@@ -20,7 +20,7 @@
         Config.merchant_public_key = Server.MapPath("rsa_public_key.pem");
 
         nick = Util.GetSafeRequestValue(Request, "nick", "cangjie").Replace(" ", "").Trim();
-        orderId = Util.GetSafeRequestValue(Request, "orderid", "3124");
+        orderId = Util.GetSafeRequestValue(Request, "orderid", "3214");
 
         //Config.pid = nick;
         IAlipayTradeService serviceClient = F2FBiz.CreateClientInstance(Config.serverUrl, Config.appId, Config.merchant_private_key, Config.version,
