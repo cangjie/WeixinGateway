@@ -261,8 +261,15 @@
 
             if (title.indexOf("八易") >= 0) {
                 if (title.indexOf("夜场") >= 0) {
-                    if ((now.getHours() == 15 && now.getMinutes() >= 30) || now.getHours() > 15) {
-                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                    if (title.indexOf("单板海选") >= 0) {
+
+                    }
+                    else {
+
+
+                        if ((now.getHours() == 15 && now.getMinutes() >= 30) || now.getHours() > 15) {
+                            now = new Date(now.valueOf() + 3600 * 24 * 1000);
+                        }
                     }
                 }
                 else {
