@@ -53,7 +53,7 @@
         }
         catch
         {
-            Response.Write(enCodeString);
+            Response.Write(precreateResult.response.Body.ToString());
         }
         
         
