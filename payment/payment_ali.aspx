@@ -44,6 +44,15 @@
         qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.H;
         qrCodeEncoder.QRCodeScale = 3;
         qrCodeEncoder.QRCodeVersion = 8;
+        try
+        {
+            Response.Write(enCodeString);
+
+        }
+        catch
+        {
+
+        }
         bt = qrCodeEncoder.Encode(enCodeString, Encoding.UTF8);
         Response.ContentType = "image/bitmap";
         bt.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Bmp);
