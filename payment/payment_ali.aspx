@@ -46,16 +46,17 @@
         qrCodeEncoder.QRCodeVersion = 8;
         try
         {
-            Response.Write(enCodeString);
-
+            
+            bt = qrCodeEncoder.Encode(enCodeString, Encoding.UTF8);
+            Response.ContentType = "image/bitmap";
+            bt.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Bmp);
         }
         catch
         {
-
+            Response.Write(enCodeString);
         }
-        bt = qrCodeEncoder.Encode(enCodeString, Encoding.UTF8);
-        Response.ContentType = "image/bitmap";
-        bt.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Bmp);
+        
+        
 
         //this.Image1.ImageUrl = "~/images/" + filename;
 
