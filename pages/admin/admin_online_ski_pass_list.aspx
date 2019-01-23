@@ -31,7 +31,7 @@
         <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=0" >八易今日自带</a></li>
         <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八易租单板" >八易今日租单板</a></li>
         <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八易租双板" >八易今日租双板</a></li>
-        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=万龙&rent=0" >万龙今日自带</a></li>
+        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=单板海选&rent=0" >单板海选</a></li>
     </ul>
     <table class="table table-striped">
         <tr>

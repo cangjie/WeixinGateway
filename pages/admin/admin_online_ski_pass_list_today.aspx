@@ -44,6 +44,12 @@
                         ret = false;
                     }
                     break;
+                case "单板海选":
+                    if (dtl.productName.IndexOf("单板海选") < 0 || dtl.productName.IndexOf("八易") < 0)
+                    {
+                        ret = false;
+                    }
+                    break;
                 default:
                     if (dtl.productName.IndexOf("八易") < 0 || (dtl.productName.Trim().IndexOf("八易") >= 0 && dtl.productName.Trim().IndexOf("租") >= 0))
                     {
@@ -95,7 +101,7 @@
         <li role="presentation" <%if (resort.Trim().Equals("八易") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=0" >八易今日自带</a></li>
         <li role="presentation" <%if (resort.Trim().Equals("八易租单板") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八易租单板&rent=0" >八易今日租单板</a></li>
         <li role="presentation" <%if (resort.Trim().Equals("八易租双板") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=八易租双板&rent=0" >八易今日租双板</a></li>
-        <li role="presentation" <%if (resort.Trim().StartsWith("万龙") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=万龙&rent=0" >万龙今日自带</a></li>
+        <li role="presentation" <%if (resort.Trim().StartsWith("单板海选") && !rent) {%> class="active" <% } %> ><a href="admin_online_ski_pass_list_today.aspx?resort=单板海选&rent=0" >单板海选</a></li>
     </ul>
     <table class="table table-striped">
         <tr>
