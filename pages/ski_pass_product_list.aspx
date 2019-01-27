@@ -114,31 +114,31 @@
                 case "2018/12/30":
                     dayName = "元旦";
                     break;
-                case "2018/12/31":
-                    dayName = "元旦";
+                case "2019/2/2":
+                    dayName = "平日";
                     break;
-                case "2019/1/1":
-                    dayName = "元旦";
+                case "2019/2/3":
+                    dayName = "平日";
                     break;
-                case "2018/2/15":
+                case "2019/2/4":
                     dayName = "除夕";
                     break;
-                case "2018/2/16":
+                case "2019/2/5":
                     dayName = "初一";
                     break;
-                case "2018/2/17":
+                case "2019/2/6":
                     dayName = "初二";
                     break;
-                case "2018/2/18":
+                case "2019/2/7":
                     dayName = "初三";
                     break;
-                case "2018/2/19":
+                case "2019/2/8":
                     dayName = "初四";
                     break;
-                case "2018/2/20":
+                case "2019/2/9":
                     dayName = "初五";
                     break;
-                case "2018/2/21":
+                case "2019/2/10":
                     dayName = "初六";
                     break;
                 default:
@@ -368,31 +368,31 @@
             if (date.getMonth() == 11 && date.getDate() == 30) {
                 day_name = day_name + " 元旦";
             }
-            if (date.getMonth() == 11 && date.getDate() == 31) {
-                day_name = day_name + " 元旦";
+            if (date.getMonth() == 1 && date.getDate() == 2) {
+                day_name = day_name + " 平日";
             }
-            if (date.getMonth() == 0 && date.getDate() == 1) {
-                day_name = day_name + " 元旦";
+            if (date.getMonth() == 1 && date.getDate() == 3) {
+                day_name = day_name + " 平日";
             }
-            if (date.getMonth() == 1 && date.getDate() == 15) {
+            if (date.getMonth() == 1 && date.getDate() == 4) {
                 day_name = day_name + " 除夕";
             }
-            if (date.getMonth() == 1 && date.getDate() == 16) {
+            if (date.getMonth() == 1 && date.getDate() == 5) {
                 day_name = day_name + " 初一";
             }
-            if (date.getMonth() == 1 && date.getDate() == 17) {
+            if (date.getMonth() == 1 && date.getDate() == 6) {
                 day_name = day_name + " 初二";
             }
-            if (date.getMonth() == 1 && date.getDate() == 18) {
+            if (date.getMonth() == 1 && date.getDate() == 7) {
                 day_name = day_name + " 初三";
             }
-            if (date.getMonth() == 1 && date.getDate() == 19) {
+            if (date.getMonth() == 1 && date.getDate() == 8) {
                 day_name = day_name + " 初四";
             }
-            if (date.getMonth() == 1 && date.getDate() == 20) {
+            if (date.getMonth() == 1 && date.getDate() == 9) {
                 day_name = day_name + " 初五";
             }
-            if (date.getMonth() == 1 && date.getDate() == 21) {
+            if (date.getMonth() == 1 && date.getDate() == 10) {
                 day_name = day_name + " 初六";
             }
 
