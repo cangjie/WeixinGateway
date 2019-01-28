@@ -472,7 +472,7 @@
         function select_date(date, day_name, title) {
             current_date = date;
             current_day_name = day_name;
-            if (day_name.indexOf("周六") >=0 || day_name.indexOf("周日") >= 0 ) {
+            if ((day_name.indexOf("周六") >=0 || day_name.indexOf("周日") >= 0) && (day_name.indexOf("平日") < 0) ) {
             //if (day_name.indexOf("周日") >= 0) {
                 current_product_id = product_id_weekend;
                 current_title = product_title_weekend;
