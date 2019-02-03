@@ -247,7 +247,7 @@
                         }
                     }
                     else {
-                        if (now.getHours() > 15) {
+                        if (now.getHours() >= 15) {
                             now = new Date(now.valueOf() + 3600 * 24 * 1000);
                         }
                     }
