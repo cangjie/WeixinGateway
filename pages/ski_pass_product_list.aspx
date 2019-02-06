@@ -369,25 +369,25 @@
                 day_name = day_name + " 平日";
             }
             if (date.getMonth() == 1 && date.getDate() == 4) {
-                day_name = day_name + " 除夕";
+                day_name =  "除夕";
             }
             if (date.getMonth() == 1 && date.getDate() == 5) {
-                day_name = day_name + " 初一";
+                day_name = "初一";
             }
             if (date.getMonth() == 1 && date.getDate() == 6) {
-                day_name = day_name + " 初二";
+                day_name = "初二";
             }
             if (date.getMonth() == 1 && date.getDate() == 7) {
-                day_name = day_name + " 初三";
+                day_name = "初三";
             }
             if (date.getMonth() == 1 && date.getDate() == 8) {
-                day_name = day_name + " 初四";
+                day_name = "初四";
             }
             if (date.getMonth() == 1 && date.getDate() == 9) {
-                day_name = day_name + " 初五";
+                day_name = "初五";
             }
             if (date.getMonth() == 1 && date.getDate() == 10) {
-                day_name = day_name + " 初六";
+                day_name = "初六";
             }
 
 
