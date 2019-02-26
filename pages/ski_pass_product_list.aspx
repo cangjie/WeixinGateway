@@ -261,7 +261,7 @@
 
             if (title.indexOf("八易") >= 0) {
                 if (title.indexOf("夜场") >= 0) {
-                    if ((now.getHours() == 15 && now.getMinutes() >= 30) || now.getHours() > 21) {
+                    if ((now.getHours() == 15 && now.getMinutes() >= 30) || now.getHours() > 15) {
                             now = new Date(now.valueOf() + 3600 * 24 * 1000);
                     }
                     
@@ -490,7 +490,7 @@
                     current_title = product_title_weekend;
                     current_price = product_price_weekend;
                 }
-                if (day_name.indexOf("周日") >= 0 || day_name.indexOf("今天") >= 0) {
+                if (day_name.indexOf("周日") >= 0) {
                     current_product_id = product_id_work_day;
                     current_title = product_title_work_day;
                     current_price = product_price_work_day;
