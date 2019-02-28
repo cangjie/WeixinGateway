@@ -19,7 +19,7 @@
 
         DataTable dtAdmin = DBHelper.GetDataTable(" select * from users where is_admin = 1 ");
 
-        DataTable dtOri = DBHelper.GetDataTable("select * from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id]  where order_online.type = '店销' and order_online.pay_state = 1 order by order_online.[id] desc");
+        DataTable dtOri = DBHelper.GetDataTable("select *, users.cell_number as user_number from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id]  where order_online.type = '店销' and order_online.pay_state = 1 order by order_online.[id] desc");
 
         DataTable dt = new DataTable();
         dt.Columns.Add("订单号", Type.GetType("System.Int32"));
@@ -38,15 +38,19 @@
 
         foreach (DataRow drOri in dtOri.Rows)
         {
+
             DataRow dr = dt.NewRow();
             dr["订单号"] = int.Parse(drOri["id"].ToString().Trim());
+
+           
+
             dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString());
             dr["店铺"] = drOri["shop"].ToString();
             WeixinUser user = new WeixinUser();
             user._fields = drOri;
             dr["头像"] = "<img src=\"" + user.HeadImage.Trim() + "\" width=\"30\" height=\"30\" />";
             dr["昵称"] = user.Nick.Trim();
-            dr["电话"] = user.CellNumber.Trim();
+            dr["电话"] = drOri["user_number"].ToString().Trim();
             dr["零售总价"] = Math.Round(double.Parse(drOri["order_price"].ToString()),2);
             dr["实付金额"] = Math.Round(double.Parse(drOri["order_real_pay_price"].ToString()),2);
             dr["龙珠系数"] = Math.Round(double.Parse(drOri["score_rate"].ToString()),2);
