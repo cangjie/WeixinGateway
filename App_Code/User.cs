@@ -20,6 +20,7 @@ public class WeixinUser : ObjectHelper
 
 
 
+
 	public WeixinUser(string openId)
 	{
         tableName = "users";
@@ -449,6 +450,25 @@ public class WeixinUser : ObjectHelper
     public static void DeleteUserTag(string openId, string tag)
     {
         DBHelper.DeleteData("users_tag", new string[,] { { "open_id", "varchar", openId.Trim() }, {"tag", "varchar", tag.Trim() } }, Util.conStr.Trim());
+    }
+
+    public static WeixinUser GetTempWeixinUser(string cell)
+    {
+        WeixinUser user;
+        DataTable dtUser = DBHelper.GetDataTable(" select * from users where cell_number = '" + cell.Trim() + "' ");
+        if (dtUser.Rows.Count == 0)
+        {
+            string tempTimeStampOpenId = Util.GetTimeStamp();
+            DBHelper.InsertData("users", new string[,]{ {"open_id", "varchar", tempTimeStampOpenId }, { "nick", "varchar", "" },
+            {"cell_number", "varchar", cell.Trim() },{"vip_level", "int", "0" },});
+            user = new WeixinUser(tempTimeStampOpenId);
+        }
+        else
+        {
+            user = new WeixinUser(dtUser.Rows[0]["open_id"].ToString().Trim());
+        }
+        dtUser.Dispose();
+        return user;
     }
 
 }
