@@ -27,6 +27,7 @@
         dt.Columns.Add("店铺");
         dt.Columns.Add("头像");
         dt.Columns.Add("昵称");
+        //dt.Columns.Add("姓名");
         dt.Columns.Add("电话");
         dt.Columns.Add("零售总价", Type.GetType("System.Double"));
         dt.Columns.Add("实付金额", Type.GetType("System.Double"));
@@ -49,6 +50,7 @@
             WeixinUser user = new WeixinUser();
             user._fields = drOri;
             dr["头像"] = "<img src=\"" + user.HeadImage.Trim() + "\" width=\"30\" height=\"30\" />";
+            //dr["姓名"] = drOri["name"].ToString().Trim();
             dr["昵称"] = user.Nick.Trim();
             dr["电话"] = drOri["user_number"].ToString().Trim();
             dr["零售总价"] = Math.Round(double.Parse(drOri["order_price"].ToString()),2);

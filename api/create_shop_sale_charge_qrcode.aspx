@@ -33,7 +33,7 @@
         
 
         int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
-            memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode);
+            memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode, cell);
         //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
         if (customerOpenId.Trim().Equals(""))
         {
