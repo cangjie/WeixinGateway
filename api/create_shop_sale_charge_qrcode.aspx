@@ -30,21 +30,16 @@
             Response.End();
         }
 
-
+        
 
         int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode, cell);
         //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
         if (customerOpenId.Trim().Equals(""))
         {
-            if (!cell.Trim().Equals(""))
-            {
-                WeixinUser user = WeixinUser.GetTempWeixinUser(cell.Trim());
-                OrderTemp orderTemp = new OrderTemp(chargeId);
-                int orderId = orderTemp.PlaceOnlineOrder(user.OpenId.Trim());
-                OnlineOrder order = new OnlineOrder(orderId);
-                Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
-            }
+
+            Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\", \"temp_order_id\":" + chargeId.ToString() 
+                + ", \"pay_method\": \"" + payMethod.Trim() + "\" }");
         }
         else
         {
@@ -56,7 +51,7 @@
                 {
                     customer.CellNumber = cell.Trim();
                     customer.VipLevel = 1;
-
+                    
                 }
             }
             catch
@@ -68,6 +63,6 @@
             OnlineOrder order = new OnlineOrder(orderId);
             Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
         }
-
+      
     }
 </script>
