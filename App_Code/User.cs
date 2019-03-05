@@ -460,7 +460,7 @@ public class WeixinUser : ObjectHelper
         {
             string tempTimeStampOpenId = Util.GetTimeStamp();
             DBHelper.InsertData("users", new string[,]{ {"open_id", "varchar", tempTimeStampOpenId }, { "nick", "varchar", "" },
-            {"cell_number", "varchar", cell.Trim() },{"vip_level", "int", "0" },});
+            {"cell_number", "varchar", cell.Trim() },{"vip_level", "int", "0" },{"head_image", "varchar", "" }});
             user = new WeixinUser(tempTimeStampOpenId);
         }
         else

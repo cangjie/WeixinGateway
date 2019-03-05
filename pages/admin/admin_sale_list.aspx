@@ -31,6 +31,7 @@
         dt.Columns.Add("电话");
         dt.Columns.Add("零售总价", Type.GetType("System.Double"));
         dt.Columns.Add("实付金额", Type.GetType("System.Double"));
+        dt.Columns.Add("支付方式", Type.GetType("System.String"));
         dt.Columns.Add("龙珠系数", Type.GetType("System.Double"));
         dt.Columns.Add("生成龙珠",  Type.GetType("System.Int32"));
         dt.Columns.Add("商品概要");
@@ -57,6 +58,7 @@
             dr["实付金额"] = Math.Round(double.Parse(drOri["order_real_pay_price"].ToString()),2);
             dr["龙珠系数"] = Math.Round(double.Parse(drOri["score_rate"].ToString()),2);
             dr["生成龙珠"] = Math.Round(double.Parse(drOri["generate_score"].ToString()),2);
+            dr["支付方式"] = drOri["pay_method"].ToString().Trim();
             string detailStr = "";
             OnlineOrder order = new OnlineOrder(int.Parse(drOri["id"].ToString().Trim()));
             foreach (OnlineOrderDetail detail in order.OrderDetails)
