@@ -14,6 +14,7 @@
             {
                 user.CellNumber = cell.Trim();
                 user.VipLevel = 1;
+                user.TransferOrderAndPointsFromTempAccount();
                 string fatherOpenId = WeixinUser.GetVipUserOpenIdByNumber(fatherCellNumber);
                 if (!fatherOpenId.Trim().Equals(""))
                 {

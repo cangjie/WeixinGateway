@@ -302,6 +302,33 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public string TempOpenId
+    {
+        get
+        {
+            string ret = "";
+            DataTable dt = DBHelper.GetDataTable(" select * from users where cell_number = '" + CellNumber.Trim() + "' and ISNUMERIC(open_id) = 1 and vip_level = 0  ");
+            if (dt.Rows.Count > 0)
+            {
+                ret = dt.Rows[0]["open_id"].ToString().Trim();
+            }
+            dt.Dispose();
+            return ret;
+        }
+    }
+
+    public void TransferOrderAndPointsFromTempAccount()
+    {
+        string tempOpenId = TempOpenId.Trim();
+        if (VipLevel == 1 && !TempOpenId.Equals(""))
+        {
+            DBHelper.UpdateData("online_order", new string[,] { { "open_id", "varchar",
+                    OpenId.Trim() } } , new string[,] { { "open_id", "varchar", tempOpenId } }, Util.conStr.Trim());
+            DBHelper.UpdateData("user_point_balance", new string[,] { { "user_open_id", "varchar",
+                    OpenId.Trim() } }, new string[,] { { "user_open_id", "varchar", tempOpenId } }, Util.conStr.Trim());
+        }
+    }
+
     public static WeixinUser[] GetAllUsers()
     {
         DataTable dt = DBHelper.GetDataTable(" select * from users order by crt desc ");
