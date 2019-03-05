@@ -438,12 +438,13 @@
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
                     temp_order_id = msg_object.temp_order_id;
-                    order_id = msg_object.order_id;
+                    
                     var pay_method = msg_object.pay_method;
                     var pay_url = "";
                     var qr_code_url = "";
                     if (pay_method.trim() == '支付宝') {
-                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/payment_ali.aspx?orderid=" + order_id.toString().trim();
+                        var ali_order_id = msg_object.order_id;
+                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/payment_ali.aspx?orderid=" + ali_order_id.toString().trim();
                     }
                     if (pay_method.trim() == '微信') {
                         pay_url = "http<%=Server.UrlEncode("://") + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim() 
