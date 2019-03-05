@@ -44,7 +44,7 @@
             DataRow dr = dt.NewRow();
             dr["订单号"] = int.Parse(drOri["id"].ToString().Trim());
 
-           
+
 
             dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString());
             dr["店铺"] = drOri["shop"].ToString();
@@ -54,6 +54,10 @@
             //dr["姓名"] = drOri["name"].ToString().Trim();
             dr["昵称"] = user.Nick.Trim();
             dr["电话"] = drOri["user_number"].ToString().Trim();
+            if (dr["电话"].ToString().Trim().Equals(""))
+            {
+                dr["电话"] = drOri["cell_number"].ToString().Trim();
+            }
             dr["零售总价"] = Math.Round(double.Parse(drOri["order_price"].ToString()),2);
             dr["实付金额"] = Math.Round(double.Parse(drOri["order_real_pay_price"].ToString()),2);
             dr["龙珠系数"] = Math.Round(double.Parse(drOri["score_rate"].ToString()),2);
