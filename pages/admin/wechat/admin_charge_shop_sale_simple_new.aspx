@@ -438,7 +438,6 @@
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
                     temp_order_id = msg_object.temp_order_id;
-                    
                     var pay_method = msg_object.pay_method;
                     var pay_url = "";
                     var qr_code_url = "";

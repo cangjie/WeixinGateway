@@ -43,8 +43,13 @@ public class OrderTemp
 
         OnlineOrder newOrder = new OnlineOrder();
         WeixinUser user = new WeixinUser(openId);
+        string cellNumber = user.CellNumber.Trim();
+        if (cellNumber.Trim().Equals(""))
+        {
+            cellNumber = _fields["customer_number"].ToString().Trim();
+        }
         string[,] insertParam = { {"type", "varchar", "店销" }, { "open_id", "varchar", openId.Trim() },
-        {"cell_number", "varchar", user.CellNumber.Trim() }, {"name", "varchar", user.Nick.Trim() }, 
+        {"cell_number", "varchar", cellNumber.Trim() }, {"name", "varchar", user.Nick.Trim() }, 
         {"pay_method", "varchar", _fields["pay_method"].ToString().Trim() },{ "pay_state", "int", "0" },
         {"order_price", "float", _fields["market_price"].ToString() }, {"shop", "varchar", _fields["shop"].ToString().Trim() } ,
         {"order_real_pay_price", "float", _fields["real_paid_price"].ToString() }, {"memo", "varchar", _fields["memo"].ToString().Trim() },
