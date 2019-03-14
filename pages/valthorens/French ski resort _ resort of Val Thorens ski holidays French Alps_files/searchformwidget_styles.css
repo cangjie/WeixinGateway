@@ -1,0 +1,5 @@
+/* placeholder file css, needs to exist to so that when we load widgets we never get a 404
+	We need to HAVE ATLEAST ONE CSS RULE in here or widgets will take the duration of the timeout to load (10sec)
+*/
+
+#just_a_placeholder_css_rule {}
