@@ -39,7 +39,7 @@
     <title></title>
     <style type="text/css">
         .auto-style1 {
-            font-size: x-large;
+            font-size: xx-large;
         }
     </style>
 </head>
@@ -50,7 +50,7 @@
                 <td colspan="2" class="auto-style1" >销售二维码</td>
             </tr>
             <tr>
-                <img width="400" height="400" src="/<%= QrCode.GetStaticQrCode("shop_sale_charge_request_openid_"+ openId.Trim(), "images/qrcode") %>" />
+                <td colspan="2" ><img width="400" height="400" src="/<%= QrCode.GetStaticQrCode("shop_sale_charge_request_openid_"+ openId.Trim(), "images/qrcode") %>" /></td>
             </tr>
             <tr>
                 <td class="auto-style1">顾客电话:</td>
