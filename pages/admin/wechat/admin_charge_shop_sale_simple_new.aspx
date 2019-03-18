@@ -26,7 +26,6 @@
         {
             customerUser = new WeixinUser(customerOpenId);
             tickets = Ticket.GetUserTickets(customerOpenId, false);
-
         }
         catch
         {

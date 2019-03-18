@@ -42,6 +42,24 @@
             font-size: xx-large;
         }
     </style>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="../../js/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../third/alertjs/alert.js?3"></script>
+    <script type="text/javascript" >
+        function waiting_for_scan() {
+            $.ajax({
+                url: "/api/get_current_scan_openid.aspx?eventkey=shop_sale_charge_request_openid_<%=currentUser.OpenId.Trim()%>"
+                success: function (msg, status) {
+                    if (msg.toString() != '') {
+                        alert(msg);
+                    }
+                }
+            });
+        }
+        setInterval("waiting_for_scan()", 3000);
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
