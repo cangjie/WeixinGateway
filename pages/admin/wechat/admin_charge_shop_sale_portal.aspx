@@ -38,10 +38,11 @@
             销售二维码
         </div>
         <div>
-           
+           <img width="400" height="400" src="/<%= QrCode.GetStaticQrCode("shop_sale_charge_request_openid_"+ openId.Trim(), "images/qrcode"); %>"
         </div>
-        <div>顾客电话：</div>
-        <div>散客</div>
+        <div>顾客电话：<input type="tel" /> <input type="button" value="去收款" /></div>
+        <div> </div>
+        <div><input type="button" value="散客收款" /></div>
     </form>
 </body>
 </html>
