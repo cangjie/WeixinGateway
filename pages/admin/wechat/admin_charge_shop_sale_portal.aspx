@@ -30,19 +30,34 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/normalize.css" />
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="../../css/bootstrap-theme.min.css">
+    <link type="text/css" href="../../third/alertjs/alert.css" rel="stylesheet"/>
     <title></title>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            销售二维码
-        </div>
-        <div>
-           <img width="400" height="400" src="/<%= QrCode.GetStaticQrCode("shop_sale_charge_request_openid_"+ openId.Trim(), "images/qrcode"); %>"
-        </div>
-        <div>顾客电话：<input type="tel" /> <input type="button" value="去收款" /></div>
-        <div> </div>
-        <div><input type="button" value="散客收款" /></div>
+        <table class="table table-striped">
+            <tr>
+                <td colspan="2" >销售二维码</td>
+            </tr>
+            <tr>
+                <img width="400" height="400" src="/<%= QrCode.GetStaticQrCode("shop_sale_charge_request_openid_"+ openId.Trim(), "images/qrcode") %>" />
+            </tr>
+            <tr>
+                <td>顾客电话:</td>
+                <td><input type="tel" /> <input type="button" value="去收款" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" > </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <input type="button" value="散客收款" /> </td>
+            </tr>
+        </table>
     </form>
 </body>
 </html>
