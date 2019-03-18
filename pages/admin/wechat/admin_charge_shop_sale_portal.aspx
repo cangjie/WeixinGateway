@@ -37,18 +37,23 @@
     <link rel="stylesheet" href="../../css/bootstrap-theme.min.css">
     <link type="text/css" href="../../third/alertjs/alert.css" rel="stylesheet"/>
     <title></title>
+    <style type="text/css">
+        .auto-style1 {
+            font-size: x-large;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <table class="table table-striped">
             <tr>
-                <td colspan="2" >销售二维码</td>
+                <td colspan="2" class="auto-style1" >销售二维码</td>
             </tr>
             <tr>
                 <img width="400" height="400" src="/<%= QrCode.GetStaticQrCode("shop_sale_charge_request_openid_"+ openId.Trim(), "images/qrcode") %>" />
             </tr>
             <tr>
-                <td>顾客电话:</td>
+                <td class="auto-style1">顾客电话:</td>
                 <td><input type="tel" /> <input type="button" value="去收款" /></td>
             </tr>
             <tr>
