@@ -50,7 +50,7 @@
     <script type="text/javascript" >
         function waiting_for_scan() {
             $.ajax({
-                url: "/api/get_current_scan_openid.aspx?eventkey=shop_sale_charge_request_openid_<%=currentUser.OpenId.Trim()%>"
+                url: "/api/get_current_scan_openid.aspx?eventkey=shop_sale_charge_request_openid_<%=currentUser.OpenId.Trim()%>",
                 success: function (msg, status) {
                     if (msg.toString() != '') {
                         alert(msg);
