@@ -53,12 +53,16 @@
                 url: "/api/get_current_scan_openid.aspx?eventkey=shop_sale_charge_request_openid_<%=currentUser.OpenId.Trim()%>",
                 success: function (msg, status) {
                     if (msg.toString() != '') {
-                        alert(msg);
+                        //alert(msg);
+                        window.location.href = 'admin_charge_shop_sale_simple_new.aspx?openid=' + msg;
                     }
                 }
             });
         }
         setInterval("waiting_for_scan()", 3000);
+        function cell_number_charge() {
+            window.location.href = 'admin_charge_shop_sale_simple_new.aspx?cell=' + document.getElementById("cell").value;
+        }
     </script>
 </head>
 <body>
@@ -72,13 +76,13 @@
             </tr>
             <tr>
                 <td class="auto-style1">顾客电话:</td>
-                <td><input type="tel" /> <input type="button" value="去收款" /></td>
+                <td><input id="cell" type="tel" value="" /> <input type="button" onclick="cell_number_charge()" value="去收款" /></td>
             </tr>
             <tr>
                 <td colspan="2" > </td>
             </tr>
             <tr>
-                <td colspan="2"> <input type="button" value="散客收款" /> </td>
+                <td colspan="2"> <input type="button" value="散客收款" onclick="javascript:window.location.href='admin_charge_shop_sale_simple_new.aspx'" /> </td>
             </tr>
         </table>
     </form>
