@@ -437,6 +437,7 @@
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
                     temp_order_id = msg_object.temp_order_id;
+                    order_id = msg_object.order_id;
                     var pay_method = msg_object.pay_method;
                     var pay_url = "";
                     var qr_code_url = "";
@@ -445,9 +446,17 @@
                         qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/payment_ali.aspx?orderid=" + ali_order_id.toString().trim();
                     }
                     if (pay_method.trim() == '微信') {
-                        pay_url = "http<%=Server.UrlEncode("://") + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim() 
-                            + Server.UrlEncode("/") %>pages<%=Server.UrlEncode("/")%>pay_temp_order<%=Server.UrlEncode(".")%>aspx<%=Server.UrlEncode("?")%>temporderid<%=Server.UrlEncode("=")%>" 
-                            + temp_order_id.toString();
+                        if (order_id == undefined) {
+                            pay_url = "http<%=Server.UrlEncode("://") + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim() 
+                            + Server.UrlEncode("/") %>pages<%=Server.UrlEncode("/")%>pay_temp_order<%=Server.UrlEncode(".")%>aspx<%=Server.UrlEncode("?")%>temporderid<%=Server.UrlEncode("=")%>"
+                                + temp_order_id.toString();
+                            
+                        }
+                        else {
+                            pay_url = "http<%=Server.UrlEncode("://") + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim() 
+                            + Server.UrlEncode("/") %>payment<%=Server.UrlEncode("/")%>payment<%=Server.UrlEncode(".")%>aspx<%=Server.UrlEncode("?")%>product_id<%=Server.UrlEncode("=")%>"
+                                + order_id.toString();
+                        }
                         pay_url = encodeURI(pay_url);
                         qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + pay_url;
                     }
