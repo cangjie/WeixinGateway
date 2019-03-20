@@ -91,6 +91,8 @@ public class Ticket
 
     }
 
+   
+
     public bool Use(int orderId, string word)
     {
         if (!Used)

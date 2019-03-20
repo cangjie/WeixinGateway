@@ -6,8 +6,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string str = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
-        //str = "code=10000&msg=Success&trade_status=TRADE_SUCCESS&app_id=2019011010661559&buyer_user_id=2088002319285895&buyer_logon_id=2088002319285895&buyer_pay_amount=0.01&receipt_amount=0.01&total_amount=0.01&trade_no=2019012022001485891013080141&out_trade_no=3078&store_name=%E5%8C%97%E4%BA%AC%E6%98%93%E9%BE%99%E9%9B%AA%E8%81%9A%E6%BB%91%E9%9B%AA%E7%94%A8%E5%93%81%E5%BA%97&charset=utf-8&version=1.0&gmt_payment=2019-01-20+23%3A34%3A19&fund_bill_list=%5B%7B%22fund_channel%22%3A%22LCSW%22%2C%22amount%22%3A0.01%7D%5D&sign=sJsdatn0bB78ETdBaParu2IkSPLVKhtn1xXtuqq3Ifor9gimeV0eS4TgLwhTV3KoQVn6K%2B%2BFVP9zDFFyBqJ6%2BtA0QAFEw9DcvAdNTdYq1XUg7ke2fZnEJIujpaFgDmTf6vokwd%2BJyk1MB0SrgPoyFwEXAumIw6wnY2E3ca3QGOY%3D";
+        //string str = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+        string str = "code=10000&msg=Success&trade_status=TRADE_SUCCESS&app_id=2019011010661559&buyer_user_id=2088002319285895&buyer_logon_id=2088002319285895&buyer_pay_amount=1&receipt_amount=1&total_amount=1&trade_no=2019012022001485891013142701&out_trade_no=1547989454&store_name=%E5%8C%97%E4%BA%AC%E6%98%93%E9%BE%99%E9%9B%AA%E8%81%9A%E6%BB%91%E9%9B%AA%E7%94%A8%E5%93%81%E5%BA%97&charset=utf-8&version=1.0&gmt_payment=2019-01-20+21%3A04%3A59&fund_bill_list=%5B%7B%22fund_channel%22%3A%22LCSW%22%2C%22amount%22%3A1%7D%5D&sign=g2lFWiVbC7zHH0ay078cF0IFlCUA%2FV7sHtGJgmJJUhcr%2BZtn%2BD4b%2Ff7TlmC3ct2Tvot%2F%2FYFquu97xDuyTrth6Dn8N6S0%2BiRSrrrqiaN%2FJ1DTBrAhmafCA6eX0k%2BxVh9yWmm9icHhQJ%2FmKUMrwufev0FTeRmLUvApfQ4hkjFcO%2F0%3D";
         try
         {
             try
@@ -49,6 +49,23 @@
                             if (order._fields["pay_state"].ToString().Trim().Equals("0"))
                             {
                                 order.SetOrderPaySuccess(DateTime.Now, tradeNo);
+                                string[] ticketCodeArr = order._fields["ticket_code"].ToString().Trim().Split(',');
+                                foreach (string tickCode in ticketCodeArr)
+                                {
+                                    if (tickCode.Trim().Equals(""))
+                                    {
+                                        continue;
+                                    }
+                                    try
+                                    {
+                                        Ticket ticket = new Ticket(tickCode.Trim());
+                                        ticket.Use("订单支付成功，此券核销。订单号：" + order._fields["id"].ToString());
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                }
                             }
                         }
                         catch
