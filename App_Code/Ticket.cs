@@ -75,7 +75,7 @@ public class Ticket
         if (!Used)
         {
             string[,] updateParameters = new string[,] { { "used", "int", "1" },
-                {"use_time", "datetime", DateTime.Now.ToString() },
+                {"used_time", "datetime", DateTime.Now.ToString() },
                 {"use_memo", "varchar", word } };
             string[,] keyParameter = new string[,] { { "code", "varchar", Code.Trim() } };
             int i = DBHelper.UpdateData("ticket", updateParameters, keyParameter, Util.conStr);
