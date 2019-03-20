@@ -16,6 +16,7 @@
     public string appId = System.Configuration.ConfigurationManager.AppSettings["wxappid"];
     public string customerOpenId = "";
     public WeixinUser customerUser;
+    public string cellNumber = "";
 
     public Ticket[] tickets;
 
@@ -26,10 +27,29 @@
         {
             customerUser = new WeixinUser(customerOpenId);
             tickets = Ticket.GetUserTickets(customerOpenId, false);
+            cellNumber = customerUser.CellNumber.Trim();
         }
         catch
         {
             tickets = new Ticket[0];
+        }
+        if (customerOpenId.Trim().Equals(""))
+        {
+            cellNumber = Util.GetSafeRequestValue(Request, "cell", "").Trim();
+            string[] customerOpenIdArr = WeixinUser.GetOpenIdByCellNumber(cellNumber.Trim());
+            foreach (string s in customerOpenIdArr)
+            {
+                try
+                {
+                    long.Parse(s.Trim());
+                }
+                catch
+                {
+                    customerOpenId = s.Trim();
+                    customerUser = new WeixinUser(customerOpenId.Trim());
+                }
+            }
+
         }
         string currentPageUrl = Request.Url.ToString();
 
@@ -120,7 +140,7 @@
      %>        
         <tr>
             <td colspan="2">
-                <img src="<%=imgUrl %>" width="30" height="30" /> 昵称：<%=customerUser.Nick.Trim() %> 电话：<input type="text" id="cell" value="<%=customerUser.CellNumber.Trim() %>" />
+                <img src="<%=imgUrl %>" width="30" height="30" /> 昵称：<%=customerUser.Nick.Trim() %> 电话：<input type="text" id="cell" value="<%=cellNumber.Trim() %>" />
             </td>
         </tr>
         <tr>
