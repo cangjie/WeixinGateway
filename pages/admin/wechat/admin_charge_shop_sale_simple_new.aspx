@@ -464,7 +464,7 @@
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
                     //temp_order_id = msg_object.temp_order_id;
-                    if (temp_order_id > 0)
+                    if (temp_order_id != undefined || order_id != undefined)
                         intervalId = setInterval("refresh_order_state()", 1000);
                 }
             });
