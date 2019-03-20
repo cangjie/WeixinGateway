@@ -10,7 +10,10 @@
 
 
         string str = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
-        
+        if (str.Trim().Equals(""))
+        {
+            str = "<xml><appid><![CDATA[wxf91253fd1c38d24e]]></appid><bank_type><![CDATA[CMB_CREDIT]]></bank_type><cash_fee>1</cash_fee><fee_type><![CDATA[CNY]]></fee_type><is_subscribe><![CDATA[Y]]></is_subscribe><mch_id>1517744411</mch_id><nonce_str><![CDATA[b6wr4s9y9orwazks1k8n4sdhjwjy7ih]]></nonce_str><openid><![CDATA[oZBHkjhdFpC5ScK5FUU7HKXE3PJM]]></openid><out_trade_no>1553071018004666</out_trade_no><result_code><![CDATA[SUCCESS]]></result_code><return_code><![CDATA[SUCCESS]]></return_code><time_end>20190320163703</time_end><total_fee>1</total_fee><trade_type><![CDATA[JSAPI]]></trade_type><transaction_id>4200000246201903201062722607</transaction_id><sign><![CDATA[37FBEB312B10C734BFA0297AFE2405BB]]></sign></xml>";
+        }
         try
         {
             File.AppendAllText(Server.MapPath("../log/payment_callback.txt"), str + "\r\n");
@@ -42,7 +45,7 @@
                     if (onlineOrder.Type.Trim().Equals("店销"))
                     {
                         OrderTemp tempOrder = OrderTemp.GetFinishedOrder(int.Parse(onlineOrder._fields["id"].ToString()));
-                        if (onlineOrder._fields["pay_state"].ToString().Equals("1") && !onlineOrder.HaveFinishedShopSaleOrder())
+                        if (onlineOrder._fields["pay_state"].ToString().Equals("1") )
                         {
                             string[] ticketCodeArr = tempOrder._fields["ticket_code"].ToString().Trim().Split(',');
                             foreach (string tickCode in ticketCodeArr)
@@ -54,11 +57,11 @@
                                 try
                                 {
                                     Ticket ticket = new Ticket(tickCode.Trim());
-                                    ticket.Use("订单支付成功，此券核销。订单号：" + order._fields["id"].ToString());
+                                    ticket.Use("订单支付成功，此券核销。订单号：" + onlineOrder._fields["id"].ToString());
                                 }
-                                catch
+                                catch(Exception err)
                                 {
-
+                                    Response.Write(err.ToString() + "<br/>");
                                 }
                             }
                             ServiceMessage toCustomerMessage = new ServiceMessage();
