@@ -54,7 +54,7 @@
                                 try
                                 {
                                     Ticket ticket = new Ticket(tickCode.Trim());
-                                    ticket.Use(int.Parse(onlineOrder._fields["id"].ToString()), "订单支付成功，此券核销。订单号：" + order._fields["id"].ToString());
+                                    ticket.Use("订单支付成功，此券核销。订单号：" + order._fields["id"].ToString());
                                 }
                                 catch
                                 {
