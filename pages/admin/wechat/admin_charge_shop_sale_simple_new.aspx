@@ -578,8 +578,11 @@
         }
 
         function refresh_order_state() {
-            var ajax_url = "../../../api/get_online_order_info.aspx?orderid=" + order_id.toString();
-            if (order_id == 0) {
+            var ajax_url = "";
+            if (order_id != undefined) {
+                ajax_url = "../../../api/get_online_order_info.aspx?orderid=" + order_id.toString();
+            }
+            else {
                 ajax_url = "../../../api/get_online_order_info.aspx?temporderid=" + temp_order_id.toString();
             }
             $.ajax({
