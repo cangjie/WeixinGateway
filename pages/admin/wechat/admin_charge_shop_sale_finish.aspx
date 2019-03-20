@@ -23,7 +23,7 @@
     <div>
         <h1>支付成功</h1>
         <br />
-        <a href="admin_user_list.aspx" >接待下一位顾客</a>
+        <a href="admin_charge_shop_sale_portal.aspx" >接待下一位顾客</a>
     </div>
     </form>
 </body>
