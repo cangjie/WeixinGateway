@@ -9,7 +9,7 @@
         double marketPrice = double.Parse(Util.GetSafeRequestValue(Request, "marketprice", "2"));
         double salePrice = double.Parse(Util.GetSafeRequestValue(Request, "saleprice", "1.9"));
         double ticketAmount = double.Parse(Util.GetSafeRequestValue(Request, "ticketamount", "0"));
-        string memo = Util.GetSafeRequestValue(Request, "memo", "测试店销产品");
+        //string memo = Util.GetSafeRequestValue(Request, "memo", "测试店销产品");
         string payMethod = Util.GetSafeRequestValue(Request, "paymethod", "微信");
         string shop = Util.GetSafeRequestValue(Request, "shop", "南山");
         string openId = WeixinUser.CheckToken(token);
@@ -32,7 +32,7 @@
 
 
 
-        int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
+        int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, customerMemo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode, cell);
         //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
         if (customerOpenId.Trim().Equals(""))
