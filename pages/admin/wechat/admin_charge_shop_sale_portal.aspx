@@ -42,6 +42,7 @@
             font-size: xx-large;
         }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="../../js/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
@@ -75,8 +76,10 @@
                 <td colspan="2" ><img width="400" height="400" src="/<%= QrCode.GetStaticQrCode("shop_sale_charge_request_openid_"+ openId.Trim(), "images/qrcode") %>" /></td>
             </tr>
             <tr>
-                <td class="auto-style1">顾客电话:</td>
-                <td><input id="cell" type="tel" value="" /> <input type="button" onclick="cell_number_charge()" value="去收款" /></td>
+                <td class="auto-style1" colspan="2">顾客电话:</td>
+            </tr>
+            <tr>
+                <td colspan="2"><input id="cell" type="tel" value="" /> <input type="button" onclick="cell_number_charge()" value="去收款" /></td>
             </tr>
             <tr>
                 <td colspan="2" > </td>

@@ -302,7 +302,7 @@
             <td colspan="2" style="text-align:center"><button type="button" id="qrcodeBtn" class="btn btn-default"  >获取支付二维码</button></td>
         </tr>
         <tr>
-            <td colspan="2" id="qrcode_td" style="text-align:center"></td>
+            <td colspan="2" id="qrcode_td" style="text-align:center; height:300px"></td>
         </tr>
     </table>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
