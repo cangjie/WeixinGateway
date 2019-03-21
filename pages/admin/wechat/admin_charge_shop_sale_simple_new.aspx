@@ -451,6 +451,7 @@
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
                 + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" + document.getElementById("cell").value.trim()
                 + "&customermemo=" + document.getElementById("customer_memo").value.trim();
+            alert(ajax_url);
             $.ajax({
                 url: ajax_url,
                 type: "GET",
