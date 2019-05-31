@@ -202,7 +202,8 @@ public class TaobaoKeyword
     {
         //string ret = Util.GetWebContent("https://s.taobao.com/search?q=" + keyWord.Trim()  + (index>0? "&s=" + index.ToString():"")<a href="../../C94AC000">../../C94AC000</a>, "GET", "", "text/html", new System.Net.CookieCollection(), System.Text.Encoding.GetEncoding("GB2312"));
         string url = "https://s.taobao.com/search?q=" + HttpUtility.UrlEncode(keyWord.Trim()) + (index > 0 ? "&s=" + index.ToString() : "");
-        string ret = Core.Util.GetWebContentAsync(url, "UTF-8");
+        //string ret = Core.Util.GetWebContentAsync(url, "UTF-8");
+        string ret = "";
         if (ret.Trim().Equals(""))
         {
             return ret;
