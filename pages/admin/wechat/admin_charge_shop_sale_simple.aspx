@@ -418,9 +418,9 @@
                     var pay_method = msg_object.pay_method;
                     var pay_url = "";
                     var qr_code_url = "";
-                    pay_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/payment.aspx?product_id=" + order_id.toString();
+                    pay_url = "http://weixin.snowmeet.com/payment/payment.aspx?product_id=" + order_id.toString();
                     pay_url = encodeURI(pay_url);
-                    qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + pay_url;
+                    qr_code_url = "http://weixin.snowmeet.com/show_qrcode.aspx?qrcodetext=" + pay_url;
                     var td_cell = document.getElementById("qrcode_td");
                     td_cell.innerHTML = "<img style='width:200px' src='" + qr_code_url + "' />";
                     //temp_order_id = msg_object.temp_order_id;

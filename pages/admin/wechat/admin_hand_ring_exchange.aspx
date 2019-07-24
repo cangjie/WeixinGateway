@@ -67,7 +67,7 @@
                     var msg_object = eval("(" + msg + ")");
                     var qrcode_id = msg_object.exchange_id;
                     var td_cell = document.getElementById("qrcode_td");
-                    td_cell.innerHTML = "<img style='width:200px' src='http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?sceneid=" + qrcode_id + "' />";
+                    td_cell.innerHTML = "<img style='width:200px' src='http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=" + qrcode_id + "' />";
                 }
             });
         }

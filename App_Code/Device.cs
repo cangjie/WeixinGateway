@@ -44,7 +44,7 @@ public class Device
         WeixinUser user = new WeixinUser(openId.Trim());
         string[,] insertParam = { { "timestamp", "varchar", timeStamp }, { "device_id", "int", deviceId.ToString() },
             {"open_id", "varchar", openId.Trim() }, {"nick", "varchar", user.Nick }, 
-            {"head_image", "varchar", user.HeadImage.Trim() }, {"qrcode_url", "varchar", "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?sceneid=" + timeStamp.Trim() } };
+            {"head_image", "varchar", user.HeadImage.Trim() }, {"qrcode_url", "varchar", "http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=" + timeStamp.Trim() } };
         DBHelper.InsertData("device_scan_list", insertParam);
 
     }

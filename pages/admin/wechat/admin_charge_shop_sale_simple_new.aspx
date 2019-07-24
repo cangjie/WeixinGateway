@@ -464,7 +464,7 @@
                     var qr_code_url = "";
                     if (pay_method.trim() == '支付宝') {
                         var ali_order_id = msg_object.order_id;
-                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/payment/payment_ali.aspx?orderid=" + ali_order_id.toString().trim();
+                        qr_code_url = "http://weixin.snowmeet.com/payment/payment_ali.aspx?orderid=" + ali_order_id.toString().trim();
                     }
                     if (pay_method.trim() == '微信') {
                         if (order_id == undefined) {
@@ -479,7 +479,7 @@
                                 + order_id.toString();
                         }
                         pay_url = encodeURI(pay_url);
-                        qr_code_url = "http://weixin-snowmeet.chinacloudsites.cn/show_qrcode.aspx?qrcodetext=" + pay_url;
+                        qr_code_url = "http://weixin.snowmeet.com/show_qrcode.aspx?qrcodetext=" + pay_url;
                     }
                     
                     var td_cell = document.getElementById("qrcode_td");
