@@ -15,6 +15,7 @@
     <title>雪票产品维护-列表</title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap.bundle.min.css">
     <link rel="stylesheet" href="../../css/normalize.css" />
     <!-- 可选的Bootstrap主题文件（一般不用引入） -->
     <link rel="stylesheet" href="../../css/bootstrap-theme.min.css">
