@@ -60,7 +60,7 @@
             <br />
         </div>
         <div class="row" >
-            <div class="col card" style="width:80%" >
+            <div class="col-sm  card" style="width:80%" >
                 <div class="card-body">
                     <h5 class="card-title">南山-周末票</h5>
                     <h6 class="card-subtitle mb-2 text-muted">价格：200</h6>
@@ -69,11 +69,11 @@
                 </div>
             </div>
         </div>
-        <!--div class="row" >
+        <div class="row" >
             <br />
         </div>
         <div class="row">
-            <div class="card" style="width:80%"  >
+            <div class="col-sm  card" style="width:80%"  >
                 <div class="card-body">
                     <h5 class="card-title">南山-元旦假日票</h5>
                     <h6 class="card-subtitle mb-2 text-muted">价格：200</h6>
@@ -86,7 +86,7 @@
             <br />
         </div>
         <div class="row" >
-            <div class="card" style="width:80%"  >
+            <div class="col-sm  card" style="width:80%"  >
                 <div class="card-body">
                     <h5 class="card-title">八易-平日票</h5>
                     <h6 class="card-subtitle mb-2 text-muted">价格：200</h6>
@@ -99,7 +99,7 @@
             <br />
         </div>
         <div class="row" >
-            <div class="card" style="width:80%"  >
+            <div class="col-sm card" style="width:80%"  >
                 <div class="card-body">
                     <h5 class="card-title">万龙-大众比赛票</h5>
                     <h6 class="card-subtitle mb-2 text-muted">价格：200</h6>
@@ -107,7 +107,7 @@
                     <a href="#" class="card-link">修改</a>
                 </div>
             </div>
-        </div-->
+        </div>
     </div>
 </body>
 </html>
