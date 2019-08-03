@@ -39,17 +39,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body> 
-    <div>
-        筛选：
-        <div class="dropdown">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                所有的
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">南山</a>
-                <a class="dropdown-item" href="#">八易</a>
-                <a class="dropdown-item" href="#">万龙</a>
-                <a class="dropdown-item" href="#">云顶</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm" style="text-align:right">筛选：</div>
+            <div class="col-sm">
+                <div class="dropdown">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        所有的
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">南山</a>
+                        <a class="dropdown-item" href="#">八易</a>
+                        <a class="dropdown-item" href="#">万龙</a>
+                        <a class="dropdown-item" href="#">云顶</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
