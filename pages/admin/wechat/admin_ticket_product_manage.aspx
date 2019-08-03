@@ -42,7 +42,7 @@
     <div class="container">
         <div class="row">
             <div class="col-3" style="text-align:right">筛选：</div>
-            <div class="col-7">
+            <div class="col-7" style="text-align:left">
                 <div class="dropdown">
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         所有的
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-2" ><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"> 添 加 </button></div>
+            <div class="col-2" style="text-align:left"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"> 添 加 </button></div>
         </div>
         <div class="row" >
             <br />
@@ -117,17 +117,121 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade" id="exampleModalLong"   tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document" >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle"> 添 加 / 修 改 雪 票</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ...
+            <div class="container" >
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">雪场：</div>
+                    <div class="col-9" style="text-align:left">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                所有的
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">南山</a>
+                                <a class="dropdown-item" href="#">八易</a>
+                                <a class="dropdown-item" href="#">万龙</a>
+                                <a class="dropdown-item" href="#">云顶</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" >
+                    <br />
+                </div>
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">名称：</div>
+                    <div class="col-9" style="text-align:right">
+                        <input class="form-control" type="text" placeholder="Default input">
+                    </div>
+                </div>
+                <div class="row" >
+                    <br />
+                </div>
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">票价：</div>
+                    <div class="col-9" style="text-align:right">
+                        <input class="form-control" type="text" placeholder="Default input">
+                    </div>
+                </div>
+                <div class="row" >
+                    <br />
+                </div>
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">租板鞋：</div>
+                    <div class="col-4" style="text-align:right">
+                        <input class="form-control" type="text" placeholder="Default input" style="width:100px">
+                    </div>
+                    <div class="col-5" >（不填则不可用）</div>
+                </div>
+                <div class="row" >
+                    <br />
+                </div>
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">雪服头盔：</div>
+                    <div class="col-4" style="text-align:right">
+                        <input class="form-control" type="text" placeholder="Default input" style="width:100px">
+                    </div>
+                    <div class="col-5" >（填0则免费）</div>
+                </div>
+                <div class="row" >
+                    <br />
+                </div>
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">上架日期：</div>
+                    <div class="col-9" style="text-align:right">
+                        <input class="form-control" type="text" placeholder="Default input">
+                    </div>
+                </div>
+                <div class="row" >
+                    <br />
+                </div>
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">下架日期：</div>
+                    <div class="col-9" style="text-align:right">
+                        <input class="form-control" type="text" placeholder="Default input">
+                    </div>
+                </div>
+                <div class="row" >
+                    <br />
+                </div>
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">使用时间：</div>
+                    <div class="col-9" style="text-align:right">
+                        <input class="form-control" type="text" placeholder="Default input">
+                    </div>
+                </div>
+                <div class="row"  >
+                    <div class="col-3" style="text-align:right"></div>
+                    <div class="col-9" style="text-align:right">
+                        <font size="1" >e.g. 周六,周日,yyyy-mm-dd--yyyy-mm-dd,yyyy-mm-dd</font>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">库存：</div>
+                    <div class="col-4" style="text-align:right">
+                        <input class="form-control" type="text" placeholder="Default input" style="width:100px">
+                    </div>
+                    <div class="col-5" >无限则不填</div>
+                </div>
+                <div class="row" >
+                    <br />
+                </div>
+                <div class="row" >
+                    <div class="col-3" style="text-align:right">使用规则：</div>
+                    <div class="col-9" style="text-align:right">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
