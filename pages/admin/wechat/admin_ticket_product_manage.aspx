@@ -41,8 +41,8 @@
 <body> 
     <div class="container">
         <div class="row">
-            <div class="col-sm" style="text-align:right">筛选：</div>
-            <div class="col-sm">
+            <div class="col-3" style="text-align:right">筛选：</div>
+            <div class="col-9">
                 <div class="dropdown">
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         所有的
