@@ -64,7 +64,7 @@
                 <div class="card-body">
                     <h5 class="card-title">南山-周末票</h5>
                     <h6 class="card-subtitle mb-2 text-muted">价格：200</h6>
-                    <p class="card-text">上架时间：2019-9-1<br />下架时间：2020-5-1<br />使用时间：周六、周日</p>
+                    <p class="card-text">上架时间：2019-9-1<br />下架时间：2020-5-1<br />使用时间：周六、周日<br />库存：无限制</p>
                     <a href="#" class="card-link">修改</a>
                     <!--a href="#" class="card-link">Another link</a-->
                 </div>
@@ -78,7 +78,7 @@
                 <div class="card-body">
                     <h5 class="card-title">南山-元旦假日票</h5>
                     <h6 class="card-subtitle mb-2 text-muted">价格：200</h6>
-                    <p class="card-text">上架时间：2019-9-1<br />下架时间：2020-5-1<br />使用时间：2019-12-31--2020-1-2</p>
+                    <p class="card-text">上架时间：2019-9-1<br />下架时间：2020-5-1<br />使用时间：2019-12-31--2020-1-2<br />库存：无限制</p>
                     <a href="#" class="card-link">修改</a>
                     <!--a href="#" class="card-link">Another link</a-->
                 </div>
@@ -92,7 +92,7 @@
                 <div class="card-body">
                     <h5 class="card-title">八易-平日票</h5>
                     <h6 class="card-subtitle mb-2 text-muted">价格：200</h6>
-                    <p class="card-text">上架时间：2019-9-1<br />下架时间：2020-5-1<br />使用时间：平日</p>
+                    <p class="card-text">上架时间：2019-9-1<br />下架时间：2020-5-1<br />使用时间：平日<br />库存：无限制</p>
                     <a href="#" class="card-link">修改</a>
                     <!--a href="#" class="card-link">Another link</a-->
                 </div>
@@ -106,7 +106,7 @@
                 <div class="card-body">
                     <h5 class="card-title">万龙-大众比赛票</h5>
                     <h6 class="card-subtitle mb-2 text-muted">价格：200</h6>
-                    <p class="card-text">上架时间：2019-9-1<br />下架时间：2020-5-1<br />使用时间：2019-12-1,2019-12-5</p>
+                    <p class="card-text">上架时间：2019-9-1<br />下架时间：2020-5-1<br />使用时间：2019-12-1,2019-12-5<br />库存：100</p>
                     <a href="#" class="card-link">修改</a>
                     <!--a href="#" class="card-link">Another link</a-->
                 </div>
