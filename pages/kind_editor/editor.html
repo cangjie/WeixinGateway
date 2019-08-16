@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script charset="utf-8" src="kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="lang/zh-CN.js"></script>
+    <script>
+        KindEditor.options.filterMode = false;
+        KindEditor.ready(function(K) {
+            window.editor = K.create('#editor_id', {
+                uploadJson: 'asp.net/upload_json.ashx',
+                fileManagerJson: 'asp.net/file_manager_json.ashx',
+                allowFileManager: true
+            });
+        });
+        function show_html() {
+            alert(window.editor.html());
+            window.editor.html('<a href="http://www.facebook.com" >go abroad</a>')
+        }
+    </script>
+</head>
+<body>
+    <textarea id="editor_id" name="content" style="width:700px;height:300px;">
+        &lt;strong&gt;HTML内容&lt;/strong&gt;
+    </textarea>
+    <input type="button" onclick="show_html()" value="show html" />
+</body>
+</html>
