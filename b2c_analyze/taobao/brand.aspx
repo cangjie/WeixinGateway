@@ -9,8 +9,8 @@
     {
         if (!IsPostBack)
         {
-            //dg.DataSource = GetHtmlData(Core.Brand.GetBrandTable());
-            //dg.DataBind();
+            dg.DataSource = GetHtmlData(Core.Brand.GetBrandTable());
+           dg.DataBind();
         }
     }
 
