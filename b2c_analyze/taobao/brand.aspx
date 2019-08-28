@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" %>
 <%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="Core" %>
 <!DOCTYPE html>
 
 <script runat="server">
