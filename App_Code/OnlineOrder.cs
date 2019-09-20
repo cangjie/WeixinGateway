@@ -226,7 +226,7 @@ public class OnlineOrder
 
     public static void SetOutTrdeNo(int orderId, string outTradeNo)
     {
-        DBHelper.UpdateData("online_order", new string[,] { { "out_trade_no", "varchar", outTradeNo.Trim() } }, 
+        DBHelper.UpdateData("order_online", new string[,] { { "out_trade_no", "varchar", outTradeNo.Trim() } }, 
             new string[,] { { "id", "int", orderId.ToString() } }, Util.conStr.Trim());
     }
 
