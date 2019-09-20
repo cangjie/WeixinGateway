@@ -216,5 +216,57 @@ public class OnlineOrder
             new string[,] { { "id", "int", _fields["id"].ToString().Trim() } }, Util.conStr.Trim());
     }
 
+    public int ID
+    {
+        get
+        {
+            return int.Parse(_fields["id"].ToString().Trim());
+        }
+    }
+
+    public static void SetOutTrdeNo(int orderId, string outTradeNo)
+    {
+        DBHelper.UpdateData("online_order", new string[,] { { "out_trade_no", "varchar", outTradeNo.Trim() } }, 
+            new string[,] { { "id", "int", orderId.ToString() } }, Util.conStr.Trim());
+    }
+
+    public int Refund(double amount, string operOpenId)
+    {
+        int ret = 0;
+        if (int.Parse(_fields["pay_state"].ToString()) != 1)
+        {
+            return 0;
+        }
+        int i = DBHelper.InsertData("order_online_refund", new string[,] {
+            {"order_id", "int", _fields["product_id"].ToString()},
+            {"amount", "float", Math.Round(amount, 2).ToString() },
+            {"oper", "varchar", operOpenId.Trim() }
+        });
+        if (i == 1)
+        {
+            DataTable dt = DBHelper.GetDataTable(" select top 1 * from  order_online_refund where order_id = " + ID.ToString()
+                + " and amount = " + Math.Round(amount, 2).ToString() + "  and oper = '" + operOpenId.Trim() + "'  order by [id] desc");
+            if (dt.Rows.Count == 1)
+            {
+                ret = int.Parse(dt.Rows[0]["id"].ToString());
+            }
+            dt.Dispose();
+
+        }
+        if (ret > 0)
+        {
+            switch (_fields["pay_method"].ToString().Trim())
+            {
+                case "微信":
+                    WeixinPaymentOrder weixinOrder = new WeixinPaymentOrder(_fields["out_trade_no"].ToString().Trim());
+                    weixinOrder.Refund(ret, amount);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return ret;
+    }
+
 
 }

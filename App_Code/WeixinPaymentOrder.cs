@@ -127,6 +127,10 @@ public class WeixinPaymentOrder
         conn.Close();
         cmd.Dispose();
         conn.Dispose();
+        if (i == 1)
+        {
+            OnlineOrder.SetOutTrdeNo(int.Parse(productId), outTradeNo);
+        }
         return i;
     }
 
@@ -182,5 +186,53 @@ public class WeixinPaymentOrder
         }
         return result;
     }
+
+    public int OrderId
+    {
+        get
+        {
+            try
+            {
+                return int.Parse(_fields["order_product_id"].ToString());
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+    }
+
+    public bool Refund(int refundId, double amount)
+    {
+        string appId = System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim();
+        string mchId = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
+        string nonceStr = Util.GetNonceString(10);
+        string queryXmlString = "<xml><appid>" + appId.Trim() + "</appid><mch_id>" + mchId.Trim() + "</mch_id><nonce_str>"
+            + Util.GetNonceString(10) + "</nonce_str><out_trade_no>" + _fields["order_out_trade_no"].ToString().Trim() + "</out_trade_no>"
+            + "<out_refund_no>" + refundId.ToString() + "</out_refund_no>"
+            + "<total_fee>" + _fields["order_total_fee"].ToString() + "</total_fee>"
+            + "<refund_fee>" + Math.Round(amount * 100, 0) + "</refund_fee>"
+            + "</xml>";
+
+        XmlDocument xmlD = new XmlDocument();
+        xmlD.LoadXml(queryXmlString);
+        string stringWillBeEcrypt = "";
+        foreach (XmlNode n in xmlD.SelectSingleNode("//xml").ChildNodes)
+        {
+            stringWillBeEcrypt = stringWillBeEcrypt + "&"
+                + n.Name.Trim() + "=" + n.InnerText.Trim();
+        }
+        if (stringWillBeEcrypt.StartsWith("&"))
+            stringWillBeEcrypt = stringWillBeEcrypt.Remove(0, 1);
+        string sign = Util.GetMd5Sign(stringWillBeEcrypt, "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0");
+        XmlNode signNode = xmlD.CreateNode(XmlNodeType.Element, "sign", "");
+        signNode.InnerText = sign.ToUpper().Trim();
+        xmlD.SelectSingleNode("//xml").AppendChild(signNode);
+        string resultStr = Util.GetWebContent("https://payapi.mch.weixin.semoor.cn/4.0/secapi/pay/refund", "POST", xmlD.InnerXml, "html/xml");
+
+
+        return false;
+    }
+
 
 }

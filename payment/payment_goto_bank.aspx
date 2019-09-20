@@ -53,7 +53,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        string no = Util.GetSafeRequestValue(Request, "no", "");
+        string no = Util.GetSafeRequestValue(Request, "no", "1568867570004715");
         WeixinPaymentOrder payOrder = new WeixinPaymentOrder(no.Trim());
         string jsApi = payOrder._fields["order_prepay_id"].ToString().Trim();
 
@@ -73,7 +73,9 @@
 
         payOrder.Status = 1;
 
-        callBackUrl = (Request["callback"] == null) ? "" : Request["callback"].Trim();
+
+        //callBackUrl = (Request["callback"] == null) ? "" : Request["callback"].Trim();
+        callBackUrl = Util.GetSafeRequestValue(Request, "callback", "payment_get_result.aspx%3ftoken%3d%26orderid%3d4715%26paymethod%3dwechat").Trim();
         callBackUrl = Server.UrlDecode(callBackUrl);
     }
 </script>

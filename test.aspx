@@ -12,9 +12,11 @@
         //Response.Write(System.Text.Encoding.UTF8.ToString());
         //System.Text.Encoding.GetEncoding("UTF-8");
 
-        string ret = QrCode.GetStaticQrCode("shop_sale_charge_request_openid_oZBHkjhdFpC5ScK5FUU7HKXE3PJM", "images\\qrcode");
-        Response.Write(ret.Trim());
+        //string ret = QrCode.GetStaticQrCode("shop_sale_charge_request_openid_oZBHkjhdFpC5ScK5FUU7HKXE3PJM", "images\\qrcode");
+        //Response.Write(ret.Trim());
 
+        WeixinPaymentOrder weixinOrder = new WeixinPaymentOrder("1568870666004717");
+        weixinOrder.Refund(1, 0.05);
 
         //ReceivedMessage rec = new ReceivedMessage("event_20190102154904968");
         //RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
