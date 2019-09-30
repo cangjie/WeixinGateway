@@ -259,7 +259,7 @@ public class OnlineOrder
             {
                 case "微信":
                     WeixinPaymentOrder weixinOrder = new WeixinPaymentOrder(_fields["out_trade_no"].ToString().Trim());
-                    weixinOrder.Refund(ret, amount);
+                    weixinOrder.Refund(amount);
                     break;
                 default:
                     break;

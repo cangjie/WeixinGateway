@@ -529,6 +529,19 @@ public class Util
         return Convert.ToInt64(ts.TotalSeconds).ToString();
     }
 
+    public static string GetTimeStamp(DateTime currentDateTime)
+    {
+        TimeSpan ts = currentDateTime - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        return Convert.ToInt64(ts.TotalSeconds).ToString();
+    }
+
+    public static string GetServerLocalTimeStamp()
+    {
+        return GetTimeStamp(DateTime.Now);
+    }
+    
+
+
     public static string GetInviteCode(string openId)
     {
         DateTime nowDateTime = DateTime.Now;

@@ -202,8 +202,27 @@ public class WeixinPaymentOrder
         }
     }
 
-    public bool Refund(int refundId, double amount)
+    public bool Refund(double amount)
     {
+        int refundId = 0;
+        DBHelper.InsertData("weixin_payment_orders_refund",
+            new string[,] { { "out_trade_no", "bigint", _fields["order_out_trade_no"].ToString() } });
+
+        DataTable dtMaxId = DBHelper.GetDataTable(" select max(id) from weixin_payment_orders_refund");
+        if (dtMaxId.Rows.Count == 0)
+        {
+            dtMaxId.Dispose();
+            return false;
+        }
+        else
+        {
+            refundId = int.Parse(dtMaxId.Rows[0][0].ToString().Trim());
+            dtMaxId.Dispose();
+        }
+        DBHelper.UpdateData("weixin_payment_orders", new string[,] { { "has_refund", "int", "1" } },
+            new string[,] { { "order_out_trade_no", "bigint", _fields["order_out_trade_no"].ToString() } }, Util.conStr.Trim());
+
+
         string appId = System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim();
         string mchId = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
         string nonceStr = Util.GetNonceString(10);
@@ -229,9 +248,23 @@ public class WeixinPaymentOrder
         signNode.InnerText = sign.ToUpper().Trim();
         xmlD.SelectSingleNode("//xml").AppendChild(signNode);
         string resultStr = Util.GetWebContent("https://payapi.mch.weixin.semoor.cn/4.0/secapi/pay/refund", "POST", xmlD.InnerXml, "html/xml");
-
-
-        return false;
+        bool ret = false;
+        XmlDocument xmlResult = new XmlDocument();
+        xmlResult.LoadXml(resultStr);
+        if (xmlResult.SelectSingleNode("//xml/result_code") != null && xmlResult.SelectSingleNode("//xml/return_code") != null
+            && xmlResult.SelectSingleNode("//xml/return_msg") != null)
+        {
+            if (xmlResult.SelectSingleNode("//xml/result_code").InnerText.Trim().ToUpper().Equals("SUCCESS")
+                && xmlResult.SelectSingleNode("//xml/return_code").InnerText.Trim().ToUpper().Equals("SUCCESS")
+                && xmlResult.SelectSingleNode("//xml/return_msg").InnerText.Trim().ToUpper().Equals("OK"))
+            {
+                ret = true;
+            }
+        }
+        DBHelper.UpdateData("weixin_payment_orders_refund", 
+            new string[,] { { "result", "varchar", resultStr.Trim()}, {"success", "int", (ret? "1":"0") } },
+            new string[,] { { "id", "int", refundId.ToString() } }, Util.conStr.Trim());
+        return ret;
     }
 
 

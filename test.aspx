@@ -9,6 +9,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+        Response.Write(DateTime.Now.ToString());
+        /*
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=1569386461");
         HttpWebResponse res = (HttpWebResponse)req.GetResponse();
         Stream s = res.GetResponseStream();
@@ -21,7 +23,7 @@
         ThoughtWorks.QRCode.Codec.QRCodeDecoder decoder = new ThoughtWorks.QRCode.Codec.QRCodeDecoder();
         string qrUrl = decoder.decode(qrBmp);
         Response.Write(qrUrl);
-
+        */
         //Core.Util.SetSnapFailed("https://s.taobao.com/search?q=capita", DateTime.Now.Date);
         //Response.Write(System.Text.Encoding.UTF8.ToString());
         //System.Text.Encoding.GetEncoding("UTF-8");
@@ -29,8 +31,8 @@
         //string ret = QrCode.GetStaticQrCode("shop_sale_charge_request_openid_oZBHkjhdFpC5ScK5FUU7HKXE3PJM", "images\\qrcode");
         //Response.Write(ret.Trim());
 
-        //WeixinPaymentOrder weixinOrder = new WeixinPaymentOrder("1568988121004718");
-        //weixinOrder.Refund(1, 0.05);
+        //WeixinPaymentOrder weixinOrder = new WeixinPaymentOrder("1569564613004720");
+        //weixinOrder.Refund(0.01);
 
         //ReceivedMessage rec = new ReceivedMessage("event_20190102154904968");
         //RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
