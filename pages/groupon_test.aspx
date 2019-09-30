@@ -13,9 +13,9 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" >
-        var start_time_string = "2019-9-30 23:00:00".replace(/-/g,'/');
+        var start_time_string = "2019-9-30 16:00:00".replace(/-/g,'/');
         var start_time = Date.parse(start_time_string)/1000;
-        var current_time = <%=Util.GetServerLocalTimeStamp()%>;
+        var current_time = <%=Util.GetTimeStamp()%>;
 
         function syn_time() {
             $.ajax({
