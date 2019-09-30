@@ -3,6 +3,6 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write("{ \"timestamp\": " + Util.GetTimeStamp().ToString() + ", \"utc_time\" :\"" + DateTime.UtcNow.ToString() + "\" }");
+        Response.Write("{ \"timestamp\": " + Util.GetServerLocalTimeStamp().ToString() + ", \"utc_time\" :\"" + DateTime.UtcNow.ToString() + "\" }");
     }
 </script>
