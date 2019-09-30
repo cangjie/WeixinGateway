@@ -13,7 +13,7 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" >
-        var start_time_string = "2019-9-30 14:50:00".replace(/-/g,'/');
+        var start_time_string = "2019-9-30 15:00:00".replace(/-/g,'/');
         var start_time = Date.parse(start_time_string)/1000;
         var current_time = <%=Util.GetServerLocalTimeStamp()%>;
 
@@ -55,6 +55,11 @@
     <div id="show_seconds">
     
     </div>秒
+
+        <br />
+        <script type="text/javascript" >
+            document.write(start_time.toString() + "<br/>" + current_time.toString());
+        </script>
     </form>
 </body>
 </html>
