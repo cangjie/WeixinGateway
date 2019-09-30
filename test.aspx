@@ -9,7 +9,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(DateTime.Now.ToString());
+        //Response.Write(DateTime.Now.ToString());
         /*
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=1569386461");
         HttpWebResponse res = (HttpWebResponse)req.GetResponse();
@@ -46,11 +46,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <script type="text/javascript" >
+        var start_time_string = "2019-9-30 14:10:00".replace(/-/g,'/');
+        var start_time = Date.parse(start_time_string)/1000;
+        var current_time = <%=Util.GetServerLocalTimeStamp()%>;
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>taobao cookie: <%=Core.TaobaoSnap.taobaoCookie.Trim() %></div>
-    <div>tmall cookie: <%=Core.TaobaoSnap.tmallCookie.Trim() %></div>
+    <div>
+        <script type="text/javascript" >
+            document.write(start_time.toString() + '<br/>' + current_time.toString());
+        </script>
+    </div>
     </form>
 </body>
 </html>
