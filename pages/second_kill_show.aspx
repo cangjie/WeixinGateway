@@ -144,7 +144,7 @@
         syn_time();
         display_seconds();
         var syn_time_handle = setInterval("syn_time()", 100000);
-        var display_time_handle = setInterval("display_seconds()", 1000);
+        var display_time_handle = setInterval("display_seconds()", 10000);
 
     </script>
 </body>
