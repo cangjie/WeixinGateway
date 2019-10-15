@@ -21,11 +21,11 @@ public class BitmapImage
     }
 
 
-    public static MemoryStream ImageCheck()
+    public static MemoryStream ImageCheck(string checkCode)
     {
         Random random = new Random();
         //随机产生4位随机数
-        string checkCode = random.Next(1000, 9999).ToString();
+        //string checkCode = random.Next(1000, 9999).ToString();
         //Bitmap是用来指定初始化时文本的大小
         Bitmap image = new Bitmap((int)Math.Ceiling((checkCode.Length * 20.5)), 22);
         Graphics g = Graphics.FromImage(image);

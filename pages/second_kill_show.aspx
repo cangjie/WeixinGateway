@@ -76,15 +76,15 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">输入验证码</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">...</div>
+                <div class="modal-body" style="align-self:center"><input id="verify_code" style="width:75px" /> <img src="/show_image_verify_code" /></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</!--butto-->
+                    <button type="button" class="btn btn-warning"> 验证码输入无误，开始秒杀！</button>
                 </div>
             </div>
         </div>
