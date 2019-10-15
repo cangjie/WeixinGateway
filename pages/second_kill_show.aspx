@@ -59,6 +59,8 @@
                 <br />
                 <center>商品大图</center>
             </div>
+        </div>
+        <div class="row">
             <div class="col" >
                 秒杀价格：<%=Math.Round(secondKillItem.killingPrice,2).ToString() %>元 
                 活动价格：<%=Math.Round(secondKillItem.activityPrice, 2).ToString() %>元 
