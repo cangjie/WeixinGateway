@@ -18,6 +18,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        /*
         string currentPageUrl = Request.Url.ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -30,7 +31,7 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
-
+        */
 
         id = int.Parse(Util.GetSafeRequestValue(Request, "id", "64"));
         bool existsInMemory = true;
@@ -101,7 +102,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" style="align-self:center"><input id="verify_code" style="width:75px" /> <img src="/show_image_verify_code.aspx" /></div>
+                <div class="modal-body" style="align-self:center"><input id="verify_code" style="width:75px" /> <img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" /></div>
                 <div class="modal-footer">
                     <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</!--butto-->
                     <button type="button" class="btn btn-warning"> 验证码输入无误，开始秒杀！</button>
@@ -109,5 +110,12 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" >
+        function refresh_veri_code() {
+            var code_image = document.getElementById("img-veri-code");
+            code_image.src = "/show_image_verify_code.aspx?rnd=" + Math.random().toString();
+            //alert("aa");
+        }
+    </script>
 </body>
 </html>
