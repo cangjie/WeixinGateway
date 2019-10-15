@@ -144,7 +144,7 @@ public class OnlineOrder
     {
         get
         {
-            if (Type.Trim().Equals("雪票") || Type.Trim().Equals("打赏"))
+            if (Type.Trim().Equals("雪票") || Type.Trim().Equals("打赏") || Type.Trim().Equals("秒杀"))
             {
                 double price = 0;
                 foreach (OnlineOrderDetail detail in OrderDetails)
@@ -233,12 +233,13 @@ public class OnlineOrder
     public int Refund(double amount, string operOpenId)
     {
         int ret = 0;
+        bool result = false;
         if (int.Parse(_fields["pay_state"].ToString()) != 1)
         {
             return 0;
         }
         int i = DBHelper.InsertData("order_online_refund", new string[,] {
-            {"order_id", "int", _fields["product_id"].ToString()},
+            {"order_id", "int", _fields["id"].ToString()},
             {"amount", "float", Math.Round(amount, 2).ToString() },
             {"oper", "varchar", operOpenId.Trim() }
         });
@@ -259,11 +260,17 @@ public class OnlineOrder
             {
                 case "微信":
                     WeixinPaymentOrder weixinOrder = new WeixinPaymentOrder(_fields["out_trade_no"].ToString().Trim());
-                    weixinOrder.Refund(amount);
+                    result = weixinOrder.Refund(amount);
+           
                     break;
                 default:
                     break;
             }
+        }
+        if (result)
+        {
+            DBHelper.UpdateData("order_online_refund", new string[,] { {"status", "int", "1" } },
+                new string[,] { {"id", "int", ret.ToString() } }, Util.conStr);
         }
         return ret;
     }

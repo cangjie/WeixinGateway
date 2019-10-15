@@ -9,6 +9,40 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        
+        int id = 64;
+        string activityHandleString = "second_kill_" + id.ToString();
+
+        //Step 1
+        /*
+        SecondKill sk1 = new SecondKill(id);
+        Application.Lock();
+        Application[activityHandleString] = sk1;
+        Application.UnLock();
+        */
+        //Step2
+        SecondKill sk2 = (SecondKill)Application[activityHandleString];
+        Application.Lock();
+        sk2.Kill("abcd");
+        Application[activityHandleString] = sk2;
+        Application.UnLock();
+
+        //Step3
+        SecondKill sk3 = (SecondKill)Application[activityHandleString];
+        int orderId = sk3.PlaceOnlineSecondKillOrder("abcd");
+
+
+
+        /*
+        DateTime currentTime = DateTime.Now;
+        Response.Write(currentTime.ToString()+"<br/>");
+        Response.Write("ToLocalTime:" + currentTime.ToLocalTime().ToString() + "<br/>");
+        Response.Write("ToUniversalTime:" + currentTime.ToUniversalTime().ToString() + "<br/>");
+        Response.Write(Util.GetTimeStamp(currentTime));
+        */
+        //OnlineOrder order = new OnlineOrder(4722);
+        //order.Refund(0.01, "asdfasdfasdf");
         //Response.Write(DateTime.Now.ToString());
         /*
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=1569386461");
