@@ -18,7 +18,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        /*
+        
         string currentPageUrl = Request.Url.ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -31,7 +31,7 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
-        */
+        
 
         id = int.Parse(Util.GetSafeRequestValue(Request, "id", "64"));
         bool existsInMemory = true;
@@ -75,6 +75,7 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
 </head>
 <body>
     <div class="container" >
@@ -89,7 +90,7 @@
                 秒杀价格：<%=Math.Round(secondKillItem.killingPrice,2).ToString() %>元 
                 活动价格：<%=Math.Round(secondKillItem.activityPrice, 2).ToString() %>元 
                 <br />开始时间：<%=startTime.Year.ToString() %>年<%=startTime.Month.ToString() %>月<%=startTime.Day.ToString() %>日 <%=startTime.Hour.ToString() %>:<%=startTime.Minute.ToString() %>
-                <span id="second_num" >还剩秒</span>  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter"> 点 击 秒 杀 </button>
+                <span id="second_num" >还剩秒</span>  <button id="button-kill" type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter"> 点 击 秒 杀 </button>
             </div>
         </div>
     </div>
@@ -102,10 +103,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" style="align-self:center"><input id="verify_code" style="width:75px" /> <img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" />(看不清，请点击图片)</div>
+                <div class="modal-body" style="align-self:center">
+                    <input id="verify_code" style="width:75px" /> 
+                    <img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" />(看不清，请点击图片)
+                    <br /><span id="msg_span" style="color:red"  ></span>
+                </div>
                 <div class="modal-footer">
                     <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</!--butto-->
-                    <button type="button" class="btn btn-warning"> 验证码输入无误，开始秒杀！</button>
+                    <button type="button" class="btn btn-warning" onclick="second_kill()"> 验证码输入无误，开始秒杀！</button>
                 </div>
             </div>
         </div>
@@ -137,15 +142,19 @@
             });
         }
         function display_seconds() {
+            var button = document.getElementById("button-kill");
             var div = document.getElementById("second_num");
             if (last_seconds > 0) {
+                button.attributes["data-target"].value = "#";
                 div.innerHTML = "还剩 " + last_seconds.toString() + " 秒";
             }
             else if (last_seconds == 0) {
                 div.innerHTML = "正在和服务器同步时间。。。";
             }
             else {
+                button.enabled = true;
                 div.innerHTML = "已经开始！";
+                button.attributes["data-target"].value = "#exampleModalCenter";
                 clearInterval(display_time_handle);
             }
         }
@@ -161,6 +170,29 @@
         display_seconds();
         var syn_time_handle = setInterval("syn_time()", 100000);
         var display_time_handle = 0;//setInterval("count_seconds()", 1000);
+
+        function second_kill() {
+            var ajax_url = "/api/place_second_kill_order.aspx?token=<%=userToken.Trim()%>&vcode=" + document.getElementById("verify_code").value;
+            $.ajax({
+                url: ajax_url,
+                type: "GET",
+                success: function (msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    if (msg_object.success == 0) {
+                        document.getElementById("msg_span").innerText = msg_object.error_message;
+                    }
+                    else {
+                        if (msg_object.result == 0) {
+                            alert("秒杀失败。");
+                        }
+                        else {
+                            alert("秒杀成功。");
+                        }
+                    }
+                }
+                
+            });
+        }
 
     </script>
 </body>

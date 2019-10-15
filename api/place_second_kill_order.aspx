@@ -6,11 +6,17 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string token = Util.GetSafeRequestValue(Request, "token", "");
+        string verifyCode = Util.GetSafeRequestValue(Request, "vcode", "7777");
+        if (Session["check_code"] == null || !Session["check_code"].ToString().Trim().Equals(verifyCode.Trim()))
+        {
+            Response.Write("{\"success\": 0, \"error_message\": \"验证码错误。\" }");
+            Response.End();
+        }
         int productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "64"));
         string openId = WeixinUser.CheckToken(token);
         if (openId.Trim().Equals(""))
         {
-            Response.Write("{\"token-is-valid\": 0}");
+            Response.Write("{\"success\": 0, \"error_message\": \"Token非法。\" }");
             Response.End();
         }
 
@@ -43,7 +49,7 @@
         DateTime currentTime = DateTime.Now;
         if (currentTime < activity.activityStartTime || currentTime > activity.activityEndTime)
         {
-            Response.Write("{\"token-is-valid\": 0, \"on-time\": 0}");
+            Response.Write("{\"success\": 0, \"error_message\": \"秒杀未开始。\" }");
             Response.End();
         }
         Application.Lock();
@@ -57,6 +63,6 @@
 
 
 
-        Response.Write("{\"token-is-valid\": 0, \"on-time\": 0, \"result\": " + (result? "1":"0") + "}");
+        Response.Write("{\"success\": 1, \"result\": " + (result? "1":"0") + "}");
     }
 </script>
