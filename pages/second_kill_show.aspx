@@ -124,6 +124,15 @@
                     var msg_object = eval("(" + msg + ")");
                     current_time = parseInt(msg_object.timestamp);
                     last_seconds = start_time - current_time;
+                    display_seconds();
+                    if (display_time_handle == 0) {
+                        display_time_handle = setInterval("count_seconds()", 1000);
+                    }
+                    else {
+                        clearInterval(display_time_handle);
+                        display_time_handle = setInterval("count_seconds()", 1000);
+                    }
+
                 }
             });
         }
@@ -132,10 +141,17 @@
             if (last_seconds > 0) {
                 div.innerHTML = "还剩 " + last_seconds.toString() + " 秒";
             }
+            else if (last_seconds == 0) {
+                div.innerHTML = "正在和服务器同步时间。。。";
+            }
             else {
                 div.innerHTML = "已经开始！";
+                clearInterval(display_time_handle);
             }
+        }
+        function count_seconds() {
             last_seconds--;
+            display_seconds();
         }
         var start_time_string = "<%=startTime.Year.ToString()%>-<%=startTime.Month.ToString()%>-<%=startTime.Day.ToString() %> <%=startTime.Hour.ToString()%>:<%=startTime.Minute.ToString()%>:00".replace(/-/g,'/');
         var start_time = Date.parse(start_time_string)/1000;
@@ -144,7 +160,7 @@
         syn_time();
         display_seconds();
         var syn_time_handle = setInterval("syn_time()", 100000);
-        var display_time_handle = setInterval("display_seconds()", 10000);
+        var display_time_handle = 0;//setInterval("count_seconds()", 1000);
 
     </script>
 </body>
