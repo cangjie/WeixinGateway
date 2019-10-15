@@ -64,7 +64,8 @@
             <div class="col" >
                 秒杀价格：<%=Math.Round(secondKillItem.killingPrice,2).ToString() %>元 
                 活动价格：<%=Math.Round(secondKillItem.activityPrice, 2).ToString() %>元 
-                开始时间：<%=secondKillItem.activityStartTime.ToString() %>
+                <br\ />开始时间：<%=secondKillItem.activityStartTime.ToString() %>
+                还剩 <span id="second_num" > 23 </span> 秒 <button type="button" class="btn btn-warning"> 点 击 秒 杀 </button>
             </div>
         </div>
     </div>
