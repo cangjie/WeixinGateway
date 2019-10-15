@@ -89,7 +89,7 @@
                 秒杀价格：<%=Math.Round(secondKillItem.killingPrice,2).ToString() %>元 
                 活动价格：<%=Math.Round(secondKillItem.activityPrice, 2).ToString() %>元 
                 <br />开始时间：<%=startTime.Year.ToString() %>年<%=startTime.Month.ToString() %>月<%=startTime.Day.ToString() %>日 <%=startTime.Hour.ToString() %>:<%=startTime.Minute.ToString() %>
-                还剩 <span id="second_num" > 23 </span> 秒 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter"> 点 击 秒 杀 </button>
+                <span id="second_num" >还剩秒</span>  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter"> 点 击 秒 杀 </button>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" style="align-self:center"><input id="verify_code" style="width:75px" /> <img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" /></div>
+                <div class="modal-body" style="align-self:center"><input id="verify_code" style="width:75px" /> <img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" />(看不清，请点击图片)</div>
                 <div class="modal-footer">
                     <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</!--butto-->
                     <button type="button" class="btn btn-warning"> 验证码输入无误，开始秒杀！</button>
@@ -116,6 +116,36 @@
             code_image.src = "/show_image_verify_code.aspx?rnd=" + Math.random().toString();
             //alert("aa");
         }
+        function syn_time() {
+            $.ajax({
+                url: "/api/get_server_time_stamp.aspx",
+                type: "GET",
+                success: function (msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    current_time = parseInt(msg_object.timestamp);
+                    last_seconds = start_time - current_time;
+                }
+            });
+        }
+        function display_seconds() {
+            var div = document.getElementById("second_num");
+            if (last_seconds > 0) {
+                div.innerHTML = "还剩 " + last_seconds.toString() + " 秒";
+            }
+            else {
+                div.innerHTML = "已经开始！";
+            }
+            last_seconds--;
+        }
+        var start_time_string = "<%=startTime.Year.ToString()%>-<%=startTime.Month.ToString()%>-<%=startTime.Day.ToString() %> <%=startTime.Hour.ToString()%>:<%=startTime.Minute.ToString()%>:00".replace(/-/g,'/');
+        var start_time = Date.parse(start_time_string)/1000;
+        var current_time = 0;
+        var last_seconds = 0;
+        syn_time();
+        display_seconds();
+        var syn_time_handle = setInterval("syn_time()", 100000);
+        var display_time_handle = setInterval("display_seconds()", 1000);
+
     </script>
 </body>
 </html>
