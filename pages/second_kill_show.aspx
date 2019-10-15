@@ -68,7 +68,7 @@
                 秒杀价格：<%=Math.Round(secondKillItem.killingPrice,2).ToString() %>元 
                 活动价格：<%=Math.Round(secondKillItem.activityPrice, 2).ToString() %>元 
                 <br />开始时间：<%=startTime.Year.ToString() %>年<%=startTime.Month.ToString() %>月<%=startTime.Day.ToString() %>日 <%=startTime.Hour.ToString() %>:<%=startTime.Minute.ToString() %>
-                还剩 <span id="second_num" > 23 </span> 秒 <button type="button" class="btn btn-warning" data-target="#exampleModalCenter"> 点 击 秒 杀 </button>
+                还剩 <span id="second_num" > 23 </span> 秒 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter"> 点 击 秒 杀 </button>
             </div>
         </div>
     </div>
