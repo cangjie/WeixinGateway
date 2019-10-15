@@ -8,6 +8,8 @@
 
     public int id;
 
+    public DateTime startTime;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         id = int.Parse(Util.GetSafeRequestValue(Request, "id", "64"));
@@ -35,6 +37,7 @@
             Application[applicationHandle] = secondKillItem;
             Application.UnLock();
         }
+        startTime = secondKillItem.activityStartTime;
     }
 </script>
 
@@ -64,8 +67,25 @@
             <div class="col" >
                 秒杀价格：<%=Math.Round(secondKillItem.killingPrice,2).ToString() %>元 
                 活动价格：<%=Math.Round(secondKillItem.activityPrice, 2).ToString() %>元 
-                <br\ />开始时间：<%=secondKillItem.activityStartTime.ToString() %>
-                还剩 <span id="second_num" > 23 </span> 秒 <button type="button" class="btn btn-warning"> 点 击 秒 杀 </button>
+                <br />开始时间：<%=startTime.Year.ToString() %>年<%=startTime.Month.ToString() %>月<%=startTime.Day.ToString() %>日 <%=startTime.Hour.ToString() %>:<%=startTime.Minute.ToString() %>
+                还剩 <span id="second_num" > 23 </span> 秒 <button type="button" class="btn btn-warning" data-target="#exampleModalCenter"> 点 击 秒 杀 </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">...</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
