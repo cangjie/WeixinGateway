@@ -110,7 +110,7 @@ public class SecondKill
         }
         else
         {
-            return -2;
+            
         }
         if (!overOrdered)
         {
@@ -123,11 +123,19 @@ public class SecondKill
                 }
                 else
                 {
-                    return -1;
+                    //return -1;
                 }
             }
         }
         dt.Dispose();
+        if (overOrdered)
+        {
+            return -2;
+        }
+        if (hasOrdered)
+        {
+            return -1;
+        }
         if (!overOrdered && !hasOrdered)
         {
             OnlineOrder order = new OnlineOrder();
