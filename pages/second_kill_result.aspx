@@ -69,9 +69,13 @@
         if (success)
         {
             int orderId = secondKillItem.PlaceOnlineSecondKillOrder(openId);
-            if (orderId >= 0)
+            if (orderId > 0)
             {
                 Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString().Trim());
+            }
+            else
+            {
+
             }
         }
     }
@@ -84,7 +88,8 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
+        Token=<%=userToken.Trim() %><br />
+        OpenId=<%=openId.Trim() %>
     </div>
     </form>
 </body>
