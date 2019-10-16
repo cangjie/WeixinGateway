@@ -168,9 +168,21 @@ public class SecondKill
                         hasOrdered = true;
                         break;
                     }
+                    else
+                    {
+                        return -1;
+                    }
                 }
             }
             dt.Dispose();
+            if (overOrdered)
+            {
+                return -2;
+            }
+        }
+        else
+        {
+            return -3;
         }
         if (existsInCache && !hasOrdered && !overOrdered)
         {

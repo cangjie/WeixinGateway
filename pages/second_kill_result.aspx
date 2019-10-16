@@ -16,6 +16,8 @@
 
     public bool success = false;
 
+    public int orderId = 0;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         string currentPageUrl = Request.Url.ToString();
@@ -68,7 +70,7 @@
         }
         if (success)
         {
-            int orderId = secondKillItem.PlaceOnlineSecondKillOrder(openId);
+            orderId = secondKillItem.PlaceOnlineSecondKillOrder(openId);
             if (orderId > 0)
             {
                 Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString().Trim());
@@ -89,7 +91,8 @@
     <form id="form1" runat="server">
     <div>
         Token=<%=userToken.Trim() %><br />
-        OpenId=<%=openId.Trim() %>
+        OpenId=<%=openId.Trim() %><br />
+        OrderId=<%=orderId %>
     </div>
     </form>
 </body>
