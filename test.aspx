@@ -9,7 +9,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        SecondKill sk1 = new SecondKill(64);
+        sk1.PlaceOnlineOrder("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
         
         int id = 64;
         string activityHandleString = "second_kill_" + id.ToString();

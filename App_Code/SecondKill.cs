@@ -103,7 +103,7 @@ public class SecondKill
         bool hasOrdered = false;
         bool overOrdered = false;
         DataTable dt = DBHelper.GetDataTable(" select * from order_online_detail left join order_online on order_online.[id] = order_online_detail.order_online_id "
-                + " where product_id = " + id.ToString() + " ");
+                + " where  pay_state <> -1 and product_id = " + id.ToString() + " ");
         if (dt.Rows.Count >= inStockNum)
         {
             overOrdered = true;
