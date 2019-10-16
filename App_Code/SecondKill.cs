@@ -153,7 +153,7 @@ public class SecondKill
         if (existsInCache)
         {
             DataTable dt = DBHelper.GetDataTable(" select * from order_online_detail left join order_online on order_online.[id] = order_online_detail.order_online_id "
-                + " where product_id = " + id.ToString() + " ");
+                + " where product_id = " + id.ToString() + " and open_id = '" + openId.Trim() + "' ");
             if (dt.Rows.Count >= killNum)
             {
                 //hasOrdered = true;
