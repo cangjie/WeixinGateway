@@ -187,6 +187,7 @@
                         }
                         else {
                             alert("秒杀成功。");
+                            window.location.href = "second_kill_result.aspx";
                         }
                     }
                 }
