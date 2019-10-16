@@ -61,8 +61,10 @@
         }
         SecondKill.SecondKillRecord[] skrArr = secondKillItem.secondKillRecordList.ToArray();
         SecondKill.SecondKillRecord myRecord;
-        foreach (SecondKill.SecondKillRecord skr in skrArr)
+        //foreach (SecondKill.SecondKillRecord skr in skrArr)
+        for(int i = 0; i < skrArr.Length; i++)
         {
+            SecondKill.SecondKillRecord skr = skrArr[i];
             if (skr.openId.Trim().Equals(openId.Trim()))
             {
                 success = true;
@@ -78,7 +80,22 @@
                 Application.Lock();
                 myRecord.orderId = orderId;
                 Application.UnLock();
-                Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString().Trim()+"&callback=" + Server.UrlEncode("/pages/second_kill_order_list.aspx"));
+                Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString().Trim() + "&callback=" + Server.UrlEncode("/pages/second_kill_order_list.aspx"));
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+            orderId = secondKillItem.PlaceOnlineOrder(openId);
+            if (orderId > 0)
+            {
+                Application.Lock();
+                myRecord.orderId = orderId;
+                Application.UnLock();
+                Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString().Trim() + "&callback=" + Server.UrlEncode("/pages/second_kill_order_list.aspx"));
             }
             else
             {

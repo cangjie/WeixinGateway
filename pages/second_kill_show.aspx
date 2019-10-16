@@ -183,7 +183,13 @@
                     }
                     else {
                         if (msg_object.result == 0) {
-                            alert("秒杀失败。");
+                            var r = confirm("手慢了，是否以活动价格<%=Math.Round(secondKillItem.activityPrice, 2).ToString()%>元购买此商品？");
+                            if (r) {
+                                window.location.href = "second_kill_result.aspx";
+                            }
+                            else {
+                                window.reload();
+                            }
                         }
                         else {
                             alert("秒杀成功。");

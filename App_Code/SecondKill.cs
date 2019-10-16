@@ -108,6 +108,10 @@ public class SecondKill
         {
             overOrdered = true;
         }
+        else
+        {
+            return -2;
+        }
         if (!overOrdered)
         {
             foreach (DataRow dr in dt.Rows)
@@ -116,6 +120,10 @@ public class SecondKill
                 {
                     hasOrdered = true;
                     break;
+                }
+                else
+                {
+                    return -1;
                 }
             }
         }
