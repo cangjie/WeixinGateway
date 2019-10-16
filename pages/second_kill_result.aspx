@@ -73,7 +73,7 @@
             orderId = secondKillItem.PlaceOnlineSecondKillOrder(openId);
             if (orderId > 0)
             {
-                Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString().Trim());
+                Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString().Trim()+"&callback=" + Server.UrlEncode("/pages/second_kill_order_list.aspx"));
             }
             else
             {
