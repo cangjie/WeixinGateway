@@ -111,7 +111,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">校验码：</p></div>
-                <div class="col-xs-8" ><input type="text" id="img_verify_code"  style="width:150px" /><img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" />(看不清，请点击图片)</div>
+                <div class="col-xs-8" ><input type="text" id="img_verify_code"  style="width:50px" /><img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" />(看不清，请点击图片)</div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">验证码：</p></div>
