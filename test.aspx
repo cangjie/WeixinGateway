@@ -9,32 +9,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        SecondKill sk1 = new SecondKill(64);
-        sk1.PlaceOnlineOrder("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
-        
-        int id = 64;
-        string activityHandleString = "second_kill_" + id.ToString();
-
-        //Step 1
-        /*
-        SecondKill sk1 = new SecondKill(id);
-        Application.Lock();
-        Application[activityHandleString] = sk1;
-        Application.UnLock();
-        */
-        //Step2
-        SecondKill sk2 = (SecondKill)Application[activityHandleString];
-        Application.Lock();
-        sk2.Kill("abcd");
-        Application[activityHandleString] = sk2;
-        Application.UnLock();
-
-        //Step3
-        SecondKill sk3 = (SecondKill)Application[activityHandleString];
-        int orderId = sk3.PlaceOnlineSecondKillOrder("abcd");
-
-
-
+        Sms.SendVerifiedSms("13501177897");
         /*
         DateTime currentTime = DateTime.Now;
         Response.Write(currentTime.ToString()+"<br/>");

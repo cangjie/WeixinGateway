@@ -110,6 +110,10 @@
                     <button id="btn_get_verify_code"  type="button"  onclick="send_validate_sms_button_on_click()" class="btn btn-xs btn-primary">获取验证码</button></div>
             </div>
             <div class="row" >
+                <div class="col-xs-4" ><p class="text-right">校验码：</p></div>
+                <div class="col-xs-8" ><input type="text" id="img_verify_code"  style="width:150px" /><img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" />(看不清，请点击图片)</div>
+            </div>
+            <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">验证码：</p></div>
                 <div class="col-xs-8" ><input type="text" id="verify_code"  style="width:150px" /></div>
             </div>
@@ -122,6 +126,13 @@
             </div>
         </div>
     <script type="text/javascript" >
+
+        function refresh_veri_code() {
+            var code_image = document.getElementById("img-veri-code");
+            code_image.src = "/show_image_verify_code.aspx?rnd=" + Math.random().toString();
+            //alert("aa");
+        }
+
         var sendValidateSmsButton = document.getElementById("send_validate_sms_button");
 
         var last_send_verify_code_seconds = 60;
@@ -134,10 +145,10 @@
             btnGetVerifyCode.disabled = true;
             var int = setInterval("reset_send_verify_code_button_text()", 1000);
             var cell = document.getElementById("cell_number").value;
-            
+            var vcode = document.getElementById("img_verify_code").value.trim();
             $.ajax({
                 url: "../api/verify_code_send.aspx",
-                data:{cellnumber:cell},
+                data:{cellnumber:cell, vcode:vcode},
                 success: function () {
                     //alert("aa");
                 }
