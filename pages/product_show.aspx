@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" %>
-
+<%@ Import Namespace="System.Data" %>
 <script runat="server">
 
     public string source = "";
@@ -11,6 +11,8 @@
     public string userToken = "";
 
     public string openId = "";
+
+    public int paidCount = 0;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -32,6 +34,11 @@
         source = Util.GetSafeRequestValue(Request, "source", "");
         productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "65"));
         p = new Product(productId);
+
+        DataTable dt = DBHelper.GetDataTable("select count(*) from order_online_detail left join order_online on order_online.[id] = order_online_id "
+            + "where product_id = " + productId.ToString() + " and pay_state = 1 ");
+        paidCount = dt.Rows[0][0].ToString().Trim();
+
     }
 </script>
 
@@ -53,8 +60,9 @@
     <div>
         产品名称：<%=p._fields["name"].ToString() %><br />
         价格：<%=Math.Round(double.Parse(p._fields["sale_price"].ToString()), 2).ToString() %><br />
-        来源：<%=source %>
-        <button id="btn_place_order"  type="button"  onclick="place_order()" class="btn btn-xs btn-primary">获取验证码</button>
+        来源：<%=source %><br />
+        已售：<%=paidCount.ToString() %><br />
+        <button id="btn_place_order"  type="button"  onclick="place_order()" class="btn btn-xs btn-primary"> 立 刻 支 付 </button>
     </div>
     <script type="text/javascript" >
         function place_order() {
