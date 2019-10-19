@@ -37,7 +37,7 @@
 
         DataTable dt = DBHelper.GetDataTable("select count(*) from order_online_detail left join order_online on order_online.[id] = order_online_id "
             + "where product_id = " + productId.ToString() + " and pay_state = 1 ");
-        paidCount = dt.Rows[0][0].ToString().Trim();
+        paidCount = int.Parse(dt.Rows[0][0].ToString().Trim());
 
     }
 </script>
