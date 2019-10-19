@@ -4,6 +4,7 @@
     {
         string token = Util.GetSafeRequestValue(Request, "token", "ee6903f272ad045a2f25a7a1b1dca152d43a56fa2d4a385ed4d60b0cbbae88a54420ab0e");
         string cartJson = Util.GetSafeRequestValue(Request, "cart", "{\"cart_array\" : [{ \"product_id\": 12, \"count\": 100 }]}");
+        string source = Util.GetSafeRequestValue(Request, "source", "");
         string openId = WeixinUser.CheckToken(token);
         if (openId.Trim().Equals(""))
         {
@@ -33,6 +34,14 @@
             else
                 newOrder.Memo = "";
             int orderId = newOrder.Place(openId);
+            if (!source.Trim().Equals(""))
+            {
+                //OnlineOrder order = new OnlineOrder(orderId);
+                DBHelper.UpdateData("order_online", new string[,] { { "source", "varchar", source.Trim() } },
+                    new string[,] { { "id", "int", orderId.ToString() } }, Util.conStr);
+
+
+            }
             Response.Write("{\"status\" : \"0\", \"order_id\" : \"" + orderId.ToString() + "\" }");
         }
     }
