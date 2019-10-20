@@ -60,11 +60,11 @@
 <body>
     <form id="form1" runat="server">
     <div>
-            <div id="ticket-<%=code.Trim()%>" name="ticket" class="panel panel-success" style="width:350px"  >
-            <div class="panel-heading">
-                <h3 class="panel-title"><%=detail.productName.Trim() %></h3>
+            <div id="ticket-<%=code.Trim()%>" name="ticket" class="card" style="width:350px"  >
+            <div class="card-heading">
+                <h3 class="card-title"><%=detail.productName.Trim() %></h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 <ul>
                     <li>价格：<font color="red" ><%=order._fields["order_price"].ToString() %></font>元，张数：
                         <%=pass.associateOnlineOrderDetail.count.ToString() %>张 
