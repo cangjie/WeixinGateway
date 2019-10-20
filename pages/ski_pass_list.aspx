@@ -77,11 +77,11 @@
                     Product p = new Product(pass.associateOnlineOrderDetail.productId);
                     %>
         <br />
-        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="go_to_detail('<%=pass.associateOnlineOrder._fields["id"].ToString().Trim() %>','<%=pass.cardCode %>')" >
-            <div class="panel-heading">
-                <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
+        <div id="ticket-1" name="ticket" class="card" style="width:350px" onclick="go_to_detail('<%=pass.associateOnlineOrder._fields["id"].ToString().Trim() %>','<%=pass.cardCode %>')" >
+            <div class="card-header">
+                <h3 class="card-title"><%=p._fields["name"].ToString() %></h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 <p>雪票价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元，张数：<%=pass.associateOnlineOrderDetail.count.ToString() %>张 <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></p>
                         <%
                             if (p._fields["name"].ToString().IndexOf("南山") >= 0)
