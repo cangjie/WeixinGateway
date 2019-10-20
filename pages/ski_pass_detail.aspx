@@ -61,7 +61,7 @@
     <form id="form1" runat="server">
     <div>
             <div id="ticket-<%=code.Trim()%>" name="ticket" class="card" style="width:350px"  >
-            <div class="card-heading">
+            <div class="card-header">
                 <h3 class="card-title"><%=detail.productName.Trim() %></h3>
             </div>
             <div class="card-body">
