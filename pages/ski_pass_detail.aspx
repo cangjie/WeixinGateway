@@ -13,7 +13,6 @@
     public WeixinUser currentUser;
     public string openId = "";
     public string userToken = "";
-
     protected void Page_Load(object sender, EventArgs e)
     {
         orderId = Util.GetSafeRequestValue(Request, "orderid", "0");
@@ -36,7 +35,7 @@
         pass = new OnlineSkiPass(code);
         order = pass.associateOnlineOrder;
         detail = pass.associateOnlineOrderDetail;
-
+        p = new Product(detail.productId);
         if (!openId.Trim().Equals(pass.owner.OpenId.Trim()))
             Response.End();
         
@@ -82,7 +81,7 @@
     }
     if (detail.productName.IndexOf("万龙八易") >= 0)
     {
-        Product p = new Product(detail.productId);
+        
 
                                 %>
                     <p>雪票价格：<%=p._fields["sale_price"].ToString().Trim() %></p>
