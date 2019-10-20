@@ -60,11 +60,11 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" <%if (used.Trim().Equals("0"))
-                { %> class="active" <%}  %> ><a href="ski_pass_list.aspx?used=0">未使用</a></li>
-            <li role="presentation" <%if (used.Trim().Equals("1"))
-                { %> class="active" <%}  %> ><a href="ski_pass_list.aspx?used=1">已使用</a></li>
+        <ul class="nav nav-tabs" >
+            <li class="nav-item"  ><a class="nav-link<%if (used.Trim().Equals("0"))
+                { %> active<%}  %>" href="ski_pass_list.aspx?used=0">未使用</a></li>
+            <li class="nav-item"  ><a  class="nav-link<%if (used.Trim().Equals("1"))
+                { %> active<%}  %>"  href="ski_pass_list.aspx?used=1">已使用</a></li>
         </ul>
         <%
             foreach (OnlineSkiPass pass in passArr)
