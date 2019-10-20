@@ -65,23 +65,25 @@
                 <h3 class="card-title"><%=detail.productName.Trim() %></h3>
             </div>
             <div class="card-body">
+                <% if (p._fields["intro"].ToString().Trim().Equals(""))
+                  { %>
                 <ul>
                     <li>价格：<font color="red" ><%=order._fields["order_price"].ToString() %></font>元，张数：
                         <%=pass.associateOnlineOrderDetail.count.ToString() %>张 
-                        <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></li>
+                        <%=(pass.Rent ? ",<font color='red' >租板</font>" : "") %></li>
                     <%
-                        if (detail.productName.IndexOf("南山") >= 0)
-                        {
+    if (detail.productName.IndexOf("南山") >= 0)
+    {
                          %>
                     <li>到达代理商入口请拨打：13693171170，将有工作人员接您入场。</li>
                     <li>来店请出示二维码验票、取票。</li>
                     <li>此票售出后不予退换。</li>
                     <%
-                        }
-                        if (detail.productName.IndexOf("万龙八易") >= 0)
-                        {
-                            Product p = new Product(detail.productId);
-                       
+    }
+    if (detail.productName.IndexOf("万龙八易") >= 0)
+    {
+        Product p = new Product(detail.productId);
+
                                 %>
                     <p>雪票价格：<%=p._fields["sale_price"].ToString().Trim() %></p>
                     <p>价格包括：滑雪、缆车、拖牵、魔毯费用。（不包含保险，保险请在窗口另行购买）</p>
@@ -91,30 +93,30 @@
                     <li>前往易龙雪聚八易店出示二维码验票、取票。</li>
                     <li>此票售出后不予退换。</li>
                     <%
-                        if (p._fields["name"].ToString().IndexOf("半天") >= 0)
-                        {
+    if (p._fields["name"].ToString().IndexOf("半天") >= 0)
+    {
                             %>
                     <li>滑雪时间：刷第一次门禁（缆车/魔毯）开始计时</li>
                                 <%
-                                    }
-                                    if (p._fields["name"].ToString().IndexOf("全天") >= 0)
-                                    {
+    }
+    if (p._fields["name"].ToString().IndexOf("全天") >= 0)
+    {
                                         %>
                     <li>滑雪时间：9:00-18:00</li>
                     <%
-                        }
-                        if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
-                        {
+    }
+    if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
+    {
                             %>
                     <li>滑雪时间：17:30-22:00</li>
                                 <%
-                                    }
-                                    if (p._fields["name"].ToString().IndexOf("自助餐") >= 0)
-                                    {
+    }
+    if (p._fields["name"].ToString().IndexOf("自助餐") >= 0)
+    {
                                         %>
                     <li>用餐时间：17:00-21:00</li>
                                             <%
-                                    }
+    }
                          %>
 
                     
@@ -123,11 +125,16 @@
                     <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17:30-22:30（周五、周六、
                     <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 春节初一到初六、<font color='red' >除夕不营业</font>）</p>
                                     <%
-                            
-                      
-                        }
+
+
+    }
                          %>
                 </ul>
+                <%}
+                    else
+                    {
+                        Response.Write(p._fields["intro"].ToString().Trim());
+                    } %>
                 <br />
                 <div style="text-align:center" >
                     <img src="../show_qrcode.aspx?sceneid=3<%=code %>" style="width:200px; text-align:center"  />
@@ -135,6 +142,9 @@
                     <b style="text-align:center" ><%=code.Substring(0,3) %>-<%=code.Substring(3,3) %>-<%=code.Substring(6,3) %></b>
                 </div>
             </div>
+
+
+
         </div>
     </div>
     </form>

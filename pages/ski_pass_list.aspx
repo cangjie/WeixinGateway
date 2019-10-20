@@ -82,10 +82,12 @@
                 <h3 class="card-title"><%=p._fields["name"].ToString() %></h3>
             </div>
             <div class="card-body">
-                <p>雪票价格：<font color="red" ><%=p._fields["sale_price"].ToString() %></font>元，张数：<%=pass.associateOnlineOrderDetail.count.ToString() %>张 <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></p>
+                <p>张数：<%=pass.associateOnlineOrderDetail.count.ToString() %>张 <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></p>
                         <%
-                            if (p._fields["name"].ToString().IndexOf("南山") >= 0)
-                            {
+    if (p._fields["intro"].ToString().Trim().Equals(""))
+    {
+        if (p._fields["name"].ToString().IndexOf("南山") >= 0)
+        {
 
 
                      %>
@@ -101,10 +103,10 @@
                 </ul>
                 <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13693171170</p>
                 <%}
-                    else
-                    {
-                        if (p._fields["name"].ToString().IndexOf("八易") >= 0)
-                        {
+    else
+    {
+        if (p._fields["name"].ToString().IndexOf("八易") >= 0)
+        {
                         %>
 
 
@@ -115,30 +117,30 @@
                     <li>前往易龙雪聚八易店出示二维码验票、取票。</li>
                     <li>此票售出后不予退换。</li>
                     <%
-                        if (p._fields["name"].ToString().IndexOf("半天") >= 0)
-                        {
+    if (p._fields["name"].ToString().IndexOf("半天") >= 0)
+    {
                             %>
                     <li>滑雪时间：刷第一次门禁（缆车/魔毯）开始计时</li>
                                 <%
-                                    }
-                                    if (p._fields["name"].ToString().IndexOf("全天") >= 0)
-                                    {
+    }
+    if (p._fields["name"].ToString().IndexOf("全天") >= 0)
+    {
                                         %>
                     <li>滑雪时间：9:00-18:00</li>
                     <%
-                        }
-                        if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
-                        {
+    }
+    if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
+    {
                             %>
                     <li>滑雪时间：17:30-22:00</li>
                                 <%
-                                    }
-                                    if (p._fields["name"].ToString().IndexOf("自助餐") >= 0)
-                                    {
+    }
+    if (p._fields["name"].ToString().IndexOf("自助餐") >= 0)
+    {
                                         %>
                     <li>用餐时间：17:00-21:00</li>
                                             <%
-                                    }
+    }
                          %>
 
                     
@@ -149,9 +151,9 @@
 
 
                 <%
-                        }
-                        else if (p._fields["name"].ToString().IndexOf("乔波") >= 0)
-                        {
+    }
+    else if (p._fields["name"].ToString().IndexOf("乔波") >= 0)
+    {
                             %>
                 <p>价格包括：门票，滑雪，魔毯，拖牵，雪板，雪鞋，雪杖等费用。</p>
                 <p>注：如需租用雪服，头盔，雪镜等物品需单独从押金里面扣除相关费用。</p>
@@ -165,11 +167,29 @@
                 </ul>
                 <p>雪场地址：<br />北京市顺义区顺安路6号<br />客服电话：15701179221</p>
                 <%
+                            }
                         }
                     }
-
+                    else
+                    {
+                        Response.Write(p._fields["intro"].ToString());
+                    }
                      %>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
         
         <%
