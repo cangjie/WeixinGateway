@@ -207,7 +207,7 @@
 
         function launch_book_modal(product_id, title) {
 
-            window.location.href = "product_shop.aspx?id=" + product_id.toString() + (title != "" ? "&source=" + title : "");
+            window.location.href = "product_show.aspx?id=" + product_id.toString() + (title != "" ? "&source=" + title : "");
             return;
 
 
@@ -606,138 +606,15 @@
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
             <div class="panel-body">
-                
-                <%
-                    if (p._fields["name"].ToString().IndexOf("南山")>=0)
-                    {
-
-
-                     %>
-                <p>雪票价格：<font color="red" ><%=int.Parse(p._fields["sale_price"].ToString()) - 100 %></font>元。</p>
-                <p><font color="red" ><b>自带板，押金100元。</b></font></p>
-                <p>租板，押金300元。</p>
-                <p>价格包括：门票、滑雪、<font color='red' ><b>押金100元</b></font>、缆车、拖牵、魔毯费用、（如租板，则包含雪具使用）。</p>
-                <p>如需租用雪板、雪鞋、雪杖以外的物品，如头盔、雪镜、雪服等物品，请额外准备现金，押金 100元/件。</p>
-                <p>使用说明：</p>
-                <ul>
-                    <li><font color="red" >出票日自动出票。</font></li>
-                    <li>到达代理商入口请拨打：13693171170，将有工作人员接您入场。</li>
-                    <li>来店请出示二维码验票、取票。</li>
-                    <li>此票售出后不予退换。</li>
-                </ul>
-                <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13693171170</p>
-                <%
-                    }
-                    if (p._fields["name"].ToString().IndexOf("八") >= 0)
-                    {
-
-                        %>
-                
-                <%
-                    if (p._fields["name"].ToString().IndexOf("租") >= 0)
-                    {
-                        %>
-                <p>雪票价格：<%=int.Parse(p._fields["sale_price"].ToString()) - 200 %></p>
-                <p>租板押金：200元</p>
-                            <%
-                                }
-                                else
-                                {
-                                    %>
-                <p>雪票价格：<%=p._fields["sale_price"].ToString().Trim() %></p>
-                                        <%
-                                }
-                     %>
-                <p>价格包括：滑雪、缆车、拖牵、魔毯费用。（不包含保险，保险请在窗口另行购买）</p>
-                <p>使用说明：</p>
-                <ul>
-                    <%
-                        if (p._fields["name"].ToString().IndexOf("海选") >= 0)
-                        {
-                            %>
-                    <li><font color="red" >参加八易单板平花海选用户购票专用，其他人员购票无效且不退换。</font></li>
-                    <%
-                        }
-                         %>
-                    <li><font color="red" >出票日自动出票。</font></li>
-                    <li>前往易龙雪聚八易店出示二维码验票、取票。</li>
-                    <li>此票售出后不予退换。</li>
-                    <%
-                        if (p._fields["name"].ToString().IndexOf("半天") >= 0)
-                        {
-                            %>
-                    <li>滑雪时间：刷第一次门禁（缆车/魔毯）开始计时
-                                <%
-                                    }
-                                    if (p._fields["name"].ToString().IndexOf("全天") >= 0)
-                                    {
-                                        %>
-                    <li>滑雪时间：9:00-18:00
-                    <%
-                        }
-                        if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
-                        {
-                            %>
-                    <li>滑雪时间：17:30-22:00
-                                <%
-                                    }
-                                    if (p._fields["shop"].ToString().IndexOf("八易租") >= 0)
-                                    {
-
-                                        %>
-                        。滑雪结束后，请及时归还雪具，若超出租赁时间，按1元/分钟/套收取超时费。</li>
-                        <li>
-                            <%
-                                if (p._fields["shop"].ToString().IndexOf("单") >= 0)
-                                {
-                                 %>
-                            租单板雪卡只可用于单板器材使用，不可调换双板器材。雪具使用过程中造成损坏、丢失，需按照雪场相关规定进行赔偿。
-                        <%
-                                }
-                                else
-                                {
-                                    %>
-                            租单板雪卡只可用于双板器材使用，不可调换单板器材。雪具使用过程中造成损坏、丢失，需按照雪场相关规定进行赔偿。
-                            <%
-                                }
-                            }
-                                    %>
-                        </li>
-                        <%
-                                    if (p._fields["name"].ToString().IndexOf("自助餐") >= 0)
-                                    {
-                                        %>
-                    <li>用餐时间：17:00-21:00</li>
-                                            <%
-                                    }
-                         %>
-
-                    
-                </ul>
-                <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：13714100910<br />日场时间：09:00-18:00<br />夜场时间：17:30-22:00（周日-周四）；
-                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17:30-22:30（周五、周六、
-                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 春节初一到初六、<font color='red' >除夕不营业</font>）</p>
-                <%
-                    }
-                    if (p._fields["name"].ToString().IndexOf("乔波") >= 0)
-                    {
-                        %>
-                    <p>押金200元。</p>
-                    <p>价格包括：门票，滑雪，魔毯，拖牵，雪板，雪鞋，雪杖等费用。</p>
-                    <p>注：如需租用雪服，头盔，雪镜等物品需单独从押金里面扣除相关费用。</p>
-                    <p>预定须知：提前一天预定。</p>
-                    <p>使用说明：</p>
-                    <ul>
-                        <li><font color="red" >出票日自动出票。</font></li>
-                        <li>来店请出示二维码验票、取票。</li>
-                        <li>滑雪结束后凭押金单在雪馆前台办理退押金手续。</li>
-                        <li>此票售出后不予退换。</li>
-                    </ul>
-                    <p>雪场地址：<br />北京市顺义区顺安路6号<br />客服电话：15701179221</p>
-                <%
-                    }
-                     %>
+                <%=p._fields["intro"].ToString().Trim()%>
             </div>
+
+
+
+
+
+
+
         </div>
         <%} %>
 
