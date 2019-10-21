@@ -207,7 +207,11 @@
 
         function launch_book_modal(product_id, title) {
 
-            window.location.href = "product_show.aspx?id=" + product_id.toString() + (title != "" ? "&source=" + title : "");
+            alert(title);
+
+            var detail_url = "product_show.aspx?id=" + product_id.toString() + (title != "" ? "&source=" + title : "");
+
+            window.location.href = detail_url;
             return;
 
 
