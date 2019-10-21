@@ -207,7 +207,7 @@
 
         function launch_book_modal(product_id, title) {
 
-            alert(title);
+            //alert(title);
 
             var detail_url = "product_show.aspx?id=" + product_id.toString() + (title != "" ? "&source=" + title : "");
 
@@ -597,19 +597,11 @@
             {
              %>
         <br />
-        <div id="ticket-1" name="ticket" class="panel panel-<%
-            if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
-            {
-                Response.Write("info");
-            }
-            else
-            {
-                Response.Write("success");
-            }%>" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>','<%=source %>' )" >
-            <div class="panel-heading">
-                <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
+        <div id="ticket-1" name="ticket" class="card" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>','<%=source %>' )" >
+            <div class="card-header">
+                <h3 class="card-title"><%=p._fields["name"].ToString() %></h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 <%=p._fields["intro"].ToString().Trim()%>
             </div>
 

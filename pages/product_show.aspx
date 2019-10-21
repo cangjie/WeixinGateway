@@ -57,12 +57,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-    <div>
-        产品名称：<%=p._fields["name"].ToString() %><br />
-        价格：<%=Math.Round(double.Parse(p._fields["sale_price"].ToString()), 2).ToString() %><br />
-        来源：<%=source %><br />
-        已售：<%=paidCount.ToString() %><br />
-        <button id="btn_place_order"  type="button"  onclick="place_order()" class="btn btn-xs btn-primary"> 立 刻 支 付 </button>
+    <div class="card">
+        <div class="card-header" >
+            <div class="card-title" ><%=p._fields["name"].ToString() %></div>
+        </div>
+        <div class="card-body" >
+            价格：<%=Math.Round(double.Parse(p._fields["sale_price"].ToString()), 2).ToString() %><br />
+            来源：<%=source %><br />
+            已售：<%=paidCount.ToString() %><br />
+            使用规则：<br />
+            <%=p._fields["intro"].ToString().Trim() %>
+            <button id="btn_place_order"  type="button"  onclick="place_order()" class="btn btn-xs btn-primary"> 立 刻 支 付 </button>
+        </div>
     </div>
     <script type="text/javascript" >
         function place_order() {
