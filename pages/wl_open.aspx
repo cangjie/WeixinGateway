@@ -21,7 +21,7 @@
     {
         FillSelectedDate();
 
-        string currentPageUrl = Request.Url.ToString();
+        string currentPageUrl = Request.Url.ToString().Split('?')[0].Trim();
         if (!Request.QueryString.ToString().Trim().Equals(""))
         {
             currentPageUrl = currentPageUrl + "?" + Request.QueryString.ToString().Trim();
