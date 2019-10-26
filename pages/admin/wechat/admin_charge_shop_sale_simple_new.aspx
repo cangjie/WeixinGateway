@@ -658,6 +658,7 @@
 
         $(function () {
             $("#qrcodeBtn").bind("click", function () {
+                alert("请等待生成支付二维码。");
                 get_qrcode();
                 
             });
