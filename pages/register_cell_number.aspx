@@ -34,7 +34,7 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
 
-        refUrl = Util.GetSafeRequestValue(Request, "refurl", refUrl);
+        //refUrl = Util.GetSafeRequestValue(Request, "refurl", refUrl);
 
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
@@ -61,7 +61,7 @@
         }
         else
         {
-            if (!refUrl.Trim().Equals(""))
+            if (!refUrl.Trim().Equals("testsms"))
                 Response.Redirect(refUrl, true);
             
         }
