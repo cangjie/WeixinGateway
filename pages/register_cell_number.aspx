@@ -96,7 +96,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-12">
-                    <img style="width:100px;height:100px;" class="center-block img-circle" src="<%=headImage %>" />
+                    <img style="width:100px;height:100px;" class="rounded mx-auto d-block" src="<%=headImage %>" />
                 </div>
             </div>
             <div class="row" >
