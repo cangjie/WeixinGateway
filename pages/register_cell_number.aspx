@@ -104,7 +104,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">昵称：</p></div>
-                <div class="col-xs-8" ><input  readonly="yes" type="text" style="width:150px" value="<%=nick %>"  /></div>
+                <div class="col-xs-8" >&nbsp;&nbsp;<input  readonly="yes" type="text" style="width:150px" value="<%=nick %>"  /></div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">手机号：</p></div>
@@ -116,9 +116,10 @@
             </div>
             <div class="row" >
                 <div class="col-xs-12">
-                    <button id="btn_get_verify_code"  type="button"  onclick="send_validate_sms_button_on_click()" class="btn btn-xs btn-primary">获取验证码</button>
+                    &nbsp;&nbsp;<button id="btn_get_verify_code"  type="button"  onclick="send_validate_sms_button_on_click()" class="btn btn-xs btn-primary">获取验证码</button>
                 </div>
             </div>
+            <div class="row"><div class="col-xs-12" > </div></div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">验证码：</p></div>
                 <div class="col-xs-8" ><input type="text" id="verify_code"  style="width:150px" /></div>
@@ -128,7 +129,9 @@
                 <div class="col-xs-8" ><input type="text" id="father_cell_number" <%if (!fatherCellNumber.Trim().Equals("")) {%> readonly  <% } %> style="width:150px" value="<%=fatherCellNumber %>"/></div>
             </div>
             <div class="row" >
-                <div class="col-xs-12 center-block"><button id="bind_cell_number_button" style="width:150px;" type="button"  onclick="bind_cell_number_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button></div>
+                <div class="col-xs-12 center-block">
+                    &nbsp;&nbsp;<button id="bind_cell_number_button" style="width:150px;" type="button"  onclick="bind_cell_number_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button>
+                </div>
             </div>
         </div>
     <script type="text/javascript" >
