@@ -104,7 +104,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">昵称：</p></div>
-                <div class="col-xs-8" >&nbsp;&nbsp;<input  readonly="yes" type="text" style="width:150px" value="<%=nick %>"  /></div>
+                <div class="col-xs-8" >&nbsp;&nbsp;&nbsp;&nbsp;<input  readonly="yes" type="text" style="width:150px" value="<%=nick %>"  /></div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">手机号：</p></div>
@@ -119,7 +119,7 @@
                     &nbsp;&nbsp;<button id="btn_get_verify_code"  type="button"  onclick="send_validate_sms_button_on_click()" class="btn btn-xs btn-primary">获取验证码</button>
                 </div>
             </div>
-            <div class="row"><div class="col-xs-12" > </div></div>
+            <div class="row"><div class="col-xs-12" > <br /> </div></div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">验证码：</p></div>
                 <div class="col-xs-8" ><input type="text" id="verify_code"  style="width:150px" /></div>
@@ -139,7 +139,6 @@
         function refresh_veri_code() {
             var code_image = document.getElementById("img-veri-code");
             code_image.src = "/show_image_verify_code.aspx?rnd=" + Math.random().toString();
-            //alert("aa");
         }
 
         var sendValidateSmsButton = document.getElementById("send_validate_sms_button");
@@ -158,8 +157,12 @@
             $.ajax({
                 url: "../api/verify_code_send.aspx",
                 data:{cellnumber:cell, vcode:vcode},
-                success: function () {
-                    //alert("aa");
+                success: function (msg, status) {
+                    refresh_veri_code();
+                    var msg_obj = eval("(" + msg + ")");
+                    if (msg_obj.message_id < 0) {
+                        alert(msg_obj.error_message);
+                    }
                 }
             });
         }
