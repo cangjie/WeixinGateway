@@ -61,7 +61,9 @@
         }
         else
         {
-            Response.Redirect(refUrl, true);
+            if (!refUrl.Trim().Equals(""))
+                Response.Redirect(refUrl, true);
+            
         }
 
     }
