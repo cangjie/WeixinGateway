@@ -299,7 +299,7 @@
             <td><textarea cols="30" rows="3" id="txt_memo" ></textarea></td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align:center"><button type="button" id="qrcodeBtn" class="btn btn-default"  >获取支付二维码</button></td>
+            <td colspan="2" style="text-align:center"><button type="button" id="qrcodeBtn" class="btn btn-default" onclick="get_qrcode()"  >获取支付二维码</button></td>
         </tr>
         <tr>
             <td colspan="2" id="qrcode_td" style="text-align:center; height:300px"></td>
@@ -655,7 +655,7 @@
                 })
             }
         }
-
+        /*
         $(function () {
             $("#qrcodeBtn").bind("click", function () {
                 alert("请等待生成支付二维码。");
@@ -663,6 +663,7 @@
                 
             });
         });
+        */
     </script>
 </body>
 </html>
