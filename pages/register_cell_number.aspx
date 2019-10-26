@@ -108,12 +108,16 @@
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">手机号：</p></div>
-                <div class="col-xs-8" ><input type="text" id="cell_number" style="width:150px" />
-                    <button id="btn_get_verify_code"  type="button"  onclick="send_validate_sms_button_on_click()" class="btn btn-xs btn-primary">获取验证码</button></div>
+                <div class="col-xs-8" ><input type="text" id="cell_number" style="width:150px" /></div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">校验码：</p></div>
-                <div class="col-xs-8" ><input type="text" id="img_verify_code"  style="width:50px" /><img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" />(看不清，请点击图片)</div>
+                <div class="col-xs-8" ><input type="text" id="img_verify_code"  style="width:60px" /><img id="img-veri-code" src="/show_image_verify_code.aspx" onclick="refresh_veri_code()" />(看不清，请点击图片)</div>
+            </div>
+            <div class="row" >
+                <div class="col-xs-12">
+                    <button id="btn_get_verify_code"  type="button"  onclick="send_validate_sms_button_on_click()" class="btn btn-xs btn-primary">获取验证码</button>
+                </div>
             </div>
             <div class="row" >
                 <div class="col-xs-4" ><p class="text-right">验证码：</p></div>
@@ -124,7 +128,7 @@
                 <div class="col-xs-8" ><input type="text" id="father_cell_number" <%if (!fatherCellNumber.Trim().Equals("")) {%> readonly  <% } %> style="width:150px" value="<%=fatherCellNumber %>"/></div>
             </div>
             <div class="row" >
-                <div class="col-xs-12 center-block"><button id="bind_cell_number_button" style="width:100px;" type="button"  onclick="bind_cell_number_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button></div>
+                <div class="col-xs-12 center-block"><button id="bind_cell_number_button" style="width:150px;" type="button"  onclick="bind_cell_number_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button></div>
             </div>
         </div>
     <script type="text/javascript" >
