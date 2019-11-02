@@ -319,7 +319,7 @@ public class WeixinUser : ObjectHelper
 
     public void TransferOrderAndPointsFromTempAccount()
     {
-        string tempOpenId = TempOpenId.Trim();
+        //string tempOpenId = TempOpenId.Trim();
         if (VipLevel == 1 && !TempOpenId.Equals(""))
         {
             DataTable dtOriPoints = DBHelper.GetDataTable(" select * from point_prepare_imported where deal = 0 and cell_number = '" + CellNumber.Trim() + "' ");
@@ -328,7 +328,7 @@ public class WeixinUser : ObjectHelper
                 try
                 {
                     int i = DBHelper.InsertData("user_point_balance",
-                        new string[,] { { "user_open_id", "varchar", tempOpenId.Trim() }, {"points", "int", drOriPoints["score"].ToString() },
+                        new string[,] { { "user_open_id", "varchar", OpenId.Trim() }, {"points", "int", drOriPoints["score"].ToString() },
                         {"memo", "varchar", drOriPoints["source"].ToString() }, {"transact_date", "datetime", DateTime.Now.ToShortDateString() } },
                         Util.conStr);
                     if (i == 1)
