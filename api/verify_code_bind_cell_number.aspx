@@ -3,9 +3,9 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string cell = Util.GetSafeRequestValue(Request, "cellnumber", "18601197897");
-        string verifyCode = Util.GetSafeRequestValue(Request, "verifycode", "675733");
-        string token = Util.GetSafeRequestValue(Request, "token", "45f71e433d329bb085fb99bb32bdaec81de76b16252c3fa47bf219980fa37cb2173cc06a");
+        string cell = Util.GetSafeRequestValue(Request, "cellnumber", "13501177897");
+        string verifyCode = Util.GetSafeRequestValue(Request, "verifycode", "856144");
+        string token = Util.GetSafeRequestValue(Request, "token", "09bb85a30dbf535b01e4f1a9f22316088b62c7485ba94fe0d842f592ea47910bf55bc549");
         string fatherCellNumber = Util.GetSafeRequestValue(Request, "father_cell_number", "");
         if (Sms.CheckVerifyCode(cell, verifyCode))
         {
