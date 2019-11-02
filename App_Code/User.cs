@@ -322,10 +322,32 @@ public class WeixinUser : ObjectHelper
         string tempOpenId = TempOpenId.Trim();
         if (VipLevel == 1 && !TempOpenId.Equals(""))
         {
+            DataTable dtOriPoints = DBHelper.GetDataTable(" select * from point_prepare_imported where deal = 0 and cell_number = '" + CellNumber.Trim() + "' ");
+            foreach (DataRow drOriPoints in dtOriPoints.Rows)
+            {
+                try
+                {
+                    int i = DBHelper.InsertData("user_point_balance",
+                        new string[,] { { "user_open_id", "varchar", tempOpenId.Trim() }, {"points", "int", drOriPoints["score"].ToString() },
+                        {"memo", "varchar", drOriPoints["source"].ToString() }, {"transact_date", "datetime", DateTime.Now.ToShortDateString() } },
+                        Util.conStr);
+                    if (i == 1)
+                    {
+                        DBHelper.UpdateData("point_prepare_imported", new string[,] { { "deal", "int", "1" } }, 
+                            new string[,] { { "id", "int", drOriPoints["id"].ToString() } }, Util.conStr.Trim());
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            /*
             DBHelper.UpdateData("online_order", new string[,] { { "open_id", "varchar",
                     OpenId.Trim() } } , new string[,] { { "open_id", "varchar", tempOpenId } }, Util.conStr.Trim());
             DBHelper.UpdateData("user_point_balance", new string[,] { { "user_open_id", "varchar",
                     OpenId.Trim() } }, new string[,] { { "user_open_id", "varchar", tempOpenId } }, Util.conStr.Trim());
+                    */
         }
     }
 
