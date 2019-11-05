@@ -52,6 +52,19 @@
                             if (order._fields["pay_state"].ToString().Trim().Equals("0"))
                             {
                                 order.SetOrderPaySuccess(DateTime.Now, tradeNo);
+
+                                try
+                                {
+                                    Point.AddNew(order._fields["open_id"].ToString(), int.Parse(order._fields["generate_score"].ToString()), DateTime.Now, "店内购买 订单号：" + order._fields["id"].ToString().Trim()
+                                        + "  " + order.Memo.Trim());
+                                }
+                                catch
+                                {
+
+                                }
+
+
+
                                 string[] ticketCodeArr = order._fields["ticket_code"].ToString().Trim().Split(',');
                                 foreach (string tickCode in ticketCodeArr)
                                 {

@@ -26,7 +26,7 @@
         IAlipayTradeService serviceClient = F2FBiz.CreateClientInstance(Config.serverUrl, Config.appId, Config.merchant_private_key, Config.version,
                             Config.sign_type, Config.alipay_public_key, Config.charset);
         AlipayTradePrecreateContentBuilder builder = BuildPrecreateContent();
-        AlipayF2FPrecreateResult precreateResult = serviceClient.tradePrecreate(builder, "http://weixin.snowmeet.com/payment/payment_callback_ali.aspx");
+        AlipayF2FPrecreateResult precreateResult = serviceClient.tradePrecreate(builder);
         //Response.Write(precreateResult.Status.ToString());
 
 
