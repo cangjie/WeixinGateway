@@ -26,7 +26,7 @@
         IAlipayTradeService serviceClient = F2FBiz.CreateClientInstance(Config.serverUrl, Config.appId, Config.merchant_private_key, Config.version,
                             Config.sign_type, Config.alipay_public_key, Config.charset);
         AlipayTradePrecreateContentBuilder builder = BuildPrecreateContent();
-        AlipayF2FPrecreateResult precreateResult = serviceClient.tradePrecreate(builder);
+        AlipayF2FPrecreateResult precreateResult = serviceClient.tradePrecreate(builder, "http://weixin.snowmeet.com/payment/payment_callback_ali.aspx");
         //Response.Write(precreateResult.Status.ToString());
 
 
@@ -121,7 +121,7 @@
         builder.store_id = order._fields["shop"].ToString().Trim();
         //操作员编号，很重要的参数，可以用作之后的营销
         builder.operator_id = nick.Replace(" ", "").Trim();
-
+     
         //传入商品信息详情
         //List<GoodsInfo> gList = new List<GoodsInfo>();
         //GoodsInfo goods = new GoodsInfo();
