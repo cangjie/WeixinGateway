@@ -737,17 +737,17 @@
                     <div class="modal-header" id="modal-header" >测试</div>
                     <div class="modal-body" >
                         <div>日期：<span class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSelectDate" data-toggle="dropdown">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownSelectDate" >
                                     <span id="current_date" ><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></span>
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop-down-date" >
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[0].Key.ToShortDateString()%>', '<%= selectedDate[0].Value.Trim()%>', '')"><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[1].Key.ToShortDateString()%>', '<%= selectedDate[1].Value.Trim()%>', '')"><%=selectedDate[1].Key.ToShortDateString()%> <%=selectedDate[1].Value.Trim() %></a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[2].Key.ToShortDateString()%>', '<%= selectedDate[2].Value.Trim()%>', '')"><%=selectedDate[2].Key.ToShortDateString()%> <%=selectedDate[2].Value.Trim() %></a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[3].Key.ToShortDateString()%>', '<%= selectedDate[3].Value.Trim()%>', '')"><%=selectedDate[3].Key.ToShortDateString()%> <%=selectedDate[3].Value.Trim() %></a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[4].Key.ToShortDateString()%>', '<%= selectedDate[4].Value.Trim()%>', '')"><%=selectedDate[4].Key.ToShortDateString()%> <%=selectedDate[4].Value.Trim() %></a></li>
-                                </ul>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="drop-down-date" >
+                                    <a class="dropdown-item" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[0].Key.ToShortDateString()%>', '<%= selectedDate[0].Value.Trim()%>', '')"><%=selectedDate[0].Key.ToShortDateString()%> <%=selectedDate[0].Value.Trim() %></a>
+                                    <a class="dropdown-item" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[1].Key.ToShortDateString()%>', '<%= selectedDate[1].Value.Trim()%>', '')"><%=selectedDate[1].Key.ToShortDateString()%> <%=selectedDate[1].Value.Trim() %></a>
+                                    <a class="dropdown-item" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[2].Key.ToShortDateString()%>', '<%= selectedDate[2].Value.Trim()%>', '')"><%=selectedDate[2].Key.ToShortDateString()%> <%=selectedDate[2].Value.Trim() %></a>
+                                    <a class="dropdown-item" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[3].Key.ToShortDateString()%>', '<%= selectedDate[3].Value.Trim()%>', '')"><%=selectedDate[3].Key.ToShortDateString()%> <%=selectedDate[3].Value.Trim() %></a>
+                                    <a class="dropdown-item" tabindex="-1" href="#" onclick="select_date('<%= selectedDate[4].Key.ToShortDateString()%>', '<%= selectedDate[4].Value.Trim()%>', '')"><%=selectedDate[4].Key.ToShortDateString()%> <%=selectedDate[4].Value.Trim() %></a>
+                                </div>
                             </span>
                         </div>
 			            <br/>
