@@ -53,7 +53,7 @@ public class Product
         {
             sqlStr = sqlStr + " name like '乔波%' ";
         }
-        if (resort.Trim().Equals("wanlong"))
+        if (resort.Trim().Equals("万龙"))
         {
             sqlStr = sqlStr + " name like '万龙%' ";
         }
