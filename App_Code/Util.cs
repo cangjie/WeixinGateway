@@ -826,4 +826,64 @@ public class Util
 
         return mchId.Trim();
     }
+
+    public static string ConvertDataFieldsToJson(DataRow dr)
+    {
+        string ret = "";
+        foreach (DataColumn dc in dr.Table.Columns)
+        {
+            ret = ret +  (ret.Trim().Equals("")? " " : ", ")  +  "\"" + dc.Caption.Trim() + "\": \"" + dr[dc].ToString().Replace("\n", "").Replace("\r", "<BR/>") + "\"";
+        }
+        return "{" + ret.Trim() + "}";
+    }
+
+    public static bool InDate(DateTime currentDate, string dateDescription)
+    {
+        string[] dayDescItems = dateDescription.Trim().Split(',');
+        foreach (string day in dayDescItems)
+        {
+            if (day.Trim().Equals("周六"))
+            {
+                if (currentDate.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    return true;
+                }
+            }
+            if (day.Trim().Equals("周日"))
+            {
+                if (currentDate.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    return true;
+                }
+            }
+            if (day.IndexOf("--") >= 0)
+            {
+                try
+                {
+                    DateTime startDate = DateTime.Parse(day.Replace("--", "#").Split('#')[0].Trim());
+                    DateTime endDate = DateTime.Parse(day.Replace("--", "#").Split('#')[1].Trim());
+                    if (currentDate.Date >= startDate && currentDate.Date <= endDate)
+                    {
+                        return true;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            try
+            {
+                if (currentDate.Date == DateTime.Parse(day.Trim()))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        return false;
+    }
 }

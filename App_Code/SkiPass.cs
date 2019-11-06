@@ -35,56 +35,28 @@ public class SkiPass
 
     public bool IsAvailableDay(DateTime currentDate)
     {
-        string[] dayDescItems = _fields["available_days"].ToString().Trim().Split(',');
-        if (dayDescItems.Length == 0)
-        {
-            return true;
-        }
-        foreach (string day in dayDescItems)
-        {
-            if (day.Trim().Equals("周六"))
-            {
-                if (currentDate.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    return true;
-                }
-            }
-            if (day.Trim().Equals("周日"))
-            {
-                if (currentDate.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    return true;
-                }
-            }
-            if (day.IndexOf("--") >= 0)
-            {
-                try
-                {
-                    DateTime startDate = DateTime.Parse(day.Replace("--", "#").Split('#')[0].Trim());
-                    DateTime endDate = DateTime.Parse(day.Replace("--", "#").Split('#')[1].Trim());
-                    if (currentDate.Date >= startDate && currentDate.Date <= endDate)
-                    {
-                        return true;
-                    }
-                }
-                catch
-                {
+        bool inAvaDays = false;
+        bool inUnAvaDays = false;
 
-                }
-            }
-            try
-            {
-                if (currentDate.Date == DateTime.Parse(day.Trim()))
-                {
-                    return true;
-                }
-            }
-            catch
-            {
-
-            }
+        if (_fields["available_days"].ToString().Trim().Equals(""))
+        {
+            inAvaDays = true;
         }
-        return false;
+        else
+        {
+            inAvaDays = Util.InDate(currentDate, _fields["available_days"].ToString().Trim());
+        }
+
+        if (_fields["unavailable_days"].ToString().Trim().Equals(""))
+        {
+            inUnAvaDays = false;
+        }
+        else
+        {
+            inUnAvaDays = Util.InDate(currentDate, _fields["unavailable_days"].ToString().Trim());
+        }
+        return inAvaDays && !inUnAvaDays;
+            
     }
 
 }
