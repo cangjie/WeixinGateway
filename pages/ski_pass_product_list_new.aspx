@@ -340,15 +340,9 @@
 
         function fill_modal() {
             var span_modal_header = document.getElementById("modal-header");
-            var span_current_date = document.getElementById("current_date");
             var span_current_num = document.getElementById("current_num");
             span_modal_header.innerHTML = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
-            try{
-                span_current_date.innerHTML = current_date.toLocaleDateString() + " " + current_day_name;
-            }
-            catch(err){
-                span_current_date.innerHTML = current_date + " " + current_day_name;
-            }
+            
                 
             span_current_num.innerHTML = current_num;
             var rent_box = document.getElementById("rent");
