@@ -155,61 +155,7 @@
             var drop_down_date = document.getElementById("drop-down-date-menu");
 
 
-            drop_down_date.innerHTML = "";
-
-            if (title.indexOf("海选") >= 0) {
-                var iDate = new Date(Date.parse("2019-1-24"));
-                if (title.indexOf("24") >= 0) {
-                    iDate = new Date(Date.parse("2019-1-24"));
-                }
-                if (title.indexOf("26") >= 0) {
-                    iDate = new Date(Date.parse("2019-1-26"));
-                }
-                if (title.indexOf("27") >= 0) {
-                    iDate = new Date(Date.parse("2019-1-27"));
-                }
-                if (title.indexOf("30") >= 0) {
-                    iDate = new Date(Date.parse("2019-1-30"));
-                }
-                var iDayName = get_day_name(iDate);
-                current_date = iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate();
-                current_day_name = get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")");
-                drop_down_date.innerHTML = drop_down_date.innerHTML
-                        + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
-
-                        + iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + "', '"
-                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
-                        + "', '" + title + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + " "
-                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
-                current_date = iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate();
-                current_day_name = get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")");
-                document.getElementById("current_date").innerHTML = current_date + " " + current_day_name;
-                select_date(iDate, current_day_name, title);
-            }
-            else {
-                for (var i = 0; i < 5; i++) {
-                    var iDate = new Date(now.valueOf() + 1000 * 3600 * 24 * i);
-                    var iDayName = get_day_name(iDate);
-
-                    drop_down_date.innerHTML = drop_down_date.innerHTML
-                        + "<li role=\"presentation\" ><a role=\"menuitem\" tabindex=\"-1\" href=\"#\" onclick=\"select_date('"
-
-                        + iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + "', '"
-                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")")
-                        + "', '" + title + "')\" >" + +iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate() + " "
-                        + get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")") + "</a></li>";
-                    if (i == 0) {
-                        current_date = iDate.getFullYear() + "/" + (iDate.getMonth() + 1) + "/" + iDate.getDate();
-                        current_day_name = get_week_day(iDate) + (iDayName == "" ? "" : "(" + iDayName + ")");
-                        document.getElementById("current_date").innerHTML = current_date + " " + current_day_name;
-                    }
-
-                }
-                select_date(current_date, current_day_name, title);
-                
-            }
            
-            
             fill_modal();
             
             $("#booking_modal").modal();
