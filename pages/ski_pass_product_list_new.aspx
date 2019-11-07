@@ -644,7 +644,7 @@
                                     <span id="current_date" ></span>
                                     <span class="caret"></span>
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="drop-down-date" ></div>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="drop-down-date-menu" ></div>
                             </span>
                         </div>
 			            <br/>
@@ -706,7 +706,13 @@
                         date_to_be_selected_start = date_to_be_selected_start.setDate(date_to_be_selected_start.getDate() - 1);
                         break;
                     }
-
+                    var drop_down_date_menu = document.getElementById("drop-down-date-menu");
+                    var temp_inner_html = "";
+                    for (var i = 0; i < 5; i++) {
+                        temp_inner_html = temp_inner_html + '<a href="#" >' + date_to_be_selected_start.getFullYear().toString() + '-'
+                            + (date_to_be_selected_start.getMonth() + 1).toString() + '-' + date_to_be_selected_start.getDate().toString() + '</a>';
+                    }
+                    drop_down_date_menu.innerHTML = temp_inner_html;
                 }
                 
             }
