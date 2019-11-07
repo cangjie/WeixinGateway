@@ -617,7 +617,7 @@
                     var drop_down_date_menu = document.getElementById("drop-down-date-menu");
                     var temp_inner_html = "";
                     for (var i = 0; i < 5; i++) {
-                        temp_inner_html = temp_inner_html + '<a href="#" >' + date_to_be_selected_start.getFullYear().toString() + '-'
+                        temp_inner_html = temp_inner_html + '<a href="#" class="dropdown-item"  >' + date_to_be_selected_start.getFullYear().toString() + '-'
                             + (date_to_be_selected_start.getMonth() + 1).toString() + '-' + date_to_be_selected_start.getDate().toString() + '</a>';
                         date_to_be_selected_start.setDate(date_to_be_selected_start.getDate() + 1);
                     }
