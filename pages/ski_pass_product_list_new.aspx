@@ -20,7 +20,7 @@
     {
         
 
-        string currentPageUrl = Server.UrlEncode("/pages/ski_pass_product_list.aspx");
+        string currentPageUrl = Request.Url.ToString().Split('?')[0].Trim();
         if (!Request.QueryString.ToString().Trim().Equals(""))
         {
             currentPageUrl = currentPageUrl + "?" + Request.QueryString.ToString().Trim();
