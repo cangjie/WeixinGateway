@@ -700,8 +700,8 @@
                 var msg_obj = eval("(" + msg + ")");
                 for (var i = 0; i < msg_obj.product_arr.length; i++) {
                     var end_sale_time_str_arr = msg_obj.product_arr[i].end_sale_time.toString().split(':');
-                    var end_sale_time = current_date_time.setHours(parseInt(end_sale_time_str_arr[0]));
-                    end_sale_time = end_sale_time.setMinutes(parseInt(end_sale_time_str_arr[1]));
+                    var end_sale_time = current_date_time.setMinutes(60 * parseInt(end_sale_time_str_arr[0]) + parseInt(end_sale_time_str_arr[1]));
+                    //end_sale_time = end_sale_time.setMinutes(parseInt(end_sale_time_str_arr[1]));
                     if (current_date < end_sale_time) {
                         date_to_be_selected_start = date_to_be_selected_start.setDate(date_to_be_selected_start.getDate() - 1);
                         break;
