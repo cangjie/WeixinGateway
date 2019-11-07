@@ -479,17 +479,7 @@
             <li class="nav-item">
                 <a class=nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("万龙") %>" >万龙</a>
             </li>
-            <!--li role="presentation" <%if (currentResort.Trim().Equals("nanshan"))
-                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=nanshan">南山</a></!--li>
-            <li role="presentation" <%if (currentResort.Trim().Equals("bayi"))
-                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=bayi">八易自带
-                                             </a></li>
-            <li role="presentation" <%if (currentResort.Trim().Equals("bayidan"))
-                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=bayidan">八易租单板
-                                             </a></li>
-            <li role="presentation" <%if (currentResort.Trim().Equals("bayishuang"))
-                { %> class="active" <%}  %> ><a href="ski_pass_product_list.aspx?resort=bayishuang">八易租双板
-                                             </a></li-->
+           
         </ul>
         <%
             foreach (Product p in prodArr)
