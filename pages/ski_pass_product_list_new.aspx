@@ -111,47 +111,9 @@
 
 
         function launch_book_modal(product_id, title) {
-            $.ajax({
-                url: "/api/get_associate_product.aspx?productid=" + product_id,
-                async: false,
-                type: "GET",
-                success: function(msg, status) {
-                    var msg_object = eval("(" + msg + ")");
-                    if (msg_object.status == "0") {
-
-                        product_id_holiday = msg_object.holiday_product.id;
-                        product_title_holiday = msg_object.holiday_product.title;
-                        product_price_holiday = msg_object.holiday_product.price;
-
-                        product_id_weekend = msg_object.weekend_product.id;
-                        product_title_weekend = msg_object.weekend_product.title;
-                        product_price_weekend = msg_object.weekend_product.price;
-
-                        product_id_work_day = msg_object.workday_product.id;
-                        product_title_work_day = msg_object.workday_product.title;
-                        product_price_work_day = msg_object.workday_product.price;
-
-                    }
-                }
-            });
-
+            
             var now = new Date();
-            /*
-            if (title.indexOf("八易")>=0) {
-                if (title.indexOf("夜场") >= 0) {
-                    if (now.getHours() >= 17) {
-                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
-                    }
-                }
-                else {
-                    
-                    if (now.getHours() > 8 || (now.getHours() == 8 && now.getMinutes() >= 30)) {
-                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
-                    }
-                    
-                }
-            }
-            */
+       
             if (title.indexOf("南山") >= 0) {
                 if (title.indexOf("夜场") >= 0) {
                     if (title.indexOf("下午") >= 0) {
