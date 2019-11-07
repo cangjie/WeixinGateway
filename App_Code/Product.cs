@@ -27,7 +27,7 @@ public class Product
 
     public static Product[] GetSkiPassList(string resort)
     {
-        string sqlStr = " select * from product where type = '雪票' and  hidden = 0 and ";
+        string sqlStr = " select * from product_resort_ski_pass left join product on product.[id] = product_id   where type = '雪票' and  hidden = 0 and ";
         if (resort.Trim().Equals("nanshan"))
         {
             sqlStr = sqlStr + " name like '南山%' ";
@@ -57,7 +57,7 @@ public class Product
         {
             sqlStr = sqlStr + " name like '万龙%' ";
         }
-        sqlStr = sqlStr + "  order by sort desc ";
+        sqlStr = sqlStr + "   order by sort desc ";
         DataTable dt = DBHelper.GetDataTable(sqlStr);
         Product[] productArr = new Product[dt.Rows.Count];
         for (int i = 0; i < dt.Rows.Count; i++)
