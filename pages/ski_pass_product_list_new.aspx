@@ -711,6 +711,7 @@
                     for (var i = 0; i < 5; i++) {
                         temp_inner_html = temp_inner_html + '<a href="#" >' + date_to_be_selected_start.getFullYear().toString() + '-'
                             + (date_to_be_selected_start.getMonth() + 1).toString() + '-' + date_to_be_selected_start.getDate().toString() + '</a>';
+                        date_to_be_selected_start.setDate(date_to_be_selected_start.getDate() + 1);
                     }
                     drop_down_date_menu.innerHTML = temp_inner_html;
                 }
