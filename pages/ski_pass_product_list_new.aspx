@@ -686,7 +686,7 @@
     </div>
     <script type="text/javascript" >
         var date_to_be_selected_start = new Date();
-        date_to_be_selected_start = date_to_be_selected_start.setDate(date_to_be_selected_start.getDate() + 1);
+        date_to_be_selected_start.setDate(date_to_be_selected_start.getDate() + 1);
         var resort = '<%=currentResort%>';
         var current_date_time = new Date();
         var url = "/api/get_ski_pass_product.aspx?skidate=" + current_date_time.getFullYear().toString() + "-"
