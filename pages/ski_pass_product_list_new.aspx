@@ -152,7 +152,7 @@
             var week_day = get_week_day(now);
 
 
-            var drop_down_date = document.getElementById("drop-down-date");
+            var drop_down_date = document.getElementById("drop-down-date-menu");
 
 
             drop_down_date.innerHTML = "";
