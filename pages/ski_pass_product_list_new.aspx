@@ -193,8 +193,8 @@
             for (var i = 0; i < 5; i++) {
                 var date_str = start_selected_date.getFullYear().toString() + '-'
                     + (start_selected_date.getMonth() + 1).toString() + '-' + start_selected_date.getDate().toString();
-                temp_inner_html = temp_inner_html + '<a href="#" class="dropdown-item" onclick=select_date("' +
-                    date_str + ') >' + date_str  + '</a>';
+                temp_inner_html = temp_inner_html + '<a href="#" class="dropdown-item" onclick="select_date(\'' +
+                    date_str + '\')" >' + date_str  + '</a>';
                 start_selected_date.setDate(start_selected_date.getDate() + 1);
             }
             document.getElementById("drop-down-date-menu").innerHTML = temp_inner_html;
@@ -202,13 +202,15 @@
 
         function select_date(date) {
             document.getElementById("current_date").innerHTML = date;
-            select_date_num(product_id, document.getElementById("current_date").innerText,
+            select_date_num(pre_order_product_obj_arr[0].product_info.id,
+                document.getElementById("current_date").innerText,
                 document.getElementById("current_num").innerText);
         }
 
         function select_num(num) {
             document.getElementById("current_num").innerHTML = num;
-            select_date_num(product_id, document.getElementById("current_date").innerText,
+            select_date_num(pre_order_product_obj_arr[0].product_info.id,
+                document.getElementById("current_date").innerText,
                 document.getElementById("current_num").innerText);
         }
      
