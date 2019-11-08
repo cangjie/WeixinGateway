@@ -110,54 +110,9 @@
         var product_price_holiday = 0;
 
 
-        function launch_book_modal(product_id, title) {
-            
-            var now = new Date();
-       
-            if (title.indexOf("南山") >= 0) {
-                if (title.indexOf("夜场") >= 0) {
-                    if (title.indexOf("下午") >= 0) {
-                        if (now.getHours() > 7 || (now.getHours == 7 && now.getMinutes() >= 30)) {
-                            now = new Date(now.valueOf() + 3600 * 24 * 1000);
-                        }
-                    }
-                    else {
-                        if (now.getHours() >= 15) {
-                            now = new Date(now.valueOf() + 3600 * 24 * 1000);
-                        }
-                    }
-                }
-                else {
-                    if (now.getHours() > 7 || (now.getHours() == 7 && now.getMinutes() >= 30)) {
-                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
-                    }
-                }
-            }
-
-            if (title.indexOf("八易") >= 0) {
-                if (title.indexOf("夜场") >= 0) {
-                    if ((now.getHours() == 15 && now.getMinutes() >= 30) || now.getHours() > 15) {
-                            now = new Date(now.valueOf() + 3600 * 24 * 1000);
-                    }
-                    
-                }
-                else {
-                    if ((now.getHours() == 8 && now.getMinutes() >= 30) || now.getHours() > 8) {
-                        now = new Date(now.valueOf() + 3600 * 24 * 1000);
-                    }
-                }
-            }
-
-            var day_name = get_day_name(now);
-            var week_day = get_week_day(now);
-
-
-            var drop_down_date = document.getElementById("drop-down-date-menu");
-
-
-           
-            fill_modal();
-            
+        function launch_book_modal(product_id) {
+            fill_modal_new(product_id);
+            //fill_modal();
             $("#booking_modal").modal();
         }
 
@@ -338,7 +293,45 @@
             fill_modal()
         }
 
+        function fill_modal_new(product_id) {
+
+            $.ajax({
+                url: "/api/get_product_info.aspx?type=resort_ski_pass&id=" + product_id,
+                method: "GET",
+                async: false,
+                success: function (msg, status) {
+                    var msg_obj = eval("(" + msg + ")");
+                    if (msg_obj.status == 0) {
+                        product_obj = msg_obj.resort_ski_pass;
+                    }
+                }
+            });
+            var today_is_available = false;
+            var current_date_time = new Date();
+            var end_sale_time_string_arr = product_obj.end_sale_time.split(':');
+            var end_sale_time = current_date_time;
+            end_sale_time.setMinutes(60 * parseInt(end_sale_time_string_arr[0]) + parseInt(end_sale_time[1]));
+            if (current_date_time < end_sale_time) {
+                today_is_available = true;
+            }
+            var start_selected_date = current_date_time;
+            if (!today_is_available) {
+                start_selected_date.setDate(current_date_time.getDate() + 1);
+            }
+            var temp_inner_html = '';
+            for (var i = 0; i < 5; i++) {
+                temp_inner_html = temp_inner_html + '<a href="#" class="dropdown-item"  >' + date_to_be_selected_start.getFullYear().toString() + '-'
+                    + (date_to_be_selected_start.getMonth() + 1).toString() + '-' + date_to_be_selected_start.getDay().toString() + '</a>';
+                start_selected_date.setDate(date_to_be_selected_start.getDay() + 1);
+            }
+
+        }
+
         function fill_modal() {
+
+
+
+
             var span_modal_header = document.getElementById("modal-header");
             var span_current_num = document.getElementById("current_num");
             span_modal_header.innerHTML = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
@@ -388,7 +381,7 @@
             {
              %>
         <br />
-        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>','<%=p._fields["name"].ToString().Trim() %>' )" >
+        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>')" >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
@@ -449,9 +442,15 @@
         </div>
     </div>
     <script type="text/javascript" >
+
+        /*
+        var product_obj;
+
         var date_to_be_selected_start = new Date();
         date_to_be_selected_start.setDate(date_to_be_selected_start.getDate() + 1);
-        var resort = '<%=currentResort%>';
+        */
+        //var resort = '<%=currentResort%>';
+        /*
         var current_date_time = new Date();
         var url = "/api/get_ski_pass_product.aspx?skidate=" + current_date_time.getFullYear().toString() + "-"
             + (current_date_time.getMonth() + 1).toString() + "-" + current_date_time.getDay().toString()
@@ -484,7 +483,7 @@
                 }
                 
             }
-        });
+        });*/
     </script>
 </body>
 </html>
