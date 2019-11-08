@@ -136,6 +136,13 @@
                 success: function (msg, status) {
                     var obj = eval("(" + msg + ")");
                     pre_order_product_obj_arr = obj.results;
+                    var div_summary = document.getElementById("summary");
+                    for (var i = 0; i < pre_order_product_obj_arr.length; i++) {
+                        div_summary.innerHTML = div_summary.innerHTML + pre_order_product_obj_arr[i].product_info.name + ' x '
+                            + pre_order_product_obj_arr[i].count.toString() + ' = '
+                            + (parseFloat(pre_order_product_obj_arr[i].product_info.sale_price) * parseFloat(pre_order_product_obj_arr[i].count)).toString()
+                            + "<br/>";
+                    }
                 }
             });
         }
@@ -327,6 +334,8 @@
                     var msg_obj = eval("(" + msg + ")");
                     if (msg_obj.status == 0) {
                         product_obj = msg_obj.resort_ski_pass;
+                        
+
                     }
                 }
             });
