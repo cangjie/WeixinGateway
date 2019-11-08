@@ -318,13 +318,15 @@
             if (!today_is_available) {
                 start_selected_date.setDate(current_date_time.getDate() + 1);
             }
+            document.getElementById("current_date").innerHTML = start_selected_date.getFullYear().toString() + '-'
+                + (start_selected_date.getMonth() + 1).toString() + '-' + start_selected_date.getDate().toString();
             var temp_inner_html = '';
             for (var i = 0; i < 5; i++) {
-                temp_inner_html = temp_inner_html + '<a href="#" class="dropdown-item"  >' + date_to_be_selected_start.getFullYear().toString() + '-'
-                    + (date_to_be_selected_start.getMonth() + 1).toString() + '-' + date_to_be_selected_start.getDay().toString() + '</a>';
-                start_selected_date.setDate(date_to_be_selected_start.getDay() + 1);
+                temp_inner_html = temp_inner_html + '<a href="#" class="dropdown-item"  >' + start_selected_date.getFullYear().toString() + '-'
+                    + (start_selected_date.getMonth() + 1).toString() + '-' + start_selected_date.getDay().toString() + '</a>';
+                start_selected_date.setDate(start_selected_date.getDate() + 1);
             }
-
+            document.getElementById("drop-down-date-menu").innerHTML = temp_inner_html;
         }
 
         function fill_modal() {
