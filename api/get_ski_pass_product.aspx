@@ -17,7 +17,7 @@
         SkiPass skiPass = new SkiPass(productId);
         foreach (SkiPass s in skiPass.SameTimeSkiPass)
         {
-            if (s.IsAvailableDay(skiDate))
+            if (s.IsAvailableDay(skiDate) && s.IsValid)
             {
                 if (s.InStockCount < count)
                 {

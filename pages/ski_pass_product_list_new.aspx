@@ -88,33 +88,6 @@
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
-/*
-        var current_product_id = "0";
-        var current_title = "";*/
-        //var current_date = "<%=selectedDate[0].Key.ToShortDateString()%>";
-        
-        /*
-        var current_num = "1";
-        var current_rent = false;
-        */
-        //var current_day_name = "<%=selectedDate[0].Value%>";
-        /*
-        var current_price = 0;
-
-        var product_id_work_day = 0;
-        var product_title_work_day = "";
-        var product_price_work_day = 0;
-
-        var product_id_weekend = 0;
-        var product_title_weekend = "";
-        var product_price_weekend = 0;
-
-        var product_id_holiday = 0;
-        var product_title_holiday = "";
-        var product_price_holiday = 0;
-        */
-
-        //var pre_book_product_id_count_str = '';
 
         var pre_order_product_obj_arr;
 
@@ -122,11 +95,8 @@
             fill_modal_new(product_id);
             select_date_num(product_id, document.getElementById("current_date").innerText,
                 document.getElementById("current_num").innerText);
-            //fill_modal();
             $("#booking_modal").modal();
         }
-
-        
 
         function select_date_num(product_id, ski_date, count) {
             $.ajax({
@@ -137,103 +107,22 @@
                     var obj = eval("(" + msg + ")");
                     pre_order_product_obj_arr = obj.results;
                     var div_summary = document.getElementById("summary");
+                    div_summary.innerHTML = "";
+                    var summary_price = 0;
                     for (var i = 0; i < pre_order_product_obj_arr.length; i++) {
+                        summary_price = summary_price 
+                            + parseFloat(pre_order_product_obj_arr[i].product_info.sale_price) * parseFloat(pre_order_product_obj_arr[i].count);
                         div_summary.innerHTML = div_summary.innerHTML + pre_order_product_obj_arr[i].product_info.name + ' x '
                             + pre_order_product_obj_arr[i].count.toString() + ' = '
-                            + (parseFloat(pre_order_product_obj_arr[i].product_info.sale_price) * parseFloat(pre_order_product_obj_arr[i].count)).toString()
+                            + summary_price.toString()
                             + "<br/>";
                     }
+                    div_summary.innerHTML = div_summary.innerHTML + "小计：" + summary_price.toString();
                 }
             });
         }
 
-        function get_day_name(date) {
-
-            var now = new Date();
-            var day_name = "";
-            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
-                day_name = "今天";
-            }
-            now = new Date(now.valueOf() + 1000 * 3600 * 24);
-            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
-                day_name = "明天";
-            }
-            now = new Date(now.valueOf() + 1000 * 3600 * 24);
-            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
-                day_name = "后天";
-            }
-            now = new Date(now.valueOf() + 1000 * 3600 * 24);
-            if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDate() == date.getDate()) {
-                day_name = "大后天";
-            }
-            if (date.getMonth() == 11 && date.getDate() == 30) {
-                day_name = day_name + " 元旦";
-            }
-            if (date.getMonth() == 1 && date.getDate() == 2) {
-                day_name = day_name + " 平日";
-            }
-            if (date.getMonth() == 1 && date.getDate() == 3) {
-                day_name = day_name + " 平日";
-            }
-            if (date.getMonth() == 1 && date.getDate() == 4) {
-                day_name =  "除夕";
-            }
-            if (date.getMonth() == 1 && date.getDate() == 5) {
-                day_name = "初一";
-            }
-            if (date.getMonth() == 1 && date.getDate() == 6) {
-                day_name = "初二";
-            }
-            if (date.getMonth() == 1 && date.getDate() == 7) {
-                day_name = "初三";
-            }
-            if (date.getMonth() == 1 && date.getDate() == 8) {
-                day_name = "初四";
-            }
-            if (date.getMonth() == 1 && date.getDate() == 9) {
-                day_name = "初五";
-            }
-            if (date.getMonth() == 1 && date.getDate() == 10) {
-                day_name = "初六";
-            }
-
-
-
-
-
-            return day_name;
-        }
-
-        function get_week_day(date) {
-            var now = new Date();
-            var week_day_name = "周一";
-            switch (date.getDay()) {
-                case 0:
-                    week_day_name = "周日";
-                    break;
-                case 1:
-                    week_day_name = "周一";
-                    break;
-                case 2:
-                    week_day_name = "周二";
-                    break;
-                case 3:
-                    week_day_name = "周三";
-                    break;
-                case 4:
-                    week_day_name = "周四";
-                    break;
-                case 5:
-                    week_day_name = "周五";
-                    break;
-                case 6:
-                    week_day_name = "周六";
-                    break;
-                default:
-                    break;
-            }
-            return week_day_name;
-        }
+       
 
         function book_ski_pass() {
 
@@ -270,60 +159,7 @@
             });
         }
 
-        function select_date(date, day_name, title) {
-            current_date = date;
-            current_day_name = day_name;
-            if ((day_name.indexOf("周六") >=0 || day_name.indexOf("周日") >= 0) && (day_name.indexOf("平日") < 0) ) {
-            //if (day_name.indexOf("周日") >= 0) {
-                current_product_id = product_id_weekend;
-                current_title = product_title_weekend;
-                current_price = product_price_weekend;
-            }
-            else if (day_name.indexOf("除夕") >= 0 || day_name.indexOf("初") >= 0 || day_name.indexOf("元旦") >= 0) {
-                current_product_id = product_id_holiday;
-                current_title = product_title_holiday;
-                current_price = product_price_holiday;
-            }
-            else {
-                current_product_id = product_id_work_day;
-                current_title = product_title_work_day;
-                current_price = product_price_work_day;
-            }
-
-
-            if (title.indexOf("夜场") >= 0 && title.indexOf("八易") >= 0) {
-                if (day_name.indexOf("周五") >= 0) {
-                    current_product_id = product_id_weekend;
-                    current_title = product_title_weekend;
-                    current_price = product_price_weekend;
-                }
-                if (day_name.indexOf("周日") >= 0) {
-                    current_product_id = product_id_work_day;
-                    current_title = product_title_work_day;
-                    current_price = product_price_work_day;
-                }
-            }
-
-
-            fill_modal();
-        }
-
-        function select_num(num) {
-            current_num = num;
-            fill_modal();
-        }
-
-        function select_rent() {
-            var rent_box = document.getElementById("rent_box");
-            if (rent_box.checked) {
-                current_rent = true;
-            }
-            else {
-                current_rent = false;
-            }
-            fill_modal()
-        }
-
+      
         function fill_modal_new(product_id) {
 
             $.ajax({
@@ -355,52 +191,27 @@
                 + (start_selected_date.getMonth() + 1).toString() + '-' + start_selected_date.getDate().toString();
             var temp_inner_html = '';
             for (var i = 0; i < 5; i++) {
-                temp_inner_html = temp_inner_html + '<a href="#" class="dropdown-item"  >' + start_selected_date.getFullYear().toString() + '-'
-                    + (start_selected_date.getMonth() + 1).toString() + '-' + start_selected_date.getDate().toString() + '</a>';
+                var date_str = start_selected_date.getFullYear().toString() + '-'
+                    + (start_selected_date.getMonth() + 1).toString() + '-' + start_selected_date.getDate().toString();
+                temp_inner_html = temp_inner_html + '<a href="#" class="dropdown-item" onclick=select_date("' +
+                    date_str + ') >' + date_str  + '</a>';
                 start_selected_date.setDate(start_selected_date.getDate() + 1);
             }
             document.getElementById("drop-down-date-menu").innerHTML = temp_inner_html;
         }
 
-        function fill_modal() {
-
-
-
-
-            var span_modal_header = document.getElementById("modal-header");
-            var span_current_num = document.getElementById("current_num");
-            span_modal_header.innerHTML = current_title + "&nbsp;&nbsp;&nbsp;&nbsp;单价：<font color='red' >" + current_price + "</font>元";
-            
-                
-            span_current_num.innerHTML = current_num;
-            var rent_box = document.getElementById("rent");
-            rent_box.checked = current_rent;
-            var div_summary = document.getElementById("summary");
-            var rent_cash = current_title.indexOf("南山") >= 0 ? 200 : 400;
-            if (current_title.indexOf("八易") >= 0) {
-                document.getElementById("rent").disabled = true;
-            }
-            if (current_title.indexOf("乔波") >= 0) {
-                current_rent = true;
-                rent_cash = 200;
-            }
-            var summary_amount = (parseInt(current_price) + (current_rent ? rent_cash : 0)) * parseInt(current_num);
-            if (current_title.indexOf("南山") >= 0) {
-                div_summary.innerHTML = "(雪票￥" + (parseInt(current_price) - 100).toString() + (current_rent ? (" + 押金￥" + (parseInt(rent_cash) + 100).toString()) : " + 押金￥100") + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
-            }
-            if (current_title.indexOf("八易") >= 0) {
-                if (current_title.indexOf("租") >= 0) {
-                    div_summary.innerHTML = "(雪票￥" + (parseInt(current_price) - 200).toString() + " + 押金￥200" + ") x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
-                }
-                else {
-                    div_summary.innerHTML = "雪票￥" + parseInt(current_price).toString() + " x " + current_num + "人 = <font color='red' >" + summary_amount + "</font>";
-                    
-                }
-            }
-            if (current_title.indexOf("乔波") >= 0) {
-                document.getElementById("rent").style.display = "none";
-            }
+        function select_date(date) {
+            document.getElementById("current_date").innerHTML = date;
+            select_date_num(product_id, document.getElementById("current_date").innerText,
+                document.getElementById("current_num").innerText);
         }
+
+        function select_num(num) {
+            document.getElementById("current_num").innerHTML = num;
+            select_date_num(product_id, document.getElementById("current_date").innerText,
+                document.getElementById("current_num").innerText);
+        }
+     
     </script>
 </head>
 <body>
@@ -476,49 +287,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" >
-
-        /*
-        var product_obj;
-
-        var date_to_be_selected_start = new Date();
-        date_to_be_selected_start.setDate(date_to_be_selected_start.getDate() + 1);
-        */
-        //var resort = '<%=currentResort%>';
-        /*
-        var current_date_time = new Date();
-        var url = "/api/get_ski_pass_product.aspx?skidate=" + current_date_time.getFullYear().toString() + "-"
-            + (current_date_time.getMonth() + 1).toString() + "-" + current_date_time.getDay().toString()
-            + "&resort=" + resort;
-
-        $.ajax({
-            url: url,
-            method: "GET",
-            success: function (msg, status) {
-                var msg_obj = eval("(" + msg + ")");
-                for (var i = 0; i < msg_obj.product_arr.length; i++) {
-                    var end_sale_time_str_arr = msg_obj.product_arr[i].end_sale_time.toString().split(':');
-                    var end_sale_time = current_date_time.setMinutes(60 * parseInt(end_sale_time_str_arr[0]) + parseInt(end_sale_time_str_arr[1]));
-                    //end_sale_time = end_sale_time.setMinutes(parseInt(end_sale_time_str_arr[1]));
-                    if (current_date < end_sale_time) {
-                        date_to_be_selected_start = date_to_be_selected_start.setDate(date_to_be_selected_start.getDate() - 1);
-                        break;
-                    }
-                    var drop_down_date_menu = document.getElementById("drop-down-date-menu");
-                    var temp_inner_html = "";
-                    document.getElementById("current_date").innerHTML = date_to_be_selected_start.getFullYear().toString()
-                        + '-' + (1+date_to_be_selected_start.getMonth()).toString() + '-' + date_to_be_selected_start.getDay().toString();
-                    for (var i = 0; i < 5; i++) {
-                        temp_inner_html = temp_inner_html + '<a href="#" class="dropdown-item"  >' + date_to_be_selected_start.getFullYear().toString() + '-'
-                            + (date_to_be_selected_start.getMonth() + 1).toString() + '-' + date_to_be_selected_start.getDay().toString() + '</a>';
-                        date_to_be_selected_start.setDate(date_to_be_selected_start.getDay() + 1);
-                    }
-                    drop_down_date_menu.innerHTML = temp_inner_html;
-                    
-                }
-                
-            }
-        });*/
-    </script>
 </body>
 </html>

@@ -28,13 +28,7 @@ public class SkiPass
 
     }
 
-    public int StockNum
-    {
-        get
-        {
-            return int.Parse(_fields["stock_num"].ToString().Trim());
-        }
-    }
+    
 
     public SkiPass[] SameTimeSkiPass
     {
@@ -93,6 +87,15 @@ public class SkiPass
         }
         return inAvaDays && !inUnAvaDays;
             
+    }
+
+    public bool IsValid
+    {
+        get
+        {
+            return _fields["hidden"].ToString().Equals("0") && DateTime.Parse(_fields["start_date"].ToString()) < DateTime.Now
+                && DateTime.Parse(_fields["end_date"].ToString()) > DateTime.Now && InStockCount > 0;
+        }
     }
 
 }
