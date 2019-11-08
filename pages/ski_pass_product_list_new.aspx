@@ -88,13 +88,17 @@
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
-
+/*
         var current_product_id = "0";
-        var current_title = "";
-        var current_date = "<%=selectedDate[0].Key.ToShortDateString()%>";
+        var current_title = "";*/
+        //var current_date = "<%=selectedDate[0].Key.ToShortDateString()%>";
+        
+        /*
         var current_num = "1";
         var current_rent = false;
-        var current_day_name = "<%=selectedDate[0].Value%>";
+        */
+        //var current_day_name = "<%=selectedDate[0].Value%>";
+        /*
         var current_price = 0;
 
         var product_id_work_day = 0;
@@ -108,12 +112,32 @@
         var product_id_holiday = 0;
         var product_title_holiday = "";
         var product_price_holiday = 0;
+        */
 
+        //var pre_book_product_id_count_str = '';
+
+        var pre_order_product_obj_arr;
 
         function launch_book_modal(product_id) {
             fill_modal_new(product_id);
+            select_date_num(product_id, document.getElementById("current_date").innerText,
+                document.getElementById("current_num").innerText);
             //fill_modal();
             $("#booking_modal").modal();
+        }
+
+        
+
+        function select_date_num(product_id, ski_date, count) {
+            $.ajax({
+                url: "/api/get_ski_pass_product.aspx?id=" + product_id + "&count=" + count + "&skidate=" + ski_date,
+                method: "GET",
+                async: false,
+                success: function (msg, status) {
+                    var obj = eval("(" + msg + ")");
+                    pre_order_product_obj_arr = obj.results;
+                }
+            });
         }
 
         function get_day_name(date) {

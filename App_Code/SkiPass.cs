@@ -20,7 +20,12 @@ public class SkiPass
 
     public SkiPass(int id)
     {
-        
+        DataTable dt = DBHelper.GetDataTable(" select * from product_resort_ski_pass left join product on [id] = product_id where product_id = " + id.ToString());
+        if (dt.Rows.Count >= 1)
+        {
+            _fields = dt.Rows[0];
+        }
+
     }
 
     public int StockNum
@@ -31,7 +36,38 @@ public class SkiPass
         }
     }
 
-     
+    public SkiPass[] SameTimeSkiPass
+    {
+        get
+        {
+            DataTable dt = DBHelper.GetDataTable(" select * from product_resort_ski_pass left join product on [id] = product_id "
+                + " where end_sale_time = '" + _fields["end_sale_time"].ToString().Trim() + "' and resort = '" + _fields["resort"].ToString() + "' "
+                + " order by sale_price  ");
+            SkiPass[] skiPassArr = new SkiPass[dt.Rows.Count];
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                skiPassArr[i] = new SkiPass();
+                skiPassArr[i]._fields = dt.Rows[i];
+            }
+            return skiPassArr;
+        }
+    } 
+
+    public int InStockCount
+    {
+        get
+        {
+            if (_fields["stock_num"].ToString().Equals("-1"))
+            {
+                return int.MaxValue;
+            }
+            else
+            {
+                return int.Parse(_fields["stock_num"].ToString());
+            }
+        }
+    }
+
 
     public bool IsAvailableDay(DateTime currentDate)
     {

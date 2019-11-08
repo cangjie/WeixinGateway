@@ -5,21 +5,48 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        DateTime skiDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "skidate", DateTime.Now.AddDays(1).ToShortDateString()));
-        string resort = Util.GetSafeRequestValue(Request, "resort", "万龙");
-        DataTable dt = DBHelper.GetDataTable(" select * from product_resort_ski_pass left join product on product.[id] = [product_resort_ski_pass].product_id  "
-            + " where hidden = 0 and (stock_num > 0 or stock_num = -1) and product_resort_ski_pass.resort = '" + resort.Trim() + "' order by  product.sale_price ");
-        string jsonItems = "";
-        foreach (DataRow dr in dt.Rows)
+
+        DateTime skiDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "skidate", DateTime.Now.ToShortDateString()));
+        int count = int.Parse(Util.GetSafeRequestValue(Request, "count", "1"));
+        int productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "65"));
+
+        //Dictionary<SkiPass, int> skiPassPair = new Dictionary<SkiPass, int>(); ;
+        KeyValuePair<SkiPass, int> skiPassPair;
+        ArrayList arr = new ArrayList();
+
+        SkiPass skiPass = new SkiPass(productId);
+        foreach (SkiPass s in skiPass.SameTimeSkiPass)
         {
-            SkiPass skiPass = new SkiPass();
-            skiPass._fields = dr;
-            if (skiPass.IsAvailableDay(skiDate))
+            if (s.IsAvailableDay(skiDate))
             {
-                jsonItems = jsonItems + (jsonItems.Trim().Equals("") ? " " : ", ")
-                    + Util.ConvertDataFieldsToJson(dr).Trim();
+                if (s.InStockCount < count)
+                {
+                    skiPassPair = new KeyValuePair<SkiPass, int>(s, s.InStockCount);
+                    arr.Add(skiPassPair);
+                    count = count - s.InStockCount;
+                }
+                else
+                {
+                    skiPassPair = new KeyValuePair<SkiPass, int>(s, count);
+                    arr.Add(skiPassPair);
+                    count = 0;
+                }
+                if (count == 0)
+                {
+                    break;
+                }
             }
         }
-        Response.Write("{ \"product_arr\": [" + jsonItems + "] }");
+
+        string itemJson = "";
+
+        foreach (Object o in arr)
+        {
+            skiPassPair = (KeyValuePair<SkiPass, int>)o;
+            itemJson = itemJson + (itemJson.Trim().Equals("")? "" : ", ") + "{\"count\": " + skiPassPair.Value.ToString()
+                + ", \"product_info\": " + Util.ConvertDataFieldsToJson(skiPassPair.Key._fields) +"} ";
+        }
+        Response.Write("{\"results\":[" + itemJson.Trim() + "]}");
+
     }
 </script>
