@@ -53,10 +53,8 @@ public class Product
         {
             sqlStr = sqlStr + " name like '乔波%' ";
         }
-        if (resort.Trim().Equals("万龙"))
-        {
-            sqlStr = sqlStr + " name like '万龙%' ";
-        }
+        sqlStr = sqlStr + " resort = '" + resort.Trim() + "' ";
+        
         sqlStr = sqlStr + "   order by sort desc ";
         DataTable dt = DBHelper.GetDataTable(sqlStr);
         Product[] productArr = new Product[dt.Rows.Count];

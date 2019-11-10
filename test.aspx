@@ -9,7 +9,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Sms.SendVerifiedSms("13501177897");
+        Product.GetSkiPassList("万龙");
+        //Sms.SendVerifiedSms("13501177897");
         /*
         DateTime currentTime = DateTime.Now;
         Response.Write(currentTime.ToString()+"<br/>");
