@@ -242,7 +242,7 @@
         <div id="booking_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header" id="modal-header" >测试</div>
+                    <div class="modal-header" id="modal-header" ><%=currentResort %></div>
                     <div class="modal-body" >
                         <div>日期：<span class="dropdown">
                                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownSelectDate" >
@@ -254,8 +254,7 @@
                         </div>
 			            <br/>
                         <div>
-                            人数：<%if (!currentResort.Trim().Equals("haixuan"))
-                                   { %><span class="dropdown" >
+                            人数：<span class="dropdown" >
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSelectNum" data-toggle="dropdown">
                                     <span id="current_num" >1</span>
                                     <span class="caret"></span>
@@ -268,19 +267,10 @@
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(5)" >5</a></li>
                                 </ul>
                             </span>
-                            <%}
-                                else
-                                {
-                                    %>
-                            <span id="current_num" >1</span>
-                                        <%
-                                } %>
+                            
                         </div>
 			            <br/>
                       
-                        <div id="rent"  <% if (currentResort.Trim().Equals("nanshan"))
-                            { %> style="display:block" <%}
-                            else {%>  style="display:none" <% } %> ><input type="checkbox" id="rent_box" onclick="select_rent()" />我要租板</div>
                        
                         <div id="summary" >小计：</div>
                     </div>
