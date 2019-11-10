@@ -179,7 +179,7 @@
             var current_date_time = new Date();
             var end_sale_time_string_arr = product_obj.end_sale_time.split(':');
             var end_sale_time = new Date();
-            end_sale_time.setMinutes(60 * parseInt(end_sale_time_string_arr[0]) + parseInt(end_sale_time[1]));
+            end_sale_time.setMinutes(60 * parseInt(end_sale_time_string_arr[0]) + parseInt(end_sale_time_string_arr[1]));
             if (current_date_time < end_sale_time) {
                 today_is_available = true;
             }
