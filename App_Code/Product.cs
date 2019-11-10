@@ -25,6 +25,14 @@ public class Product
         _fields = dt.Rows[0];
     }
 
+    public double SalePrice
+    {
+        get
+        {
+            return Math.Round(double.Parse(_fields["sale_price"].ToString()), 2);
+        }
+    }
+
     public static Product[] GetSkiPassList(string resort)
     {
         string sqlStr = " select * from product_resort_ski_pass left join product on product.[id] = product_id   where type = '雪票' and  hidden = 0 and ";

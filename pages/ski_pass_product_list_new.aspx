@@ -234,6 +234,7 @@
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
             <div class="panel-body">
+                价格：<%=p.SalePrice.ToString()%><br />
                 <%=p._fields["rules"].ToString().Trim() %>
             </div>
         </div>
