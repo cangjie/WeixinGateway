@@ -23,15 +23,12 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         customerOpenId = Util.GetSafeRequestValue(Request, "openid", "").Trim();
-        cellNumber = Util.GetSafeRequestValue(Request, "cell", "").Trim();
         try
         {
             customerUser = new WeixinUser(customerOpenId);
             tickets = Ticket.GetUserTickets(customerOpenId, false);
-            if (!currentUser.CellNumber.Trim().Equals(""))
-            {
-                cellNumber = customerUser.CellNumber.Trim();
-            }
+            cellNumber = customerUser.CellNumber.Trim();
+
         }
         catch
         {
@@ -56,6 +53,10 @@
 
         }
         string currentPageUrl = Request.Url.ToString();
+        if (!Util.GetSafeRequestValue(Request, "cell", "").Trim().Equals(""))
+        {
+            currentPageUrl = currentPageUrl + "?cell=" + Util.GetSafeRequestValue(Request, "cell", "").Trim();
+        }
 
 
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
