@@ -232,7 +232,7 @@
         <tr>
             <td>成交价(元)：</td>
             <td>
-                <input type="text" id="txt_sale_price"  style="width:100px"  oninput="compute_score()"  />
+                <input type="text" id="txt_sale_price"  style="width:100px"  oninput="compute_score()" onfocus="aotu_fill_market_price()"  />
                 <span style="color:red; width:10px; word-wrap:break-word" ></span>
             </td>
         </tr>
@@ -320,6 +320,12 @@
 
     <script type="text/javascript" >
 
+        function aotu_fill_market_price() {
+            var auto_fill = document.getElementById("txt_sale_price");
+            if (auto_fill.value.trim() == '') {
+                auto_fill = document.getElementById("txt_market_price").value.trim();
+            }
+        }
 
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -430,8 +436,9 @@
             if (isNaN(market_price))
                 valid = false;
             sale_price = parseFloat(document.getElementById("txt_sale_price").value);
-            if (isNaN(sale_price))
+            if (isNaN(sale_price)) {
                 valid = false;
+            }
             ticket_amount = parseFloat(document.getElementById("txt_ticket_amout").value);
             if (isNaN(ticket_amount))
                 ticket_amount = 0;
