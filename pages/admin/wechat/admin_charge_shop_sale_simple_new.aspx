@@ -23,11 +23,15 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         customerOpenId = Util.GetSafeRequestValue(Request, "openid", "").Trim();
+        cellNumber = Util.GetSafeRequestValue(Request, "cell", "").Trim();
         try
         {
             customerUser = new WeixinUser(customerOpenId);
             tickets = Ticket.GetUserTickets(customerOpenId, false);
-            cellNumber = customerUser.CellNumber.Trim();
+            if (!currentUser.CellNumber.Trim().Equals(""))
+            {
+                cellNumber = customerUser.CellNumber.Trim();
+            }
         }
         catch
         {
