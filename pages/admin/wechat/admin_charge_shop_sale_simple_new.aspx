@@ -58,7 +58,7 @@
             currentPageUrl = currentPageUrl + "?cell=" + Util.GetSafeRequestValue(Request, "cell", "").Trim();
         }
 
-
+        
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
@@ -73,6 +73,8 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
+        
+
 
         timeStamp = Util.GetTimeStamp().Trim();
         ticketStr = Util.GetTicket();
@@ -158,7 +160,7 @@
                 %>
         <tr>
             <td colspan="2">
-                电话：<input type="text" id="cell" value="" />
+                电话：<input type="text" id="cell" value="<%=cellNumber.Trim() %>" />
             </td>
         </tr>
         <tr>

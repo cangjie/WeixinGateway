@@ -513,4 +513,41 @@ public class WeixinUser : ObjectHelper
         return user;
     }
 
+    public static void MergeUser(string cellNumber)
+    {
+        string[] openIdArr = GetOpenIdByCellNumber(cellNumber);
+        string realOpenId = "";
+        string numericOpenIdArr = "";
+        foreach (string openId in openIdArr)
+        {
+            try
+            {
+                long s = long.Parse(openId);
+                numericOpenIdArr = numericOpenIdArr + (numericOpenIdArr.Trim().Equals("") ? "" : ", ")
+                    + " '" + s.ToString() + "' ";
+            }
+            catch
+            {
+                realOpenId = openId;
+            }
+        }
+        if (!realOpenId.Trim().Equals(""))
+        {
+            string sql = "update order_online set open_id = '" + realOpenId.Trim() + "' where open_id in (" + numericOpenIdArr + ")";
+            SqlConnection conn = new SqlConnection(Util.conStr.Trim());
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            sql = "update user_point_balance set user_open_id = '" + realOpenId.Trim() + "' where user_open_id in (" + numericOpenIdArr + ")";
+            cmd.CommandText = sql;
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            cmd.Dispose();
+            conn.Dispose();
+            
+        }
+    }
+
 }

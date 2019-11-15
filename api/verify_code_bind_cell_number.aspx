@@ -20,6 +20,7 @@
                 {
                     user.FatherOpenId = fatherOpenId;
                 }
+                WeixinUser.MergeUser(user.CellNumber.Trim());
                 //user.FatherOpenId = 
                 //PointFile.ImportPointsFromUploadFiles(user.CellNumber.Trim());
                 //Point.ImportPointsByNumber(user.CellNumber.Trim());
