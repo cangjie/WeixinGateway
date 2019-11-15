@@ -323,7 +323,7 @@
         function aotu_fill_market_price() {
             var auto_fill = document.getElementById("txt_sale_price");
             if (auto_fill.value.trim() == '') {
-                auto_fill = document.getElementById("txt_market_price").value.trim();
+                auto_fill.value = document.getElementById("txt_market_price").value;
             }
         }
 
