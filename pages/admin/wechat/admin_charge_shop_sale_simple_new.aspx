@@ -287,6 +287,7 @@
                     <option>刷卡</option-->
                     <option>微信</option>
                     <option>支付宝</option>
+                    <option>现金</option>
                 </select>
             </td>
         </tr>
@@ -449,9 +450,40 @@
         var temp_order_id = 0;
         var intervalId = 0;
         //获取二维码
+
+        function set_cash_pay() {
+            var pay_method = document.getElementById("pay_method").value.trim();
+            var ajax_url = "../../../api/create_shop_sale_charge_cash_order.aspx?token=<%=userToken%>&marketprice="
+                + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
+                + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method
+                + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
+                + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" + document.getElementById("cell").value.trim()
+                + "&customermemo=" + document.getElementById("customer_memo").value.trim();
+            $.ajax({
+                url: ajax_url,
+                type: "GET",
+                success: function (msg, status) {
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.statue == 0) {
+                        launch_pay_success_info();
+                    }
+                    else {
+                        alert(msg_obj.err_msg);
+                    }
+
+                }
+            });
+            
+        }
+
         function get_qrcode() {
             //alert(get_product_list_json());
             //return;
+            var pay_method = document.getElementById("pay_method").value.trim();
+            if (pay_method == '现金') {
+                set_cash_pay();
+                return;
+            }
             try{
                 parseFloat(document.getElementById("txt_ticket_amout").value);
             }
@@ -461,10 +493,11 @@
             compute_score();
             var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
-                + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + document.getElementById("pay_method").value.trim()
+                + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
                 + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" + document.getElementById("cell").value.trim()
                 + "&customermemo=" + document.getElementById("customer_memo").value.trim();
+          
             //alert(ajax_url);
             $.ajax({
                 url: ajax_url,
