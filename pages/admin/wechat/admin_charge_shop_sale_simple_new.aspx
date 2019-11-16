@@ -464,7 +464,7 @@
                 type: "GET",
                 success: function (msg, status) {
                     var msg_obj = eval('(' + msg + ')');
-                    if (msg_obj.statue == 0) {
+                    if (msg_obj.status == 0) {
                         launch_pay_success_info();
                     }
                     else {
