@@ -85,7 +85,7 @@
                 <td colspan="2" > </td>
             </tr>
             <tr>
-                <td colspan="2"> <input type="button" value="散客收款" style="width:100px" onclick="javascript:window.location.href='admin_charge_shop_sale_simple_new.aspx'" /> </td>
+                <td colspan="2"> <input type="button" value="散客收款" style="width:100px" onclick="javascript: window.location.href = 'admin_charge_shop_sale_for_single_customer.aspx'" /> </td>
             </tr>
         </table>
     </form>
