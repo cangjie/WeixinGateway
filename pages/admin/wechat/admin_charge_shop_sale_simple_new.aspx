@@ -480,10 +480,7 @@
             //alert(get_product_list_json());
             //return;
             var pay_method = document.getElementById("pay_method").value.trim();
-            if (pay_method == '现金') {
-                set_cash_pay();
-                return;
-            }
+            
             try{
                 parseFloat(document.getElementById("txt_ticket_amout").value);
             }
@@ -491,6 +488,10 @@
                 document.getElementById("txt_ticket_amout").value = "0";
             }
             compute_score();
+            if (pay_method == '现金') {
+                set_cash_pay();
+                return;
+            }
             var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method

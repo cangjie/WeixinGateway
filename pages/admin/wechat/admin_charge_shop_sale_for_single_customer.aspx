@@ -121,7 +121,7 @@
         <tr>
             <td>收款(元)：</td>
             <td>
-                <input type="text" id="txt_sale_price"  style="width:100px"  oninput="compute_score()"   />
+                <input type="text" id="txt_sale_price"  style="width:100px"    />
                 <span style="color:red; width:10px; word-wrap:break-word" ></span>
             </td>
         </tr>
@@ -280,13 +280,7 @@
                 set_cash_pay();
                 return;
             }
-            try{
-                parseFloat(document.getElementById("txt_ticket_amout").value);
-            }
-            catch (err) {
-                document.getElementById("txt_ticket_amout").value = "0";
-            }
-            compute_score();
+            
             var ajax_url = "../../../api/create_shop_sale_charge_qrcode.aspx?token=<%=userToken%>&marketprice="
                 + sale_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=0" 
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method
