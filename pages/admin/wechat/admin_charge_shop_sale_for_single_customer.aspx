@@ -253,7 +253,7 @@
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
-                + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" + document.getElementById("cell").value.trim()
+                + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell="// + document.getElementById("cell").value.trim()
                 + "&customermemo=" + document.getElementById("customer_memo").value.trim();
             $.ajax({
                 url: ajax_url,
@@ -285,7 +285,7 @@
                 + sale_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=0" 
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
-                + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" + document.getElementById("cell").value.trim()
+                + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" //+ document.getElementById("cell").value.trim()
                 + "&customermemo=" + document.getElementById("customer_memo").value.trim();
           
             //alert(ajax_url);
