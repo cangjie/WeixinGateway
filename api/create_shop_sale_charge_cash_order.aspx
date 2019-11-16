@@ -38,30 +38,17 @@
 
         int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, customerMemo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode, cell);
-        //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
+
+
+
         if (customerOpenId.Trim().Equals(""))
         {
-            if (payMethod.Trim().Equals("微信"))
-            {
-                Response.Write("{\"status\":0, \"charge_id\":\"4294" + chargeId.ToString().PadLeft(6, '0') + "\", \"temp_order_id\":" + chargeId.ToString()
-                    + ", \"pay_method\": \"" + payMethod.Trim() + "\" }");
-            }
-            else if (payMethod.Trim().Equals("支付宝"))
-            {
-                if (cell.Length == 11 && (cell.StartsWith("13") || cell.StartsWith("15") || cell.StartsWith("18")))
-                {
-                    WeixinUser tempUser = WeixinUser.GetTempWeixinUser(cell.Trim());
-                    OrderTemp orderTemp = new OrderTemp(chargeId);
-                    int orderId = orderTemp.PlaceOnlineOrder(tempUser.OpenId.Trim());
-                    OnlineOrder order = new OnlineOrder(orderId);
-                    order.SetOrderPaySuccess(DateTime.Now, "cashpaid");
-                    Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
-                }
-            }
-            else
-            {
-
-            }
+            WeixinUser tempUser = WeixinUser.GetTempWeixinUser(cell.Trim());
+            OrderTemp orderTemp = new OrderTemp(chargeId);
+            int orderId = orderTemp.PlaceOnlineOrder(tempUser.OpenId.Trim());
+            OnlineOrder order = new OnlineOrder(orderId);
+            order.SetOrderPaySuccess(DateTime.Now, "cashpaid");
+            Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
         }
         else
         {
