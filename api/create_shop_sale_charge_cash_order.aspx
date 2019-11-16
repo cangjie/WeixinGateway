@@ -37,7 +37,7 @@
         }
 
         int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, customerMemo, openId, payMethod, shop,
-            memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode, cell);
+            memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode, cell, currentUser.OpenId.Trim());
 
 
 
