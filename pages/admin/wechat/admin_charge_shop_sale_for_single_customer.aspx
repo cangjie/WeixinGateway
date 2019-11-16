@@ -273,6 +273,7 @@
         }
 
         function get_qrcode() {
+            check_valid();
             //alert(get_product_list_json());
             //return;
             var pay_method = document.getElementById("pay_method").value.trim();
