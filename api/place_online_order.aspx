@@ -20,7 +20,7 @@
                 Product p = new Product(int.Parse(item["product_id"].ToString()));
                 detail.productId = int.Parse(p._fields["id"].ToString());
                 detail.productName = p._fields["name"].ToString();
-                detail.price = double.Parse(p._fields["sale_price"].ToString());
+                detail.price = double.Parse(p._fields["sale_price"].ToString()) + double.Parse(p._fields["deposit"].ToString()) ;
                 detail.count = int.Parse(item["count"].ToString());
                 newOrder.AddADetail(detail);
                 newOrder.Type = p._fields["type"].ToString();
