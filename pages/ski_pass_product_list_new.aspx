@@ -91,7 +91,10 @@
 
         var pre_order_product_obj_arr;
 
+        var current_product_id = 0;
+
         function launch_book_modal(product_id) {
+            current_product_id = product_id;
             fill_modal_new(product_id);
             select_date_num(product_id, document.getElementById("current_date").innerText,
                 document.getElementById("current_num").innerText);
@@ -202,14 +205,14 @@
 
         function select_date(date) {
             document.getElementById("current_date").innerHTML = date;
-            select_date_num(pre_order_product_obj_arr[0].product_info.id,
+            select_date_num(current_product_id,
                 document.getElementById("current_date").innerText,
                 document.getElementById("current_num").innerText);
         }
 
         function select_num(num) {
             document.getElementById("current_num").innerHTML = num;
-            select_date_num(pre_order_product_obj_arr[0].product_info.id,
+            select_date_num(current_product_id,
                 document.getElementById("current_date").innerText,
                 document.getElementById("current_num").innerText);
         }
