@@ -117,9 +117,7 @@
                             + (parseFloat(pre_order_product_obj_arr[i].product_info.sale_price)
                             + parseFloat(pre_order_product_obj_arr[i].product_info.deposit))* parseFloat(pre_order_product_obj_arr[i].count);
                         div_summary.innerHTML = div_summary.innerHTML + '(' + pre_order_product_obj_arr[i].product_info.name +
-
                             ((pre_order_product_obj_arr[i].product_info.deposit == 0) ? '' : ' + 押金：' + pre_order_product_obj_arr[i].product_info.deposit.toString())
-
                             + ')' + ' x '
                             + pre_order_product_obj_arr[i].count.toString() + ' = '
                             + summary_price.toString()
@@ -138,17 +136,7 @@
 
             var pass_json = '{ "product_id": "' + current_product_id + '", "count": "' + current_num + '" }';
             var rent_json = '';
-            if (current_rent) {
-                var rent_productid = "14";
-                if (current_title.indexOf("南山") >= 0) {
-                    rent_productid = "14";
-                }
-                if (current_title.indexOf("乔波") >= 0) {
-                    rent_productid = "8";
-                }
-
-                rent_json = '{ "product_id": "' + rent_productid + '", "count": "' + current_num + '" }';
-            }
+            
 
             cart_json = '{"cart_array" : [' + pass_json + ((rent_json != '') ? (', ' + rent_json) : '') + '], "memo" : {'
                 + '"rent" : "' + (current_rent ? '1' : '0') + '", "use_date" : "' + current_date + '"   }}';
