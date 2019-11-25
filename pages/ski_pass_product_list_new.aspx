@@ -114,7 +114,8 @@
                     var summary_price = 0;
                     for (var i = 0; i < pre_order_product_obj_arr.length; i++) {
                         summary_price = summary_price 
-                            + parseFloat(pre_order_product_obj_arr[i].product_info.sale_price) * parseFloat(pre_order_product_obj_arr[i].count);
+                            + (parseFloat(pre_order_product_obj_arr[i].product_info.sale_price)
+                            + parseFloat(pre_order_product_obj_arr[i].product_info.deposit))* parseFloat(pre_order_product_obj_arr[i].count);
                         div_summary.innerHTML = div_summary.innerHTML + pre_order_product_obj_arr[i].product_info.name + ' x '
                             + pre_order_product_obj_arr[i].count.toString() + ' = '
                             + summary_price.toString()
@@ -254,7 +255,7 @@
                         <div>日期：<span class="dropdown">
                                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownSelectDate" >
                                     <span id="current_date" ></span>
-                                    <span class="caret"></span>
+                                    <span class="caret"></span>v
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="drop-down-date-menu" ></div>
                             </span>
