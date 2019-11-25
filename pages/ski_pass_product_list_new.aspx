@@ -134,7 +134,7 @@
 
             var cart_json = '';
 
-            var pass_json = '{ "product_id": "' + current_product_id + '", "count": "' + current_num + '" }';
+            var pass_json = '{ "product_id": "' + current_product_id + '", "count": "' + document.getElementById("current_num").innerHTML.trim() + '" }';
             var rent_json = '';
             
 
