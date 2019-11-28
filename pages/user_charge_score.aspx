@@ -16,7 +16,7 @@
     {
 
         comment = Util.GetSafeRequestValue(Request, "comment", "进入南山店二楼休息室").Trim();
-        score = int.Parse(Util.GetSafeRequestValue(Request, "score", "0").Trim());
+        score = int.Parse(Util.GetSafeRequestValue(Request, "score", "10").Trim());
 
 
         string currentPageUrl = Request.Url.ToString().Split('?')[0].Trim();
