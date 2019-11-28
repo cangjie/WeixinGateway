@@ -10,6 +10,7 @@
     public string openId = "";
     public string userToken = "";
     public WeixinUser currentUser;
+    public bool canPay = false;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -17,7 +18,7 @@
         comment = Util.GetSafeRequestValue(Request, "comment", "进入南山店二楼休息室").Trim();
         score = int.Parse(Util.GetSafeRequestValue(Request, "score", "0").Trim());
 
-        
+
         string currentPageUrl = Request.Url.ToString().Split('?')[0].Trim();
         if (!Request.QueryString.ToString().Trim().Equals(""))
         {
@@ -35,7 +36,10 @@
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
         totalScore = currentUser.Points;
-
+        if (totalScore >= score)
+        {
+            canPay = true;
+        }
 
     }
 </script>
@@ -57,6 +61,12 @@
 </head>
 <body>
     <div class="container" >
+        <div class="row">
+            <div class="col" ><h1 style="text-align:center" > 支 付 龙 珠 </h1></div>
+        </div>
+        <div class="row">
+            <div class="col" ><hr /></div>
+        </div>
         <div class="row" >
             <div class="col" style="text-align:right" >需要支付龙珠（颗）：</div>
             <div class="col" ><%=score.ToString() %></div>
@@ -72,9 +82,24 @@
         <div class="row" >
             <div class="col" ><hr /></div>
         </div>
+        <%
+            if (canPay)
+            {
+             %>
         <div class="row" >
             <div class="col"   style="text-align:center" ><button id="btn_pay" onclick="pay_score('<%=userToken.Trim() %>', <%=score.ToString() %>, '<%=comment.Trim() %>')"  >同 意 支 付</button></div>
         </div>
+        <%
+            }
+            else
+            {
+                %>
+        <div class="row" >
+            <div class="col"   style="text-align:center" ><button id="btn_pay" disabled="disabled" > 龙 珠 余 额 不 足 </button></div>
+        </div>
+        <%
+            }
+             %>
     </div>
 </body>
 </html>
