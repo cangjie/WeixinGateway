@@ -87,7 +87,7 @@
             {
              %>
         <div class="row" >
-            <div class="col"   style="text-align:center" ><button id="btn_pay" onclick="pay_score('<%=userToken.Trim() %>', <%=score.ToString() %>, '<%=comment.Trim() %>')"  >同 意 支 付</button></div>
+            <div class="col"   style="text-align:center" ><button id="btn_pay" onclick="pay_score('<%=userToken.Trim() %>', <%=score.ToString() %>, '<%=Server.UrlEncode(comment.Trim()) %>')"  >同 意 支 付</button></div>
         </div>
         <%
             }
@@ -101,5 +101,23 @@
             }
              %>
     </div>
+    <script type="text/javascript" >
+        function pay_score(token, score, comment) {
+            $.ajax({
+                url: "/api/charge_score.aspx?token=" + token + "&score=" + score + "&comment=" + comment,
+                type: "GET",
+                success: function (msg, status) {
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.status == 0) {
+                        alert('支付成功。');
+                        window.location.href = 'dragon_ball_list.aspx';
+                    }
+                    else {
+                        alert(msg_obj.error_message);
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>
