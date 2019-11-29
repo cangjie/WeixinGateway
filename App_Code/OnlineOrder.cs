@@ -201,6 +201,28 @@ public class OnlineOrder
             string[,] updateParam = { { "code", "varchar", code } };
             string[,] keyParam = { { "id", "int", _fields["id"].ToString() } };
             DBHelper.UpdateData("order_online", updateParam, keyParam, Util.conStr.Trim());
+
+            foreach (OnlineOrderDetail orderDetail in OrderDetails)
+            {
+                try
+                {
+                    Product p = new Product(orderDetail.productId);
+                    if (p._fields["type"].ToString().Trim().Equals("雪票") && int.Parse(p._fields["stock_num"].ToString()) != -1)
+                    {
+                        int stockNum = int.Parse(p._fields["stock_num"].ToString());
+                        stockNum--;
+                        DBHelper.UpdateData("product", new string[,] { { "stock_num", "int", stockNum.ToString() } },
+                            new string[,] { { "id", "int", orderDetail.productId.ToString() } }, Util.conStr.Trim());
+
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+
+
             return code;
         }
         else
