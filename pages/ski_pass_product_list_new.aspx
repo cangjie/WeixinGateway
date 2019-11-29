@@ -240,7 +240,9 @@
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
             <div class="panel-body">
-                价格：<%=p.SalePrice.ToString()%><br />
+                价格：<%=p.SalePrice.ToString()%> <%if (!p._fields["stock_num"].ToString().Trim().Equals("-1")) {
+                                                       %>剩余：<%=p._fields["stock_num"].ToString().Trim() %>张<%
+                                                   } %><br />
                 <%=p._fields["rules"].ToString().Trim() %>
             </div>
         </div>
