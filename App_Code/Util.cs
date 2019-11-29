@@ -832,7 +832,7 @@ public class Util
         string ret = "";
         foreach (DataColumn dc in dr.Table.Columns)
         {
-            ret = ret +  (ret.Trim().Equals("")? " " : ", ")  +  "\"" + dc.Caption.Trim() + "\": \"" + dr[dc].ToString().Replace("\n", "").Replace("\r", "<BR/>") + "\"";
+            ret = ret +  (ret.Trim().Equals("")? " " : ", ")  +  "\"" + dc.Caption.Trim() + "\": \"" + dr[dc].ToString().Replace("\n", "").Replace("\r", "<BR/>").Replace("\"", "'").Trim() + "\"";
         }
         return "{" + ret.Trim() + "}";
     }
