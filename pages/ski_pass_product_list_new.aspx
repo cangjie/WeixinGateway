@@ -124,7 +124,7 @@
                                 + pre_order_product_obj_arr[i].count.toString() + ' = '
                                 + summary_price.toString()
                                 + "<br/>";
-                            current_product_id = pre_order_product_obj_arr[i].product_id;
+                            current_product_id = pre_order_product_obj_arr[i].product_info.product_id;
                         }
                     }
                     div_summary.innerHTML = div_summary.innerHTML + "小计：" + summary_price.toString();
