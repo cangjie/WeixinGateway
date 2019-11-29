@@ -189,6 +189,8 @@
             document.getElementById("current_date").innerHTML = start_selected_date.getFullYear().toString() + '-'
                 + (start_selected_date.getMonth() + 1).toString() + '-' + start_selected_date.getDate().toString();
             var temp_inner_html = '';
+            var start_selected_date_str = start_selected_date.getFullYear().toString() + '-'
+                    + (start_selected_date.getMonth() + 1).toString() + '-' + start_selected_date.getDate().toString();
             for (var i = 0; i < 5; i++) {
                 var date_str = start_selected_date.getFullYear().toString() + '-'
                     + (start_selected_date.getMonth() + 1).toString() + '-' + start_selected_date.getDate().toString();
@@ -197,7 +199,7 @@
                 start_selected_date.setDate(start_selected_date.getDate() + 1);
             }
             document.getElementById("drop-down-date-menu").innerHTML = temp_inner_html;
-            select_date(date_str);
+            select_date(start_selected_date_str);
         }
 
         function select_date(date) {
