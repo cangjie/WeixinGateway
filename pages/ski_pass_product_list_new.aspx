@@ -113,7 +113,8 @@
                     div_summary.innerHTML = "";
                     var summary_price = 0;
                     for (var i = 0; i < pre_order_product_obj_arr.length; i++) {
-                        if (pre_order_product_obj_arr[i].stock_num == -1 || pre_order_product_obj_arr[i].stock_num >= count) {
+                        var stock_num = parseInt(pre_order_product_obj_arr[i].stock_num);
+                        if (stock_num == -1 || stock_num >= count) {
                             summary_price = summary_price
                                 + (parseFloat(pre_order_product_obj_arr[i].product_info.sale_price)
                                 + parseFloat(pre_order_product_obj_arr[i].product_info.deposit)) * parseFloat(pre_order_product_obj_arr[i].count);
