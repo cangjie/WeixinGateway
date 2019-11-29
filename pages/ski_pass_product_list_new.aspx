@@ -109,6 +109,7 @@
                 method: "GET",
                 async: false,
                 success: function (msg, status) {
+                    can_book = false;
                     var obj = eval("(" + msg + ")");
                     pre_order_product_obj_arr = obj.results;
                     var div_summary = document.getElementById("summary");
