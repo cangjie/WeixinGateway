@@ -113,15 +113,18 @@
                     div_summary.innerHTML = "";
                     var summary_price = 0;
                     for (var i = 0; i < pre_order_product_obj_arr.length; i++) {
-                        summary_price = summary_price 
-                            + (parseFloat(pre_order_product_obj_arr[i].product_info.sale_price)
-                            + parseFloat(pre_order_product_obj_arr[i].product_info.deposit))* parseFloat(pre_order_product_obj_arr[i].count);
-                        div_summary.innerHTML = div_summary.innerHTML + '(' + pre_order_product_obj_arr[i].product_info.name +
-                            ((pre_order_product_obj_arr[i].product_info.deposit == 0) ? '' : ' + 押金：' + pre_order_product_obj_arr[i].product_info.deposit.toString())
-                            + ')' + ' x '
-                            + pre_order_product_obj_arr[i].count.toString() + ' = '
-                            + summary_price.toString()
-                            + "<br/>";
+                        if (pre_order_product_obj_arr[i].stock_num == -1 || pre_order_product_obj_arr[i].stock_num >= count) {
+                            summary_price = summary_price
+                                + (parseFloat(pre_order_product_obj_arr[i].product_info.sale_price)
+                                + parseFloat(pre_order_product_obj_arr[i].product_info.deposit)) * parseFloat(pre_order_product_obj_arr[i].count);
+                            div_summary.innerHTML = div_summary.innerHTML + '(' + pre_order_product_obj_arr[i].product_info.name +
+                                ((pre_order_product_obj_arr[i].product_info.deposit == 0) ? '' : ' + 押金：' + pre_order_product_obj_arr[i].product_info.deposit.toString())
+                                + ')' + ' x '
+                                + pre_order_product_obj_arr[i].count.toString() + ' = '
+                                + summary_price.toString()
+                                + "<br/>";
+                            current_product_id = pre_order_product_obj_arr[i].product_id;
+                        }
                     }
                     div_summary.innerHTML = div_summary.innerHTML + "小计：" + summary_price.toString();
                 }
@@ -194,6 +197,7 @@
                 start_selected_date.setDate(start_selected_date.getDate() + 1);
             }
             document.getElementById("drop-down-date-menu").innerHTML = temp_inner_html;
+            select_date(start_selected_date);
         }
 
         function select_date(date) {
