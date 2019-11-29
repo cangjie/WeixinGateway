@@ -197,7 +197,7 @@
                 start_selected_date.setDate(start_selected_date.getDate() + 1);
             }
             document.getElementById("drop-down-date-menu").innerHTML = temp_inner_html;
-            select_date(start_selected_date);
+            select_date(date_str);
         }
 
         function select_date(date) {
