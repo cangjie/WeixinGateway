@@ -113,7 +113,7 @@
                     div_summary.innerHTML = "";
                     var summary_price = 0;
                     for (var i = 0; i < pre_order_product_obj_arr.length; i++) {
-                        var stock_num = parseInt(pre_order_product_obj_arr[i].stock_num);
+                        var stock_num = parseInt(pre_order_product_obj_arr[i].product_info.stock_num);
                         if (stock_num == -1 || stock_num >= count) {
                             summary_price = summary_price
                                 + (parseFloat(pre_order_product_obj_arr[i].product_info.sale_price)
