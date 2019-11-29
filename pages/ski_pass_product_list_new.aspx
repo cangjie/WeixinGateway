@@ -93,6 +93,8 @@
 
         var current_product_id = 0;
 
+        var can_book = false;
+
         function launch_book_modal(product_id) {
             current_product_id = product_id;
             fill_modal_new(product_id);
@@ -125,6 +127,7 @@
                                 + summary_price.toString()
                                 + "<br/>";
                             current_product_id = pre_order_product_obj_arr[i].product_info.product_id;
+                            can_book = true;
                         }
                     }
                     div_summary.innerHTML = div_summary.innerHTML + "小计：" + summary_price.toString();
@@ -135,6 +138,10 @@
        
 
         function book_ski_pass() {
+
+            if (!can_book) {
+                return;
+            }
 
             var cart_json = '';
 
