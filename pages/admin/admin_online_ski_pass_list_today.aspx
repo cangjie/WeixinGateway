@@ -93,7 +93,7 @@
 </head>
 <body>
     <ul class="nav nav-tabs" >
-        <li class="nav-item"  ><a href="admin_online_ski_pass_list.aspx" >最近七日</a></li>
+        <li class="nav-item"  ><a class="nav-link" href="admin_online_ski_pass_list.aspx" >最近七日</a></li>
         <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().StartsWith("南山") && !rent && !isNight) {%>active<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0" >南山今日自带</a></li>
         <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().StartsWith("南山") && rent && !isNight) {%>active<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
         <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().StartsWith("南山") && !rent && isNight) {%>active"<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0&night=1" >南山今日下午夜场自带</a></li>
