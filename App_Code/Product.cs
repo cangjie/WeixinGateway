@@ -33,6 +33,18 @@ public class Product
         }
     }
 
+    public static Product[] GetInstructorProduct()
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from product where [name] like '%教学场地费%' order by sort desc, [id] ");
+        Product[] productArr = new Product[dt.Rows.Count];
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+            productArr[i] = new Product();
+            productArr[i]._fields = dt.Rows[i];
+        }
+        return productArr;
+    }
+
     public static Product[] GetSkiPassList(string resort)
     {
         string sqlStr = " select * from product_resort_ski_pass left join product on product.[id] = product_id   where type = '雪票' and  hidden = 0 and ";

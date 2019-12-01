@@ -234,7 +234,7 @@
                 <a class=nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("万龙") %>" >万龙</a>
             </li-->
             <li class="nav-item">
-                <a class=nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("南山") %>" >南山</a>
+                <a class="nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("南山") %>" >南山</a>
             </li>
            
         </ul>
