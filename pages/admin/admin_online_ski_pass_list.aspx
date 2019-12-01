@@ -24,14 +24,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active" ><a href="admin_online_ski_pass_list.aspx" >最近七日</a></li>
-        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0" >南山今日自带</a></li>
-        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
-        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=0" >八易今日自带</a></li>
-        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八易租单板" >八易今日租单板</a></li>
-        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=八易租双板" >八易今日租双板</a></li>
-        <li role="presentation" ><a href="admin_online_ski_pass_list_today.aspx?resort=单板海选&rent=0" >单板海选</a></li>
+    <ul class="nav nav-tabs" >
+        <li class="nav-item"  ><a class=nav-link active" href="admin_online_ski_pass_list.aspx" >最近七日</a></li>
+        <li class="nav-item" ><a class=nav-link" href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0" >南山今日自带</a></li>
+        <li class="nav-item" ><a class=nav-link" href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
+        <li class="nav-item" ><a class=nav-link" href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=0" >八易今日自带</a></li>
+        <li class="nav-item" ><a class=nav-link" href="admin_online_ski_pass_list_today.aspx?resort=八易租单板" >八易今日租单板</a></li>
+        <li class="nav-item" ><a class=nav-link" href="admin_online_ski_pass_list_today.aspx?resort=八易租双板" >八易今日租双板</a></li>
+        <li class="nav-item" ><a class=nav-link" href="admin_online_ski_pass_list_today.aspx?resort=单板海选&rent=0" >单板海选</a></li>
     </ul>
     <table class="table table-striped">
         <tr>
