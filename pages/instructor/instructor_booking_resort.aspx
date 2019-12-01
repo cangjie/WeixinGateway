@@ -22,15 +22,14 @@
 
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+            Response.Redirect("../../authorize.aspx?callback=" + currentPageUrl, true);
         }
         userToken = Session["user_token"].ToString();
 
-        //userToken = "efa86b2cb53ff14b4500298208effda1652c863ac117668953d4ef93f807351b4ff11040";
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+            Response.Redirect("../../authorize.aspx?callback=" + currentPageUrl, true);
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
         if (!currentUser._fields["is_instructor"].ToString().Trim().Equals("1"))
