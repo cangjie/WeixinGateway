@@ -88,7 +88,7 @@
         }
 
         function select_date(selected_date) {
-            document.getElementById("current_date").innerText = select_date;
+            document.getElementById("current_date").innerText = selected_date;
         }
 
     </script>
