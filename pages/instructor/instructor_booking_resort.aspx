@@ -68,7 +68,7 @@
             {
              %>
         <br />
-        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>')" >
+        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>', '<%=p._fields["name"].ToString() %>')" >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
@@ -79,9 +79,62 @@
         </div>
         <%} %>
     <script type="text/javascript" >
-        function launch_book_modal(product_id) {
+
+        function launch_book_modal(product_id, product_name) {
 
         }
+
+        function select_date(selected_date) {
+
+        }
+
     </script>
+    <div id="booking_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" id="modal-header" ></div>
+                <div class="modal-body" >
+                    <div>日期：<span class="dropdown">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownSelectDate" >
+                                <span id="current_date" ></span>
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="drop-down-date-menu" >
+                                <%
+                                    for (DateTime i = DateTime.Now.Date.AddDays(1); i <= DateTime.Now.Date.AddDays(5); i = i.AddDays(1))
+                                    {
+                                        %>
+                                <a href="#"  class="dropdown-item" onclick="select_date('<%=i.ToShortDateString() %>' ><%=i.ToShortDateString() %></a>
+                                            <%
+                                    }
+                                     %>
+                            </div>
+                        </span>
+                    </div>
+			        <br/>
+                    <div>
+                        人数：<span class="dropdown" >
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSelectNum" data-toggle="dropdown">
+                                <span id="current_num" >1</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"  >
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(1)" >1</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(2)" >2</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(3)" >3</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="select_num(4)" >4</a></li>
+                            </ul>
+                        </span>
+                            
+                    </div>
+			        <br/>
+                      
+                       
+                    <div id="summary" >小计：</div>
+                </div>
+                <div class="modal-footer" ><button type="button" class="btn btn-default" onclick="book_ski_pass()"> 确 认 预 定 </button></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
