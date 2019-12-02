@@ -10,7 +10,7 @@
     public int productId = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-        productId = int.Parse(Util.GetSafeRequestValue(Request, "productid", "5").Trim());
+        productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "5").Trim());
         string currentPageUrl = Request.Url.ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
