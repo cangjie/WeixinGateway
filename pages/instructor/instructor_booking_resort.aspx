@@ -72,7 +72,7 @@
             {
              %>
         <br />
-        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>', '<%=p._fields["name"].ToString() %>')" >
+        <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal(<%=p._fields["id"].ToString().Trim() %>, '<%=p._fields["name"].ToString() %>')" >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
@@ -84,8 +84,12 @@
         <%} %>
     <script type="text/javascript" >
 
+        var current_product_id = 0;
+
         function launch_book_modal(product_id, product_name) {
+            current_product_id = product_id;
             select_date('<%=startDate.Year.ToString()%>-<%=startDate.Month.ToString()%>-<%=startDate.Day.ToString()%>');
+            document.getElementById("modal-header").innerText = product_name;
             $("#booking_modal").modal();
         }
 
@@ -95,6 +99,23 @@
 
         function select_num(num) {
             document.getElementById("current_num").innerText = num;
+        }
+
+        function book_ski_pass() {
+            var pass_json = '{ "product_id": "' + current_product_id + '", "count": 1 }';
+            var cart_json = '{"cart_array" : [' + pass_json + '], "memo": { "use_date": "' + document.getElementById("current_date").innerText.trim()
+                + '", "student_count": ' + document.getElementById("current_num").innerText.trim() + ' }}';
+
+            $.ajax({
+                url: "/api/place_online_order.aspx",
+                async: false,
+                type: "GET",
+                data: { "cart": cart_json, "token": "<%=userToken%>" },
+                success: function(msg, status) {
+                    var msg_object = eval("(" + msg + ")");
+                    window.location.href = "../payment/payment.aspx?product_id=" + msg_object.order_id;
+                }
+            });
         }
 
     </script>
@@ -138,9 +159,6 @@
                             
                     </div>
 			        <br/>
-                      
-                       
-                    <div id="summary" >小计：</div>
                 </div>
                 <div class="modal-footer" ><button type="button" class="btn btn-default" onclick="book_ski_pass()"> 确 认 预 定 </button></div>
             </div>
