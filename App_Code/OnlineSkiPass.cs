@@ -105,7 +105,7 @@ public class OnlineSkiPass
             bool ret = false;
             foreach (OnlineOrderDetail detail in AssociateOnlineOrder.OrderDetails)
             {
-                if (detail.productName.IndexOf("押金") >= 0)
+                if (detail.productName.IndexOf("租板") >= 0)
                 {
                     ret = true;
                 }
