@@ -75,6 +75,10 @@
                 if (valid)
                 {
                     Product p = new Product(pass.associateOnlineOrderDetail.productId);
+                    if (!p.Type.Trim().Equals("雪票"))
+                    {
+                        continue;
+                    }
                     %>
         <br />
         <div id="ticket-1" name="ticket" class="card" style="width:350px" onclick="go_to_detail('<%=pass.associateOnlineOrder._fields["id"].ToString().Trim() %>','<%=pass.cardCode %>')" >
