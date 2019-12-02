@@ -197,7 +197,19 @@ public class OnlineOrder
     {
         if (_fields["code"] == null || _fields["code"].ToString().Trim().Equals(""))
         {
-            string code = Card.GenerateCardNo(9, 0, "雪票");
+            string type = "";
+
+            foreach (OnlineOrderDetail detail in OrderDetails)
+            {
+                Product p = new Product(detail.productId);
+                if (p.Type.Trim().Equals("雪票") || p.Type.Trim().Equals("课程"))
+                {
+                    type = p.Type.Trim();
+                }
+            }
+
+
+            string code = Card.GenerateCardNo(9, 0, type.Trim());
             string[,] updateParam = { { "code", "varchar", code } };
             string[,] keyParam = { { "id", "int", _fields["id"].ToString() } };
             DBHelper.UpdateData("order_online", updateParam, keyParam, Util.conStr.Trim());

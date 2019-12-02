@@ -33,6 +33,23 @@ public class Product
         }
     }
 
+    public string Type
+    {
+        get
+        {
+            string type = _fields["type"].ToString();
+            if (type.Trim().Equals("雪票"))
+            {
+                DataTable dt = DBHelper.GetDataTable("select * from product_resort_ski_pass where product_id = " + _fields["id"].ToString());
+                if (dt.Rows.Count == 0)
+                {
+                    type = "课程";
+                }
+            }
+            return type.Trim();
+        }
+    }
+
     public static Product[] GetInstructorProduct()
     {
         DataTable dt = DBHelper.GetDataTable(" select * from product where [name] like '%教学场地费%' order by sort desc, [id] ");
