@@ -113,7 +113,7 @@
                 data: { "cart": cart_json, "token": "<%=userToken%>" },
                 success: function(msg, status) {
                     var msg_object = eval("(" + msg + ")");
-                    window.location.href = "../payment/payment.aspx?product_id=" + msg_object.order_id;
+                    window.location.href = "../../payment/payment.aspx?product_id=" + msg_object.order_id;
                 }
             });
         }
