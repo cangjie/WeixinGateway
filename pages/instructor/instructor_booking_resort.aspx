@@ -12,6 +12,8 @@
 
     public Product[] prodArr = Product.GetInstructorProduct();
 
+    public DateTime startDate = DateTime.Now.Date.AddDays(1);
+
     protected void Page_Load(object sender, EventArgs e)
     {
         string currentPageUrl = Request.Url.ToString().Split('?')[0].Trim();
@@ -81,7 +83,7 @@
     <script type="text/javascript" >
 
         function launch_book_modal(product_id, product_name) {
-            select_date('<%=DateTime.Now.Date.AddDays(1).ToShortDateString()%>');
+            select_date('<%=startDate.Year.ToString()%>-<%=startDate.Month.ToString()%>-<%=startDate.Day.ToString()%>');
             $("#booking_modal").modal();
         }
 
