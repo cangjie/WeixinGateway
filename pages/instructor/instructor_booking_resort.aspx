@@ -93,6 +93,10 @@
             document.getElementById("current_date").innerText = selected_date;
         }
 
+        function select_num(num) {
+            document.getElementById("current_num").innerText = num;
+        }
+
     </script>
     <div id="booking_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
