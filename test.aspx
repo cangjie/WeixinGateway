@@ -9,7 +9,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        WeixinUser.MergeUser("18601197897");
+        //WeixinUser.MergeUser("18601197897");
         //Product.GetSkiPassList("万龙");
         //Sms.SendVerifiedSms("13501177897");
         /*

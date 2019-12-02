@@ -81,11 +81,12 @@
     <script type="text/javascript" >
 
         function launch_book_modal(product_id, product_name) {
-
+            select_date('<%=DateTime.Now.Date.AddDays(1)%>');
+            $("#booking_modal").modal();
         }
 
         function select_date(selected_date) {
-
+            document.getElementById("current_date").innerText = select_date;
         }
 
     </script>
