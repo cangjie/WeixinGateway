@@ -104,7 +104,7 @@
                                     for (DateTime i = DateTime.Now.Date.AddDays(1); i <= DateTime.Now.Date.AddDays(5); i = i.AddDays(1))
                                     {
                                         %>
-                                <a href="#"  class="dropdown-item" onclick="select_date('<%=i.ToShortDateString() %>' ><%=i.ToShortDateString() %></a>
+                                <a href="#"  class="dropdown-item" onclick="select_date('<%=i.ToShortDateString() %>')" ><%=i.ToShortDateString() %></a>
                                             <%
                                     }
                                      %>
