@@ -81,7 +81,7 @@
     <script type="text/javascript" >
 
         function launch_book_modal(product_id, product_name) {
-            select_date('<%=DateTime.Now.Date.AddDays(1)%>');
+            select_date('<%=DateTime.Now.Date.AddDays(1).ToShortDateString()%>');
             $("#booking_modal").modal();
         }
 
