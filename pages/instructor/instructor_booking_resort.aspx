@@ -108,8 +108,9 @@
                                 <%
                                     for (DateTime i = DateTime.Now.Date.AddDays(1); i <= DateTime.Now.Date.AddDays(5); i = i.AddDays(1))
                                     {
+                                        string dateStr = i.Year.ToString() + "-" + i.Month.ToString() + "-" + i.Day.ToString();
                                         %>
-                                <a href="#"  class="dropdown-item" onclick="select_date('<%=i.ToShortDateString() %>')" ><%=i.ToShortDateString() %></a>
+                                <a href="#"  class="dropdown-item" onclick="select_date('<%=dateStr %>')" ><%=dateStr %></a>
                                             <%
                                     }
                                      %>
