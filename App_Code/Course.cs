@@ -10,6 +10,10 @@ public class Course: OnlineSkiPass
 {
     public OnlineOrderDetail associateOnlineOrderDetail;
 
+    private string cardCode = "";
+
+    public OnlineSkiPass skiPass;
+
     public Course()
     {
         //
@@ -17,15 +21,36 @@ public class Course: OnlineSkiPass
         //
     }
 
+
     public OnlineOrderDetail AssociateOnlineOrderDetail
     {
         get
         {
+            if (skiPass == null)
+            {
+                skiPass = new OnlineSkiPass(_fields["code"].ToString().Trim());
+            }
             if (associateOnlineOrderDetail == null)
             {
-                associateOnlineOrderDetail = (new OnlineSkiPass(_fields["code"].ToString().Trim())).associateOnlineOrderDetail;
+                associateOnlineOrderDetail = skiPass.associateOnlineOrderDetail;
             }
             return associateOnlineOrderDetail;
+        }
+    }
+
+    public string CardCode
+    {
+        get
+        {
+            if (skiPass == null)
+            {
+                skiPass = new OnlineSkiPass(_fields["code"].ToString().Trim());
+            }
+            if (cardCode.Trim().Equals(""))
+            {
+                cardCode = skiPass.CardCode;
+            }
+            return cardCode;
         }
     }
 
