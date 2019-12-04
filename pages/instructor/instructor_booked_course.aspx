@@ -66,7 +66,7 @@
         <%
             foreach (Course c in myCourseArr)
             {
-                Product p = new Product(c.associateOnlineOrderDetail.productId);
+                Product p = new Product(c.AssociateOnlineOrderDetail.productId);
                 %>
         <div id="ticket-1" name="ticket" class="card" style="width:350px" onclick="go_to_detail('<%=c.associateOnlineOrder._fields["id"].ToString().Trim() %>','<%=c.cardCode %>')" >
             <div class="card-header">

@@ -8,11 +8,25 @@ using System.Data;
 /// </summary>
 public class Course: OnlineSkiPass
 {
+    public OnlineOrderDetail associateOnlineOrderDetail;
+
     public Course()
     {
         //
         // TODO: Add constructor logic here
         //
+    }
+
+    public OnlineOrderDetail AssociateOnlineOrderDetail
+    {
+        get
+        {
+            if (associateOnlineOrderDetail == null)
+            {
+                associateOnlineOrderDetail = (new OnlineSkiPass(_fields["code"].ToString().Trim())).associateOnlineOrderDetail;
+            }
+            return associateOnlineOrderDetail;
+        }
     }
 
     public static Course[] GetOnlieCourseByOwnerOpenId(string openId)
