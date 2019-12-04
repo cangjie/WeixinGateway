@@ -147,7 +147,7 @@
                     } %>
                 <br />
                 <div style="text-align:center" >
-                    <img src="../show_qrcode.aspx?sceneid=3<%=code %>" style="width:200px; text-align:center"  />
+                    <img src="../../show_qrcode.aspx?sceneid=3<%=code %>" style="width:200px; text-align:center"  />
                     <br />
                     <b style="text-align:center" ><%=code.Substring(0,3) %>-<%=code.Substring(3,3) %>-<%=code.Substring(6,3) %></b>
                 </div>
