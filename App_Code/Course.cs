@@ -25,9 +25,10 @@ public class Course: OnlineSkiPass
         Course[] passArr = new Course[dt.Rows.Count];
         for (int i = 0; i < passArr.Length; i++)
         {
+            passArr[i] = new Course();
             passArr[i]._fields = dt.Rows[i];
         }
-        dt.Dispose();
+        //dt.Dispose();
         return passArr;
     }
 }
