@@ -180,7 +180,8 @@ public class OnlineSkiPass
     public static OnlineSkiPass[] GetOnlieSkiPassByOwnerOpenId(string openId)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from order_online where type = '雪票' and code <> '' and code is not null and open_id = '"
-            + openId.Trim() + "'  and pay_state = 1 order by [id] desc ");
+            + openId.Trim() + "'  and pay_state = 1 "
+            + " and exists ( select 'a' from [card] where [card].code = order_online.code and [type]='雪票' ) order by [id] desc ");
         OnlineSkiPass[] passArr = new OnlineSkiPass[dt.Rows.Count];
         for (int i = 0; i < passArr.Length; i++)
         {

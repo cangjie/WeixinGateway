@@ -64,6 +64,7 @@
     <div>
         <ul class="nav nav-tabs" >
             <li class="nav-item" ><a class="nav-link active" href="instructor_booking_resort.aspx" >场地预约</a></li>
+            <li class="nav-item" ><a class="nav-link" href="instructor_booked_course.aspx" >我的课程</a></li>
         </ul>
 
     </div>
