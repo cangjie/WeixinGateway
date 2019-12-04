@@ -68,7 +68,7 @@
             {
                 Product p = new Product(c.AssociateOnlineOrderDetail.productId);
                 %>
-        <div id="ticket-1" name="ticket" class="card" style="width:350px" onclick="go_to_detail('<%=c.associateOnlineOrder._fields["id"].ToString().Trim() %>','<%=c.cardCode %>')" >
+        <div id="ticket-1" name="ticket" class="card" style="width:350px" onclick="go_to_detail('<%=c.AssociateOnlineOrder._fields["id"].ToString().Trim() %>','<%=c.cardCode %>')" >
             <div class="card-header">
                 <h3 class="card-title"><%=p._fields["name"].ToString() %></h3>
             </div>
