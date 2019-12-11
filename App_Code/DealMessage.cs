@@ -113,66 +113,56 @@ public class DealMessage
                             repliedMessage.type = "news";
                             RepliedMessage.news content = new RepliedMessage.news();
 
-
-
-                            if (user.IsAdmin)
+                            switch (card.Type.Trim())
                             {
-                                if (card.Used)
-                                {
-                                    repliedMessage.type = "text";
-                                    repliedMessage.content = card._fields["type"].ToString() + ":"
-                                        + ticketCode.Trim() + "已经使用，点击<a href=\"http://weixin.snowmeet.com/pages/admin/wechat/card_confirm_finish.aspx?code=" + ticketCode.Trim() + "\" >这里</a>查看详情";
-
-                                }
-                                else
-                                {
-                                    if (card._fields["type"].ToString().Equals("雪票"))
+                                case "雪票":
+                                    if (user.IsAdmin)
                                     {
-                                        content.title = "确认雪票-" + ticketCode;
-                                        content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                                        content.url = "http://weixin.snowmeet.com/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
-                                        content.description = "";
+                                        if (!card.Used)
+                                        {
+                                            content.title = "确认雪票-" + ticketCode;
+                                            content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
+                                            content.url = "http://weixin.snowmeet.com/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
+                                            content.description = "";
+                                        }
+                                        else
+                                        {
+                                            repliedMessage.type = "text";
+                                            repliedMessage.content = card._fields["type"].ToString() + ":"
+                                                + ticketCode.Trim() + "已经使用，点击<a href=\"http://weixin.snowmeet.com/pages/admin/wechat/card_confirm_finish.aspx?code=" + ticketCode.Trim() + "\" >这里</a>查看详情";
+                                        }
                                     }
-                                    else
+                                    break;
+                                case "课程":
+                                    Course course = new Course(card._fields["card_no"].ToString().Trim());
+                                    if (course.Resort.Trim().Equals(user.StaffResort.Trim()))
                                     {
-                                        Ticket ticket = new Ticket(ticketCode.Trim());
-                                        content.title = "确认消费-" + ticket.Type.Trim() + "-" + ticketCode;
-                                        content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                                        content.url = "http://weixin.snowmeet.com/pages/admin/wechat/ticket_confirm.aspx?code=" + ticketCode.Trim();
-                                        content.description = "";
+                                        if (!card.Used)
+                                        {
+                                            content.title = "确认课程发放袖标-" + ticketCode;
+                                            content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
+                                            content.url = "http://weixin.snowmeet.com/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
+                                            content.description = "";
+                                        }
+                                        else
+                                        {
+
+                                        }
                                     }
-
-
-                                    repliedMessage.newsContent = new RepliedMessage.news[] { content };
-                                }
-                            }
-                            else if (!user.StaffResort.Trim().Equals("") && card.Type.Trim().Equals("课程"))
-                            {
-                                Course c = new Course(card._fields["card_no"].ToString().Trim());
-                                if (user.StaffResort.Trim().Equals(c.Resort.Trim()))
-                                {
-                                    content.title = "确认课程-" + ticketCode;
-                                    content.picUrl = "http://www.nanshanski.com/web_cn/images/bppt.jpg";
-                                    content.url = "http://weixin.snowmeet.com/pages/admin/wechat/card_confirm.aspx?code=" + ticketCode.Trim();
-                                    content.description = "";
-                                }
-                            }
-                            else
-                            {
-                                Ticket ticket = new Ticket(ticketCode.Trim());
-                                WeixinUser fatherUser = new WeixinUser(ticket.Owner.OpenId.Trim());
-                                bool ret = ticket.Transfer(receivedMessage.from.Trim());
-                                if (ret)
-                                {
-                                    repliedMessage.type = "text";
-                                    repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
-                                }
+                                    break;
+                                default:
+                                    Ticket ticket = new Ticket(ticketCode.Trim());
+                                    WeixinUser fatherUser = new WeixinUser(ticket.Owner.OpenId.Trim());
+                                    bool ret = ticket.Transfer(receivedMessage.from.Trim());
+                                    if (ret)
+                                    {
+                                        repliedMessage.type = "text";
+                                        repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
+                                    }
+                                    break;
                             }
 
-
-
-
-                            
+                            repliedMessage.newsContent = new RepliedMessage.news[] { content };
                             return repliedMessage;
                         }
                         catch
