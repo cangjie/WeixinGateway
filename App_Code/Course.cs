@@ -10,7 +10,6 @@ public class Course: OnlineSkiPass
 {
     public OnlineOrderDetail associateOnlineOrderDetail;
 
-    private string cardCode = "";
 
     public OnlineSkiPass skiPass;
 
@@ -24,7 +23,7 @@ public class Course: OnlineSkiPass
     public Course(string code)
     {
         cardCode = code;
-        DataTable dtOrder = DBHelper.GetDataTable(" select [id] from order_online where type='课程' and code = '" + code.Trim() + "' ");
+        DataTable dtOrder = DBHelper.GetDataTable(" select [id] from order_online where type='雪票' and code = '" + code.Trim() + "' ");
         associateOnlineOrder = new OnlineOrder(int.Parse(dtOrder.Rows[0][0].ToString()));
         associateOnlineOrderDetail = associateOnlineOrder.OrderDetails[0];
         productName = associateOnlineOrderDetail.productName.Trim();

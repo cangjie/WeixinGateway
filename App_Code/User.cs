@@ -159,7 +159,7 @@ public class WeixinUser : ObjectHelper
         {
             if (_fields["is_resort_staff"].ToString().Equals("1"))
             {
-                return "八易";
+                return "万龙";
             }
             else
             {
