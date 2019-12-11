@@ -153,6 +153,21 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public string StaffResort
+    {
+        get
+        {
+            if (_fields["is_resort_staff"].ToString().Equals("1"))
+            {
+                return "八易";
+            }
+            else
+            {
+                return "";
+            }
+        }
+    }
+
     public bool IsAdmin
     {
         get

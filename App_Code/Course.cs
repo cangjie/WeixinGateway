@@ -21,6 +21,36 @@ public class Course: OnlineSkiPass
         //
     }
 
+    public Course(string code)
+    {
+        cardCode = code;
+        DataTable dtOrder = DBHelper.GetDataTable(" select [id] from order_online where type='课程' and code = '" + code.Trim() + "' ");
+        associateOnlineOrder = new OnlineOrder(int.Parse(dtOrder.Rows[0][0].ToString()));
+        associateOnlineOrderDetail = associateOnlineOrder.OrderDetails[0];
+        productName = associateOnlineOrderDetail.productName.Trim();
+        count = associateOnlineOrderDetail.count;
+        associateCard = new Card(code);
+
+        owner = new WeixinUser(associateOnlineOrder._fields["open_id"].ToString());
+
+        if (associateCard._fields["type"].Equals("雪票"))
+        {
+            if (!associateCard._fields["used"].ToString().Equals("0"))
+            {
+                used = true;
+                try
+                {
+                    useDate = DateTime.Parse(associateCard._fields["use_date"].ToString());
+                }
+                catch
+                {
+
+                }
+            }
+
+        }
+    }
+    
 
     public OnlineOrderDetail AssociateOnlineOrderDetail
     {
@@ -54,6 +84,14 @@ public class Course: OnlineSkiPass
         }
     }
 
+    public string Resort
+    {
+        get
+        {
+            return AssociateOnlineOrder._fields["shop"].ToString().Trim().Trim();
+        }
+    }
+    
     public static Course[] GetOnlieCourseByOwnerOpenId(string openId)
     {
         DataTable dt = DBHelper.GetDataTable(" select * from order_online "
