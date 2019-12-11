@@ -12,9 +12,12 @@
     public string body = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-        code = Util.GetSafeRequestValue(Request, "code", "");
+        code = Util.GetSafeRequestValue(Request, "code", "718825177");
 
         string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/card_confirm.aspx?code=" + code);
+
+        //Session["user_token"] = "6f004acef507536248067b735325b08865bf6be83747e6d1d466a825c65000e76e25b6ac";
+
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
@@ -32,6 +35,7 @@
         switch (card._fields["type"].ToString().Trim())
         {
             case "雪票":
+            case "课程":
                 pannelStyle = "success";
                 OnlineSkiPass pass = new OnlineSkiPass(code);
                 title = pass.associateOnlineOrderDetail.productName.Trim();
@@ -41,7 +45,7 @@
                 break;
         }
 
-        if (!currentUser.IsAdmin)
+        if (!currentUser.IsAdmin && !currentUser.StaffResort.Trim().Equals(""))
         {
             Response.End();
         }
