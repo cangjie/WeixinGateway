@@ -71,6 +71,8 @@
         }
 
         function exchange() {
+            var btn = document.getElementById("btn");
+            btn.disabled = true;
             var ajax_url = "../api/exchange_dragon_ball_to_ticket.aspx?token=" + token + "&templateid=" + current_id;
             $.ajax({
                 url:        ajax_url,
@@ -84,6 +86,7 @@
                                 else {
                                     alert(msg_object.error_message);
                                 }
+                                btn.disabled = false;
                             }
             });
         }
@@ -118,7 +121,7 @@
         <%
     }
      %>
-        <button type="button" class="btn btn-danger" onclick="exchange()" >我要兑换（此操作不可逆）</button>
+        <button id="btn" type="button" class="btn btn-danger" onclick="exchange()" >我要兑换（此操作不可逆）</button>
         <br />
     </div>
 </body>
