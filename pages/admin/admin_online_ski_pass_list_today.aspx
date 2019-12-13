@@ -27,6 +27,10 @@
     public bool CanDisplay(OnlineSkiPass pass, OnlineOrderDetail dtl)
     {
         bool ret = true;
+        if (pass.CardCode.Trim().Equals("079222292"))
+        {
+            string aa = "aa";
+        }
 
         if (resort.Trim().IndexOf("八易") >= 0)
         {
@@ -71,6 +75,12 @@
         if (isNight && dtl.productName.Trim().IndexOf("夜场") < 0)
         {
             ret = false;
+        }
+
+        if (dtl.productName.Trim().IndexOf("当日票") >= 0)
+        {
+            Card c = new Card(pass.CardCode.Trim());
+            c.Use(DateTime.Now.Date, "当日现场出票，自动验票。");
         }
         return ret;
 
