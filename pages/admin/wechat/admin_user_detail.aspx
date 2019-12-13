@@ -99,8 +99,7 @@
         try
         {
             score = int.Parse(TxtScore.Text.Trim());
-            if (score > 0)
-                Point.AddNew(customOpenId, score, DateTime.Now, currentUser.Nick + " 赠予。");
+            Point.AddNew(customOpenId, score, DateTime.Now, currentUser.Nick + " 赠予。");
         }
         catch
         {
