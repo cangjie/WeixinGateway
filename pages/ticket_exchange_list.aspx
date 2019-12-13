@@ -109,7 +109,7 @@
         <div id="ticket-<%=ticketTemplateArray[i].id.ToString() %>" name="ticket" class="<%=className %>" style="width:350px" <%if (!onClick.Trim().Equals(""))
             { %> onclick="<%=onClick.Trim() %>" <%} %> >
             <div class="panel-heading">
-                <h3 class="panel-title"><%=ticketTemplateArray[i].neetPoints.ToString() %>龙珠兑换暖宝券</h3>
+                <h3 class="panel-title"><%=ticketTemplateArray[i].neetPoints.ToString() %>龙珠兑换<%=ticketTemplateArray[i].name.Trim() %></h3>
             </div>
             <div class="panel-body">
                 <%=ticketTemplateArray[i].memo %>
