@@ -132,6 +132,7 @@ public class DealMessage
                                                 + ticketCode.Trim() + "已经使用，点击<a href=\"http://weixin.snowmeet.com/pages/admin/wechat/card_confirm_finish.aspx?code=" + ticketCode.Trim() + "\" >这里</a>查看详情";
                                         }
                                     }
+                                    repliedMessage.newsContent = new RepliedMessage.news[] { content };
                                     break;
                                 case "课程":
                                     Course course = new Course(card._fields["card_no"].ToString().Trim());
@@ -149,6 +150,7 @@ public class DealMessage
 
                                         }
                                     }
+                                    repliedMessage.newsContent = new RepliedMessage.news[] { content };
                                     break;
                                 default:
                                     WeixinUser scanUser = new WeixinUser(receivedMessage.from.Trim());
@@ -173,7 +175,7 @@ public class DealMessage
                                     break;
                             }
 
-                            repliedMessage.newsContent = new RepliedMessage.news[] { content };
+                            
                             return repliedMessage;
                         }
                         catch
