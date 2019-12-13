@@ -161,12 +161,12 @@ public class DealMessage
                                         {
                                             ticket.Use("使用核销");
                                             repliedMessage.type = "text";
-                                            repliedMessage.content = ticket.Code.Trim() + "核销成功。";
+                                            repliedMessage.content = ticket.Name.Trim() + " " + ticket.Code.Trim() + "核销成功。";
                                         }
                                         else
                                         {
                                             repliedMessage.type = "text";
-                                            repliedMessage.content = ticket.Code.Trim() + "已经使用，不能核销。";
+                                            repliedMessage.content = ticket.Name.Trim() + " " + ticket.Code.Trim() + "已经使用，不能核销。";
                                         }
                                     }
                                     else
