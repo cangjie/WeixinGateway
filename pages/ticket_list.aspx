@@ -61,9 +61,9 @@
     <div style="margin-left: 5px" >
         <div id="nav" >
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" <%if (!used)
-                    { %> class="active" <%} %> ><a href="ticket_list.aspx">未使用</a></li>
-                <li role="presentation" <%if (used) {%> class="active" <%} %> ><a href="ticket_list.aspx?used=1">已使用</a></li>
+                <li class="nav-item" ><a class="nav-link <%if (!used)
+                    { %>active<%} %>" href="ticket_list.aspx">未使用</a></li>
+                <li class="nav-item"  ><a class="nav-link <%if (used) {%>active<%} %>" href="ticket_list.aspx?used=1">已使用</a></li>
             </ul>
         </div>
         <div id="tickets" >

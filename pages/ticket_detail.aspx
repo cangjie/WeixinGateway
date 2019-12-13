@@ -80,7 +80,9 @@
     <div style="margin-left: 5px" >
         <div id="ticket-<%=ticket.Code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px"  >
             <div class="panel-heading">
-                <h3 class="panel-title">代金券<%=Math.Round(ticket.Amount, 2).ToString() %>元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期日：<%=ticket.ExpireDate.ToShortDateString() %></h3>
+                <h3 class="panel-title"><%if (ticket.Amount > 0)
+                                            {%>代金券<%=Math.Round(ticket.Amount, 2).ToString() %>元<%}
+    else {%><%=ticket.Name.Trim() %><% } %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期日：<%=ticket.ExpireDate.ToShortDateString() %></h3>
             </div>
             <div class="panel-body">
                     <%=ticket._fields["memo"].ToString().Trim() %>
