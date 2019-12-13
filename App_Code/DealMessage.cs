@@ -151,13 +151,24 @@ public class DealMessage
                                     }
                                     break;
                                 default:
+                                    WeixinUser scanUser = new WeixinUser(receivedMessage.from.Trim());
                                     Ticket ticket = new Ticket(ticketCode.Trim());
-                                    WeixinUser fatherUser = new WeixinUser(ticket.Owner.OpenId.Trim());
-                                    bool ret = ticket.Transfer(receivedMessage.from.Trim());
-                                    if (ret)
+                                    if (scanUser.IsAdmin)
                                     {
+                                        ticket.Use("使用核销");
                                         repliedMessage.type = "text";
-                                        repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
+                                        repliedMessage.content = ticket.Code.Trim() + "核销成功。";
+                                    }
+                                    else
+                                    {
+                                        
+                                        WeixinUser fatherUser = new WeixinUser(ticket.Owner.OpenId.Trim());
+                                        bool ret = ticket.Transfer(receivedMessage.from.Trim());
+                                        if (ret)
+                                        {
+                                            repliedMessage.type = "text";
+                                            repliedMessage.content = "恭喜您获得由" + fatherUser.Nick.Trim() + "分享的" + ticket.Name.Trim();
+                                        }
                                     }
                                     break;
                             }
