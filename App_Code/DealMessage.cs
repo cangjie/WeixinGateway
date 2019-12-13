@@ -157,9 +157,17 @@ public class DealMessage
                                     Ticket ticket = new Ticket(ticketCode.Trim());
                                     if (scanUser.IsAdmin)
                                     {
-                                        ticket.Use("使用核销");
-                                        repliedMessage.type = "text";
-                                        repliedMessage.content = ticket.Code.Trim() + "核销成功。";
+                                        if (!ticket.Used)
+                                        {
+                                            ticket.Use("使用核销");
+                                            repliedMessage.type = "text";
+                                            repliedMessage.content = ticket.Code.Trim() + "核销成功。";
+                                        }
+                                        else
+                                        {
+                                            repliedMessage.type = "text";
+                                            repliedMessage.content = ticket.Code.Trim() + "已经使用，不能核销。";
+                                        }
                                     }
                                     else
                                     {
