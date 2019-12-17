@@ -144,7 +144,8 @@ public class OnlineOrder
     {
         get
         {
-            if (Type.Trim().Equals("雪票") || Type.Trim().Equals("打赏") || Type.Trim().Equals("秒杀"))
+            if (Type.Trim().Equals("雪票") || Type.Trim().Equals("打赏") 
+                || Type.Trim().Equals("秒杀") || Type.Trim().Equals("卡券"))
             {
                 double price = 0;
                 foreach (OnlineOrderDetail detail in OrderDetails)
