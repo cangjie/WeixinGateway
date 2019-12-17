@@ -41,6 +41,13 @@
                     {
                         onlineOrder.CreateSkiPass();
                     }
+                    if (onlineOrder.Type.Trim().Equals("卡券"))
+                    {
+                        Product p = new Product(onlineOrder.OrderDetails[0].productId);
+                        Ticket.TicketTemplate ticketTemplate = Ticket.GetTicketTemplate(int.Parse(p._fields["ticket_template_id"].ToString()));
+                        string code = Card.GenerateCardNo(9, 0, ticketTemplate.type.Trim());
+                        Ticket.GenerateNewTicket(code, onlineOrder._fields["open_id"].ToString().Trim(), ticketTemplate.id);
+                    }
 
                     if (onlineOrder.Type.Trim().Equals("店销"))
                     {
