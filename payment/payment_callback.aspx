@@ -5,10 +5,6 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-
-
-
         string str = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
         if (str.Trim().Equals(""))
         {
@@ -77,8 +73,6 @@
                             toCustomerMessage.type = "text";
                             toCustomerMessage.content = "您的订单" + onlineOrder.Memo.Trim() + "，已经支付成功，支付金额：" + onlineOrder.OrderPrice.ToString() + "元，您获得龙珠：" + tempOrder._fields["generate_score"].ToString() + "颗。";
                             ServiceMessage.SendServiceMessage(toCustomerMessage);
-
-
                             ServiceMessage toSales = new ServiceMessage();
                             WeixinUser customer = new WeixinUser(order._fields["order_openid"].ToString());
                             toSales.type = "text";
@@ -94,10 +88,6 @@
                         }
                     }
                 }
-
-
-
-
             }
             catch
             {

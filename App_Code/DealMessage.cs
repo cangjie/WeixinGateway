@@ -159,7 +159,7 @@ public class DealMessage
                                     {
                                         if (!ticket.Used)
                                         {
-                                            ticket.Use("使用核销");
+                                            ticket.Use(scanUser.OpenId.Trim(), "使用核销");
                                             repliedMessage.type = "text";
                                             repliedMessage.content = ticket.Name.Trim() + " " + ticket.Code.Trim() + "核销成功。";
                                         }
