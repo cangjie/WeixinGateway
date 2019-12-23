@@ -237,7 +237,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("南山") %>" >南山</a>
             </li>
-           
+            <li class="nav-item">
+                <a class="nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("八易自带") %>" >八易自带</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("八易租单板") %>" >八易租单板</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("八易租双板") %>" >八易租双板</a>
+            </li>
         </ul>
         <%
             foreach (Product p in prodArr)
