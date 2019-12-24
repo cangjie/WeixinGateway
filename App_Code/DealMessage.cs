@@ -102,7 +102,8 @@ public class DealMessage
         switch (receivedMessage.userEvent.ToUpper())
         {
             case "SCAN":
-                if (receivedMessage.eventKey.Length == 10)
+                long keyNum = 0;
+                if (receivedMessage.eventKey.Length == 10 && long.TryParse(receivedMessage.eventKey.Trim(), out keyNum))
                 {
                     if (receivedMessage.eventKey.Trim().StartsWith("3"))
                     {
@@ -243,7 +244,8 @@ public class DealMessage
             case "SUBSCRIBE":
                 string eventKey = receivedMessage.eventKey.Replace("qrscene_", "").Trim();
                 receivedMessage.eventKey = eventKey;
-                if (eventKey.Length == 10)
+                long numKey = 0;
+                if (eventKey.Length == 10 && long.TryParse(eventKey, out numKey))
                 {
                     if (int.Parse(eventKey.Substring(0, 2)) > 13 && eventKey.StartsWith("1"))
                     {
@@ -322,6 +324,50 @@ public class DealMessage
             default:
                 break;
         }
+
+        if (repliedMessage.type.Trim().Equals(""))
+        {
+            return DealCommonEventMessageNew(receivedMessage, repliedMessage);
+        }
+        else
+        {
+            return repliedMessage;
+        }
+    }
+
+    public static RepliedMessage DealCommonEventMessageNew(ReceivedMessage receivedMessage, RepliedMessage repliedMessage)
+    {
+        string eventKey = "";
+        switch (receivedMessage.userEvent.Trim().ToUpper())
+        {
+            case "SUBSCRIBE":
+                eventKey = receivedMessage.eventKey.ToLower().Replace("qrscene_", "").Trim();
+                break;
+            case "SCAN":
+                eventKey = receivedMessage.eventKey.ToLower().Trim();
+                break;
+            default:
+                break;
+        }
+        string[] eventKeyArr = eventKey.Split('_');
+        switch (eventKeyArr[0].Trim())
+        {
+            case "pay":
+                int productId = int.Parse(eventKeyArr[eventKeyArr.Length - 1].Trim());
+                repliedMessage = ScanToPayProduct(receivedMessage, repliedMessage, productId);
+                break;
+            default:
+                break;
+        }
+        return repliedMessage;
+    }
+
+    public static RepliedMessage ScanToPayProduct(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int productId) 
+    {
+        Product p = new Product(productId);
+        repliedMessage.type = "text";
+        repliedMessage.content = "您即将购买：" + p._fields["name"].ToString().Trim() + ", 价格：" + p.SalePrice.ToString() 
+            + "。<a href='/pages/ski_pass_today.aspx?id=" + productId.ToString() + "' >点击此处支付</a>";
         return repliedMessage;
     }
 
