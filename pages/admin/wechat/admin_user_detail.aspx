@@ -128,7 +128,11 @@
                 }
             }
         }
-        LblInfo.Text = "成功送出。";
+        //LblInfo.Text = "成功送出。";
+        Response.Write("<script type=\"text/javascript\" >\r\n");
+        Response.Write("alert('成功送出。');\r\n");
+        Response.Write("window.location.href='admin_user_detail.aspx?openid=" + customOpenId.Trim() + "';\r\n");
+        Response.Write(@"<\/script>\r\n");
     }
     public string GetTicketSummary(string openId)
     {

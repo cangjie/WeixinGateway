@@ -27,10 +27,7 @@
     public bool CanDisplay(OnlineSkiPass pass, OnlineOrderDetail dtl)
     {
         bool ret = true;
-        if (pass.CardCode.Trim().Equals("079222292"))
-        {
-            string aa = "aa";
-        }
+       
 
         if (resort.Trim().IndexOf("八易") >= 0)
         {
@@ -44,12 +41,6 @@
                     break;
                 case "八易租双板":
                     if (dtl.productName.IndexOf("租双板") < 0 || dtl.productName.IndexOf("八易") < 0)
-                    {
-                        ret = false;
-                    }
-                    break;
-                case "单板海选":
-                    if (dtl.productName.IndexOf("单板海选") < 0 || dtl.productName.IndexOf("八易") < 0)
                     {
                         ret = false;
                     }
@@ -108,10 +99,9 @@
         <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().StartsWith("南山") && rent && !isNight) {%>active<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1" >南山今日租板</a></li>
         <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().StartsWith("南山") && !rent && isNight) {%>active"<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=0&night=1" >南山今日下午夜场自带</a></li>
         <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().StartsWith("南山") && rent && isNight) {%>active<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=南山&rent=1&night=1" >南山今日下午夜场租板</a></li>
-        <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().Equals("八易") && !rent) {%>active<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=八易&rent=0" >八易今日自带</a></li>
+        <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().Equals("八易") && !rent) {%>active<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=八易自带&rent=0" >八易今日自带</a></li>
         <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().Equals("八易租单板") && !rent) {%>active<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=八易租单板&rent=0" >八易今日租单板</a></li>
         <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().Equals("八易租双板") && !rent) {%>active<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=八易租双板&rent=0" >八易今日租双板</a></li>
-        <li class="nav-item"  ><a class="nav-link <%if (resort.Trim().StartsWith("单板海选") && !rent) {%>active<% } %>" href="admin_online_ski_pass_list_today.aspx?resort=单板海选&rent=0" >单板海选</a></li>
     </ul>
     <table class="table table-striped">
         <tr>
