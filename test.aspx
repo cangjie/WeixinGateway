@@ -9,8 +9,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        ReceivedMessage rec = new ReceivedMessage("event_20191213220309508");
-        RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
+        //ReceivedMessage rec = new ReceivedMessage("event_20191213220309508");
+        //RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
         //WeixinUser.MergeUser("18601197897");
         //Product.GetSkiPassList("万龙");
         //Sms.SendVerifiedSms("13501177897");
@@ -69,9 +69,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <script type="text/javascript" >
-            document.write(start_time.toString() + '<br/>' + current_time.toString());
-        </script>
+        <img src="<%=QrCode.GetStaticQrCode("pay_product_id_137", "images/qrcode") %>" />
     </div>
     </form>
 </body>
