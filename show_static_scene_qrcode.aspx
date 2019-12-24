@@ -9,7 +9,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         qrCodePath = QrCode.GetStaticQrCode(Request["scene"].Trim(), "images/qrcode");
-
+        Response.Redirect(qrCodePath, true);
     }
 </script>
 
