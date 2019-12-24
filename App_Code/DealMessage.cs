@@ -367,7 +367,7 @@ public class DealMessage
         Product p = new Product(productId);
         repliedMessage.type = "text";
         repliedMessage.content = "您即将购买：" + p._fields["name"].ToString().Trim() + ", 价格：" + p.SalePrice.ToString() 
-            + "。<a href='/pages/ski_pass_today.aspx?id=" + productId.ToString() + "' >点击此处支付</a>";
+            + "。<a href=\"/pages/ski_pass_today.aspx?id=" + productId.ToString() + "\" >点击此处支付</a>";
         return repliedMessage;
     }
 
