@@ -19,7 +19,7 @@
 
         DataTable dtAdmin = DBHelper.GetDataTable(" select * from users where is_admin = 1 ");
 
-        DataTable dtOri = DBHelper.GetDataTable("select *, users.cell_number as user_number from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id]  where order_online.type = '店销' and order_online.pay_state = 1 order by order_online.[id] desc");
+        DataTable dtOri = DBHelper.GetDataTable("select *, users.cell_number as user_number from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id]  where order_online.type in ('店销', '服务') and order_online.pay_state = 1 order by order_online.[id] desc");
 
         DataTable dt = new DataTable();
         dt.Columns.Add("订单号", Type.GetType("System.Int32"));
