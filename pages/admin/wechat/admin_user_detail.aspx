@@ -5,6 +5,7 @@
 
 <script runat="server">
 
+    public bool operSuccess = false;
 
     public string openId = "";
     public string userToken = "";
@@ -129,10 +130,13 @@
             }
         }
         //LblInfo.Text = "成功送出。";
+        operSuccess = true;
+        /*
         Response.Write("<script type=\"text/javascript\" >\r\n");
         Response.Write("alert('成功送出。');\r\n");
         Response.Write("window.location.href='admin_user_detail.aspx?openid=" + customOpenId.Trim() + "';\r\n");
         Response.Write(@"<\/script>\r\n");
+        */
     }
     public string GetTicketSummary(string openId)
     {
@@ -202,6 +206,18 @@
             height: 20px;
         }
     </style>
+    <%
+        if (operSuccess)
+        {
+            %>
+    <script type="text/javascript" >
+        alert('成功送出。');
+        window.location.href = 'admin_user_detail.aspx?openid=<%=customOpenId.Trim()%>';
+    </script>
+    <%
+            operSuccess = false;
+        }
+         %>
 </head>
 <body>
     <form id="form" runat="server" >
