@@ -140,6 +140,7 @@ public class OnlineOrder
         }
     }
 
+    /*
     public double OrderPrice
     {
         get
@@ -161,6 +162,25 @@ public class OnlineOrder
             
         }
     }
+    */
+    public double OrderPrice
+    {
+        get
+        {
+            double price = 0;
+            foreach (OnlineOrderDetail detail in OrderDetails)
+            {
+                price = price + detail.summary;
+            }
+            if (price == 0)
+            {
+                return double.Parse(_fields["order_real_pay_price"].ToString());
+            }
+            return price;
+        }
+    }
+
+
 
     public string Memo
     {
