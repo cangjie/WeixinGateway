@@ -131,11 +131,8 @@
             <td>支付方式：</td>
             <td>
                 <select id="pay_method" >
-                    <!--option>现金</!--option>
-                    <option>刷卡</option-->
-                    <option>微信</option>
                     <option>支付宝</option>
-                    <option>现金</option>
+                    <option selected >现金</option>
                 </select>
             </td>
         </tr>

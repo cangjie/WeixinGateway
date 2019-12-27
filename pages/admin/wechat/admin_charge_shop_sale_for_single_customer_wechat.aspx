@@ -131,7 +131,7 @@
             <td>支付方式：</td>
             <td>
                 <select id="pay_method" >
-                    <option>微信</option>
+                    <option selected >微信</option>
                 </select>
             </td>
         </tr>

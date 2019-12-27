@@ -397,9 +397,6 @@ public class DealMessage
         repliedMessage.type = "text";
         repliedMessage.content = "您即将支付：" + orderTemp._fields["sale_price"].ToString() + "元。"
             + "<a href=\"http://" + Util.domainName.Trim() + "/pages/pay_temp_order.aspx?temporderid=" + tempOrderId.ToString() + "\" >点击此处支付</a>";
-            //+ "<a href=\"http://" + Util.domainName.Trim() + "/pages/pay_temp_order.aspx?temporderid=" + tempOrderId.ToString() + "\" >点击此处支付</a>";
-            
-        //repliedMessage.content = "aaa";
         return repliedMessage;
     }
 
