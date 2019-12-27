@@ -111,7 +111,7 @@
     <table class="table table-striped">
        
         <tr>
-            <td colspan="2">备注：<input id="customer_memo" type="text" width="95%" value="" /></td>
+            <td colspan="2">顾客备注：<input id="customer_memo" type="text" width="95%" value="" /></td>
         </tr>
 
         <tr>
@@ -151,7 +151,16 @@
             </td>
         </tr>
         <tr>
-            <td>备注：</td>
+            <td>订单类型：</td>
+            <td>
+                <select id="order_type" >
+                    <option selected >店销</option>
+                    <option>服务</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>订单备注：</td>
             <td><textarea cols="30" rows="3" id="txt_memo" ></textarea></td>
         </tr>
         <tr>
@@ -254,7 +263,7 @@
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
                 + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell="// + document.getElementById("cell").value.trim()
-                + "&customermemo=" + document.getElementById("customer_memo").value.trim();
+                + "&customermemo=" + document.getElementById("customer_memo").value.trim() + "&order_type=" + document.getElementById("order_type").value.trim();
             $.ajax({
                 url: ajax_url,
                 type: "GET",
@@ -287,7 +296,8 @@
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
                 + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" //+ document.getElementById("cell").value.trim()
-                + "&customermemo=" + document.getElementById("customer_memo").value.trim();
+                + "&customermemo=" + document.getElementById("customer_memo").value.trim()
+                + "&order_type=" + document.getElementById("order_type").value.trim();
           
             //alert(ajax_url);
             $.ajax({

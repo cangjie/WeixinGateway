@@ -22,7 +22,18 @@ public class OrderTemp
         _fields = dt.Rows[0];
     }
 
-
+    public string Type
+    {
+        get
+        {
+            return _fields["type"].ToString().Trim();
+        }
+        set
+        {
+            DBHelper.UpdateData("order_online_temp", new string[,] { { "type", "varchar", value.Trim() } },
+                new string[,] { { "id", "int", _fields["id"].ToString() } }, Util.conStr.Trim());
+        }
+    }
     
 
     public int PlaceOnlineOrder(string openId)
@@ -48,7 +59,7 @@ public class OrderTemp
         {
             cellNumber = _fields["customer_number"].ToString().Trim();
         }
-        string[,] insertParam = { {"type", "varchar", "店销" }, { "open_id", "varchar", openId.Trim() },
+        string[,] insertParam = { {"type", "varchar", _fields["type"].ToString().Trim() }, { "open_id", "varchar", openId.Trim() },
         {"cell_number", "varchar", cellNumber.Trim() }, {"name", "varchar", user.Nick.Trim() }, 
         {"pay_method", "varchar", _fields["pay_method"].ToString().Trim() },{ "pay_state", "int", "0" },
         {"order_price", "float", _fields["market_price"].ToString() }, {"shop", "varchar", _fields["shop"].ToString().Trim() } ,

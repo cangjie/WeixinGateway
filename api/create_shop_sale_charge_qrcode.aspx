@@ -22,6 +22,8 @@
         string customerOpenId = Util.GetSafeRequestValue(Request, "openid", "");
         string cell = Util.GetSafeRequestValue(Request, "cell", "").Trim();
         string customerMemo =  Util.GetSafeRequestValue(Request, "customermemo", "");
+        string orderType = Util.GetSafeRequestValue(Request, "order_type", "店销");
+
         WeixinUser currentUser = new WeixinUser(openId);
 
         if (!currentUser.IsAdmin)
@@ -34,6 +36,8 @@
 
         int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, customerMemo, openId, payMethod, shop,
             memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode, cell, currentUser.OpenId.Trim());
+        OrderTemp orderTemp = new OrderTemp(chargeId);
+        orderTemp.Type = orderType.Trim();
         //if (payMethod.Trim().Equals("现金") || payMethod.Trim().Equals("刷卡"))
         if (customerOpenId.Trim().Equals(""))
         {
@@ -47,7 +51,6 @@
                 if (cell.Length == 11 && (cell.StartsWith("13") || cell.StartsWith("15") || cell.StartsWith("18")))
                 {
                     WeixinUser tempUser = WeixinUser.GetTempWeixinUser(cell.Trim());
-                    OrderTemp orderTemp = new OrderTemp(chargeId);
                     int orderId = orderTemp.PlaceOnlineOrder(tempUser.OpenId.Trim());
                     OnlineOrder order = new OnlineOrder(orderId);
                     Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
@@ -75,7 +78,7 @@
             {
 
             }
-            OrderTemp orderTemp = new OrderTemp(chargeId);
+            
             int orderId = orderTemp.PlaceOnlineOrder(customerOpenId.Trim());
             OnlineOrder order = new OnlineOrder(orderId);
             Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");

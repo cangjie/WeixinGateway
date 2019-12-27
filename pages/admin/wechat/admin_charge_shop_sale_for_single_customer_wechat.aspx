@@ -111,7 +111,7 @@
     <table class="table table-striped">
        
         <tr>
-            <td colspan="2">备注：<input id="customer_memo" type="text" width="95%" value="" /></td>
+            <td colspan="2">顾客备注：<input id="customer_memo" type="text" width="95%" value="" /></td>
         </tr>
 
         <tr>
@@ -131,11 +131,7 @@
             <td>支付方式：</td>
             <td>
                 <select id="pay_method" >
-                    <!--option>现金</!--option>
-                    <option>刷卡</option-->
                     <option>微信</option>
-                    <option>支付宝</option>
-                    <option>现金</option>
                 </select>
             </td>
         </tr>
@@ -151,7 +147,16 @@
             </td>
         </tr>
         <tr>
-            <td>备注：</td>
+            <td>订单类型：</td>
+            <td>
+                <select id="order_type" >
+                    <option selected >店销</option>
+                    <option>服务</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>订单备注：</td>
             <td><textarea cols="30" rows="3" id="txt_memo" ></textarea></td>
         </tr>
         <tr>
@@ -247,30 +252,7 @@
         var intervalId = 0;
         //获取二维码
 
-        function set_cash_pay() {
-            var pay_method = document.getElementById("pay_method").value.trim();
-            var ajax_url = "../../../api/create_shop_sale_charge_cash_order.aspx?token=<%=userToken%>&marketprice="
-                + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
-                + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method
-                + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
-                + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell="// + document.getElementById("cell").value.trim()
-                + "&customermemo=" + document.getElementById("customer_memo").value.trim();
-            $.ajax({
-                url: ajax_url,
-                type: "GET",
-                success: function (msg, status) {
-                    var msg_obj = eval('(' + msg + ')');
-                    if (msg_obj.status == 0) {
-                        launch_pay_success_info();
-                    }
-                    else {
-                        alert(msg_obj.err_msg);
-                    }
-
-                }
-            });
-            
-        }
+        
 
         function get_qrcode() {
             check_valid();
@@ -283,7 +265,7 @@
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=微信"
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
                 + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" //+ document.getElementById("cell").value.trim()
-                + "&customermemo=" + document.getElementById("customer_memo").value.trim();
+                + "&customermemo=" + document.getElementById("customer_memo").value.trim() + "&order_type=" + document.getElementById("order_type").value.trim();
           
             //alert(ajax_url);
             $.ajax({
