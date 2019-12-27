@@ -353,8 +353,27 @@ public class DealMessage
         switch (eventKeyArr[0].Trim())
         {
             case "pay":
-                int productId = int.Parse(eventKeyArr[eventKeyArr.Length - 1].Trim());
-                repliedMessage = ScanToPayProduct(receivedMessage, repliedMessage, productId);
+                string subKey = "";
+                for (int i = 1; i < eventKeyArr.Length - 1; i++)
+                {
+                    subKey = subKey.Trim() + ((i > 1)?"_":"") + eventKeyArr[i].Trim();
+                }
+                int anyId = int.Parse(eventKeyArr[eventKeyArr.Length - 1].Trim());
+                switch (subKey.Trim())
+                {
+                    case "temp_order_id":
+                        repliedMessage = ScanToPayTempOrder(receivedMessage, repliedMessage, anyId);
+                        break;
+                    case "order_id":
+                        repliedMessage = ScanToPayOrder(receivedMessage, repliedMessage, anyId);
+                        break;
+                    case "product_id":
+                        repliedMessage = ScanToPayProduct(receivedMessage, repliedMessage, anyId);
+                        break;
+                    default:
+                        break;
+                }
+                
                 break;
             default:
                 break;
@@ -368,6 +387,26 @@ public class DealMessage
         repliedMessage.type = "text";
         repliedMessage.content = "您即将购买：" + p._fields["name"].ToString().Trim() + ", 价格：" + p.SalePrice.ToString() 
             + "。<a href=\"http://" + Util.domainName.Trim() +  "/pages/ski_pass_today.aspx?id=" + productId.ToString() + "\" >点击此处支付</a>";
+        return repliedMessage;
+    }
+
+    public static RepliedMessage ScanToPayTempOrder(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int tempOrderId)
+    {
+        //Product p = new Product(productId);
+        OrderTemp orderTemp = new OrderTemp(tempOrderId);
+        repliedMessage.type = "text";
+        repliedMessage.content = "您即将支付：" + orderTemp._fields["sale_price"].ToString()
+            + "元。<a href=\"http://" + Util.domainName.Trim() + "/pages/pay_temp_order.aspx?temporderid=" + tempOrderId.ToString() + "\" >点击此处支付</a>";
+        return repliedMessage;
+    }
+
+    public static RepliedMessage ScanToPayOrder(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int orderId)
+    {
+        //Product p = new Product(productId);
+        OnlineOrder order = new OnlineOrder(orderId);
+        repliedMessage.type = "text";
+        repliedMessage.content = "您即将支付：" + order._fields["sale_price"].ToString()
+            + "元。<a href=\"http://" + Util.domainName.Trim() + "/payment/paymenbt.aspx?productid=" + orderId.ToString() + "\" >点击此处支付</a>";
         return repliedMessage;
     }
 
