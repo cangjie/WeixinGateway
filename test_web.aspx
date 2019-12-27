@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" %>
-<<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.IO" %>
 <!DOCTYPE html>
 
 <script runat="server">
