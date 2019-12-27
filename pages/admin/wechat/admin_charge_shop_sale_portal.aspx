@@ -86,8 +86,8 @@
             </tr>
             <tr>
                 <td colspan="2"> 
-                    <input type="button" value="散客微信收款" style="width:100px" onclick="javascript: window.location.href = 'admin_charge_shop_sale_for_single_customer_wechat.aspx'" /> 
-                    <input type="button" value="散客其他收款" style="width:100px" onclick="javascript: window.location.href = 'admin_charge_shop_sale_for_single_customer.aspx'" /> 
+                    <input type="button" value="散客微信收款" style="width:150px" onclick="javascript: window.location.href = 'admin_charge_shop_sale_for_single_customer_wechat.aspx'" /> 
+                    <input type="button" value="散客其他收款" style="width:150px" onclick="javascript: window.location.href = 'admin_charge_shop_sale_for_single_customer.aspx'" /> 
                 </td>
             </tr>
         </table>
