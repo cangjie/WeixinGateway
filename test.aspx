@@ -10,7 +10,8 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         ReceivedMessage rec = new ReceivedMessage("event_20191227223553369");
-        DealMessage.DealReceivedMessage(rec);
+        RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
+        RepliedMessage.AddRepliedMessage(repliedMessage);
         //RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
         //WeixinUser.MergeUser("18601197897");
         //Product.GetSkiPassList("万龙");
@@ -70,7 +71,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <img src="<%=QrCode.GetStaticQrCode("pay_product_id_137", "images/qrcode") %>" />
+        <img src="<%//=QrCode.GetStaticQrCode("pay_product_id_137", "images/qrcode") %>" />
     </div>
     </form>
 </body>
