@@ -299,22 +299,16 @@
                     var scene_text = "";
         
                     if (order_id == undefined) {
-                        pay_url = "http<%=Server.UrlEncode("://") + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim() 
-                        + Server.UrlEncode("/") %>pages<%=Server.UrlEncode("/")%>pay_temp_order<%=Server.UrlEncode(".")%>aspx<%=Server.UrlEncode("?")%>temporderid<%=Server.UrlEncode("=")%>"
-                            + temp_order_id.toString();
                         scene_text = "pay_temp_order_id_" + temp_order_id.toString().trim();
                     }
                     else {
-                        pay_url = "http<%=Server.UrlEncode("://") + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim() 
-                        + Server.UrlEncode("/") %>payment<%=Server.UrlEncode("/")%>payment<%=Server.UrlEncode(".")%>aspx<%=Server.UrlEncode("?")%>product_id<%=Server.UrlEncode("=")%>"
-                            + order_id.toString();
                         scene_text = "pay_order_id_" + order_id.toString().trim();
                     }
-                    pay_url = encodeURI(pay_url);
+                    
 
 
 
-                    qr_code_url = "http://weixin.snowmeet.com/show_qrcode.aspx?qrcodetext=" + pay_url;
+                    qr_code_url = "http://weixin.snowmeet.com/show__wechat_temp_qrcode.aspx?scene=" + scene_text + "&expire=300";
                     
                     
                     var td_cell = document.getElementById("qrcode_td");
