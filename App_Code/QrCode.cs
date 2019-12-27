@@ -246,7 +246,7 @@ public class QrCode
         }
         string token = Util.GetToken();
         string ticketString = Util.GetSimpleJsonValueByKey(Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + token.Trim(), "POST",
-            "{\"expire_seconds\":" + expireSeconds.ToString() + ", \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"" + sceneName.ToString() + "\" }}}", "text/html"), "ticket").Trim();
+            "{\"expire_seconds\":" + expireSeconds.ToString() + ", \"action_name\": \"QR_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"" + sceneName.ToString() + "\" }}}", "text/html"), "ticket").Trim();
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" + ticketString.Trim());
         HttpWebResponse res = (HttpWebResponse)req.GetResponse();
         Stream s = res.GetResponseStream();
