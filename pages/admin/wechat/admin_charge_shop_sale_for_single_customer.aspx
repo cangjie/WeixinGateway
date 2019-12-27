@@ -317,6 +317,9 @@
                                 + order_id.toString();
                         }
                         pay_url = encodeURI(pay_url);
+
+
+
                         qr_code_url = "http://weixin.snowmeet.com/show_qrcode.aspx?qrcodetext=" + pay_url;
                     }
                     

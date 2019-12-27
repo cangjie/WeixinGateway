@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// Summary description for QrCode
@@ -200,6 +201,93 @@ public class QrCode
         }
         return ret;
     }
+
+    public static string GetTempStaticQrCode(string sceneName, int expireSeconds, string qrRootPath)
+    {
+        string ret = "";
+        string webPhysicalPath = System.Configuration.ConfigurationSettings.AppSettings["web_site_physical_path"].Trim();
+        string qrCodePath = qrRootPath;
+        string qrCodePhysicalPath = webPhysicalPath + "\\" + qrCodePath.Replace("/", "\\").Trim();
+        string[] fileNameArr = Directory.GetFiles(qrCodePhysicalPath, sceneName.Trim() + "_*.jpg");
+        bool found = false;
+        foreach (string fileName in fileNameArr)
+        {
+            string realFileName = fileName.Split('\\')[fileName.Split('\\').Length - 1].Trim();
+            string timeStamp = realFileName.Replace(sceneName.Trim(), "").Replace(".jpg", "").Trim();
+            if (Regex.IsMatch(timeStamp, @"_\d+"))
+            {
+                timeStamp = timeStamp.Replace("_", "");
+                long currentStamp = long.Parse(Util.GetTimeStamp(DateTime.Now));
+                if (long.Parse(timeStamp) > currentStamp)
+                {
+                    found = true;
+                    ret = qrRootPath + "/" + realFileName.Trim().Replace("\\", "/");
+                    break;
+                }
+            }
+        }
+        if (!found)
+        {
+            ret = GenerateTempStaticQrcode(sceneName, expireSeconds, qrRootPath);
+        }
+        return ret;
+    }
+
+    public static string GenerateTempStaticQrcode(string sceneName, int expireSeconds, string qrRootPath)
+    {
+        DateTime createDateTime = DateTime.Now;
+        string webPhysicalPath = System.Configuration.ConfigurationSettings.AppSettings["web_site_physical_path"].Trim();
+        string qrCodePath = qrRootPath;// + "/" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0')
+                                       //+ DateTime.Now.Day.ToString().PadLeft(2, '0');// + "/" + sceneId.ToString() + ".jpg";
+        string qrCodePhysicalPath = webPhysicalPath + "\\" + qrCodePath.Replace("/", "\\").Trim();
+        if (!Directory.Exists(qrCodePhysicalPath))
+        {
+            Directory.CreateDirectory(qrCodePhysicalPath.Trim());
+        }
+        string token = Util.GetToken();
+        string ticketString = Util.GetSimpleJsonValueByKey(Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + token.Trim(), "POST",
+            "{\"expire_seconds\":" + expireSeconds.ToString() + ", \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"" + sceneName.ToString() + "\" }}}", "text/html"), "ticket").Trim();
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" + ticketString.Trim());
+        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+        Stream s = res.GetResponseStream();
+        int length = 0;
+        byte[] buffer = new byte[1024 * 1024 * 10];
+        for (int i = 0; i < buffer.Length; i++)
+        {
+            int currentByte = s.ReadByte();
+            if (currentByte < 0)
+            {
+                length = i;
+                break;
+            }
+            else
+            {
+                buffer[i] = (byte)currentByte;
+            }
+        }
+        long expireTimeStamp = long.Parse(Util.GetTimeStamp(createDateTime)) + expireSeconds;
+        string[] fileNameArr = Directory.GetFiles(qrCodePhysicalPath, sceneName.ToString() + "_*.jpg");
+        foreach (string fileName in fileNameArr)
+        {
+            string realFileName = fileName.Split('\\')[fileName.Split('\\').Length - 1].Trim();
+            string timeStamp = realFileName.Replace(sceneName.Trim(), "").Replace(".jpg", "").Trim();
+            if (Regex.IsMatch(timeStamp.Trim(), @"_\d+"))
+            {
+                File.Delete(fileName.Trim());
+            }
+        }
+        string qrCodeFileName = sceneName.ToString() + "_" + expireTimeStamp.ToString().Trim() + ".jpg";
+        FileStream fs = File.Create(qrCodePhysicalPath + "\\" + qrCodeFileName.Trim());
+        for (int i = 0; i < length; i++)
+        {
+            fs.WriteByte(buffer[i]);
+        }
+        fs.Close();
+        return qrCodePath + "/" + qrCodeFileName.Trim();
+
+    }
+
+
 
     public static string GenerateStaticQrcode(string sceneName, string qrRootPath)
     {
