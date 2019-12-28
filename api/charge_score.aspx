@@ -22,7 +22,7 @@
             }
             else
             {
-                Point.AddNew(openId, score, DateTime.Now, comment.Trim());
+                Point.AddNew(openId, -1 * score, DateTime.Now, comment.Trim());
             }
         }
         if (msg.Trim().Equals(""))
