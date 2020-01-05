@@ -9,9 +9,11 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+        /*
         ReceivedMessage rec = new ReceivedMessage("event_20191227223553369");
         RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
         RepliedMessage.AddRepliedMessage(repliedMessage);
+        */
         //RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
         //WeixinUser.MergeUser("18601197897");
         //Product.GetSkiPassList("万龙");

@@ -373,7 +373,8 @@ public class DealMessage
                     default:
                         break;
                 }
-                
+                break;
+            case "verify":
                 break;
             default:
                 break;
