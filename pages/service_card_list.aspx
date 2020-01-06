@@ -8,7 +8,7 @@
     public string openId = "";
     public Card[] cardArray;
     public bool used = true;
-
+    public string userToken = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         used = !Util.GetSafeRequestValue(Request, "used", "0").Trim().Equals("0");
@@ -17,7 +17,13 @@
         {
             currentPageUrl = currentPageUrl + "?" + Request.QueryString.ToString().Trim();
         }
-        string userToken = Session["user_token"].ToString();
+        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+        {
+            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+        }
+        userToken = Session["user_token"].ToString();
+
+        
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
