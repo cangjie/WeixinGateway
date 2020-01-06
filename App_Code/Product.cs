@@ -12,11 +12,27 @@ public class Product
 {
     public DataRow _fields;
 
+    
+
     public Product()
     {
         //
         // TODO: Add constructor logic here
         //
+    }
+
+    public struct ServiceCard
+    {
+        public bool isPackage;
+        public string rules;
+        public ServiceCardDetail[] detail;
+    }
+
+    public struct ServiceCardDetail
+    {
+        public int id;
+        public string name;
+        public int count;
     }
 
     public Product(int id)
@@ -49,6 +65,51 @@ public class Product
             return type.Trim();
         }
     }
+
+    public ServiceCard cardInfo
+    {
+        get
+        {
+     
+            if (_fields["type"].ToString().Trim().Equals("服务卡"))
+            {
+                try
+                {
+                    ServiceCard card = new ServiceCard();
+                    DataTable dtCard = DBHelper.GetDataTable(" select * from product_service_card where product_id = " + _fields["id"].ToString());
+                    if (dtCard.Rows.Count == 1)
+                    {
+                        card.isPackage = (dtCard.Rows[0]["is_package"].ToString().Equals("0") ? false : true);
+                        card.rules = dtCard.Rows[0]["rules"].ToString().Trim();
+                        if (card.isPackage)
+                        {
+                            DataTable dtCardDetail = DBHelper.GetDataTable(" select * from product_service_card_detail where product_id = " + _fields["id"].ToString());
+                            ServiceCardDetail[] cardDetail = new ServiceCardDetail[dtCardDetail.Rows.Count];
+                            for (int i = 0; i < cardDetail.Length; i++)
+                            {
+                                cardDetail[i] = new ServiceCardDetail();
+                                cardDetail[i].id = int.Parse(dtCardDetail.Rows[i]["id"].ToString());
+                                cardDetail[i].count = int.Parse(dtCardDetail.Rows[i]["count"].ToString());
+                                cardDetail[i].name = dtCardDetail.Rows[i]["name"].ToString().Trim();
+                            }
+                            card.detail = cardDetail;
+                        }
+                    }
+                    dtCard.Dispose();
+                    return card;
+                }
+                catch
+                {
+                    return new ServiceCard();
+                }
+            }
+            else
+            {
+                return new ServiceCard();
+            }
+        }
+    }
+       
 
     public static Product[] GetInstructorProduct()
     {

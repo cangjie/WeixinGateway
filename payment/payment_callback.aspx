@@ -44,7 +44,17 @@
                         string code = Card.GenerateCardNo(9, 0, ticketTemplate.type.Trim());
                         Ticket.GenerateNewTicket(code, onlineOrder._fields["open_id"].ToString().Trim(), ticketTemplate.id);
                     }
-
+                    if (onlineOrder.Type.Trim().Equals("服务卡"))
+                    {
+                        Product product = new Product(onlineOrder.OrderDetails[0].productId);
+                        Product.ServiceCard cardInfo = product.cardInfo;
+                        string code = Card.GenerateCardNo(9, product.Type, onlineOrder._fields["open_id"].ToString(),
+                            cardInfo.isPackage, int.Parse(product._fields["id"].ToString()));
+                        if (cardInfo.isPackage)
+                        {
+                            Card.CreatePackageCard(code);
+                        }
+                    }
                     if (onlineOrder.Type.Trim().Equals("店销"))
                     {
                         OrderTemp tempOrder = OrderTemp.GetFinishedOrder(int.Parse(onlineOrder._fields["id"].ToString()));

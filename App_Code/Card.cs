@@ -132,6 +132,8 @@ public class Card
             return "";
     }
 
+
+
     public static string GenerateCardNo(int digit, int batchId, string cardType)
     {
 
@@ -149,6 +151,42 @@ public class Card
             return "";
     }
 
+    public static string GenerateCardNo(int digit, string cardType, string ownerOpenId, bool isPackage, int productId)
+    {
+        string no = Ticket.GetRandomString(digit);
+        for (; ExsitsCardNo(no);)
+        {
+            no = Ticket.GetRandomString(digit);
+        }
+        string[,] insertParam = { { "card_no", "varchar", no.Trim() },
+            { "batch_id", "int", "0" }, {"type", "varchar", cardType.Trim() }, {"owner_open_id", "varchar", ownerOpenId.Trim() },
+            { "is_package", "int", (isPackage?"1":"0")  }, {"product_id", "int", productId.ToString() } };
+        int i = DBHelper.InsertData("card", insertParam);
+        if (i == 1)
+            return no;
+        else
+            return "";
+    }
+
+
+    public static void CreatePackageCard(string cardNo)
+    {
+        Card card = new Card(cardNo.Trim());
+        Product product = new Product(int.Parse(card._fields["product_id"].ToString()));
+        Product.ServiceCard serviceCard = product.cardInfo;
+        if (serviceCard.isPackage)
+        {
+            foreach (Product.ServiceCardDetail detail in serviceCard.detail)
+            {
+                for (int i = 0; i < detail.count; i++)
+                {
+                    string[,] insertParam = { {"card_no", "varchar", cardNo.Trim() }, {"detail_no", "varchar", i.ToString().PadLeft(3,'0') },
+                        {"product_detail_id", "int", detail.id.ToString() } };
+                    DBHelper.InsertData("card", insertParam);
+                }
+            }
+        }
+    }
 
 
     public static bool ExsitsCardNo(string no)
