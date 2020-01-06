@@ -46,7 +46,7 @@
 </body>
 </html>
 <script type="text/javascript" >
-    var cart_json = '{ "cart_array": [{ "product_id": "<%=productId.ToString()%>", "count": "1" }]  <% if (productType.Trim().Equals("雪票") {%>, "memo": { "rent": "0", "use_date": "<%=DateTime.Now.ToShortDateString()%>" } <%}%> }';
+    var cart_json = '{ "cart_array": [{ "product_id": "<%=productId.ToString()%>", "count": "1" }]  <% if (productType.Trim().Equals("雪票")) {%>, "memo": { "rent": "0", "use_date": "<%=DateTime.Now.ToShortDateString()%>" } <%}%> }';
     $.ajax({
                 url: "/api/place_online_order.aspx",
                 async: false,
