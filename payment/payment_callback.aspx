@@ -50,6 +50,9 @@
                         Product.ServiceCard cardInfo = product.cardInfo;
                         string code = Card.GenerateCardNo(9, product.Type, onlineOrder._fields["open_id"].ToString(),
                             cardInfo.isPackage, int.Parse(product._fields["id"].ToString()));
+                        string[,] updateParam = { { "code", "varchar", code } };
+                        string[,] keyParam = { { "id", "int", onlineOrder.ID.ToString() } };
+                        DBHelper.UpdateData("order_online", updateParam, keyParam, Util.conStr.Trim());
                         if (cardInfo.isPackage)
                         {
                             Card.CreatePackageCard(code);

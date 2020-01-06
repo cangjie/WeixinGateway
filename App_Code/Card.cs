@@ -176,13 +176,15 @@ public class Card
         Product.ServiceCard serviceCard = product.cardInfo;
         if (serviceCard.isPackage)
         {
+            int j = 0;
             foreach (Product.ServiceCardDetail detail in serviceCard.detail)
             {
                 for (int i = 0; i < detail.count; i++)
                 {
-                    string[,] insertParam = { {"card_no", "varchar", cardNo.Trim() }, {"detail_no", "varchar", i.ToString().PadLeft(3,'0') },
+                    string[,] insertParam = { {"card_no", "varchar", cardNo.Trim() }, {"detail_no", "varchar", j.ToString().PadLeft(3,'0') },
                         {"product_detail_id", "int", detail.id.ToString() } };
-                    DBHelper.InsertData("card", insertParam);
+                    DBHelper.InsertData("card_detail", insertParam);
+                    j++;
                 }
             }
         }
