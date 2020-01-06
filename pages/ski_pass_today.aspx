@@ -8,6 +8,9 @@
     public WeixinUser currentUser;
     public string token = "";
     public int productId = 0;
+
+    public string productType = "雪票";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "5").Trim());
@@ -24,6 +27,8 @@
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
         token = userToken.Trim();
+        Product p = new Product(productId);
+        productType = p.Type.Trim();
     }
 </script>
 
@@ -41,7 +46,7 @@
 </body>
 </html>
 <script type="text/javascript" >
-    var cart_json = '{ "cart_array": [{ "product_id": "<%=productId.ToString()%>", "count": "1" }], "memo": { "rent": "0", "use_date": "<%=DateTime.Now.ToShortDateString()%>" } }';
+    var cart_json = '{ "cart_array": [{ "product_id": "<%=productId.ToString()%>", "count": "1" }]  <% if (productType.Trim().Equals("雪票") {%>, "memo": { "rent": "0", "use_date": "<%=DateTime.Now.ToShortDateString()%>" } <%}%> }';
     $.ajax({
                 url: "/api/place_online_order.aspx",
                 async: false,

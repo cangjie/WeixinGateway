@@ -146,10 +146,30 @@
 
     function render_page() {
         shareUrl = 'http://<%=Request.Url.Authority.Trim() %>/pages/ticket_transfer.aspx?code=<%=ticket.Code.Trim()%>&fatheropenid=<%=openId.Trim()%>';
-        title = '易龙雪聚测试券';
+        title = '<%=ticket.Name.Trim()%>';
         imgUrl = 'https://mmbiz.qlogo.cn/mmbiz_jpg/pibCAzzGRCmPEQ0Zgvf2K7evvuY23Stw2lQ99EiaOoSzsiaJicFGXNpIq7eUHssUlibnGrNDBSFzNCOu9EDj3Fzicvzg/0?wx_fmt=jpeg';
 
         wx.onMenuShareAppMessage({
+            title: title, // 分享标题
+            desc: '', // 分享描述
+            link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: imgUrl, // 分享图标
+            type: 'link', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+
+                share("<%=ticket.Code.Trim()%>");
+
+                alert("shared");
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+                alert("cancel");
+            }
+        });
+
+        wx.onMenuShareTimeline({
             title: title, // 分享标题
             desc: '', // 分享描述
             link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
