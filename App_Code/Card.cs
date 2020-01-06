@@ -40,6 +40,15 @@ public class Card
         DBHelper.UpdateData("card", updateParam, keyParam, Util.conStr);
     }
 
+    public string Code
+    {
+        get
+        {
+            return _fields["card_no"].ToString().Trim();
+
+        }
+    }
+
     public bool Used
     {
         get
@@ -199,5 +208,17 @@ public class Card
             ret = true;
         dt.Dispose();
         return ret;
+    }
+
+    public static Card[] GetCardList(string openId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from card where owner_open_id = '" + openId.Trim() + "' and [type] = '服务卡' ");
+        Card[] cardArray = new Card[dt.Rows.Count];
+        for (int i = 0; i < cardArray.Length; i++)
+        {
+            cardArray[i] = new Card();
+            cardArray[i]._fields = dt.Rows[i];
+        }
+        return cardArray;
     }
 }

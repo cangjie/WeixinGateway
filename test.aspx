@@ -9,7 +9,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Card.CreatePackageCard("897604376");
+        //Card.CreatePackageCard("897604376");
         /*
         ReceivedMessage rec = new ReceivedMessage("event_20191227223553369");
         RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
