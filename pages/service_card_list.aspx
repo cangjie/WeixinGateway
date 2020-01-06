@@ -12,10 +12,10 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         used = !Util.GetSafeRequestValue(Request, "used", "0").Trim().Equals("0");
-        string currentPageUrl = Server.UrlEncode("/pages/ticket_list.aspx" + (used?"?used=1":"") );
-        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+        string currentPageUrl = Request.Url.ToString().Split('?')[0].Trim();
+        if (!Request.QueryString.ToString().Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+            currentPageUrl = currentPageUrl + "?" + Request.QueryString.ToString().Trim();
         }
         string userToken = Session["user_token"].ToString();
         openId = WeixinUser.CheckToken(userToken);
