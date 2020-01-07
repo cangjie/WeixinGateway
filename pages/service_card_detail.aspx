@@ -74,7 +74,6 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" ></script>
     <script type="text/javascript" >
         var current_index = 0;
     </script>
@@ -105,7 +104,7 @@
     for (int i = 0; i < packageList.Length; i++)
     {
                              %>
-                        <li role="presentation" <%if (i == 0) {%> class="active" <% }%>  ><a href="#"><%=packageList[i].name.Trim() %></a></li>
+                        <li class="nav-item" role="presentation" <%if (i == 0) {%> class="active" <% }%>  ><a href="#"><%=packageList[i].name.Trim() %></a></li>
                        
                         <%} %>
                     </ul>
