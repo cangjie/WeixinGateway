@@ -104,7 +104,7 @@
     for (int i = 0; i < packageList.Length; i++)
     {
                              %>
-                        <li class="nav-item" role="presentation" <%if (i == 0) {%> class="active" <% }%>  ><a href="#"><%=packageList[i].name.Trim() %></a></li>
+                        <li role="presentation" class="nav-item <%if (i == 0) {%>active<% }%>"  ><a href="#"><%=packageList[i].name.Trim() %></a></li>
                        
                         <%} %>
                     </ul>
