@@ -9,6 +9,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+        Card card = new Card("281407726");
+        Card.CardPackageUsage[] list = card.CardPackageUsageList;
         //Card.CreatePackageCard("897604376");
         /*
         ReceivedMessage rec = new ReceivedMessage("event_20191227223553369");

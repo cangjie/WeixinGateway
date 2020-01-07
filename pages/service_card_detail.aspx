@@ -116,7 +116,7 @@
                         { %> style="display:none" <%} %> >
                         <p><%=packageList[i].name %></p>
                         <%
-                            string longCardCode = card.Code.Trim() + packageList[i].firstAvaliableCardCode.Trim();
+                            string longCardCode = packageList[i].firstAvaliableCardCode.Trim();
                             if (longCardCode.Trim().Length == 12)
                             {
                                 %>
