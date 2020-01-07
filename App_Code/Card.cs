@@ -10,6 +10,15 @@ using System.Data;
 public class Card
 {
 
+    public struct CardPackageUsage
+    {
+        public int productDetailId;
+        public string firstAvaliableCardCode;
+        public string name;
+        public int totalCount;
+        public int avaliableCount;
+    }
+
     public DataRow _fields;
 
     public Card()
@@ -60,6 +69,37 @@ public class Card
 
         }
     }
+
+    public CardPackageUsage[] CardPackageUsageList
+    {
+        get
+        {
+            DataTable dtCardDetail = DBHelper.GetDataTable(" select distinct product_detail_id, [name] from card_detail "
+                + " left join product_service_card_detail on product_service_card_detail.[id] = product_detail_id where card_no = '" + Code.Trim() + "' ");
+            CardPackageUsage[] usageList = new CardPackageUsage[dtCardDetail.Rows.Count];
+            for (int i = 0; i < usageList.Length; i++)
+            {
+                usageList[i] = new CardPackageUsage();
+                usageList[i].productDetailId = int.Parse(dtCardDetail.Rows[i]["product_detail_id"].ToString());
+                usageList[i].name = dtCardDetail.Rows[i]["name"].ToString().Trim();
+                DataTable dtSubCard = DBHelper.GetDataTable(" select * from card_detail where card_no = '" + Code 
+                    + "' and  product_detail_id = " + usageList[i].productDetailId.ToString() + " order by used ");
+                usageList[i].totalCount = dtSubCard.Rows.Count;
+                usageList[i].avaliableCount = dtSubCard.Select(" used = 0 ").Length;
+                if (usageList[i].totalCount > 0 && dtSubCard.Rows[0]["used"].ToString().Equals("0"))
+                {
+                    usageList[i].firstAvaliableCardCode = Code.Trim() + dtSubCard.Rows[0]["detail_no"].ToString();
+                }
+                else
+                {
+                    usageList[i].firstAvaliableCardCode = "";
+                }
+                dtSubCard.Dispose();
+            }
+            return usageList;
+        }
+    }
+
 
     
 

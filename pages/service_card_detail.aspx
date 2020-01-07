@@ -17,6 +17,7 @@
     public string userToken = "";
     public Card card;
     public Product product;
+    public Card.CardPackageUsage[] packageList;
 
     public Product.ServiceCard cardInfo;
 
@@ -56,6 +57,7 @@
         }
         product = new Product(int.Parse(card._fields["product_id"].ToString()));
         cardInfo = product.cardInfo;
+        packageList = card.CardPackageUsageList;
     }
 </script>
 
@@ -73,6 +75,9 @@
     <script src="js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" ></script>
+    <script type="text/javascript" >
+        var current_index = 0;
+    </script>
 </head>
 <body>
     <div style="margin-left: 5px" >
@@ -84,13 +89,55 @@
                     <%=cardInfo.rules.Trim()%>
                 <br />
                 <div style="text-align:center" >
-
+                    <%if (!cardInfo.isPackage)
+                        { %>
                     <img src="/show_wechat_temp_qrcode.aspx?scene=use_service_card_<%=card.Code.Trim() %>"  id="card_img"   style="width:200px; text-align:center"  />
                     <br />
-                    <br /><b style="text-align:center" ><%=card.Code.Substring(0,3) %>-<%=card.Code.Substring(3,3) %>-<%=card.Code.Substring(6,3) %></b>
+                    <br /><b style="text-align:center" ><%=card.Code.Substring(0, 3) %>-<%=card.Code.Substring(3, 3) %>-<%=card.Code.Substring(6, 3)%></b>
+                    <%}
+                        else
+                        {
+                            Card.CardPackageUsage[] packageList = card.CardPackageUsageList;
+
+                            %>
+                    <ul class="nav nav-tabs" id="card_tabs">
+                        <%
+    for (int i = 0; i < packageList.Length; i++)
+    {
+                             %>
+                        <li role="presentation" <%if (i == 0) {%> class="active" <% }%>  ><a href="#"><%=packageList[i].name.Trim() %></a></li>
+                       
+                        <%} %>
+                    </ul>
+                    <%
+                        for (int i = 0; i < packageList.Length; i++)
+                        {
+                            %>
+                    <div id="card_detail_<%=packageList[i].productDetailId%>" <%if (i > 0)
+                        { %> style="display:none" <%} %> >
+                        <p><%=packageList[i].name %></p>
+                        <%
+                            string longCardCode = card.Code.Trim() + packageList[i].firstAvaliableCardCode.Trim();
+                            if (longCardCode.Trim().Length == 12)
+                            {
+                                %>
+                        <p><img width="200" src="/show_wechat_temp_qrcode.aspx?scene=use_service_card_detail_<%=longCardCode.Trim() %>" /></p>
+                        <%
+                            }
+                             %>
+                        <p>剩余：<%=packageList[i].avaliableCount.ToString() %>/总计：<%=packageList[i].totalCount.ToString() %></p>
+                    </div>
+                    <%
+                        }
+                         %>
+
+
+                                <%
+                        } %>
                 </div>
             </div>
         </div>
     </div>
+   
 </body>
 </html>
