@@ -126,6 +126,7 @@
                             }
                              %>
                         <p>剩余：<%=packageList[i].avaliableCount.ToString() %>/总计：<%=packageList[i].totalCount.ToString() %></p>
+                        <p>卡号：<%=longCardCode.Substring(0, 3) %>-<%=longCardCode.Substring(3, 3) %>-<%=longCardCode.Substring(6, 3) %>-<%=longCardCode.Substring(9, 3) %></p>
                     </div>
                     <%
                         }
