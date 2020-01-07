@@ -19,6 +19,18 @@ public class Card
         public int avaliableCount;
     }
 
+    public class CardDetail
+    {
+        public DataRow _fields;
+
+        public CardDetail(string code)
+        {
+            DataTable dt = DBHelper.GetDataTable(" select * from card_detail where card_no = '" + code + "' ");
+            _fields = dt.Rows[0];
+        }
+
+    }
+
     public DataRow _fields;
 
     public Card()

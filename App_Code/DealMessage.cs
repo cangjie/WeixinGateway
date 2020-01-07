@@ -358,17 +358,21 @@ public class DealMessage
                 {
                     subKey = subKey.Trim() + ((i > 1)?"_":"") + eventKeyArr[i].Trim();
                 }
-                int anyId = int.Parse(eventKeyArr[eventKeyArr.Length - 1].Trim());
+                string anyId = eventKeyArr[eventKeyArr.Length - 1].Trim();
                 switch (subKey.Trim())
                 {
                     case "temp_order_id":
-                        repliedMessage = ScanToPayTempOrder(receivedMessage, repliedMessage, anyId);
+                        repliedMessage = ScanToPayTempOrder(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
                     case "order_id":
-                        repliedMessage = ScanToPayOrder(receivedMessage, repliedMessage, anyId);
+                        repliedMessage = ScanToPayOrder(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
                     case "product_id":
-                        repliedMessage = ScanToPayProduct(receivedMessage, repliedMessage, anyId);
+                        repliedMessage = ScanToPayProduct(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
+                    case "use_service_card_detail":
+                    case "use_service_card":
+
                         break;
                     default:
                         break;
@@ -379,6 +383,36 @@ public class DealMessage
             default:
                 break;
         }
+        return repliedMessage;
+    }
+
+    public static RepliedMessage UseServiceCard(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, string code)
+    {
+        WeixinUser user = new WeixinUser(receivedMessage.from.Trim());
+        if (user.IsAdmin)
+        {
+            string[,] updateParam = new string[,] {
+                {"used", "int", "1" }, {"use_date", "datetime", DateTime.Now.ToString() }, {"use_memo", "varchar", user.Nick + " 核销。" }
+            };
+            string name = "";
+            if (code.Length == 9)
+            {
+                Card card = new Card(code);
+                Product p = new Product(int.Parse(card._fields["product_id"].ToString()));
+                card.Use(DateTime.Now, user.Nick + " 核销。");
+                name = p._fields["name"].ToString().Trim();
+            }
+            else if (code.Length == 12)
+            {
+                string[,] keyParam = new string[,] { { "card_no", "varchar", code.Substring(0,9) }, {"detail_no", "varchar", code.Substring(9, 3).Trim() } };
+                DBHelper.UpdateData("card_detail", updateParam, keyParam, Util.conStr);
+                Card.CardDetail detail = new Card.CardDetail(code);
+                name = detail._fields["name"].ToString().Trim();
+            }
+            repliedMessage.type = "text";
+            repliedMessage.content = name + " 卡号：" + code.Trim() + " 已经核销。";
+        }
+
         return repliedMessage;
     }
 
