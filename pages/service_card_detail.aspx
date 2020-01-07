@@ -104,7 +104,7 @@
     for (int i = 0; i < packageList.Length; i++)
     {
                              %>
-                        <li role="presentation" class="nav-item"  ><a href="#" class="nav-link <%if (i == 0) {%>active<% }%> "><%=packageList[i].name.Trim() %></a></li>
+                        <li role="presentation" class="nav-item"  ><a href="#" onclick="show_item(<%=i.ToString() %>)" class="nav-link <%if (i == 0) {%>active<% }%> "><%=packageList[i].name.Trim() %></a></li>
                        
                         <%} %>
                     </ul>
@@ -112,7 +112,7 @@
                         for (int i = 0; i < packageList.Length; i++)
                         {
                             %>
-                    <div id="card_detail_<%=packageList[i].productDetailId%>" <%if (i > 0)
+                    <div name="card_detail" id="card_detail_<%=i.ToString()%>" <%if (i > 0)
                         { %> style="display:none" <%} %> >
                         <p><%=packageList[i].name %></p>
                         <%
@@ -137,6 +137,18 @@
             </div>
         </div>
     </div>
-   
+    <script type="text/javascript" >
+        function show_item(i) {
+            var tabs_arr = document.getElementById("card_tabs").getElementsByTagName("a");
+            var div_arr = document.getElementsByName("card_detail");
+            for (var j = 0; j < tabs_arr.length; j++) {
+                tabs_arr[j].attributes["class"].value = "nav-link";
+                div_arr[j].attributes["style"].value = "display:none";
+            }
+            tabs_arr[i].attributes["class"].value = "nav-link active";
+            div_arr[i].attributes["style"] = "display:block";
+
+        }
+    </script>
 </body>
 </html>
