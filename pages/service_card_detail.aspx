@@ -144,10 +144,10 @@
             var div_arr = document.getElementsByName("card_detail");
             for (var j = 0; j < tabs_arr.length; j++) {
                 tabs_arr[j].attributes["class"].value = "nav-link";
-                div_arr[j].attributes["style"].display = "none";
+                div_arr[j].attributes["style"].display.value = "none";
             }
             tabs_arr[i].attributes["class"].value = "nav-link active";
-            div_arr[i].attributes["style"].display = "block";
+            div_arr[i].attributes["style"].display.value = "block";
 
         }
     </script>
