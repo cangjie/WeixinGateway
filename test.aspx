@@ -9,14 +9,14 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Card card = new Card("281407726");
-        Card.CardPackageUsage[] list = card.CardPackageUsageList;
+        //Card card = new Card("281407726");
+        //Card.CardPackageUsage[] list = card.CardPackageUsageList;
         //Card.CreatePackageCard("897604376");
-        /*
-        ReceivedMessage rec = new ReceivedMessage("event_20191227223553369");
+        
+        ReceivedMessage rec = new ReceivedMessage("event_20200107181309983");
         RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
         RepliedMessage.AddRepliedMessage(repliedMessage);
-        */
+        
         //RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
         //WeixinUser.MergeUser("18601197897");
         //Product.GetSkiPassList("万龙");

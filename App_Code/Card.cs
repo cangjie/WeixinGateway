@@ -25,7 +25,8 @@ public class Card
 
         public CardDetail(string code)
         {
-            DataTable dt = DBHelper.GetDataTable(" select * from card_detail where card_no = '" + code + "' ");
+            DataTable dt = DBHelper.GetDataTable(" select * from card_detail where card_no = '" + code.Substring(0, 9) 
+                + "' and detail_no = '" + code.Substring(9, 3).Trim() + "' ");
             _fields = dt.Rows[0];
         }
 

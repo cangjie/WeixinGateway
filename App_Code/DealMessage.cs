@@ -350,15 +350,17 @@ public class DealMessage
                 break;
         }
         string[] eventKeyArr = eventKey.Split('_');
+        string subKey = "";
+        string anyId = "";
         switch (eventKeyArr[0].Trim())
         {
             case "pay":
-                string subKey = "";
+                
                 for (int i = 1; i < eventKeyArr.Length - 1; i++)
                 {
                     subKey = subKey.Trim() + ((i > 1)?"_":"") + eventKeyArr[i].Trim();
                 }
-                string anyId = eventKeyArr[eventKeyArr.Length - 1].Trim();
+                anyId = eventKeyArr[eventKeyArr.Length - 1].Trim();
                 switch (subKey.Trim())
                 {
                     case "temp_order_id":
@@ -370,13 +372,25 @@ public class DealMessage
                     case "product_id":
                         repliedMessage = ScanToPayProduct(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
-                    case "use_service_card_detail":
-                    case "use_service_card":
-                        repliedMessage = UseServiceCard(receivedMessage, repliedMessage, anyId);
-                        break;
+                    
                     default:
                         break;
                 }
+                break;
+            /*
+            case "use_service_card_detail":
+            case "use_service_card":
+                repliedMessage = UseServiceCard(receivedMessage, repliedMessage, anyId);
+                break;
+            */
+            case "use":
+                subKey = "";
+                for (int i = 1; i < eventKeyArr.Length - 1; i++)
+                {
+                    subKey = subKey.Trim() + ((i > 1) ? "_" : "") + eventKeyArr[i].Trim();
+                }
+                anyId = eventKeyArr[eventKeyArr.Length - 1].Trim();
+                repliedMessage = UseServiceCard(receivedMessage, repliedMessage, anyId);
                 break;
             case "verify":
                 break;
