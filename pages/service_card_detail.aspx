@@ -112,8 +112,9 @@
                         for (int i = 0; i < packageList.Length; i++)
                         {
                             %>
-                    <div name="card_detail" id="card_detail_<%=i.ToString()%>" <%if (i > 0)
-                        { %> style="display:none" <%} %> >
+                    <div name="card_detail" id="card_detail_<%=i.ToString()%>" style="display:<%if (i > 0)
+                        { %>none<%}
+                    else {%>block<% }%>" >
                         <p><%=packageList[i].name %></p>
                         <%
                             string longCardCode = packageList[i].firstAvaliableCardCode.Trim();
