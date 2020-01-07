@@ -424,13 +424,14 @@ public class DealMessage
             else if (code.Length == 12)
             {
                 string[,] keyParam = new string[,] { { "card_no", "varchar", code.Substring(0,9) }, {"detail_no", "varchar", code.Substring(9, 3).Trim() } };
-                DBHelper.UpdateData("card_detail", updateParam, keyParam, Util.conStr);
+                
                 Card.CardDetail detail = new Card.CardDetail(code);
                 if (!detail.Used)
                 {
                     success = true;
                 }
                 name = detail.Name.Trim();
+                DBHelper.UpdateData("card_detail", updateParam, keyParam, Util.conStr);
             }
             repliedMessage.type = "text";
             repliedMessage.content = name + " 卡号：" + code.Trim() + (success?" 核销成功。":" 已经使用，不能再次核销。");
