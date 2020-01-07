@@ -61,6 +61,9 @@ public class Card
         }
     }
 
+    
+
+
     public WeixinUser Owner
     {
         get
@@ -73,6 +76,7 @@ public class Card
                     return pass.owner;
                     break;
                 default:
+                    return new WeixinUser(_fields["owner_open_id"].ToString().Trim());
                     break;
             }
             return null;

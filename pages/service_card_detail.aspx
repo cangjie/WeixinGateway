@@ -49,7 +49,7 @@
         if (!currentUser.IsBetaUser)
             Response.Redirect("beta_announce.aspx", true);
             */
-        if (!currentUser.OpenId.Trim().Equals(card.Owner.OpenId))
+        if (!currentUser.OpenId.Trim().Equals(card._fields["owner_open_id"].ToString().Trim()))
         {
             Response.Write("error");
             Response.End();
