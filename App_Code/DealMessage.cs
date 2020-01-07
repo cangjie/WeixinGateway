@@ -372,7 +372,7 @@ public class DealMessage
                         break;
                     case "use_service_card_detail":
                     case "use_service_card":
-
+                        repliedMessage = UseServiceCard(receivedMessage, repliedMessage, anyId);
                         break;
                     default:
                         break;
