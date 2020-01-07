@@ -409,10 +409,15 @@ public class DealMessage
                 {"used", "int", "1" }, {"use_date", "datetime", DateTime.Now.ToString() }, {"use_memo", "varchar", user.Nick + " 核销。" }
             };
             string name = "";
+            bool success = false;
             if (code.Length == 9)
             {
                 Card card = new Card(code);
                 Product p = new Product(int.Parse(card._fields["product_id"].ToString()));
+                if (!card.Used)
+                {
+                    success = true;
+                }
                 card.Use(DateTime.Now, user.Nick + " 核销。");
                 name = p._fields["name"].ToString().Trim();
             }
@@ -421,10 +426,14 @@ public class DealMessage
                 string[,] keyParam = new string[,] { { "card_no", "varchar", code.Substring(0,9) }, {"detail_no", "varchar", code.Substring(9, 3).Trim() } };
                 DBHelper.UpdateData("card_detail", updateParam, keyParam, Util.conStr);
                 Card.CardDetail detail = new Card.CardDetail(code);
-                name = detail._fields["name"].ToString().Trim();
+                if (!detail.Used)
+                {
+                    success = true;
+                }
+                name = detail.Name.Trim();
             }
             repliedMessage.type = "text";
-            repliedMessage.content = name + " 卡号：" + code.Trim() + " 已经核销。";
+            repliedMessage.content = name + " 卡号：" + code.Trim() + (success?" 核销成功。":" 已经使用，不能再次核销。");
         }
 
         return repliedMessage;

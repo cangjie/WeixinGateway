@@ -30,6 +30,33 @@ public class Card
             _fields = dt.Rows[0];
         }
 
+        public string Name
+        {
+            get
+            {
+                string name = "";
+                DataTable dt = DBHelper.GetDataTable(" select * from product_service_card_detail where [id] = " + _fields["product_detail_id"].ToString());
+                if (dt.Rows.Count == 1)
+                {
+                    name = dt.Rows[0]["name"].ToString().Trim();
+                }
+                dt.Dispose();
+                return name.Trim();
+            }
+        }
+
+        public bool Used
+        {
+            get
+            {
+                bool ret = false;
+                if (_fields["used"].ToString().Trim().Equals("1"))
+                {
+                    ret = true;
+                }
+                return ret;
+            }
+        }
     }
 
     public DataRow _fields;
