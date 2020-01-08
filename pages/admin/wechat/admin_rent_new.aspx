@@ -175,9 +175,9 @@
 
         function submit_rent() {
             var url = '/api/create_rent_item.aspx?token=<%=userToken.Trim()%>&item_name=' + item_name + '&item_content=' + item_content + '&security_type=' + security_type
-                + '&security_content=' + security_content + '&return_date=' + return_date_year + '-'
-                + (return_date_month.length == 1 ? '0' : '') + return_date_month + '-'
-                + (return_date_day.length == 1 ? '0' : '') + return_date_day + '' + (return_date_hour.length==1?'0':'') + return_date_hour;
+                + '&security_content=' + security_content + '&return_date=' + return_date_year
+                + (return_date_month.length == 1 ? '0' : '') + return_date_month 
+                + (return_date_day.length == 1 ? '0' : '') + return_date_day  + (return_date_hour.length==1?'0':'') + return_date_hour;
             $.ajax({
                 url: url,
                 success: function (msg, status) {
