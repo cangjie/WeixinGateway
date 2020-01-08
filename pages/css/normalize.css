@@ -322,7 +322,7 @@ input::-moz-focus-inner {
 input {
   line-height: normal;
     height: 35px;
-    width: 383px;
+    width: 421px;
 }
 
 /**
@@ -397,6 +397,8 @@ legend {
 
 textarea {
   overflow: auto;
+    height: 98px;
+    width: 452px;
 }
 
 /**
