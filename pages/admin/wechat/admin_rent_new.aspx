@@ -96,7 +96,7 @@
         </tr>
         <tr><td colspan="2" >&nbsp;</td></tr>
         <tr>
-            <td colspan="2" ><input type="button" id="btn" disabled  value=" 获 取 二 维 码 "/></td>
+            <td colspan="2" ><input type="button" onclick="submit_rent()" id="btn" disabled  value=" 获 取 二 维 码 "/></td>
         </tr>
         <tr><td colspan="2" >&nbsp;</td></tr>
         <tr>
@@ -158,10 +158,31 @@
             if (return_date_hour == '') {
                 valid = false;
             }
+            try {
+                if (parseInt(return_date_hour) > 24) {
+                    valid = false;
+                }
+            }
+            catch (err) {
+                valid = false;
+            }
             if (valid) {
                 document.getElementById("btn").disabled = false;
             }
         }
+
+        function submit_rent() {
+            var url = '/api/create_rent_item.aspx?item_name=' + item_name + '&item_content=' + item_content + '&security_type=' + security_type
+                + '&security_content=' + security_content + '&return_date=' + return_date_year + '-' + return_date_month + '-'
+                + return_date_day + '+' + return_date_hour + ':00';
+            $.ajax({
+                url: url,
+                success: function (msg, status) {
+
+                }
+            });
+        }
+
     </script>
 </body>
 </html>
