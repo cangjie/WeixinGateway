@@ -89,10 +89,10 @@
         <tr><td colspan="2" >&nbsp;</td></tr>
         <tr>
             <td style="width:140px" >归还时间：</td>
-            <td><input type="text" id="return_date_year" style="width:50px" />年
-                <input type="text" style="width:25px" id="return_date_month" />月
-                <input type="text" style="width:25px" id="return_date_day" />日
-                <input type="text" style="width:25px" id="return_date_day" />时</td>
+            <td><input type="text" id="return_date_year" style="width:60px" />年
+                <input type="text" style="width:30px" id="return_date_month" />月
+                <input type="text" style="width:30px" id="return_date_day" />日
+                <input type="text" style="width:30px" id="return_date_hour" />时</td>
         </tr>
         <tr><td colspan="2" >&nbsp;</td></tr>
         <tr>
@@ -103,5 +103,16 @@
             <td colspan="2" ></td>
         </tr>
     </table>
+    <script type="text/javascript" >
+        var valid = false;
+        var current_date = new Date();
+        var year = current_date.getYear().toString();
+        var month = current_date.getMonth().toString();
+        var day = current_date.getDay().toString();
+        document.getElementById("return_date_year").value = year;
+        document.getElementById("return_date_month").value = month;
+        document.getElementById("return_date_day").value = day;
+
+    </script>
 </body>
 </html>
