@@ -181,7 +181,14 @@
             $.ajax({
                 url: url,
                 success: function (msg, status) {
-
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.status == 0) {
+                        var id = msg_obj.id;
+                        var img_url = '/show_wechat_temp_qrcode.aspx?scene=rent_item_' + id;
+                        var img = document.getElementById("qr");
+                        img.style.display = 'block';
+                        img.src = img_url;
+                    }
                 }
             });
         }
