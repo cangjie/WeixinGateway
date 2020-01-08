@@ -124,6 +124,7 @@
         var return_date_hour = '';
 
         function check_valid() {
+            valid = true;
             item_name = document.getElementById("item_name").value.trim();
             item_content = document.getElementById("item_content").value.trim();
             security_type = document.getElementById("security_type").value.trim();
