@@ -49,6 +49,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="../../js/jquery.min.js"></script>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/normalize.css" />
@@ -172,7 +174,7 @@
         }
 
         function submit_rent() {
-            var url = '/api/create_rent_item.aspx?item_name=' + item_name + '&item_content=' + item_content + '&security_type=' + security_type
+            var url = '/api/create_rent_item.aspx?token=<%=userToken.Trim()%>&item_name=' + item_name + '&item_content=' + item_content + '&security_type=' + security_type
                 + '&security_content=' + security_content + '&return_date=' + return_date_year + '-' + return_date_month + '-'
                 + return_date_day + '+' + return_date_hour + ':00';
             $.ajax({
