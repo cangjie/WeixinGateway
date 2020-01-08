@@ -62,7 +62,7 @@
     <table class="table table-striped" >
         <tr>
             <td style="width:140px" >物品名称：</td>
-            <td><input type="text" id="item_name" onchange="check_valid()" /></td>
+            <td><input type="text" id="item_name"   oninput="check_valid()" /></td>
         </tr>
         <tr><td colspan="2" >&nbsp;</td></tr>
         <tr>
@@ -108,8 +108,8 @@
         var valid = true;
         var current_date = new Date();
         var year = current_date.getFullYear().toString();
-        var month = current_date.getMonth().toString();
-        var day = current_date.getDay().toString();
+        var month = (current_date.getMonth()+1).toString();
+        var day = current_date.getDate().toString();
         document.getElementById("return_date_year").value = year;
         document.getElementById("return_date_month").value = month;
         document.getElementById("return_date_day").value = day;
