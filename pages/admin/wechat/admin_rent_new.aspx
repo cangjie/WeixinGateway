@@ -102,7 +102,7 @@
         </tr>
         <tr><td colspan="2" >&nbsp;</td></tr>
         <tr>
-            <td colspan="2" ></td>
+            <td colspan="2" ><img id="qr" src="" style="display:none" /></td>
         </tr>
         <tr><td colspan="2" >&nbsp;</td></tr>
     </table>
