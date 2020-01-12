@@ -486,7 +486,7 @@ public class DealMessage
         //Product p = new Product(productId);
         OnlineOrder order = new OnlineOrder(orderId);
         repliedMessage.type = "text";
-        repliedMessage.content = "您即将支付：" + order._fields["sale_price"].ToString()
+        repliedMessage.content = "您即将支付：" + order._fields["order_real_pay_price"].ToString()
             + "元。<a href=\"http://" + Util.domainName.Trim() + "/payment/paymenbt.aspx?productid=" + orderId.ToString() + "\" >点击此处支付</a>";
         return repliedMessage;
     }

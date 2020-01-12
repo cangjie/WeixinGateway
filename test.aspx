@@ -13,7 +13,7 @@
         //Card.CardPackageUsage[] list = card.CardPackageUsageList;
         //Card.CreatePackageCard("897604376");
         
-        ReceivedMessage rec = new ReceivedMessage("event_20200112101045303");
+        ReceivedMessage rec = new ReceivedMessage("event_20200112165919125");
         RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
         RepliedMessage.AddRepliedMessage(repliedMessage);
         
