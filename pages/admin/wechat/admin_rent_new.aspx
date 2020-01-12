@@ -80,6 +80,7 @@
                     <option value="身份证" >身份证</option>
                     <option value="驾照" >驾照</option>
                     <option value="护照" >护照</option>
+                    <option value="无需" >无需</option>
                 </select>
             </td>
         </tr>
@@ -145,7 +146,7 @@
             if (security_type == '') {
                 valid = false;
             }
-            if (security_content == '') {
+            if (security_content == '' && security_type.trim() != '无需') {
                 valid = false;
             }
             if (return_date_year == '') {
