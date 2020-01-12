@@ -14,9 +14,10 @@
             {
                 Response.Write(dt.Rows[0]["wxreceivemsg_from"].ToString().Trim());
             }
+            DBHelper.UpdateData("wxreceivemsg", new string[,] { { "wxreceivemsg_deal", "int", "1" } },
+                new string[,] { { "wxreceivemsg_id", "varchar", dt.Rows[0][0].ToString().Trim() } }, Util.conStr.Trim());
         }
-        DBHelper.UpdateData("wxreceivemsg", new string[,] { { "wxreceivemsg_deal", "int", "1" } },
-            new string[,] { { "wxreceivemsg_id", "varchar", dt.Rows[0][0].ToString().Trim() } }, Util.conStr.Trim());
+        
         dt.Dispose();
     }
 </script>
