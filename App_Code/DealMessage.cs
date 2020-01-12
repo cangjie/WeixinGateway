@@ -352,6 +352,14 @@ public class DealMessage
         string[] eventKeyArr = eventKey.Split('_');
         string subKey = "";
         string anyId = "";
+        try
+        {
+            anyId = eventKeyArr[eventKeyArr.Length - 1].Trim();
+        }
+        catch
+        {
+
+        }
         switch (eventKeyArr[0].Trim())
         {
             case "pay":
@@ -394,9 +402,23 @@ public class DealMessage
                 break;
             case "verify":
                 break;
+            case "rent":
+                repliedMessage = RentItem(receivedMessage, repliedMessage, int.Parse(anyId));
+                break;
             default:
                 break;
         }
+        return repliedMessage;
+    }
+
+    public static RepliedMessage RentItem(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
+    {
+        RentItem item = new RentItem(id);
+        item.Rent(receivedMessage.from.Trim());
+        DateTime returnDate = DateTime.Parse(item._fields["schedule_return_date_time"].ToString());
+        repliedMessage.type = "text";
+        repliedMessage.content = "您已确认租借：" + item._fields["item"].ToString().Trim() + "，归还时间：" + returnDate.Year.ToString()
+            + "年" + returnDate.Month.ToString().ToString()+"月"+returnDate.Day.ToString()+"日"+returnDate.Hour.ToString()+"时";
         return repliedMessage;
     }
 
