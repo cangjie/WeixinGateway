@@ -24,7 +24,7 @@ public class RentItem
         if (_fields["status"].ToString().Trim().Equals("0"))
         {
             string[,] updateParam = new string[,] { { "borrow_open_id", "varchar", openId.Trim() }, {"status", "int", "1" }, 
-                {"rent_datetime", "datetime", DateTime.Now.ToString() }, {"update_date", "datetime", DateTime.Now.ToString() } };
+                {"rent_date_time", "datetime", DateTime.Now.ToString() }, {"update_date", "datetime", DateTime.Now.ToString() } };
             string[,] keyParam = new string[,] { { "id", "int", _fields["id"].ToString().Trim() } };
             DBHelper.UpdateData("rent_item", updateParam, keyParam, Util.conStr.Trim());
         }
