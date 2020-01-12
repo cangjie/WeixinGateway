@@ -14,7 +14,8 @@
             string securityContent = Util.GetSafeRequestValue(Request, "security_content", "");
             string scheduleReturnDateTimeString = Util.GetSafeRequestValue(Request, "return_date", "");
             DateTime scheduleReturnDateTime = DateTime.Parse(scheduleReturnDateTimeString.Substring(0,4) + "-" 
-                + scheduleReturnDateTimeString.Substring(4,2) + "-" + scheduleReturnDateTimeString.Substring(6, 2));
+                + scheduleReturnDateTimeString.Substring(4,2) + "-" + scheduleReturnDateTimeString.Substring(6, 2) 
+                + " " + scheduleReturnDateTimeString.Substring(8, 2) + ":00");
             int id = RentItem.NewRent(itemName.Trim(), itemContent.Trim(), securityType.Trim(), securityContent.Trim(), adminOpenId, scheduleReturnDateTime);
             Response.Write("{\"status\": 0, \"id\": " + id.ToString() + "}");
         }
