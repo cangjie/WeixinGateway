@@ -60,20 +60,23 @@
                 }
             });
         }
-        setInterval("waiting_for_scan()", 3000);
+        //setInterval("waiting_for_scan()", 3000);
         function cell_number_charge() {
-            window.location.href = 'admin_charge_shop_sale_simple_new.aspx?cell=' + document.getElementById("cell").value;
+            window.location.href = 'admin_charge_shop_sale_simple_new_test.aspx?cell=' + document.getElementById("cell").value;
         }
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
         <table class="table table-striped">
-            <tr>
+            <!--tr>
                 <td colspan="2" class="auto-style1" >销售二维码</td>
             </tr>
             <tr>
                 <td colspan="2" ><img width="400" height="400" src="/<%= QrCode.GetStaticQrCode("shop_sale_charge_request_openid_"+ openId.Trim(), "images/qrcode") %>" /></td>
+            </tr-->
+            <tr>
+                <td colspan="2" > </td>
             </tr>
             <tr>
                 <td class="auto-style1" colspan="2">顾客电话:</td>
@@ -84,12 +87,12 @@
             <tr>
                 <td colspan="2" > </td>
             </tr>
-            <tr>
+            <!--tr>
                 <td colspan="2"> 
                     <input type="button" value="散客微信收款" style="width:150px" onclick="javascript: window.location.href = 'admin_charge_shop_sale_for_single_customer_wechat.aspx'" /> 
                     <input type="button" value="散客其他收款" style="width:150px" onclick="javascript: window.location.href = 'admin_charge_shop_sale_for_single_customer.aspx'" /> 
                 </td>
-            </tr>
+            </tr-->
         </table>
     </form>
 </body>
