@@ -461,12 +461,18 @@
         //获取二维码
 
         function set_cash_pay() {
+            var cell = document.getElementById("cell").value.trim();
+            var custom_open_id = '<%=customerOpenId%>';
+            if (cell == '00000000000') {
+                cell = '';
+                custom_open_id = '';
+            }
             var pay_method = document.getElementById("pay_method").value.trim();
             var ajax_url = "../../../api/create_shop_sale_charge_cash_order.aspx?token=<%=userToken%>&marketprice="
                 + market_price.toString() + "&saleprice=" + sale_price.toString() + "&ticketamount=" + ticket_amount.toString()
                 + "&memo=" + document.getElementById("txt_memo").value.trim() + "&paymethod=" + pay_method
                 + "&shop=" + document.getElementById("shop").value.trim() + "&reforderdetail="  //get_product_list_json()
-                + "&ticketcode=" + ticket_id.trim() + "&openid=<%=customerOpenId%>&cell=" + document.getElementById("cell").value.trim()
+                + "&ticketcode=" + ticket_id.trim() + "&openid=" + custom_open_id + "&cell=" + cell
                 + "&customermemo=" + document.getElementById("customer_memo").value.trim();
             $.ajax({
                 url: ajax_url,
