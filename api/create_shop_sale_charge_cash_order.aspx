@@ -36,8 +36,8 @@
             Response.End();
         }
 
-        int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, memo, openId, payMethod, shop,
-            memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode, cell, currentUser.OpenId.Trim());
+        int chargeId = OrderTemp.AddNewOrderTemp(customerOpenId, marketPrice, salePrice, ticketAmount, memo, currentUser.OpenId.Trim(), payMethod, shop,
+            memberType, recommenderNumber, recommenderType, name, orderDetailJson, ticketCode, cell);
 
 
 

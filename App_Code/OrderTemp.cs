@@ -118,7 +118,7 @@ public class OrderTemp
         {"is_paid", "int", "0" }, {"pay_date_time", "datetime", DateTime.Now.ToString() }, {"pay_method", "varchar", payMethod.Trim() },
         {"shop", "varchar", shop.Trim() }, {"member_type", "varchar", memberType.Trim() }, 
         {"recommender_number", "varchar", recommenderNumber.Trim() }, {"recommender_type", "varchar", recommenderType.Trim() },
-         {"name", "varchar", name.Trim() },{"sales_open_id", "varchar", "" }
+         {"name", "varchar", name.Trim() }
 
         };
         int i = DBHelper.InsertData("order_online_temp", insertParam);
@@ -131,14 +131,14 @@ public class OrderTemp
         return i;
     }
 
-    public static int AddNewOrderTemp(string customOpenId, double marketPrice, double salePrice, double ticketAmount, string memo, string openId, string payMethod, 
+    public static int AddNewOrderTemp(string customOpenId, double marketPrice, double salePrice, double ticketAmount, string memo, string salesOpenId, string payMethod, 
         string shop, string memberType, string recommenderNumber, string recommenderType, string name, 
-        string orderDetailJson, string tickeCode, string cell, string salesOpenId)
+        string orderDetailJson, string tickeCode, string cell)
     {
         double realPayPrice = salePrice - ticketAmount;
         double scoreRate = GetScoreRate(realPayPrice, marketPrice);
         int generateScore = (int)(realPayPrice * scoreRate);
-        string[,] insertParam = { { "admin_open_id", "varchar", openId }, {"market_price", "float", Math.Round(marketPrice,2).ToString() },
+        string[,] insertParam = { { "admin_open_id", "varchar", salesOpenId }, {"market_price", "float", Math.Round(marketPrice,2).ToString() },
         {"sale_price", "float", Math.Round(salePrice, 2).ToString() }, {"real_paid_price", "float", Math.Round(realPayPrice, 2).ToString() },
         {"ticket_amount", "float", Math.Round(ticketAmount, 2).ToString() }, {"score_rate", "float", Math.Round(scoreRate, 2).ToString() },
         {"generate_score", "int", generateScore.ToString() }, {"memo", "varchar", memo.Trim() },
@@ -146,7 +146,7 @@ public class OrderTemp
         {"shop", "varchar", shop.Trim() }, {"member_type", "varchar", memberType.Trim() },
         {"recommender_number", "varchar", recommenderNumber.Trim() }, {"recommender_type", "varchar", recommenderType.Trim() },
         {"name", "varchar", name.Trim() }, {"order_detail_json", "varchar", orderDetailJson }, {"ticket_code", "varchar", tickeCode.Trim() },
-        {"customer_open_id", "varchar", customOpenId.Trim() }, {"customer_number", "varchar", cell.Trim()}, {"sales_open_id", "varchar", salesOpenId.Trim() }};
+        {"customer_open_id", "varchar", customOpenId.Trim() }, {"customer_number", "varchar", cell.Trim()}};
         int i = DBHelper.InsertData("order_online_temp", insertParam);
         if (i == 1)
         {
