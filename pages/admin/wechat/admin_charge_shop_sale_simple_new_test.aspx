@@ -56,6 +56,11 @@
             }
 
         }
+
+        if (cellNumber.Trim().Equals("00000000000"))
+        {
+            currentUser = new WeixinUser("0000000000");
+        }
         string currentPageUrl = Request.Url.ToString();
         if (!Util.GetSafeRequestValue(Request, "cell", "").Trim().Equals("") && currentPageUrl.IndexOf("?cell") < 0 )
         {
