@@ -5,9 +5,9 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = Util.GetSafeRequestValue(Request, "token", "6cd6fc580e73b8e0d605b4a8a16a9f350423baa7a2f26a7f86d9c2a41043e9d3e72366b4");
-        double marketPrice = double.Parse(Util.GetSafeRequestValue(Request, "marketprice", "2"));
-        double salePrice = double.Parse(Util.GetSafeRequestValue(Request, "saleprice", "1.9"));
+        string token = Util.GetSafeRequestValue(Request, "token", "7193fa1e90af61b264fe3989f1576b53a23cae5e157923fcedb37c693f8aaf110405a201");
+        double marketPrice = double.Parse(Util.GetSafeRequestValue(Request, "marketprice", "0.01"));
+        double salePrice = double.Parse(Util.GetSafeRequestValue(Request, "saleprice", "0.01"));
         double ticketAmount = double.Parse(Util.GetSafeRequestValue(Request, "ticketamount", "0"));
         string memo = Util.GetSafeRequestValue(Request, "memo", "测试店销产品");
         string payMethod = Util.GetSafeRequestValue(Request, "paymethod", "现金");
@@ -44,7 +44,7 @@
         if (customerOpenId.Trim().Equals(""))
         {
             string placeOrderCell = "00000000000";
-            if (cell.Trim().Equals(""))
+            if (!cell.Trim().Equals(""))
             {
                 placeOrderCell = cell.Trim();
             }
