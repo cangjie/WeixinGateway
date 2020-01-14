@@ -5,12 +5,12 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = Util.GetSafeRequestValue(Request, "token", "");
-        double marketPrice = double.Parse(Util.GetSafeRequestValue(Request, "marketprice", "2"));
-        double salePrice = double.Parse(Util.GetSafeRequestValue(Request, "saleprice", "1.9"));
+        string token = Util.GetSafeRequestValue(Request, "token", "b7d3d9985fe566ffc55031ee17c2383003a9082f9e5eca67dd23613d4d268d85f1fcd168");
+        double marketPrice = double.Parse(Util.GetSafeRequestValue(Request, "marketprice", "0.01"));
+        double salePrice = double.Parse(Util.GetSafeRequestValue(Request, "saleprice", "0.01"));
         double ticketAmount = double.Parse(Util.GetSafeRequestValue(Request, "ticketamount", "0"));
         string memo = Util.GetSafeRequestValue(Request, "memo", "测试店销产品");
-        string payMethod = Util.GetSafeRequestValue(Request, "paymethod", "微信");
+        string payMethod = Util.GetSafeRequestValue(Request, "paymethod", "支付宝");
         string shop = Util.GetSafeRequestValue(Request, "shop", "南山");
         string openId = WeixinUser.CheckToken(token);
         string memberType = Util.GetSafeRequestValue(Request, "membertype", "");
@@ -48,9 +48,18 @@
             }
             else if (payMethod.Trim().Equals("支付宝"))
             {
-                if (cell.Trim().Equals("00000000000") || (cell.Length == 11 && (cell.StartsWith("13") || cell.StartsWith("15") || cell.StartsWith("18"))))
+                if (cell.Trim().Equals("") || (cell.Length == 11 && (cell.StartsWith("13") || cell.StartsWith("15") || cell.StartsWith("18"))))
                 {
+
+                    if (cell.Trim().Equals("") && customerOpenId.Trim().Equals(""))
+                    {
+                        cell = "00000000000";
+                    }
                     WeixinUser tempUser = WeixinUser.GetTempWeixinUser(cell.Trim());
+                    if (!customerOpenId.Trim().Equals(""))
+                    {
+                        tempUser = new WeixinUser(customerOpenId);
+                    }
                     int orderId = orderTemp.PlaceOnlineOrder(tempUser.OpenId.Trim());
                     OnlineOrder order = new OnlineOrder(orderId);
                     Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
@@ -78,7 +87,7 @@
             {
 
             }
-            
+
             int orderId = orderTemp.PlaceOnlineOrder(customerOpenId.Trim());
             OnlineOrder order = new OnlineOrder(orderId);
             Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
