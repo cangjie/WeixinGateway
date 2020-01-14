@@ -43,7 +43,12 @@
 
         if (customerOpenId.Trim().Equals(""))
         {
-            WeixinUser tempUser = WeixinUser.GetTempWeixinUser(cell.Trim());
+            string placeOrderCell = "00000000000";
+            if (cell.Trim().Equals(""))
+            {
+                placeOrderCell = cell.Trim();
+            }
+            WeixinUser tempUser = WeixinUser.GetTempWeixinUser(placeOrderCell);
             OrderTemp orderTemp = new OrderTemp(chargeId);
             int orderId = orderTemp.PlaceOnlineOrder(tempUser.OpenId.Trim());
             OnlineOrder order = new OnlineOrder(orderId);
