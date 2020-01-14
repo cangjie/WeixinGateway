@@ -48,7 +48,7 @@
             }
             else if (payMethod.Trim().Equals("支付宝"))
             {
-                if (cell.Length == 11 && (cell.StartsWith("13") || cell.StartsWith("15") || cell.StartsWith("18")))
+                if (cell.Trim().Equals("00000000000") || (cell.Length == 11 && (cell.StartsWith("13") || cell.StartsWith("15") || cell.StartsWith("18"))))
                 {
                     WeixinUser tempUser = WeixinUser.GetTempWeixinUser(cell.Trim());
                     int orderId = orderTemp.PlaceOnlineOrder(tempUser.OpenId.Trim());
