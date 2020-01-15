@@ -25,7 +25,7 @@
             }
             catch
             {
-                Response.Write("{\"status\": 1, \"error_message\": \"Order is not exists.\"}");
+                //Response.Write("{\"status\": 1, \"error_message\": \"Order is not exists.\"}");
                 Response.End();
             }
         }
