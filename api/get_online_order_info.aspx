@@ -9,9 +9,25 @@
         orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
         if (orderId == 0)
         {
-            int tempOrderId = int.Parse(Util.GetSafeRequestValue(Request, "temporderid", "0"));
+            int tempOrderId = int.Parse(Util.GetSafeRequestValue(Request, "temporderid", "4089"));
             OrderTemp orderTemp = new OrderTemp(tempOrderId);
-            orderId = int.Parse(orderTemp._fields["online_order_id"].ToString());
+            try
+            {
+                if (!orderTemp._fields["online_order_id"].ToString().Trim().Equals(""))
+                {
+                    orderId = int.Parse(orderTemp._fields["online_order_id"].ToString());
+                }
+                else
+                {
+                    Response.Write("{\"status\": 1, \"error_message\": \"Order is not exists.\"}");
+                    Response.End();
+                }
+            }
+            catch
+            {
+                Response.Write("{\"status\": 1, \"error_message\": \"Order is not exists.\"}");
+                Response.End();
+            }
         }
         OnlineOrder order = new OnlineOrder(orderId);
         string json = "";
