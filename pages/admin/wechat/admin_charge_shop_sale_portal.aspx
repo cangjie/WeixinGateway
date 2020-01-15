@@ -60,9 +60,12 @@
                 }
             });
         }
-        //setInterval("waiting_for_scan()", 3000);
+
         function cell_number_charge() {
-            window.location.href = 'admin_charge_shop_sale_simple_new_test.aspx?cell=' + document.getElementById("cell").value;
+            var cell_number = document.getElementById("cell").value.trim();
+            if ((cell_number.substr(0, 2) == '13' || cell_number.substr(0, 2) == '15') && cell_number.length == 11) {
+                window.location.href = 'admin_charge_shop_sale_simple_new_test.aspx?cell=' + cell_number;
+            }
         }
     </script>
 </head>
@@ -87,6 +90,13 @@
             <tr>
                 <td colspan="2" > </td>
             </tr>
+            <tr>
+                <td colspan="2"><font color="red" >散客收款有可能获取不到提成！</font></td>
+            </tr>
+            <tr>
+                <td colspan="2" > <input type="button" value=" 散 客 收 款 " onclick="window.location.href = 'admin_charge_shop_sale_simple_new_test.aspx'" /> </td>
+            </tr>
+
             <!--tr>
                 <td colspan="2"> 
                     <input type="button" value="散客微信收款" style="width:150px" onclick="javascript: window.location.href = 'admin_charge_shop_sale_for_single_customer_wechat.aspx'" /> 
