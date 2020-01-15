@@ -58,7 +58,7 @@
                             Card.CreatePackageCard(code);
                         }
                     }
-                    if (onlineOrder.Type.Trim().Equals("店销"))
+                    if (onlineOrder.Type.Trim().Equals("店销") || onlineOrder.Type.Trim().Equals("服务"))
                     {
                         OrderTemp tempOrder = OrderTemp.GetFinishedOrder(int.Parse(onlineOrder._fields["id"].ToString()));
                         if (onlineOrder._fields["pay_state"].ToString().Equals("1") )
