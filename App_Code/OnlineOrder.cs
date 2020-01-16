@@ -50,8 +50,10 @@ public class OnlineOrder
                     {"shop", "varchar", shop.Trim() },
                     {"memo", "varchar", memo.Trim() } };
                 int i = DBHelper.InsertData("order_online", insertParam);
+                
                 if (i == 1)
                 {
+                    int totalScore = 0;
                     DataTable dt = DBHelper.GetDataTable(" select top 1 *  from order_online order by [id] desc");
                     int maxId = int.Parse(dt.Rows[0][0].ToString());
                     _fields = dt.Rows[0];
@@ -59,7 +61,12 @@ public class OnlineOrder
                     foreach (OnlineOrderDetail detail in orderDetails)
                     {
                         detail.AddNew(maxId);
+                        Product p = new Product(detail.productId);
+                        totalScore = totalScore + int.Parse(p._fields["award_score"].ToString().Trim());
+
                     }
+                    DBHelper.UpdateData("order_online", new string[,] { { "award_score", "int", totalScore.ToString() } },
+                        new string[,] { { "id", "int", maxId.ToString() } }, Util.conStr.Trim());
                     return maxId;
                 }
             }

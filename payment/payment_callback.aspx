@@ -57,6 +57,7 @@
                         {
                             Card.CreatePackageCard(code);
                         }
+
                     }
                     if (onlineOrder.Type.Trim().Equals("店销") || onlineOrder.Type.Trim().Equals("服务"))
                     {
