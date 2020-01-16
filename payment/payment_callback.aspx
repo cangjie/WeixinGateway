@@ -57,6 +57,12 @@
                         {
                             Card.CreatePackageCard(code);
                         }
+                        int score = int.Parse(onlineOrder._fields["generate_score"].ToString());
+                        if (score > 0)
+                        {
+                            Point.AddNew(onlineOrder._fields["open_id"].ToString().Trim(), score, DateTime.Now, 
+                                "店内购买 订单号：" + onlineOrder._fields["id"].ToString().Trim() + "  " + onlineOrder.Memo.Trim());
+                        }
 
                     }
                     if (onlineOrder.Type.Trim().Equals("店销") || onlineOrder.Type.Trim().Equals("服务"))
