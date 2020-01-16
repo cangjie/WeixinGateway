@@ -65,8 +65,8 @@ public class OnlineOrder
                         totalScore = totalScore + int.Parse(p._fields["award_score"].ToString().Trim());
 
                     }
-                    DBHelper.UpdateData("order_online", new string[,] { { "award_score", "int", totalScore.ToString() } },
-                        new string[,] { { "id", "int", maxId.ToString() } }, Util.conStr.Trim());
+                    //DBHelper.UpdateData("order_online", new string[,] { { "award_score", "int", totalScore.ToString() } },
+                    //    new string[,] { { "id", "int", maxId.ToString() } }, Util.conStr.Trim());
                     return maxId;
                 }
             }
