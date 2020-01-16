@@ -9,6 +9,10 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+        int totalScore = 100;
+        int maxId = 7658;
+        DBHelper.UpdateData("order_online", new string[,] { { "award_score", "int", totalScore.ToString() } },
+            new string[,] { { "id", "int", maxId.ToString() } }, Util.conStr.Trim());
         //Card card = new Card("281407726");
         //Card.CardPackageUsage[] list = card.CardPackageUsageList;
         //Card.CreatePackageCard("897604376");
