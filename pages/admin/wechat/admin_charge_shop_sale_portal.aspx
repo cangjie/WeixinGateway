@@ -63,7 +63,7 @@
 
         function cell_number_charge() {
             var cell_number = document.getElementById("cell").value.trim();
-            if ((cell_number.substr(0, 2) == '13' || cell_number.substr(0, 2) == '15') && cell_number.length == 11) {
+            if ((cell_number.substr(0, 2) == '13' || cell_number.substr(0, 2) == '15' || cell_number.substr(0, 2) == '18') && cell_number.length == 11) {
                 window.location.href = 'admin_charge_shop_sale_simple_new_test.aspx?cell=' + cell_number;
             }
         }
