@@ -279,6 +279,9 @@
             <td colspan="2" style="text-align:center"><button type="button" id="qrcodeBtn" class="btn btn-default" onclick="get_qrcode()"  >获取支付二维码</button></td>
         </tr>
         <tr>
+            <td colspan="2" style="text-align:center; height:300px"><p id="info_txt" style="color:red"></p></td>
+        </tr>
+        <tr>
             <td colspan="2" id="qrcode_td" style="text-align:center; height:300px"></td>
         </tr>
     </table>
@@ -482,6 +485,7 @@
                 + "&order_type=" + document.getElementById("order_type").value.trim();
           
             //alert(ajax_url);
+            document.getElementById("info_txt").innerText = "请等待获取二维码。";
             $.ajax({
                 url: ajax_url,
                 type: "GET",
@@ -492,6 +496,7 @@
                     var pay_method = msg_object.pay_method;
                     var pay_url = "";
                     var qr_code_url = "";
+                    document.getElementById("info_txt").innerText = "";
                     if (pay_method.trim() == '支付宝') {
                         var ali_order_id = msg_object.order_id;
                         qr_code_url = "http://weixin.snowmeet.com/payment/payment_ali.aspx?orderid=" + ali_order_id.toString().trim();
@@ -520,7 +525,11 @@
                     //temp_order_id = msg_object.temp_order_id;
                     if (temp_order_id != undefined || order_id != undefined)
                         intervalId = setInterval("refresh_order_state()", 1000);
+                },
+                error: function () {
+                    document.getElementById("info_txt").innerText = "请求超时，请重试。";
                 }
+
             });
         }
 
