@@ -455,6 +455,11 @@
         }
 
         function get_qrcode() {
+            if (!check_valid())
+            {
+                document.getElementById("info_txt").innerText = "请填写合法的零售价和成交价。";
+                return;
+            }
             //alert(get_product_list_json());
             //return;
             var pay_method = document.getElementById("pay_method").value.trim();
