@@ -34,7 +34,7 @@
         dt.Columns.Add("支付方式", Type.GetType("System.String"));
         dt.Columns.Add("龙珠系数", Type.GetType("System.Double"));
         dt.Columns.Add("生成龙珠",  Type.GetType("System.Int32"));
-        dt.Columns.Add("商品概要");
+        //dt.Columns.Add("商品概要");
         dt.Columns.Add("备注");
         dt.Columns.Add("销售");
 
@@ -64,13 +64,15 @@
             dr["生成龙珠"] = Math.Round(double.Parse(drOri["generate_score"].ToString()),2);
             dr["支付方式"] = drOri["pay_method"].ToString().Trim();
             string detailStr = "";
+            /*
             OnlineOrder order = new OnlineOrder(int.Parse(drOri["id"].ToString().Trim()));
-            foreach (OnlineOrderDetail detail in order.OrderDetails)
+            foreach (OnlineOrderDetail detail in OnlineOrderDetail.GetOnlineOrderDetails(int.Parse( drOri["id"].ToString().Trim())))
             {
                 detailStr = detailStr + (detailStr.Trim().Equals("") ? "" : "<br/>") + detail.productName.Trim() + " 数量:" + detail.count.ToString()
                     + " 价格:" + Math.Round(detail.price, 2).ToString() + " 小计:" + Math.Round(detail.summary, 2).ToString();
             }
-            dr["商品概要"] = detailStr.Trim();
+            */
+            //dr["商品概要"] = detailStr.Trim();
             dr["备注"] = drOri["memo"].ToString().Trim();
 
             if (!drOri["admin_open_id"].ToString().Trim().Equals(""))
