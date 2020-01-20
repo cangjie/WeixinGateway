@@ -130,7 +130,7 @@
             </div>
             <div class="row" >
                 <div class="col-xs-12 center-block">
-                    &nbsp;&nbsp;<button id="bind_cell_number_button" style="width:150px;" type="button"  onclick="bind_cell_number_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button>
+                    &nbsp;&nbsp;<button id="bind_cell_number_button"  style="width:150px;" type="button"  onclick="bind_cell_number_button_on_click()" class="center-block btn btn-xs btn-primary">绑定手机号码</button>
                 </div>
             </div>
         </div>
@@ -187,6 +187,8 @@
             var cell = document.getElementById("cell_number").value.trim();
             var verify_code = document.getElementById("verify_code").value.trim();
             var father_cell_number = document.getElementById("father_cell_number").value.trim();
+            var btn = document.getElementById("bind_cell_number_button");
+            
             var token = "<%=Session["user_token"].ToString()%>";
             $.ajax({
                 url: "../api/verify_code_bind_cell_number.aspx",
@@ -211,6 +213,7 @@
                         */
                         //alert("手机绑定成功" + (points==0?"":"您在17~18雪季之前，还有" + points.toString() + "颗龙珠，现已生效，可用于未来更多服务消费，敬请关注。"));
                         alert("手机绑定成功。");
+
                         window.location.href = "<%=refUrl%>";
                     }
                     else {
@@ -219,6 +222,7 @@
 
                 }
             });
+            btn.disabled = true;
         }
 
 
