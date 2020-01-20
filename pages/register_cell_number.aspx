@@ -218,8 +218,12 @@
                     }
                     else {
                         alert(msg_object.error_message);
+                        btn.disabled = false;
                     }
 
+                },
+                error: function () {
+                    btn.disabled = false;
                 }
             });
             btn.disabled = true;
