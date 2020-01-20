@@ -195,6 +195,7 @@
                 success: function (msg, status) {
                     var msg_object = eval("(" + msg + ")");
                     if (status == "success" && msg_object.status == 0 && msg_object.result == 1) {
+                        /*
                         var points = 0;
                         $.ajax({
                             url: "../api/get_old_points.aspx?number=" + cell,
@@ -207,7 +208,9 @@
 
                             }
                         })
-                        alert("手机绑定成功" + (points==0?"":"您在17~18雪季之前，还有" + points.toString() + "颗龙珠，现已生效，可用于未来更多服务消费，敬请关注。"));
+                        */
+                        //alert("手机绑定成功" + (points==0?"":"您在17~18雪季之前，还有" + points.toString() + "颗龙珠，现已生效，可用于未来更多服务消费，敬请关注。"));
+                        alert("手机绑定成功。");
                         window.location.href = "<%=refUrl%>";
                     }
                     else {
