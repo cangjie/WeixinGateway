@@ -9,17 +9,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        int totalScore = 100;
-        int maxId = 7658;
-        DBHelper.UpdateData("order_online", new string[,] { { "award_score", "int", totalScore.ToString() } },
-            new string[,] { { "id", "int", maxId.ToString() } }, Util.conStr.Trim());
-        //Card card = new Card("281407726");
-        //Card.CardPackageUsage[] list = card.CardPackageUsageList;
-        //Card.CreatePackageCard("897604376");
-        
-        ReceivedMessage rec = new ReceivedMessage("event_20200112165919125");
-        RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
-        RepliedMessage.AddRepliedMessage(repliedMessage);
+        WeixinUser.MergeUser("18601197897");
         
         //RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
         //WeixinUser.MergeUser("18601197897");

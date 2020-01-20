@@ -546,7 +546,7 @@ public class WeixinUser : ObjectHelper
                 realOpenId = openId;
             }
         }
-        if (!realOpenId.Trim().Equals(""))
+        if (!realOpenId.Trim().Equals("") && !numericOpenIdArr.Trim().Equals(""))
         {
             string sql = "update order_online set open_id = '" + realOpenId.Trim() + "' where open_id in (" + numericOpenIdArr + ")";
             SqlConnection conn = new SqlConnection(Util.conStr.Trim());
