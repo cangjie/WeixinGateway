@@ -20,7 +20,7 @@
     {
         string currentPageUrl = Server.UrlEncode("/pages/register_cell_number.aspx?fatheropenid=" + Util.GetSafeRequestValue(Request, "fatheropenid", "").Trim());
 
-        refUrl = Server.UrlDecode(Util.GetSafeRequestValue(Request, "refurl", "/pages/ski_pass_product_list.aspx"));
+        refUrl = Server.UrlDecode(Util.GetSafeRequestValue(Request, "refurl", "/pages/dragon_ball_list.aspx"));
 
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
