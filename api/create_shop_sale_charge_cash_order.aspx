@@ -53,6 +53,8 @@
             int orderId = orderTemp.PlaceOnlineOrder(tempUser.OpenId.Trim());
             OnlineOrder order = new OnlineOrder(orderId);
             order.SetOrderPaySuccess(DateTime.Now, "cashpaid");
+            Point.AddNew(tempUser.OpenId.Trim(), int.Parse(order._fields["generate_score"].ToString()), 
+                DateTime.Now, "现金支付赠送龙珠，订单ID：" + order._fields["id"].ToString());
             Response.Write("{\"status\":0, \"order_id\":\"" + order._fields["id"].ToString() + "\", \"pay_method\": \"" + order.PayMethod.Trim() + "\"  }");
         }
         else
