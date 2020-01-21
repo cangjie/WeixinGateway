@@ -19,12 +19,17 @@
 
         DataTable dtAdmin = DBHelper.GetDataTable(" select * from users where is_admin = 1 ");
 
-        DataTable dtOri = DBHelper.GetDataTable("select *, users.cell_number as user_number from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id]  where order_online.type in ('店销', '服务') and order_online.pay_state = 1  and order_online.crt > '2019-10-1' order by order_online.[id] desc");
+        DataTable dtOri = DBHelper.GetDataTable("select *, users.cell_number as user_number from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id] "
+            + " where order_online.type in ('店销', '服务') and order_online.pay_state = 1  and order_online.crt > '2019-10-1' "
+            + (ShopList.SelectedValue.Trim().Equals("全部")? " " : " and order_online.shop = '" + ShopList.SelectedValue.Trim() + "' ")
+            + (TypeList.SelectedValue.Trim().Equals("全部")? " " : " and order_online.[type] = '" + TypeList.SelectedValue.Trim() + "'  ")
+            + " order by order_online.[id]  desc");
 
         DataTable dt = new DataTable();
         dt.Columns.Add("订单号", Type.GetType("System.Int32"));
         dt.Columns.Add("日期", Type.GetType("System.DateTime"));
         dt.Columns.Add("店铺");
+        dt.Columns.Add("类型");
         dt.Columns.Add("头像");
         dt.Columns.Add("昵称");
         //dt.Columns.Add("姓名");
@@ -40,14 +45,11 @@
 
         foreach (DataRow drOri in dtOri.Rows)
         {
-
             DataRow dr = dt.NewRow();
             dr["订单号"] = int.Parse(drOri["id"].ToString().Trim());
-
-
-
             dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString());
             dr["店铺"] = drOri["shop"].ToString();
+            dr["类型"] = drOri["type"].ToString().Trim();
             WeixinUser user = new WeixinUser();
             user._fields = drOri;
             dr["头像"] = "<img src=\"" + user.HeadImage.Trim() + "\" width=\"30\" height=\"30\" />";
@@ -98,6 +100,17 @@
         return dt;
     }
 
+    protected void TypeList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        dg.DataSource = GetData();
+        dg.DataBind();
+    }
+
+    protected void ShopList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        dg.DataSource = GetData();
+        dg.DataBind();
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -106,6 +119,16 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <div>类型：<asp:DropDownList runat="server" ID="TypeList" OnSelectedIndexChanged="TypeList_SelectedIndexChanged" AutoPostBack="True">
+        <asp:ListItem>全部</asp:ListItem>
+        <asp:ListItem>店销</asp:ListItem>
+        <asp:ListItem>服务</asp:ListItem>
+        </asp:DropDownList>&nbsp; 店铺：<asp:DropDownList ID="ShopList" runat="server" OnSelectedIndexChanged="ShopList_SelectedIndexChanged" AutoPostBack="True" >
+            <asp:ListItem>全部</asp:ListItem>
+            <asp:ListItem>南山</asp:ListItem>
+            <asp:ListItem>八易</asp:ListItem>
+            <asp:ListItem>万龙</asp:ListItem>
+        </asp:DropDownList></div>
     <div>
         <asp:DataGrid runat="server" ID="dg" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" Width="100%" >
             <AlternatingItemStyle BackColor="#DCDCDC" />
