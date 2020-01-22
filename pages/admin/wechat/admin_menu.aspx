@@ -76,7 +76,7 @@
     <form id="form1" runat="server">
     <div>
         标题：<asp:TextBox ID="TxtTitle" runat="server" ></asp:TextBox>  &nbsp;&nbsp;  链接：<asp:TextBox ID="TxtUrl" runat="server" Width="414px" ></asp:TextBox>  &nbsp; <asp:Button id="btn" runat="server" Text="添加" OnClick="btn_Click" />
-        <asp:DataGrid ID="dg" runat="server" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" >
+        <asp:DataGrid ID="dg" runat="server" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" Font-Size="Medium" >
             <AlternatingItemStyle BackColor="#DCDCDC" />
             <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
             <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
