@@ -9,7 +9,11 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        WeixinUser.MergeUser("18601197897");
+        OnlineOrder order = new OnlineOrder(8159);
+        order.CreateSkiPass();
+
+
+        //WeixinUser.MergeUser("18601197897");
         
         //RepliedMessage repliedMessage = DealMessage.DealReceivedMessage(rec);
         //WeixinUser.MergeUser("18601197897");
