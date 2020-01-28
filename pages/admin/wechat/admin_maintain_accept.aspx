@@ -39,21 +39,21 @@
         <table class="table">
             <tr >
                 <td style="align-items :center; vertical-align:middle;">
-                    <img style="width:85px;height:85px" src="http://thirdwx.qlogo.cn/mmopen/qE9MKluetOmAdicYiaLTickd4PMHcyDxib5N36S1g8SAWoGZjvd8HSLRKcpibom0ZJzwDQt4ibuqFAhOnqicMW30FRPsWF6NCDsfpoB/132" />
+                    <img style="width:100px;height:100px" src="http://thirdwx.qlogo.cn/mmopen/qE9MKluetOmAdicYiaLTickd4PMHcyDxib5N36S1g8SAWoGZjvd8HSLRKcpibom0ZJzwDQt4ibuqFAhOnqicMW30FRPsWF6NCDsfpoB/132" />
                 </td>
                 <td>
                     <table class="table" >
                         <tr>
-                            <td style="text-align:right"><p class="h6" >&nbsp;手机:</p></td>
-                            <td><input type="text" id="cell" value="13501177897" style="width:110px;height:40px"/></td>
+                            <td style="text-align:right">手机:</td>
+                            <td><input type="text" id="cell" value="13501177897" style="width:150px;height:40px"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align:right"><p class="h6" >&nbsp;昵称:</p></td>
+                            <td style="text-align:right">昵称:</td>
                             <td>
-                                <input type="text" id="nick" style="width:60px;height:40px" /> 
+                                <input type="text" id="nick" style="width:100px;height:40px" /> 
                             </td>
                         <tr>
-                            <td style="text-align:right"><p class="h6" >&nbsp;性别:</p></td>
+                            <td style="text-align:right">性别:</td>
                             <td>
                                 &nbsp; &nbsp; 
                                 <input type="radio" id="male" style="width:20px;height:20px" name="gender" />男  &nbsp; &nbsp;  
