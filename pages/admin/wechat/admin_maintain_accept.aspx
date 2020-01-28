@@ -90,9 +90,17 @@
             </tr>
             <tr>
                 <td colspan="2" class="text-center">
-                    <input type="checkbox" id="need_edge" style="width:20px;height:20px" />修刃<input id="degree" style="width:30px;height:30px" type="text" />度&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="need_edge" style="width:20px;height:20px" />修刃<input id="degree" style="width:60px;height:30px" type="text" />度&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="checkbox" id="need_candle" style="width:20px;height:20px"  />打蜡&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="checkbox" id="need_fix" style="width:20px;height:20px"  />补板底
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right" >取板时间：</td>
+                <td>
+                    <input type="text" id="finish_date" style="width:100px;height:30px" />&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <input type="radio" id="finish_today" style="width:20px;height:20px" name="finish_radio" />立等可取  &nbsp; &nbsp;  
+                    <input type="radio" id="finish_tomorrow" style="width:20px;height:20px" name="finish_radio" />次日可取
                 </td>
             </tr>
         </table>
