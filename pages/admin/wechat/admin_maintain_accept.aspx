@@ -64,6 +64,30 @@
                     </table>
                 </td>
             </tr>
+            <tr>
+                <td style="text-align:right" >RFID:</td>
+                <td><input type="text" id="rfid" style="width:200px;height:30px" /></td>
+            </tr>
+            <tr>
+                <td style="text-align:right" >品牌:</td>
+                <td>
+                    <input type="text" id="brand" style="width:100px;height:30px" />&nbsp; &nbsp; 
+                    <input type="radio" id="ski" style="width:20px;height:20px" name="gender" />双板  &nbsp; &nbsp;  
+                    <input type="radio" id="board" style="width:20px;height:20px" name="gender" />单板
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right" >系列:</td>
+                <td><input type="text" id="serial" style="width:200px;height:30px" /></td>
+            </tr>
+            <tr>
+                <td style="text-align:right" >年款:</td>
+                <td><input type="text" id="year_of_made" style="width:200px;height:30px" /></td>
+            </tr>
+            <tr>
+                <td style="text-align:right" >长度:</td>
+                <td><input type="text" id="length" style="width:200px;height:30px" /></td>
+            </tr>
         </table>
     </div>
 
