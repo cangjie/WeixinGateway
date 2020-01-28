@@ -45,12 +45,12 @@
                     <table class="table" >
                         <tr>
                             <td style="text-align:right">手机:</td>
-                            <td><input type="text" id="cell" value="13501177897" style="width:150px;height:35px"/></td>
+                            <td><input type="text" id="cell" value="13501177897" style="width:150px;height:30px"/></td>
                         </tr>
                         <tr>
                             <td style="text-align:right">昵称:</td>
                             <td>
-                                <input type="text" id="nick" style="width:100px;height:35px" /> 
+                                <input type="text" id="nick" style="width:100px;height:30px" /> 
                             </td>
                         </tr>
                         <tr>
