@@ -98,9 +98,23 @@
             <tr>
                 <td style="text-align:right" >取板时间：</td>
                 <td>
-                    <input type="text" id="finish_date" style="width:100px;height:30px" />&nbsp;&nbsp;&nbsp;&nbsp; 
-                    <input type="radio" id="finish_today" style="width:20px;height:20px" name="finish_radio" />立等可取  &nbsp; &nbsp;  
-                    <input type="radio" id="finish_tomorrow" style="width:20px;height:20px" name="finish_radio" />次日可取
+                    <input type="text" id="finish_date" style="width:130px;height:30px" />&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <input type="radio" id="finish_today" style="width:20px;height:20px" name="finish_radio" />立等&nbsp; 
+                    <input type="radio" id="finish_tomorrow" style="width:20px;height:20px" name="finish_radio" />次日
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right" >金额：</td>
+                <td><input type="text" id="amount" style="width:130px;height:30px" /></td>
+            </tr>
+            <tr>
+                <td style="text-align:right" >支付方式：</td>
+                <td>
+                    <select >
+                        <option>微信</option>
+                        <option>支付宝</option>
+                        <option>现金</option>
+                    </select>
                 </td>
             </tr>
         </table>
