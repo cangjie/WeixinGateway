@@ -36,28 +36,28 @@
 </head>
 <body>
     <div>
-        <table>
+        <table class="table">
             <tr >
                 <td style="align-items :center; vertical-align:middle;">
-                    <img style="width:60px;height:60px" src="http://thirdwx.qlogo.cn/mmopen/qE9MKluetOmAdicYiaLTickd4PMHcyDxib5N36S1g8SAWoGZjvd8HSLRKcpibom0ZJzwDQt4ibuqFAhOnqicMW30FRPsWF6NCDsfpoB/132" />
+                    <img style="width:85px;height:85px" src="http://thirdwx.qlogo.cn/mmopen/qE9MKluetOmAdicYiaLTickd4PMHcyDxib5N36S1g8SAWoGZjvd8HSLRKcpibom0ZJzwDQt4ibuqFAhOnqicMW30FRPsWF6NCDsfpoB/132" />
                 </td>
                 <td>
-                    <table class="" >
+                    <table class="table" >
                         <tr>
                             <td style="text-align:right"><p class="h6" >&nbsp;手机:</p></td>
-                            <td><input type="text" id="cell" value="13501177897" style="width:100px;height:20px"/></td>
+                            <td><input type="text" id="cell" value="13501177897" style="width:110px;height:40px"/></td>
                         </tr>
                         <tr>
                             <td style="text-align:right"><p class="h6" >&nbsp;昵称:</p></td>
                             <td>
-                                <input type="text" id="nick" style="width:60px;height:20px" /> 
+                                <input type="text" id="nick" style="width:60px;height:40px" /> 
                             </td>
                         <tr>
                             <td style="text-align:right"><p class="h6" >&nbsp;性别:</p></td>
                             <td>
                                 &nbsp; &nbsp; 
-                                <input type="radio" id="male" style="width:10px;height:10px" name="gender" />男  &nbsp; &nbsp;  
-                                <input type="radio" id="female" style="width:10px;height:10px" name="gender" />女
+                                <input type="radio" id="male" style="width:20px;height:20px" name="gender" />男  &nbsp; &nbsp;  
+                                <input type="radio" id="female" style="width:20px;height:20px" name="gender" />女
                             </td>
                         </tr>
                     </table>
