@@ -29,7 +29,7 @@
         <table  class="table table-striped">
             <tr >
                 <td style="width:140px; align-items:center; vertical-align:middle">
-                    <img style="width:132px;height:132px" src="http://thirdwx.qlogo.cn/mmopen/qE9MKluetOmAdicYiaLTickd4PMHcyDxib5N36S1g8SAWoGZjvd8HSLRKcpibom0ZJzwDQt4ibuqFAhOnqicMW30FRPsWF6NCDsfpoB/132" />
+                    <img style="width:100px;height:100px" src="http://thirdwx.qlogo.cn/mmopen/qE9MKluetOmAdicYiaLTickd4PMHcyDxib5N36S1g8SAWoGZjvd8HSLRKcpibom0ZJzwDQt4ibuqFAhOnqicMW30FRPsWF6NCDsfpoB/132" />
                 </td>
                 <td>
                     <table class="table table-striped">
