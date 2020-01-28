@@ -35,12 +35,12 @@
                     <table class="table table-striped">
                         <tr>
                             <td style="width:100px;text-align:right">手机：</td>
-                            <td><input type="text" id="cell" value="13501177897" style="width:150px"/></td>
+                            <td><input type="text" id="cell" value="13501177897" style="width:150px;height:20px"/></td>
                         </tr>
                         <tr>
                             <td style="width:100px;text-align:right">昵称：</td>
                             <td>
-                                <input type="text" id="nick" style="width:100px" /> &nbsp; &nbsp; &nbsp; &nbsp; 
+                                <input type="text" id="nick" style="width:100px;height:20px" /> &nbsp; &nbsp; &nbsp; &nbsp; 
                                 <input type="radio" id="male" name="gender" />男  &nbsp; &nbsp; &nbsp; &nbsp; 
                                 <input type="radio" id="female" name="gender" />女</td>
                         </tr>
