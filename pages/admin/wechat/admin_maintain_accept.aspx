@@ -96,7 +96,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="text-align:right" >取板时间：</td>
+                <td style="text-align:right" >取板时间:</td>
                 <td>
                     <input type="text" id="finish_date" style="width:130px;height:30px" />&nbsp;&nbsp;&nbsp;&nbsp; 
                     <input type="radio" id="finish_today" style="width:20px;height:20px" name="finish_radio" />立等&nbsp; 
@@ -104,7 +104,13 @@
                 </td>
             </tr>
             <tr>
-                <td style="text-align:right" >金额：</td>
+                <td style="text-align:right"  >备注:</td>
+                <td>
+                    <textarea style="width:250px;height:155px" ></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right" >金额:</td>
                 <td><input type="text" id="amount" style="width:130px;height:30px" /></td>
             </tr>
             <tr>
