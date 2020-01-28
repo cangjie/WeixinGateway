@@ -66,7 +66,7 @@
             </tr>
             <tr>
                 <td style="text-align:right" >RFID:</td>
-                <td><input type="text" id="rfid" style="width:200px;height:30px" /></td>
+                <td><input type="text" id="rfid" style="width:200px;height:30px" /> <a href="#" >生成</a></td>
             </tr>
             <tr>
                 <td style="text-align:right" >品牌:</td>
@@ -87,6 +87,13 @@
             <tr>
                 <td style="text-align:right" >长度:</td>
                 <td><input type="text" id="length" style="width:200px;height:30px" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="align-items:center">
+                    <input type="checkbox" id="need_edge" style="width:20px;height:20px" />修刃<input id="degree" style="width:30px;height:20px" type="text" />度&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="need_candle" style="width:20px;height:20px"  />打蜡&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="need_fix" style="width:20px;height:20px"  />补板底
+                </td>
             </tr>
         </table>
     </div>
