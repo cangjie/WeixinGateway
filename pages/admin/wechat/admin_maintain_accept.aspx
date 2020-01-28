@@ -52,6 +52,7 @@
                             <td>
                                 <input type="text" id="nick" style="width:100px;height:40px" /> 
                             </td>
+                        </tr>
                         <tr>
                             <td style="text-align:right">性别:</td>
                             <td>
