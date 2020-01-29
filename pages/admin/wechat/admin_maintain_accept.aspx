@@ -66,14 +66,14 @@
             </tr>
             <tr>
                 <td style="text-align:right" >RFID:</td>
-                <td><input type="text" id="rfid" style="width:200px;height:30px" /> <a href="#" >生成</a></td>
+                <td><input type="text" id="rfid" style="width:200px;height:30px" /> <a href="#" onclick="generate_time_string()" >生成</a></td>
             </tr>
             <tr>
                 <td style="text-align:right" >品牌:</td>
                 <td>
                     <input type="text" id="brand" style="width:100px;height:30px" />&nbsp; &nbsp; 
-                    <input type="radio" id="ski" style="width:20px;height:20px" name="gender" />双板  &nbsp; &nbsp;  
-                    <input type="radio" id="board" style="width:20px;height:20px" name="gender" />单板
+                    <input type="radio" id="ski" style="width:20px;height:20px" name="ski_type" />双板  &nbsp; &nbsp;  
+                    <input type="radio" id="board" style="width:20px;height:20px" name="ski_type" />单板
                 </td>
             </tr>
             <tr>
@@ -107,6 +107,15 @@
                 <td style="text-align:right"  >备注:</td>
                 <td>
                     <textarea style="width:250px;height:155px" ></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right"  >卡券:</td>
+                <td>
+                    <input type="radio"  style="width:20px;height:20px" name="card" disabled />保养寄存次卡(剩余<span id="times" >1</span>次)&nbsp;&nbsp;
+                    <input type="radio"  style="width:20px;height:20px" name="card" disabled />修刃卡&nbsp;&nbsp;
+                    <input type="radio"  style="width:20px;height:20px" name="card" disabled />修刃打蜡卡&nbsp;&nbsp;
+
                 </td>
             </tr>
             <tr>
@@ -157,14 +166,35 @@
                         customer_open_id = msg_obj.user_info.open_id.trim();
 
                     }
+                    else {
+                        reset_user_info();
+                    }
+                },
+                error: function () {
+                    reset_user_info();
                 }
-            });
+            }
+            );
         }
         function check_cell_number() {
             var cell = document.getElementById('cell').value.trim();
             if (cell.length == 11) {
                 get_user_open_id();
             }
+            else {
+                reset_user_info();
+            }
+        }
+        function reset_user_info() {
+            customer_open_id = '';
+            document.getElementById('male').checked = false;
+            document.getElementById('female').checked = false;
+            document.getElementById("head_image").style.display = 'none';
+            document.getElementById('nick').value = '';
+        }
+        function generate_time_string() {
+            var nowDate = new Date();
+            document.getElementById('rfid').value = nowDate.valueOf();
         }
     </script>
 </body>
