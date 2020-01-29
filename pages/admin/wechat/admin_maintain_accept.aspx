@@ -39,13 +39,13 @@
         <table class="table">
             <tr >
                 <td style="align-items :center; vertical-align:middle;">
-                    <img style="width:100px;height:100px" src="http://thirdwx.qlogo.cn/mmopen/qE9MKluetOmAdicYiaLTickd4PMHcyDxib5N36S1g8SAWoGZjvd8HSLRKcpibom0ZJzwDQt4ibuqFAhOnqicMW30FRPsWF6NCDsfpoB/132" />
+                    <img id="head_image" style="width:100px;height:100px; display:none" src="http://thirdwx.qlogo.cn/mmopen/qE9MKluetOmAdicYiaLTickd4PMHcyDxib5N36S1g8SAWoGZjvd8HSLRKcpibom0ZJzwDQt4ibuqFAhOnqicMW30FRPsWF6NCDsfpoB/132" />
                 </td>
                 <td>
                     <table class="table" >
                         <tr>
                             <td style="text-align:right">手机:</td>
-                            <td><input type="text" id="cell" value="13501177897" style="width:150px;height:30px"/></td>
+                            <td><input type="tel" id="cell" value="13501177897" style="width:150px;height:30px"   oninput="check_cell_number()" /></td>
                         </tr>
                         <tr>
                             <td style="text-align:right">昵称:</td>
@@ -125,6 +125,47 @@
             </tr>
         </table>
     </div>
+    <script type="text/javascript" >
+        var customer_open_id = '';
+        check_cell_number();
+        function get_user_open_id() {
+            $.ajax({
+                url: '/api/user_info_get_by_cell_number.aspx',
+                type: "get",
+                data: 'cell=' + document.getElementById('cell').value.trim(),
+                success: function (msg, status) {
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.status == 0) {
+                        var head_image = document.getElementById("head_image");
+                        head_image.style.display = 'block';
+                        head_image.src = msg_obj.user_info.head_image;
+                        document.getElementById('nick').value = msg_obj.user_info.nick.trim();
+                        switch (msg_obj.user_info.gender) {
+                            case '男':
+                                document.getElementById('male').checked = true;
+                                document.getElementById('female').checked = false;
+                                break;
+                            case '女':
+                                document.getElementById('male').checked = false;
+                                document.getElementById('female').checked = true;
+                                break;
+                            default:
+                                document.getElementById('male').checked = false;
+                                document.getElementById('female').checked = false;
+                                break;
+                        }
+                        customer_open_id = msg_obj.user_info.open_id.trim();
 
+                    }
+                }
+            });
+        }
+        function check_cell_number() {
+            var cell = document.getElementById('cell').value.trim();
+            if (cell.length == 11) {
+                get_user_open_id();
+            }
+        }
+    </script>
 </body>
 </html>
