@@ -8,7 +8,7 @@
         string id = Util.GetSafeRequestValue(Request, "id", "65");
         DataTable dt = DBHelper.GetDataTable(" select * from product "
             + (type.Trim().Equals("") ? " " : (" left join product_" + type.Trim() + " on product_id = [id] "))
-            + " where product_id = " + id.Trim());
+            + " where product.[id] = " + id.Trim());
         if (dt.Rows.Count == 1)
         {
             Response.Write("{\"status\": 0, \"" + (type.Trim().Equals("") ? "product" : type.Trim()) + "\":" + Util.ConvertDataFieldsToJson(dt.Rows[0]) + " }");

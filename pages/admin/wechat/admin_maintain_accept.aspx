@@ -90,9 +90,9 @@
             </tr>
             <tr>
                 <td colspan="2" class="text-center">
-                    <input type="checkbox" id="need_edge" style="width:20px;height:20px" />修刃<input id="degree" style="width:60px;height:30px" type="text" />度&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox" id="need_candle" style="width:20px;height:20px"  />打蜡&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox" id="need_fix" style="width:20px;height:20px"  />补板底
+                    <input type="checkbox" id="need_edge" style="width:20px;height:20px" onchange="service_select()" />修刃<input id="degree" style="width:60px;height:30px" type="text" value="89" onchange="degree_change()" />度&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="need_candle" style="width:20px;height:20px" onchange="service_select()" />打蜡&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="need_fix" style="width:20px;height:20px" onchange="need_fix_change()" />补板底
                 </td>
             </tr>
             <tr>
@@ -112,10 +112,10 @@
             <tr>
                 <td style="text-align:right"  >卡券:</td>
                 <td>
-                    <input type="radio"  style="width:20px;height:20px" name="card" disabled />保养寄存次卡(剩余<span id="times" >1</span>次)&nbsp;&nbsp;
-                    <input type="radio"  style="width:20px;height:20px" name="card" disabled />修刃卡&nbsp;&nbsp;
-                    <input type="radio"  style="width:20px;height:20px" name="card" disabled />修刃打蜡卡&nbsp;&nbsp;
-
+                    <input type="radio" onchange="select_card(0)"  style="width:20px;height:20px" name="card" disabled />保养寄存次卡 <span id="times" ></span><br />
+                    <input type="radio" onchange="select_card(1)"  style="width:20px;height:20px" name="card" disabled />修刃卡&nbsp;&nbsp;
+                    <input type="radio" onchange="select_card(2)"  style="width:20px;height:20px" name="card" disabled />修刃打蜡卡<br />
+                    <input type="checkbox" onchange="pay_cash()"  style="width:20px;height:20px"  id="pay_cash_box" checked  />支付现金&nbsp;&nbsp;
                 </td>
             </tr>
             <tr>
@@ -125,7 +125,7 @@
             <tr>
                 <td style="text-align:right" >支付方式：</td>
                 <td>
-                    <select >
+                    <select id="pay_method" >
                         <option>微信</option>
                         <option>支付宝</option>
                         <option>现金</option>
@@ -138,6 +138,10 @@
         var customer_open_id = '';
         set_finish_date();
         check_cell_number();
+        var product_id = 0;
+        var card_no = '';
+
+
         function get_user_open_id() {
             $.ajax({
                 url: '/api/user_info_get_by_cell_number.aspx',
@@ -202,6 +206,7 @@
             document.getElementById('rfid').value = nowDate.valueOf();
         }
         function set_user_card() {
+            disable_cards();
             if (customer_open_id.trim() != '') {
                 $.ajax({
                     url: '/api/skis/ski_maintain_card_ticket_get_by_open_id.aspx',
@@ -216,6 +221,7 @@
                                 if (card.card_no.length == 12 && card.memo.trim() != '') {
                                     card_radio_arr[0].disabled = false;
                                     card_radio_arr[0].id = card.card_no.trim();
+                                    document.getElementById('times').innerText = card.memo.trim();
                                 }
                                 if (card.name == '万龙店修板打蜡券') {
                                     card_radio_arr[2].disabled = false;
@@ -233,6 +239,7 @@
                 });
             }
         }
+
         function set_finish_date() {
             var now_date = new Date();
             var finish_date = document.getElementById('finish_date');
@@ -245,6 +252,206 @@
                 finish_date.value = now_date.getFullYear().toString() + '-' + (now_date.getMonth() + 1).toString()
                     + '-' + now_date.getDate().toString() + ' ' + now_date.getHours().toString()+':00';
             }
+            service_select();
+        }
+
+        function service_select() {
+            var need_edge = document.getElementById('need_edge').checked ? true : false;
+            var need_candle = document.getElementById('need_candle').checked ? true : false;
+            var need_fix = document.getElementById('need_fix').checked ? true : false;
+            var degree = parseInt(document.getElementById('degree').value);
+            var finish_tomorrow = document.getElementById('finish_tomorrow').checked ? true : false;
+            var card_arr = document.getElementsByName('card');
+            if (degree <= 87) {
+                disable_cards();
+            }
+            if (need_candle) {
+                card_arr[1].checked = false;
+                card_arr[1].disabled = true;
+            }
+            if (!finish_tomorrow) {
+                disable_cards();
+            }
+            var use_card = false;
+            for (var i = 0; i < card_arr.length; i++) {
+                if (!card_arr[i].disabled) {
+                    if (card_arr[i].cheched) {
+                        use_card = true;
+                        break;
+                    }
+                }
+            }
+            
+            
+            var amount = document.getElementById('amount');
+            if (use_card) {
+                
+                amount.value = 0;
+                amount.disabled = true;
+                document.getElementById('pay_method').selectedIndex = 0;
+                document.getElementById('pay_method').disabled = true;
+            }
+            else {
+                if (finish_tomorrow) {
+                    if (need_edge && need_candle && degree > 87)
+                    {
+                        product_id = 139;
+                    }
+                    else if (need_edge && degree > 87) {
+                        product_id = 140;
+                    }
+                    else if (need_candle) {
+                        product_id = 143;
+                    }
+                    else {
+                        product_id = 0;
+                    }
+                }
+                else {
+                    if (need_edge && need_candle && degree > 87) {
+                        product_id = 137;
+                    }
+                    else if (need_edge && degree > 87) {
+                        product_id = 138;
+                    }
+                    else if (need_candle) {
+                        product_id = 142;
+                    }
+                    else {
+                        product_id = 0;
+                    }
+
+                }
+            }
+            if (product_id != 0) {
+                $.ajax({
+                    url: '/api/get_product_info.aspx',
+                    type: "get",
+                    data: 'type=&id=' + product_id.toString(),
+                    success: function (msg, status) {
+                        var msg_obj = eval('(' + msg + ')');
+                        if (msg_obj.status == 0) {
+                            amount.value = msg_obj.product.sale_price.toString();
+                            amount.readOnly = true;
+                        }
+                    }
+                });
+            }
+            else {
+                amount.readOnly = false;
+            }
+            if (need_fix) {
+                amount.readOnly = false;
+            }
+
+
+
+        }
+        function disable_cards() {
+            var card_arr = document.getElementsByName("card");
+            for (var i = 0; i < card_arr.length ; i++) {
+                card_arr[i].checked = false;
+                card_arr[i].disabled = true;
+            }
+            document.getElementById('times').innerText = '';
+        }
+        function select_card(i) {
+            document.getElementById('pay_cash_box').checked = false;
+            var card_arr = document.getElementsByName("card");
+            if (!card_arr[i].disabled && card_arr[i].checked) {
+                card_no = card_arr[i].id;
+            }
+            service_select();
+        }
+        function pay_cash() {
+            var amount_box = document.getElementById('amount');
+            var card_arr = document.getElementsByName("card");
+            if (document.getElementById('pay_cash_box').checked) {
+                amount_box.readOnly = false;
+                for (var i = 0; i < card_arr.length ; i++) {
+                    card_arr[i].checked = false;
+                }
+            }
+            else {
+                
+                amount_box.value = 0;
+                amount_box.readOnly = true;
+            }
+            service_select();
+        }
+        function need_fix_change() {
+            var need_edge_box = document.getElementById('need_edge');
+            var degree_box = document.getElementById('degree');
+            
+            if (document.getElementById('need_fix').checked) {
+                var special_edge = false;
+                try {
+                    var degree = parseInt(document.getElementById('degree').value);
+                    if (degree <= 87 && document.getElementById('need_edge').checked) {
+                        special_edge = true;
+                    }
+                }
+                catch (msg) {
+
+                }
+                need_edge_box.checked = false;
+                need_edge_box.disabled = true;
+                degree_box.disabled = true;
+                set_service_only_pay_cash();
+                if (special_edge) {
+                    document.getElementById('need_edge').disabled = false;
+                    document.getElementById('degree').disabled = false;
+                    document.getElementById('need_edge').checked = true;
+                }
+            }
+            else {
+                unset_service_only_pay_cash();
+                need_edge_box.disabled = false;
+                degree_box.disabled = false;
+            }
+            service_select();
+            document.getElementById('amount').focus();
+        }
+        function set_service_only_pay_cash() {
+            var need_candle_box = document.getElementById('need_candle');
+            var pay_cash_box = document.getElementById('pay_cash_box');
+            need_candle_box.checked = false;
+            need_candle_box.disabled = true;
+            disable_cards();
+            pay_cash_box.checked = true;
+            pay_cash_box.readOnly = true;
+            pay_cash_box.disabled = true;
+        }
+        function unset_service_only_pay_cash() {
+            var need_candle_box = document.getElementById('need_candle');
+            var pay_cash_box = document.getElementById('pay_cash_box');
+            need_candle_box.disabled = false;
+            pay_cash_box.readOnly = false;
+            pay_cash_box.disabled = false;
+            set_user_card();
+        }
+        function degree_change() {
+            var degree = 89;
+            var valid_degree = false;
+            try{
+                degree = parseInt(document.getElementById('degree').value);
+                valid_degree = true;
+            }
+            catch (msg) {
+
+            }
+            if (valid_degree && degree <= 87 && document.getElementById('need_edge').checked) {
+                set_service_only_pay_cash();
+            }
+            else {
+                unset_service_only_pay_cash();
+                var need_fix_box = document.getElementById('need_fix');
+                need_fix_box.checked = false;
+                need_fix_box.disabled = false;
+                
+            }
+            service_select();
+            document.getElementById('amount').focus();
         }
     </script>
 </body>
