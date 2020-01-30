@@ -65,8 +65,6 @@
             callBack = Server.UrlDecode(callBack);
             string token = WeixinUser.CreateToken(openId, DateTime.Now.AddMinutes(100));
             Session["user_token"] = token;
-            Response.Write(Session["user_token"].ToString());
-            Response.End();
             Response.Redirect(callBack, true);
         }
     }
