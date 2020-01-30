@@ -25,6 +25,8 @@
         {
             currentPageUrl = currentPageUrl + "?" + Request.QueryString.ToString().Trim();
         }
+        Response.Write(Session["user_token"].ToString());
+        Response.End();
 
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
