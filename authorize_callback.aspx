@@ -63,12 +63,10 @@
         {
             string callBack = Util.GetSafeRequestValue(Request, "callback", "pages/home_page.aspx");
             callBack = Server.UrlDecode(callBack);
-            Response.Write(callBack.Trim());
-            Response.End();
             string token = WeixinUser.CreateToken(openId, DateTime.Now.AddMinutes(100));
             Session["user_token"] = token;
-            //WeixinUser user = new WeixinUser(openId);
-            //Response.Write(token);
+            Response.Write(Session["user_token"].ToString());
+            Response.End();
             Response.Redirect(callBack, true);
         }
     }
