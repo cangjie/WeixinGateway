@@ -34,8 +34,6 @@
 
         //userToken = "efa86b2cb53ff14b4500298208effda1652c863ac117668953d4ef93f807351b4ff11040";
         openId = WeixinUser.CheckToken(userToken);
-        Response.Write(openId);
-        Response.End();
         if (openId.Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);

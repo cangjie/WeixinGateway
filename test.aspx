@@ -9,6 +9,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+        string openId = WeixinUser.CheckToken("24e408a6e69449233c80deb597a6b619f7f7d86e84eb0b07f6b31ba4f09e91f46668f89f");
         //OnlineOrder order = new OnlineOrder(8159);
         //order.CreateSkiPass();
 
