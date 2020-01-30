@@ -62,9 +62,9 @@
         if (!openId.Trim().Equals(""))
         {
             string callBack = Util.GetSafeRequestValue(Request, "callback", "pages/home_page.aspx");
+            callBack = Server.UrlDecode(callBack);
             Response.Write(callBack.Trim());
             Response.End();
-            callBack = Server.UrlDecode(callBack);
             string token = WeixinUser.CreateToken(openId, DateTime.Now.AddMinutes(100));
             Session["user_token"] = token;
             //WeixinUser user = new WeixinUser(openId);
