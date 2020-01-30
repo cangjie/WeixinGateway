@@ -25,13 +25,14 @@
         {
             currentPageUrl = currentPageUrl + "?" + Request.QueryString.ToString().Trim();
         }
-        Response.Write(Session["user_token"].ToString());
-        Response.End();
+        
 
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
+        Response.Write(Session["user_token"].ToString());
+        Response.End();
         userToken = Session["user_token"].ToString();
 
         //userToken = "efa86b2cb53ff14b4500298208effda1652c863ac117668953d4ef93f807351b4ff11040";
