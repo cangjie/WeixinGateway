@@ -99,8 +99,8 @@
                 <td style="text-align:right" >取板时间:</td>
                 <td>
                     <input type="text" id="finish_date" style="width:130px;height:30px" />&nbsp;&nbsp;&nbsp;&nbsp; 
-                    <input type="radio" id="finish_today" style="width:20px;height:20px" name="finish_radio" />立等&nbsp; 
-                    <input type="radio" id="finish_tomorrow" style="width:20px;height:20px" name="finish_radio" />次日
+                    <input type="radio" id="finish_today" style="width:20px;height:20px" name="finish_radio" onclick="set_finish_date()" />立等&nbsp; 
+                    <input type="radio" id="finish_tomorrow" style="width:20px;height:20px" checked name="finish_radio" onclick="set_finish_date()"  />次日
                 </td>
             </tr>
             <tr>
@@ -136,6 +136,7 @@
     </div>
     <script type="text/javascript" >
         var customer_open_id = '';
+        set_finish_date();
         check_cell_number();
         function get_user_open_id() {
             $.ajax({
@@ -173,8 +174,7 @@
                 error: function () {
                     reset_user_info();
                 }
-            }
-            );
+            });
         }
         function check_cell_number() {
             var cell = document.getElementById('cell').value.trim();
@@ -196,7 +196,6 @@
                 var card_radio = card_radio_arr[i];
                 card_radio.disabled = true;
             }
-
         }
         function generate_time_string() {
             var nowDate = new Date();
@@ -232,6 +231,19 @@
                         
                     }
                 });
+            }
+        }
+        function set_finish_date() {
+            var now_date = new Date();
+            var finish_date = document.getElementById('finish_date');
+            if (document.getElementById('finish_today').checked) {
+                finish_date.value = now_date.getFullYear().toString() + '-' + (now_date.getMonth() + 1).toString()
+                    + '-' + now_date.getDate().toString() + ' 17:00';
+            }
+            else if (document.getElementById('finish_tomorrow').checked) {
+                now_date.setDate(now_date.getDate() + 1);
+                finish_date.value = now_date.getFullYear().toString() + '-' + (now_date.getMonth() + 1).toString()
+                    + '-' + now_date.getDate().toString() + ' ' + now_date.getHours().toString()+':00';
             }
         }
     </script>
