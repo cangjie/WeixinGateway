@@ -164,7 +164,7 @@
                                 break;
                         }
                         customer_open_id = msg_obj.user_info.open_id.trim();
-
+                        set_user_card();
                     }
                     else {
                         reset_user_info();
@@ -191,10 +191,48 @@
             document.getElementById('female').checked = false;
             document.getElementById("head_image").style.display = 'none';
             document.getElementById('nick').value = '';
+            var card_radio_arr = document.getElementsByName('card');
+            for (var i = 0; i < card_radio_arr.length; i++) {
+                var card_radio = card_radio_arr[i];
+                card_radio.disabled = true;
+            }
+
         }
         function generate_time_string() {
             var nowDate = new Date();
             document.getElementById('rfid').value = nowDate.valueOf();
+        }
+        function set_user_card() {
+            if (customer_open_id.trim() != '') {
+                $.ajax({
+                    url: '/api/skis/ski_maintain_card_ticket_get_by_open_id.aspx',
+                    type: 'get',
+                    data: 'openid=' + customer_open_id.trim(),
+                    success: function (msg, status) {
+                        var msg_obj = eval('(' + msg + ')');
+                        if (msg_obj.status == 0) {
+                            var card_radio_arr = document.getElementsByName('card');
+                            for (var i = 0; i < msg_obj.cards.length; i++) {
+                                var card = msg_obj.cards[i];
+                                if (card.card_no.length == 12 && card.memo.trim() != '') {
+                                    card_radio_arr[0].disabled = false;
+                                    card_radio_arr[0].id = card.card_no.trim();
+                                }
+                                if (card.name == '万龙店修板打蜡券') {
+                                    card_radio_arr[2].disabled = false;
+                                    card_radio_arr[2].id = card.card_no.trim();
+                                }
+                                if (card.name == '万龙店修板券') {
+                                    card_radio_arr[1].disabled = false;
+                                    card_radio_arr[1].id = card.card_no.trim();
+                                }
+                            }
+                        } 
+                        
+                        
+                    }
+                });
+            }
         }
     </script>
 </body>

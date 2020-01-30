@@ -85,6 +85,6 @@
                 json = json + (json.Trim().Equals("") ? "" : ", ") + subJson.Trim();
             }
         }
-        Response.Write("{\"status\": 0, \"card\":[" + json + "]}");
+        Response.Write("{\"status\": 0, \"cards\":[" + json + "]}");
     }
 </script>
