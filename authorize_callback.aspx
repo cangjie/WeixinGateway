@@ -58,11 +58,12 @@
         string code = Util.GetSafeRequestValue(Request, "code", "011991e1f9087a38af2d965e8f7cfa3A");
         string state = Util.GetSafeRequestValue(Request, "state", "1000");
         string openId = GetOpenId(code);
-        Response.Write(openId.Trim());
-        Response.End();
+      
         if (!openId.Trim().Equals(""))
         {
             string callBack = Util.GetSafeRequestValue(Request, "callback", "pages/home_page.aspx");
+            Response.Write(callBack.Trim());
+            Response.End();
             callBack = Server.UrlDecode(callBack);
             string token = WeixinUser.CreateToken(openId, DateTime.Now.AddMinutes(100));
             Session["user_token"] = token;
