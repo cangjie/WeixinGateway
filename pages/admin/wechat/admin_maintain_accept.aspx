@@ -4,8 +4,33 @@
 
 <script runat="server">
 
+    string token = "26a9543469ad3eafbd0d0fe083682f2caf48bd1a97fcf385107d29da6c20d7e9360128bf";
+    public WeixinUser currentUser;
+    public string openId = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        string currentPageUrl = Request.Url.ToString();
+        if (!Util.GetSafeRequestValue(Request, "cell", "").Trim().Equals("") && currentPageUrl.IndexOf("?cell") < 0 )
+        {
+            currentPageUrl = currentPageUrl + "?cell=" + Util.GetSafeRequestValue(Request, "cell", "").Trim();
+        }
+
+
+        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
+        {
+            Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
+        }
+        token = Session["user_token"].ToString();
+        openId = WeixinUser.CheckToken(token);
+        if (openId.Trim().Equals(""))
+        {
+            Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
+        }
+        currentUser = new WeixinUser(WeixinUser.CheckToken(token));
+
+        if (!currentUser.IsAdmin)
+            Response.End();
 
     }
 </script>
@@ -37,6 +62,7 @@
 <body>
     <div>
         <table class="table">
+            <tr><td colspan="2" ><font color="red" id="msg_1" >&nbsp;</font></td></tr>
             <tr >
                 <td style="align-items :center; vertical-align:middle;">
                     <img id="head_image" style="width:100px;height:100px; display:none" src="http://thirdwx.qlogo.cn/mmopen/qE9MKluetOmAdicYiaLTickd4PMHcyDxib5N36S1g8SAWoGZjvd8HSLRKcpibom0ZJzwDQt4ibuqFAhOnqicMW30FRPsWF6NCDsfpoB/132" />
@@ -106,7 +132,7 @@
             <tr>
                 <td style="text-align:right"  >备注:</td>
                 <td>
-                    <textarea style="width:250px;height:155px" ></textarea>
+                    <textarea style="width:250px;height:155px" id="memo" ></textarea>
                 </td>
             </tr>
             <tr>
@@ -132,6 +158,13 @@
                     </select>
                 </td>
             </tr>
+            <tr><td colspan="2" ><font color="red" id="msg_2" >&nbsp;</font></td></tr>
+            <tr>
+                <td colspan="2" style="text-align: center;" ><button id="submit_button" class="btn btn-default" onclick="submit()" > 生 成 二 维 码 </button></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="align-items:center" ><img id="qrcode" style="display:none" /></td>
+            </tr>
         </table>
     </div>
     <script type="text/javascript" >
@@ -140,8 +173,8 @@
         check_cell_number();
         var product_id = 0;
         var card_no = '';
-
-
+        var ski_id = 0;
+        var task_id = 0;
         function get_user_open_id() {
             $.ajax({
                 url: '/api/user_info_get_by_cell_number.aspx',
@@ -203,6 +236,14 @@
         }
         function generate_time_string() {
             var nowDate = new Date();
+            document.getElementById('rfid').value = '';
+            document.getElementById('brand').value = '';
+            document.getElementById('ski').checked = false;
+            document.getElementById('board').checked = false;
+            document.getElementById('serial').value = '';
+            document.getElementById('year_of_made').value = '';
+            document.getElementById('length').value = '';
+            ski_id = 0;
             document.getElementById('rfid').value = nowDate.valueOf();
         }
         function set_user_card() {
@@ -452,6 +493,172 @@
             }
             service_select();
             document.getElementById('amount').focus();
+        }
+        function check_valid() {
+            var msg = '';
+            var cell = document.getElementById('cell');
+            var rfid = document.getElementById('rfid');
+            var brand = document.getElementById('brand');
+            var finish_date = document.getElementById('finish_date');
+            var amount = document.getElementById('amount');
+            
+            if (customer_open_id == '' && cell.value.trim() == '') {
+                msg = '请填写顾客手机号。';
+                cell.focus();
+            }
+            else if (!document.getElementById('male').checked && !document.getElementById('female').checked) {
+                msg = '请选择顾客性别。';
+            }
+            else if (rfid.value.trim() == '') {
+                msg = '请生成RFID';
+                rfid.focus();
+            }
+            else if (brand.value.trim() == '') {
+                msg = '请填写品牌。';
+                brand.focus();
+            }
+            else if (!document.getElementById('ski').checked && !document.getElementById('board').checked) {
+                msg = '是单板还是双板？';
+            }
+            else if (!document.getElementById('need_edge').checked && !document.getElementById('need_candle').checked
+                && !document.getElementById('need_fix').checked) {
+                msg = '请选择服务项目。';
+            }
+            else if (finish_date.value.trim() == '') {
+                msg = '请填写取板时间。';
+                finish_date.focus();
+            }
+            else if (document.getElementById('pay_cash_box').checked) {
+                if (isNaN(parseFloat(amount.value.trim()))) {
+                    msg = '请填写正确的金额';
+                    amount.focus();
+                }
+                
+            }
+            else {
+                var have_select_card = false;
+                var card_arr  =  document.getElementsByName('card');
+                for (var i=0; i < card_arr.length; i++) {
+                    if (card_arr[i].checked) {
+                        have_select_card = true;
+                        break;
+                    }
+                }
+                if (!have_select_card) {
+                    msg = '请选择核销的卡券。';
+                }
+            }
+            return msg.trim();
+        }
+        function submit() {
+            var btn = document.getElementById('submit_button');
+            btn.disabled = true;
+            var msg = check_valid();
+            if (msg.trim() == '') {
+                if (customer_open_id == '') {
+                    create_customer_open_id();
+                }
+                if (customer_open_id != '') {
+                    if (ski_id == 0) {
+                        create_ski_id();
+                    }
+                    if (ski_id != 0) {
+                        create_task();
+                    }
+                }
+            }
+            else {
+                document.getElementById('msg_1').innerText = msg.trim();
+                document.getElementById('msg_2').innerText = msg.trim();
+                btn.disabled = false;
+            }
+        }
+        
+        function create_ski_id() {
+            var rfid = document.getElementById('rfid').value.trim();
+            var brand = document.getElementById('brand').value.trim();
+            var ski_type = (document.getElementById('ski').checked ? '双板' : '');
+            ski_type = ((ski_type == '' && document.getElementById('board').checked) ? '单板' : ski_type.trim());
+            var serial = document.getElementById('serial').value.trim();
+            var year_of_made = document.getElementById('year_of_made').value.trim();
+            var length = document.getElementById('length').value.trim();
+            $.ajax({
+                url: '/api/skis/ski_create.aspx',
+                type: 'get',
+                data: 'token=<%=token%>&rfid=' + rfid + '&ski_type=' + ski_type + '&brand=' + brand + '&serial_name=' + serial
+                    + '&year_of_made=' + year_of_made + '&length=' + length,
+                async: false,
+                success: function (msg, status) {
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.status == 0) {
+                        ski_id = msg_obj.ski_id;
+                    }
+                }
+            });
+
+        }
+        function create_customer_open_id() {
+            var cell = document.getElementById('cell').value.trim();
+            $.ajax({
+                url: '/api/user_open_id_get_by_cell.aspx',
+                type: 'get',
+                data: 'token=<%=token.Trim()%>&cell=' + cell,
+                async: false,
+                success: function (msg, status) {
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.status == 0) {
+                        if (msg_obj.open_id.trim() == '') {
+                            customer_open_id = msg_obj.temp_open_id.trim();
+                        }
+                        else {
+                            customer_open_id = msg_obj.open_id.trim();
+                        }
+                       
+                    }
+                }
+            });
+        }
+
+        function create_task() {
+            var edge = document.getElementById('need_edge').checked ? document.getElementById('degree').value : '0';
+            var need_candle = document.getElementById('need_candle').checked ? '1' : '0';
+            var need_fix = document.getElementById('need_fix').checked ? '1' : '0';
+            var finish_date = document.getElementById('finish_date').value.trim();
+            var memo = document.getElementById('memo').value.trim();
+            var card_no = '';
+            var pay_method = '';
+            var amount = 0;
+            if (document.getElementById('pay_cash_box').checked) {
+                pay_method = document.getElementById('pay_method').value.trim();
+                amount = parseInt(document.getElementById('amount').value);
+            }
+            else {
+                var card_no_arr = document.getElementsByName('card');
+                for (var i = 0; i < card_no_arr.length; i++) {
+                    if (!card_no_arr[i].disabled && card_no_arr[i].checked) {
+                        card_no = card_no_arr[i].id;
+                        break;
+                    }
+                }
+            }
+            
+            $.ajax({
+                url: '/api/skis/ski_maintain_task_create.aspx',
+                type: 'get',
+                data: 'token=<%=token%>&customer=' + customer_open_id + '&ski_id=' + ski_id.toString().trim() + '&edge=' + edge.toString().trim()
+                        + '&candle=' + need_candle + '&fix=' + need_fix + '&memo=' + memo + '&finish_date=' + finish_date.trim()
+                        + 'card_no=' + card_no.trim() + '&pay_method=' + pay_method.trim() + '&amount=' + amount,
+                success: function (msg, status) {
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.status == 0) {
+                        var scene_text = 'pay_maintain_task_id_' + msg_obj.task_id.toString();
+                        var img = document.getElementById('qrcode');
+                        img.src = 'http://weixin.snowmeet.com/show_wechat_temp_qrcode.aspx?scene=' + scene_text.trim() + '&&expire=300';
+                        img.style.display = 'block';
+
+                    }
+                }
+            });
         }
     </script>
 </body>

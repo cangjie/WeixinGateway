@@ -4,36 +4,50 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = "";
+        string token = Util.GetSafeRequestValue(Request, "token", "");
         string adminOpenId = WeixinUser.CheckToken(token.Trim());
         WeixinUser adminUser = new WeixinUser(adminOpenId);
-        if (adminUser.IsAdmin)
+        if (!adminUser.IsAdmin)
         {
             Response.Write("{\"status\": 1, \"error_message\": \"Token is invalid.\"}");
             Response.End();
         }
+
         string customerOpenId = Util.GetSafeRequestValue(Request, "customer", "");
-        string rfid = Util.GetSafeRequestValue(Request, "rfid", "");
+        string skiId = Util.GetSafeRequestValue(Request, "ski_id", "0");
         int edge = int.Parse(Util.GetSafeRequestValue(Request, "edge", "89"));
         int candle = int.Parse(Util.GetSafeRequestValue(Request, "candle", "0"));
         int fixBoard = int.Parse(Util.GetSafeRequestValue(Request, "fix", "0"));
         string memo = Util.GetSafeRequestValue(Request, "memo", "");
-        DateTime finishDateTime = DateTime.Parse(Util.GetSafeRequestValue(Request, "finishDateTime", DateTime.Now.AddDays(1).ToShortDateString()));
-        Ski ski = new Ski(rfid);
-        int i = DBHelper.InsertData("skis_maintain_task", new string[,] { {"ski_id", "varchar", ski._filds["id"].ToString() },
-            {"edge", "int", edge.ToString() }, {"candle", "int", candle.ToString() }, {"fix_board", "int", fixBoard.ToString() },
-            {"customer_open_id", "varchar", customerOpenId.Trim() }, {"staff_accept_open_id", "varchar", adminOpenId.Trim() } });
-        int maxId = 0;
-        if (i == 1)
+        DateTime finishDateTime = DateTime.Parse(Util.GetSafeRequestValue(Request,
+            "finis_date", DateTime.Now.AddDays(1).ToShortDateString()));
+        string cardNo = Util.GetSafeRequestValue(Request, "card_no", "");
+        string payMethod = Util.GetSafeRequestValue(Request, "pay_method", "");
+        int amount = int.Parse(Util.GetSafeRequestValue(Request, "amount", "0"));
+
+        int taskId = SkiMaintainTask.CreateNewTask(customerOpenId, adminOpenId, int.Parse(skiId), edge,
+            (candle == 0 ? false : true), fixBoard == 0 ? false : true, memo.Trim(), finishDateTime, cardNo.Trim());
+        
+        
+        if (taskId > 0)
         {
-            DataTable dt = DBHelper.GetDataTable(" select max(id) from skis_maintain_task  ");
-            if (dt.Rows.Count == 1)
+            SkiMaintainTask skiMaintainTask = new SkiMaintainTask(taskId);
+            int orderId = skiMaintainTask.PlaceOrder(amount, memo);
+            if (orderId > 0 || !cardNo.Trim().Equals(""))
             {
-                maxId = int.Parse(dt.Rows[0][0].ToString());
+                Response.Write("{\"status\": 0, \"task_id\": " + taskId.ToString() + ", \"order_id\": " + orderId.ToString() + "}");
             }
-            dt.Dispose();
+            else
+            {
+                Response.Write("{\"status\": 1, \"error_message\": \"Can't create order.\"}");
+            }
         }
-        Response.Write("{\"status\": 0, \"id\": " + maxId.ToString() + "}");
+        else
+        {
+            Response.Write("{\"status\": 1, \"error_message\": \"Can't create task.\"}");
+        }
+        
+
 
     }
 </script>

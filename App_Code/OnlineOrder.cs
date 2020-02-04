@@ -61,8 +61,11 @@ public class OnlineOrder
                     foreach (OnlineOrderDetail detail in orderDetails)
                     {
                         detail.AddNew(maxId);
-                        Product p = new Product(detail.productId);
-                        totalScore = totalScore + int.Parse(p._fields["award_score"].ToString().Trim());
+                        if (detail.productId > 0)
+                        {
+                            Product p = new Product(detail.productId);
+                            totalScore = totalScore + int.Parse(p._fields["award_score"].ToString().Trim());
+                        }
 
                     }
                     DBHelper.UpdateData("order_online", new string[,] { { "generate_score", "int", totalScore.ToString() } },

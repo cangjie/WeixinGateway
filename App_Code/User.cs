@@ -512,7 +512,7 @@ public class WeixinUser : ObjectHelper
     public static WeixinUser GetTempWeixinUser(string cell)
     {
         WeixinUser user;
-        DataTable dtUser = DBHelper.GetDataTable(" select * from users where cell_number = '" + cell.Trim() + "' ");
+        DataTable dtUser = DBHelper.GetDataTable(" select * from users where cell_number = '" + cell.Trim() + "' and ISNUMERIC(open_id) = 1 ");
         if (dtUser.Rows.Count == 0)
         {
             string tempTimeStampOpenId = Util.GetTimeStamp();

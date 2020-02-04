@@ -56,7 +56,7 @@ public class Ski
         {
             int i = DBHelper.InsertData("skis", new string[,] { {"rfid", "varchar", rfId.Trim() }, { "rfid_type", "varchar", rfidType.Trim() }, 
                 {"ski_type", "varchar", type.Trim() }, {"brand", "varchar", brand.Trim() }, {"serial_name", "varchar", serialName.Trim() }, 
-                {"made_of_year", "varchar", madeOfYear.Trim() }, {"length", "varchar", length.Trim() } });
+                {"year_of_made", "varchar", madeOfYear.Trim() }, {"length", "varchar", length.Trim() } });
             if (i == 1)
             {
                 dt = DBHelper.GetDataTable(" select max(id) from skis ");

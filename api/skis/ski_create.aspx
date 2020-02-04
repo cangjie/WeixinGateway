@@ -38,7 +38,7 @@
         string skiType = Util.GetSafeRequestValue(Request, "ski_type", "双板");
         string brand = Util.GetSafeRequestValue(Request, "brand", "");
         string serialName = Util.GetSafeRequestValue(Request, "serial_name", "");
-        string madeOfYear = Util.GetSafeRequestValue(Request, "made_of_year", "");
+        string madeOfYear = Util.GetSafeRequestValue(Request, "year_of_made", "");
         string length = Util.GetSafeRequestValue(Request, "length", "");
         int skiId = Ski.CreateNewSki(rfid, rfidType.Trim(), skiType.Trim(), brand, serialName.Trim(), madeOfYear.Trim(), length.Trim());
         if (skiId > 0)
