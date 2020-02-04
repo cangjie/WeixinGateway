@@ -4,14 +4,12 @@
 
 <script runat="server">
 
-    string token = "45825c14723aa8659f5532a4861b95ac792cc52ecc02d3fc19a60ec9a728dc31ba819660";
+    string token = "26a9543469ad3eafbd0d0fe083682f2caf48bd1a97fcf385107d29da6c20d7e9360128bf";
     public WeixinUser currentUser;
     public string openId = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        /*
         string currentPageUrl = Request.Url.ToString();
         if (!Util.GetSafeRequestValue(Request, "cell", "").Trim().Equals("") && currentPageUrl.IndexOf("?cell") < 0 )
         {
@@ -33,7 +31,7 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
-        */
+
     }
 </script>
 
@@ -120,36 +118,7 @@
                 <td colspan="2" class="text-center">
                     <input type="checkbox" id="need_edge" style="width:20px;height:20px" onchange="service_select()" />修刃<input id="degree" style="width:60px;height:30px" type="text" value="89" onchange="degree_change()" />度&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="checkbox" id="need_candle" style="width:20px;height:20px" onchange="service_select()" />打蜡&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox" id="need_more" style="width:20px;height:20px" onchange="need_more_change()" />更多
-                </td>
-            </tr>
-            <tr id="tr_more" style="display:none">
-                <td style="text-align:right" >更多:</td>
-                <td>
-                    <table>
-                        <tr>
-                            <td>项目</td>
-                            <td>金额</td>
-                            <td>说明</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <select name="service_item_name"  id="service_item_name_0" >
-                                    <option value="" >请选择...</option>
-                                    <option value="87度以下" >87度以下</option>
-                                    <option value="补板底" >补板底</option>
-                                    <option value="改刃" >改刃</option>
-                                    <option value="开蜡" >开蜡</option>
-                                    <option value="粘合" >粘合</option>
-                                    <option value="快速生涂" >快速生涂</option>
-                                    <option value="其它" >其它</option>
-                                </select>
-                                <input type="text" name="service_item_name_input" id="service_item_name_input_0" style="width:60px;display:none" />
-                            </td>
-                            <td><input type="text" name="service_item_amount" id="service_item_amount_0" style="width:40px" /></td>
-                            <td><input type="text" name="service_item_memo" id="service_item_memo_0" style="width:200px" /></td>
-                        </tr>
-                    </table>
+                    <input type="checkbox" id="need_fix" style="width:20px;height:20px" onchange="need_fix_change()" />补板底
                 </td>
             </tr>
             <tr>
@@ -330,7 +299,7 @@
         function service_select() {
             var need_edge = document.getElementById('need_edge').checked ? true : false;
             var need_candle = document.getElementById('need_candle').checked ? true : false;
-            var need_more = document.getElementById('need_more').checked ? true : false;
+            var need_fix = document.getElementById('need_fix').checked ? true : false;
             var degree = parseInt(document.getElementById('degree').value);
             var finish_tomorrow = document.getElementById('finish_tomorrow').checked ? true : false;
             var card_arr = document.getElementsByName('card');
@@ -412,7 +381,7 @@
             else {
                 amount.readOnly = false;
             }
-            if (need_more) {
+            if (need_fix) {
                 amount.readOnly = false;
             }
 
@@ -451,12 +420,11 @@
             }
             service_select();
         }
-        function need_more_change() {
+        function need_fix_change() {
             var need_edge_box = document.getElementById('need_edge');
             var degree_box = document.getElementById('degree');
             
-            if (document.getElementById('need_more').checked) {
-                document.getElementById('tr_more').style.display = '';
+            if (document.getElementById('need_fix').checked) {
                 var special_edge = false;
                 try {
                     var degree = parseInt(document.getElementById('degree').value);
@@ -467,9 +435,9 @@
                 catch (msg) {
 
                 }
-                //need_edge_box.checked = false;
-                //need_edge_box.disabled = true;
-                //degree_box.disabled = true;
+                need_edge_box.checked = false;
+                need_edge_box.disabled = true;
+                degree_box.disabled = true;
                 set_service_only_pay_cash();
                 if (special_edge) {
                     document.getElementById('need_edge').disabled = false;
@@ -478,7 +446,6 @@
                 }
             }
             else {
-                document.getElementById('tr_more').style.display = 'none';
                 unset_service_only_pay_cash();
                 need_edge_box.disabled = false;
                 degree_box.disabled = false;
@@ -489,8 +456,8 @@
         function set_service_only_pay_cash() {
             var need_candle_box = document.getElementById('need_candle');
             var pay_cash_box = document.getElementById('pay_cash_box');
-            //need_candle_box.checked = false;
-            //need_candle_box.disabled = true;
+            need_candle_box.checked = false;
+            need_candle_box.disabled = true;
             disable_cards();
             pay_cash_box.checked = true;
             pay_cash_box.readOnly = true;
@@ -519,9 +486,9 @@
             }
             else {
                 unset_service_only_pay_cash();
-                var need_more_box = document.getElementById('need_more');
-                need_more_box.checked = false;
-                need_more_box.disabled = false;
+                var need_fix_box = document.getElementById('need_fix');
+                need_fix_box.checked = false;
+                need_fix_box.disabled = false;
                 
             }
             service_select();
@@ -554,7 +521,7 @@
                 msg = '是单板还是双板？';
             }
             else if (!document.getElementById('need_edge').checked && !document.getElementById('need_candle').checked
-                && !document.getElementById('need_more').checked) {
+                && !document.getElementById('need_fix').checked) {
                 msg = '请选择服务项目。';
             }
             else if (finish_date.value.trim() == '') {
@@ -655,7 +622,7 @@
         function create_task() {
             var edge = document.getElementById('need_edge').checked ? document.getElementById('degree').value : '0';
             var need_candle = document.getElementById('need_candle').checked ? '1' : '0';
-            var need_more = document.getElementById('need_more').checked ? '1' : '0';
+            var need_fix = document.getElementById('need_fix').checked ? '1' : '0';
             var finish_date = document.getElementById('finish_date').value.trim();
             var memo = document.getElementById('memo').value.trim();
             var card_no = '';
@@ -679,7 +646,7 @@
                 url: '/api/skis/ski_maintain_task_create.aspx',
                 type: 'get',
                 data: 'token=<%=token%>&customer=' + customer_open_id + '&ski_id=' + ski_id.toString().trim() + '&edge=' + edge.toString().trim()
-                        + '&candle=' + need_candle + '&fix=' + need_more + '&memo=' + memo + '&finish_date=' + finish_date.trim()
+                        + '&candle=' + need_candle + '&fix=' + need_fix + '&memo=' + memo + '&finish_date=' + finish_date.trim()
                         + 'card_no=' + card_no.trim() + '&pay_method=' + pay_method.trim() + '&amount=' + amount,
                 success: function (msg, status) {
                     var msg_obj = eval('(' + msg + ')');
