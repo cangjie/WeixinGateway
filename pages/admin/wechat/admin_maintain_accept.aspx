@@ -124,8 +124,8 @@
                 </td>
             </tr>
             <tr id="tr_more" style="display:none">
-                <td style="text-align:right" >更多:</td>
-                <td>
+                
+                <td colspan="2">
                     <table>
                         <tr>
                             <td>项目</td>
