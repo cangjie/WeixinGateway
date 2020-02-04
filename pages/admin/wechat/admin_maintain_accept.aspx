@@ -163,7 +163,7 @@
                 <td colspan="2" style="text-align: center;" ><button id="submit_button" class="btn btn-default" onclick="submit()" > 生 成 二 维 码 </button></td>
             </tr>
             <tr>
-                <td colspan="2" style="align-items:center" ><img id="qrcode" style="display:none;width:200px" /></td>
+                <td colspan="2" style="text-align: center;" ><img id="qrcode" style="display:none;width:200px" /></td>
             </tr>
         </table>
     </div>
