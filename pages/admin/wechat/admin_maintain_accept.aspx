@@ -147,7 +147,7 @@
                                 <input type="text" name="service_item_name_input" id="service_item_name_input_0" style="width:60px;display:none" />
                             </td>
                             <td><input type="text" name="service_item_amount" id="service_item_amount_0" style="width:40px" /></td>
-                            <td><input type="text" name="service_item_memo" id="service_item_memo_0" style="width:200px" /></td>
+                            <td><input type="text" name="service_item_memo" id="service_item_memo_0" style="width:175" /></td>
                         </tr>
                     </table>
                 </td>
