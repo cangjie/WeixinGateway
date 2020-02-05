@@ -144,7 +144,7 @@
                                     <option value="快速生涂" >快速生涂</option>
                                     <option value="其它" >其它</option>
                                 </select>
-                                <input type="text" name="service_item_name_input" id="service_item_name_input_0" style="width:60px;display:none" />
+                                <input type="text" name="service_item_name_input" id="service_item_name_input_0" style="width:80px;display:none" />
                             </td>
                             <td><input type="text" name="service_item_amount" id="service_item_amount_0" style="width:40px" /></td>
                             <td><input type="text" name="service_item_memo" id="service_item_memo_0" style="width:175px" /></td>
