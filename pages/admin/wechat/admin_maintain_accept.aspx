@@ -4,7 +4,7 @@
 
 <script runat="server">
 
-    string token = "45825c14723aa8659f5532a4861b95ac792cc52ecc02d3fc19a60ec9a728dc31ba819660";
+    string token = "f0002e847f45f01b09c3c865681aa6b71ff4e63ae0b33c9da1a71f69cccfa5e4a7834824";
     public WeixinUser currentUser;
     public string openId = "";
 
@@ -126,15 +126,15 @@
             <tr id="tr_more" style="display:none">
                 
                 <td colspan="2">
-                    <table>
+                    <table id="table_more">
                         <tr>
                             <td>项目</td>
                             <td>金额</td>
                             <td>说明</td>
                         </tr>
-                        <tr>
+                        <tr id="table_line_template">
                             <td>
-                                <select name="service_item_name"  id="service_item_name_0" >
+                                <select name="service_item_name"  id="service_item_name_0" onchange="table_drp_changed()" >
                                     <option value="" >请选择...</option>
                                     <option value="87度以下" >87度以下</option>
                                     <option value="补板底" >补板底</option>
@@ -206,6 +206,13 @@
         var card_no = '';
         var ski_id = 0;
         var task_id = 0;
+
+        var table_drp_service_item_name_arr = document.getElementsByName('service_item_name');
+        var table_txt_service_item_name_arr = document.getElementsByName('service_item_name_input');
+        var table_more = document.getElementById('table_more');
+        var table_line_template = document.getElementById('table_line_template');
+
+
         function get_user_open_id() {
             $.ajax({
                 url: '/api/user_info_get_by_cell_number.aspx',
@@ -244,6 +251,7 @@
                 }
             });
         }
+
         function check_cell_number() {
             var cell = document.getElementById('cell').value.trim();
             if (cell.length == 11) {
@@ -253,6 +261,7 @@
                 reset_user_info();
             }
         }
+
         function reset_user_info() {
             customer_open_id = '';
             document.getElementById('male').checked = false;
@@ -265,6 +274,7 @@
                 card_radio.disabled = true;
             }
         }
+
         function generate_time_string() {
             var nowDate = new Date();
             document.getElementById('rfid').value = '';
@@ -277,6 +287,7 @@
             ski_id = 0;
             document.getElementById('rfid').value = nowDate.valueOf();
         }
+
         function set_user_card() {
             disable_cards();
             if (customer_open_id.trim() != '') {
@@ -693,6 +704,25 @@
                 }
             });
         }
+
+        function table_drp_changed() {
+            for (var i = 0; i < table_drp_service_item_name_arr.length; i++) {
+                if (table_drp_service_item_name_arr[i].value == '其它') {
+                    table_txt_service_item_name_arr[i].style.display = '';
+                }
+                else {
+                    table_txt_service_item_name_arr[i].style.display = 'none';
+                }
+            }
+            
+        }
+
+        function table_more_insert() {
+            var newIndex = table_more.getElementsByTagName('tr').length;
+            table_more.innerHTML = table_more.innerHTML + '<tr>'
+                + table_line_template.innerHTML.replace('_0', '_' + newIndex.toString()) + '</tr>'
+        }
+        table_more_insert();
     </script>
 </body>
 </html>
