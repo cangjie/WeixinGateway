@@ -4,14 +4,14 @@
 
 <script runat="server">
 
-    string token = "f0002e847f45f01b09c3c865681aa6b71ff4e63ae0b33c9da1a71f69cccfa5e4a7834824";
+    string token = "0cb3badfbaeeb7765f0f75f9195aed74700507ba822f38cd20f11f6b9055ab54da575ad6";
     public WeixinUser currentUser;
     public string openId = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        /*
+        
         string currentPageUrl = Request.Url.ToString();
         if (!Util.GetSafeRequestValue(Request, "cell", "").Trim().Equals("") && currentPageUrl.IndexOf("?cell") < 0 )
         {
@@ -33,7 +33,7 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
-        */
+        
     }
 </script>
 
@@ -118,9 +118,9 @@
             </tr>
             <tr>
                 <td colspan="2" class="text-center">
-                    <input type="checkbox" id="need_edge" style="width:20px;height:20px" onchange="service_select()" />修刃<input id="degree" style="width:60px;height:30px" type="text" value="89" onchange="degree_change()" />度&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox" id="need_candle" style="width:20px;height:20px" onchange="service_select()" />打蜡&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox" id="need_more" style="width:20px;height:20px" onchange="need_more_change()" />更多
+                    <input type="checkbox" id="need_edge" style="width:20px;height:20px" onchange="service_changed()" />修刃<input id="degree" style="width:60px;height:30px" type="text" value="89" onchange="service_changed()" />度&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="need_candle" style="width:20px;height:20px" onchange="service_changed()" />打蜡&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" id="need_more" style="width:20px;height:20px" onchange="service_changed()" />更多
                 </td>
             </tr>
             <tr id="tr_more" style="display:none">
@@ -144,10 +144,10 @@
                                     <option value="快速生涂" >快速生涂</option>
                                     <option value="其它" >其它</option>
                                 </select>
-                                <input type="text" name="service_item_name_input" id="service_item_name_input_0" style="width:80px;display:none" />
+                                <input type="text" name="service_item_name_input" id="service_item_name_input_0" onchange="service_changed()" style="width:80px;display:none" />
                             </td>
-                            <td><input type="text" name="service_item_amount" id="service_item_amount_0" style="width:40px" /></td>
-                            <td><input type="text" name="service_item_memo" id="service_item_memo_0" style="width:175px" /></td>
+                            <td><input type="text" name="service_item_amount" id="service_item_amount_0" style="width:40px" onchange="service_changed()" /></td>
+                            <td><input type="text" name="service_item_memo" id="service_item_memo_0" style="width:175px" onchange="service_changed()" /></td>
                         </tr>
                     </table>
                 </td>
@@ -177,7 +177,7 @@
             </tr>
             <tr>
                 <td style="text-align:right" >金额:</td>
-                <td><input type="text" id="amount" style="width:130px;height:30px" /></td>
+                <td><input type="text" id="amount" style="width:130px;height:30px" readonly disabled /></td>
             </tr>
             <tr>
                 <td style="text-align:right" >支付方式：</td>
@@ -200,7 +200,7 @@
     </div>
     <script type="text/javascript" >
         var customer_open_id = '';
-        set_finish_date();
+        
         check_cell_number();
         var product_id = 0;
         var card_no = '';
@@ -211,7 +211,243 @@
         var table_txt_service_item_name_arr = document.getElementsByName('service_item_name_input');
         var table_more = document.getElementById('table_more');
         var table_line_template = document.getElementById('table_line_template');
+        var chk_need_edge = document.getElementById('need_edge');
+        var chk_need_candle = document.getElementById('need_candle');
+        var chk_need_more = document.getElementById('need_more');
+        var txt_degree = document.getElementById('degree');
+        var tr_more = document.getElementById('tr_more');
+        var more_service_item_json_obj = [];
+        var more_service_item_name_arr = table_more.getElementsByTagName('select');
+        var txt_amount = document.getElementById('amount');
+        var rdo_finish_today = document.getElementById('finish_today');
+        var rdo_finish_tomorrow = document.getElementById('finish_tomorrow');
+    
+        set_finish_date();
+        function get_more_service_item_json_obj() {
+            more_service_item_json_obj = [];
+            for (var i = 0; i < more_service_item_name_arr.length; i++) {
+                var drp = more_service_item_name_arr[i];
+                if (drp.selectedIndex > 0) {
+                    var service_name = drp.options[drp.selectedIndex].value.toString();
+                    var amount = 0;
+                    try{
+                        amount = parseInt(document.getElementById('service_item_amount_' + i.toString()).value);
+                    }
+                    catch (msg) {
 
+                    }
+                    if (service_name.trim() == '其它') {
+                        service_name = document.getElementById('service_item_name_input_' + i.toString()).value;
+                    }
+                    var memo = document.getElementById('service_item_memo_' + i.toString()).value;
+                    if (service_name.trim() != '') {
+                        more_service_item_json_obj.push({ "service_name": service_name.trim(), "amount": amount.toString(), "memo": memo.trim() });
+                    }
+                }
+            }
+        }
+
+        function delete_more_service_item(service_name) {
+            for (var i = 0; i < more_service_item_json_obj.length; i++) {
+                if (more_service_item_json_obj[i].service_name.trim() == service_name.trim()) {
+                    more_service_item_json_obj.splice(i, 1);
+                    break;
+                }
+            }
+        }
+
+        function add_more_service_item(service_name, amount, memo) {
+            var found = false;
+            for (var i = 0; i < more_service_item_json_obj.length; i++) {
+                if (more_service_item_json_obj[i].service_name.trim() == service_name.trim()) {
+                    more_service_item_json_obj[i].amount = amount;
+                    more_service_item_json_obj[i].memo = memo;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                more_service_item_json_obj.push({ "service_name": service_name.trim(), "amount": amount, "memo":memo.trim() });
+            }
+        }
+
+        function render_more_service_item() {
+            //table_more = document.getElementById('table_more');
+            var tr_arr = table_more.getElementsByTagName('tr');
+            var max_index = tr_arr.length - 2;
+            var html_template = tr_arr[tr_arr.length - 1].innerHTML.trim();
+            var html_header = tr_arr[0].innerHTML.trim();
+            table_more.innerHTML = '<tr>' + html_header + '</tr>';
+            for (var i = 0; i <= more_service_item_json_obj.length; i++) {
+                
+                var drp = document.createElement('select');
+                drp.setAttribute('name', 'service_item_name');
+                drp.setAttribute('id', 'service_item_name_' + i.toString());
+                drp.setAttribute('onchange', 'table_drp_changed()');
+
+                var option = document.createElement('option');
+                option.setAttribute('value', '');
+                option.innerText = '请选择...';
+                drp.appendChild(option);
+
+                option = document.createElement('option');
+                option.setAttribute('value', '87度以下');
+                option.innerText = '87度以下';
+                drp.appendChild(option);
+
+                option = document.createElement('option');
+                option.setAttribute('value', '补板底');
+                option.innerText = '补板底';
+                drp.appendChild(option);
+
+                option = document.createElement('option');
+                option.setAttribute('value', '改刃');
+                option.innerText = '改刃';
+                drp.appendChild(option);
+
+                option = document.createElement('option');
+                option.setAttribute('value', '开蜡');
+                option.innerText = '开蜡';
+                drp.appendChild(option);
+
+                option = document.createElement('option');
+                option.setAttribute('value', '粘合');
+                option.innerText = '粘合';
+                drp.appendChild(option);
+
+                option = document.createElement('option');
+                option.setAttribute('value', '快速生涂');
+                option.innerText = '快速生涂';
+                drp.appendChild(option);
+
+                option = document.createElement('option');
+                option.setAttribute('value', '其它');
+                option.innerText = '其它';
+                drp.appendChild(option);
+
+                var txt_etc = document.createElement('input');
+                txt_etc.setAttribute('type', 'text');
+                txt_etc.setAttribute('name', 'service_item_name_input');
+                txt_etc.setAttribute('id', 'service_item_name_input_' + i.toString());
+                txt_etc.setAttribute('style', 'width:80px;display:none');
+
+                var txt_amount = document.createElement('input');
+                txt_amount.setAttribute('type', 'text');
+                txt_amount.setAttribute('name', 'service_item_amount');
+                txt_amount.setAttribute('id', 'service_item_amount_' + i.toString());
+                txt_amount.setAttribute('style', 'width:40px');
+                txt_amount.setAttribute('onChange', 'service_changed()');
+
+                var txt_memo = document.createElement('input');
+                txt_memo.setAttribute('type', 'text');
+                txt_memo.setAttribute('name', 'service_item_memo');
+                txt_memo.setAttribute('id', 'service_item_memo_' + i.toString());
+                txt_memo.setAttribute('style', 'width:175px');
+                txt_memo.setAttribute('onChange', 'service_changed()');
+
+                if (i < more_service_item_json_obj.length) {
+                    var selected_index = 0;
+                    for (var j = 1; j < drp.options.length; j++) {
+                        if (drp.options[j].value == more_service_item_json_obj[i].service_name.trim()) {
+                            selected_index = j;
+                            break;
+                        }
+                    }
+                    if (selected_index == 0 && more_service_item_json_obj[i].service_name.trim() != '') {
+                        drp.selectedIndex = drp.options.length - 1;
+                        selected_index = drp.options.length - 1;
+                        txt_etc.style.display = '';
+                        txt_etc.value = more_service_item_json_obj[i].service_name.trim();
+                    }
+                    drp.options[selected_index].setAttribute('selected', '1');
+                    if (drp.options[selected_index].value.trim() == '其它') {
+                        txt_etc.style.display = '';
+                        txt_etc.setAttribute('value', more_service_item_json_obj[i].service_name.trim());
+                    }
+                    txt_amount.setAttribute('value', more_service_item_json_obj[i].amount.toString());
+                    txt_memo.setAttribute('value', more_service_item_json_obj[i].memo.trim());
+                }
+                table_more.innerHTML = table_more.innerHTML + '<tr><td>' + drp.outerHTML.trim() + txt_etc.outerHTML.trim() + '</td><td>' + txt_amount.outerHTML 
+                    + '</td><td>' + txt_memo.outerHTML + '</td></tr>';
+            }
+        }
+
+        function service_changed() {
+            get_more_service_item_json_obj();
+            var degree = 89;
+            var product_id = 0;
+            try{
+                degree = parseInt(txt_degree.value);
+            }
+            catch (msg) {
+
+            }
+            if (chk_need_edge.checked) {
+                if (degree <= 87) {
+                    add_more_service_item('87度以下', 50, '');
+                    need_more.checked = true;
+                    need_more.disabled = true;
+                    tr_more.style.display = '';
+                }
+                else {
+                    delete_more_service_item('87度以下');
+                    need_more.disabled = false;
+                }
+            }
+            else {
+                delete_more_service_item('87度以下');
+                need_more.disabled = false;
+            }
+            if (chk_need_more.checked) {
+                tr_more.style.display = '';
+                set_service_only_pay_cash();
+            }
+            else {
+                tr_more.style.display = 'none';
+                unset_service_only_pay_cash();
+            }
+            render_more_service_item();
+            if (chk_need_edge.checked) {
+                if (chk_need_candle.checked) {
+                    if (rdo_finish_today.checked) {
+                        //修板打蜡立等
+                        product_id = 137;
+                    }
+                    else {
+                        //修板打蜡隔日
+                        product_id = 139;
+                    }
+                }
+                else {
+                    if (rdo_finish_today.checked) {
+                        //修板立等
+                        product_id = 138;
+                    }
+                    else {
+                        //修板隔日
+                        product_id = 140;
+                    }
+                }
+            }
+            else if (chk_need_candle.checked) {
+                if (rdo_finish_today.checked) {
+                    //打蜡立等
+                    product_id = 142;
+                }
+                else {
+                    //打蜡隔日
+                    product_id = 143;
+                }
+            }
+
+            var total_amount = parseInt(get_product_price(product_id));
+            for (var i = 0; i < more_service_item_json_obj.length; i++) {
+                total_amount = parseInt(total_amount) + parseInt(more_service_item_json_obj[i].amount);
+            }
+            
+            txt_amount.value = total_amount.toString();
+
+        }
 
         function get_user_open_id() {
             $.ajax({
@@ -335,7 +571,7 @@
                 finish_date.value = now_date.getFullYear().toString() + '-' + (now_date.getMonth() + 1).toString()
                     + '-' + now_date.getDate().toString() + ' ' + now_date.getHours().toString()+':00';
             }
-            service_select();
+            service_changed();
         }
 
         function service_select() {
@@ -358,7 +594,7 @@
             var use_card = false;
             for (var i = 0; i < card_arr.length; i++) {
                 if (!card_arr[i].disabled) {
-                    if (card_arr[i].cheched) {
+                    if (card_arr[i].checked) {
                         use_card = true;
                         break;
                     }
@@ -430,6 +666,26 @@
 
 
         }
+
+        function get_product_price(product_id) {
+            var product_price = 0;
+            if (product_id != 0) {
+                $.ajax({
+                    url: '/api/get_product_info.aspx',
+                    type: "get",
+                    data: 'type=&id=' + product_id.toString(),
+                    async:false,
+                    success: function (msg, status) {
+                        var msg_obj = eval('(' + msg + ')');
+                        if (msg_obj.status == 0) {
+                            product_price = msg_obj.product.sale_price
+                        }
+                    }
+                });
+            }
+            return product_price;
+        }
+
         function disable_cards() {
             var card_arr = document.getElementsByName("card");
             for (var i = 0; i < card_arr.length ; i++) {
@@ -527,8 +783,12 @@
             }
             if (valid_degree && degree <= 87 && document.getElementById('need_edge').checked) {
                 set_service_only_pay_cash();
+                add_special_edge_item();
+                document.getElementById('need_more').checked = true;
+                document.getElementById('tr_more').style.display = '';
             }
             else {
+                del_special_edge_item();
                 unset_service_only_pay_cash();
                 var need_more_box = document.getElementById('need_more');
                 need_more_box.checked = false;
@@ -714,7 +974,7 @@
                     table_txt_service_item_name_arr[i].style.display = 'none';
                 }
             }
-            
+            //service_changed();
         }
 
         function table_more_insert() {
@@ -722,7 +982,31 @@
             table_more.innerHTML = table_more.innerHTML + '<tr>'
                 + table_line_template.innerHTML.replace('_0', '_' + newIndex.toString()) + '</tr>'
         }
-        table_more_insert();
+        function add_special_edge_item() {
+            var find_empty_line = false;
+            var tr_arr = table_more.getElementsByTagName('tr');
+            for (var i = 1; i < tr_arr.length; i++) {
+                var drp = tr_arr[i].getElementsByTagName('select')[0];
+                if (drp.options[drp.selectedIndex].value == '') {
+                    drp.options[1].selected = true;
+                    document.getElementById('service_item_amount_' + (i-1).toString()).value = '50';
+                    find_empty_line = true;
+                    break;
+                }
+            }
+            if (!find_empty_line) {
+                table_more_insert();
+                tr_arr = table_more.getElementsByTagName('tr');
+                var drp = tr_arr[tr_arr.length - 1].getElementsByTagName('select')[0];
+                drp.options[1].selected = true;
+                document.getElementById('service_item_amount_' + (tr_arr.length-2).toString()).value = '50';
+            }
+        }
+        function del_special_edge_item() {
+
+        }
+
+        //table_more_insert();
     </script>
 </body>
 </html>
