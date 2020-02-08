@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int deviceId = int.Parse(Util.GetSafeRequestValue(Request, "deviceid", "2"));
+        int deviceId = int.Parse(Util.GetSafeRequestValue(Request, "deviceid", "1"));
         Device device = new Device(deviceId);
         string qrCodeUrl = device._lastScan["qrcode_url"].ToString().Trim();
 
