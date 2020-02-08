@@ -4,14 +4,13 @@
 
 <script runat="server">
 
-    string token = "0cb3badfbaeeb7765f0f75f9195aed74700507ba822f38cd20f11f6b9055ab54da575ad6";
+    string token = "1f49d183b719edfbf89031fce1c2f7e47498398ad3d7c29a64998d1680791c76120eb65b";
     public WeixinUser currentUser;
     public string openId = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        
+        /*
         string currentPageUrl = Request.Url.ToString();
         if (!Util.GetSafeRequestValue(Request, "cell", "").Trim().Equals("") && currentPageUrl.IndexOf("?cell") < 0 )
         {
@@ -33,7 +32,7 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
-        
+        */
     }
 </script>
 
@@ -180,6 +179,10 @@
                 <td><input type="text" id="amount" style="width:130px;height:30px" readonly disabled /></td>
             </tr>
             <tr>
+                <td style="text-align:right" >特殊调整:</td>
+                <td><input type="text" id="delta_amount" style="width:130px;height:30px" value="0" onchange="delta_amount_changed()" /></td>
+            </tr>
+            <tr>
                 <td style="text-align:right" >支付方式：</td>
                 <td>
                     <select id="pay_method" >
@@ -188,6 +191,10 @@
                         <option>现金</option>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <td style="text-align:right" >实际支付:</td>
+                <td><input type="text" id="real_pay" style="width:130px;height:30px" readonly disabled /></td>
             </tr>
             <tr><td colspan="2" ><font color="red" id="msg_2" >&nbsp;</font></td></tr>
             <tr>
@@ -221,8 +228,33 @@
         var txt_amount = document.getElementById('amount');
         var rdo_finish_today = document.getElementById('finish_today');
         var rdo_finish_tomorrow = document.getElementById('finish_tomorrow');
-    
+        var txt_delta_amount = document.getElementById('delta_amount');
+        var txt_real_pay = document.getElementById('real_pay');
+
         set_finish_date();
+
+        function delta_amount_changed() {
+            var delta_amount = 0;
+            try{
+                delta_amount = parseInt(txt_delta_amount.value.trim());
+            }
+            catch (msg) {
+
+            }
+            if (delta_amount != 0) {
+                document.getElementById('memo').focus();
+                service_changed();
+                var amount = 0;
+                try {
+                    amount = parseInt(txt_amount.value.trim());
+                }
+                catch (msg) {
+                    
+                }
+                txt_real_pay.value = amount + delta_amount;
+            }
+        }
+
         function get_more_service_item_json_obj() {
             more_service_item_json_obj = [];
             for (var i = 0; i < more_service_item_name_arr.length; i++) {
