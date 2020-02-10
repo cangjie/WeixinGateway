@@ -5,6 +5,7 @@
 <script runat="server">
 
     string token = "1f49d183b719edfbf89031fce1c2f7e47498398ad3d7c29a64998d1680791c76120eb65b";
+
     public WeixinUser currentUser;
     public string openId = "";
 
@@ -596,12 +597,12 @@
             var finish_date = document.getElementById('finish_date');
             if (document.getElementById('finish_today').checked) {
                 finish_date.value = now_date.getFullYear().toString() + '-' + (now_date.getMonth() + 1).toString()
-                    + '-' + now_date.getDate().toString() + ' 17:00';
+                    + '-' + now_date.getDate().toString() + ' ' + (now_date.getHours() + 2).toString() + ':00';
             }
             else if (document.getElementById('finish_tomorrow').checked) {
                 now_date.setDate(now_date.getDate() + 1);
                 finish_date.value = now_date.getFullYear().toString() + '-' + (now_date.getMonth() + 1).toString()
-                    + '-' + now_date.getDate().toString() + ' ' + now_date.getHours().toString()+':00';
+                    + '-' + now_date.getDate().toString() + ' 8:00';
             }
             service_changed();
         }
