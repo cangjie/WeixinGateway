@@ -99,7 +99,23 @@
             <tr>
                 <td style="text-align:right" >品牌:</td>
                 <td>
-                    <input type="text" id="brand" style="width:100px;height:30px" />&nbsp; &nbsp; 
+                    <select id="drp_brand" onchange="fill_in_brand()" >
+                        <option value="" >请选择……</option>
+                        <option value="APO" >APO</option>
+                        <option value="Armada" >Armada</option>
+                        <option value="Atomic" >Atomic</option>
+                        <option value="Burton" >Burton</option>
+                        <option value="Capita" >Capita</option>
+                        <option value="Fischer" >Fischer</option>
+                        <option value="Head" >Head</option>
+                        <option value="Nitro" >Nitro</option>
+                        <option value="Nordica" >Nordica</option>
+                        <option value="Rossignol" >Rossignol</option>
+                        <option value="StockLi" >StockLi</option>
+                        <option value="Volki" >Volki</option>
+                        <option value="其它" >其它</option>   
+                    </select>
+                    <input type="text" id="brand" style="width:100px;height:30px; display:none"  />&nbsp; &nbsp; 
                     <input type="radio" id="ski" style="width:20px;height:20px" name="ski_type" />双板  &nbsp; &nbsp;  
                     <input type="radio" id="board" style="width:20px;height:20px" name="ski_type" />单板
                 </td>
@@ -231,8 +247,27 @@
         var rdo_finish_tomorrow = document.getElementById('finish_tomorrow');
         var txt_delta_amount = document.getElementById('delta_amount');
         var txt_real_pay = document.getElementById('real_pay');
-
+        var drp_brand = document.getElementById('drp_brand');
+        var txt_brand = document.getElementById('brand');
         set_finish_date();
+
+        function fill_in_brand() {
+            if (drp_brand.options[drp_brand.selectedIndex].value == '其它') {
+                txt_brand.style.display = '';
+            }
+            else {
+                txt_brand.style.display = 'none';
+            }
+        }
+
+        function get_brand() {
+            if (drp_brand.options[drp_brand.selectedIndex].value == '其它') {
+                return txt_brand.value.trim();
+            }
+            else {
+                return drp_brand.options[drp_brand.selectedIndex].value.trim();
+            }
+        }
 
         function delta_amount_changed() {
             var delta_amount = 0;
