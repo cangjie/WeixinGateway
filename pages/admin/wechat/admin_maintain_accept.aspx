@@ -4,7 +4,7 @@
 
 <script runat="server">
 
-    string token = "1f49d183b719edfbf89031fce1c2f7e47498398ad3d7c29a64998d1680791c76120eb65b";
+    string token = "1645531824d36c565bb3cbed6d7e87b6e2c963b86fabd623b7dd850c7536b8238e1a51c6";
 
     public WeixinUser currentUser;
     public string openId = "";
@@ -249,6 +249,8 @@
         var txt_real_pay = document.getElementById('real_pay');
         var drp_brand = document.getElementById('drp_brand');
         var txt_brand = document.getElementById('brand');
+        //var extend_service_json_str = '{"extend_service":[]}';
+        var extend_serivice_json_str = '';
         set_finish_date();
 
         function fill_in_brand() {
@@ -261,8 +263,12 @@
         }
 
         function get_brand() {
+
             if (drp_brand.options[drp_brand.selectedIndex].value == '其它') {
                 return txt_brand.value.trim();
+            }
+            else if (drp_brand.options[drp_brand.selectedIndex].value == '') {
+                return '';
             }
             else {
                 return drp_brand.options[drp_brand.selectedIndex].value.trim();
@@ -515,6 +521,12 @@
             
             txt_amount.value = total_amount.toString();
 
+            try {
+                txt_real_pay.value = parseFloat(txt_amount.value) + parseFloat(delta_amount.value);
+            }
+            catch (err_msg) {
+
+            }
         }
 
         function get_user_open_id() {
@@ -885,7 +897,7 @@
                 msg = '请生成RFID';
                 rfid.focus();
             }
-            else if (brand.value.trim() == '') {
+            else if (get_brand().trim() == '') {
                 msg = '请填写品牌。';
                 brand.focus();
             }
@@ -901,11 +913,41 @@
                 finish_date.focus();
             }
             else if (document.getElementById('pay_cash_box').checked) {
+                /*
                 if (isNaN(parseFloat(amount.value.trim()))) {
                     msg = '请填写正确的金额';
                     amount.focus();
                 }
-                
+                */
+                if (isNaN(parseFloat(txt_delta_amount.value))) {
+                    msg = '请填写正确的特殊调整金额。'
+                }
+                if (need_more.checked) {
+                    var service_item_name_arr = document.getElementsByName('service_item_name');
+                    var service_item_name_input_arr = document.getElementsByName('service_item_name_input');
+                    var service_item_amount_arr = document.getElementsByName('service_item_amount');
+                    var service_item_memo_arr = document.getElementsByName('service_item_memo');
+                    for (var i = 0; i < service_item_name_arr.length; i++) {
+                        var service_name = ((service_item_name_arr[i].options[service_item_name_arr[i].selectedIndex].value.trim() == '其它') ?
+                            service_item_name_input_arr[i].value.trim() : service_item_name_arr[i].options[service_item_name_arr[i].selectedIndex].value.trim());
+                        var item_amount = service_item_amount_arr[i].value.trim();
+                        if (service_name.trim() != '' && isNaN(parseFloat(item_amount))) {
+                            msg = '更多服务第' + (i + 1).toString() + '行，请填写正确的金额。';
+                            //break;
+                        }
+                        if (service_name.trim() == '' && !isNaN(parseFloat(item_amount))) {
+                            msg = '更多服务第' + (i + 1).toString() + '行，请填写选择服务项目。';
+                            //break;
+                        }
+                        if (msg == '' && service_name.trim() != '' && item_amount.trim() != '' && item_amount.trim() != '0') {
+                            var sub_extend_json_str = '{"service_name": "' + service_name.trim() + '", "amount" :' + item_amount.toString()
+                                + ', "memo": "' + service_item_memo_arr[i].value.trim() + '"}';
+                            extend_serivice_json_str = extend_serivice_json_str + ((extend_serivice_json_str.trim() == '') ? '' : ', ')
+                                + sub_extend_json_str;
+                                
+                        }
+                    }
+                }
             }
             else {
                 var have_select_card = false;
@@ -935,6 +977,8 @@
                         create_ski_id();
                     }
                     if (ski_id != 0) {
+                        document.getElementById('msg_1').innerText = '';
+                        document.getElementById('msg_2').innerText = '';
                         create_task();
                     }
                 }
@@ -1013,13 +1057,13 @@
                     }
                 }
             }
-            
+            extend_serivice_json_str = '{"extend_service": [' + extend_serivice_json_str + ']}';
             $.ajax({
-                url: '/api/skis/ski_maintain_task_create.aspx',
-                type: 'get',
-                data: 'token=<%=token%>&customer=' + customer_open_id + '&ski_id=' + ski_id.toString().trim() + '&edge=' + edge.toString().trim()
-                        + '&candle=' + need_candle + '&fix=' + need_more + '&memo=' + memo + '&finish_date=' + finish_date.trim()
-                        + 'card_no=' + card_no.trim() + '&pay_method=' + pay_method.trim() + '&amount=' + amount,
+                url: '/api/skis/ski_maintain_task_create.aspx?' + 'token=<%=token%>&customer=' + customer_open_id + '&ski_id=' + ski_id.toString().trim() + '&edge=' + edge.toString().trim()
+                    + '&candle=' + need_candle + '&fix=' + need_more + '&memo=' + memo + '&finish_date=' + finish_date.trim()
+                    + 'card_no=' + card_no.trim() + '&pay_method=' + pay_method.trim() + '&amount=' + amount,
+                type: 'post',
+                data: extend_serivice_json_str,
                 success: function (msg, status) {
                     var msg_obj = eval('(' + msg + ')');
                     if (msg_obj.status == 0) {
