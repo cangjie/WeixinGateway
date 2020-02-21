@@ -249,6 +249,8 @@
         var txt_real_pay = document.getElementById('real_pay');
         var drp_brand = document.getElementById('drp_brand');
         var txt_brand = document.getElementById('brand');
+        var txt_memo = document.getElementById('memo');
+
         //var extend_service_json_str = '{"extend_service":[]}';
         var extend_serivice_json_str = '';
         set_finish_date();
@@ -961,6 +963,9 @@
                 if (!have_select_card) {
                     msg = '请选择核销的卡券。';
                 }
+            }
+            if (txt_memo.value.trim() == '' && txt_delta_amount.value.trim() != '0') {
+                msg = '如果调整金额，则必须填写备注。';
             }
             return msg.trim();
         }
