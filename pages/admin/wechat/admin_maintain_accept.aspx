@@ -1075,7 +1075,7 @@
                         var scene_text = 'pay_maintain_task_id_' + msg_obj.task_id.toString();
                         var img = document.getElementById('qrcode');
                         img.src = 'http://weixin.snowmeet.com/show_wechat_temp_qrcode.aspx?scene=' + scene_text.trim() + '&&expire=300';
-                        img.style.display = 'block';
+                        img.style.display = '';
 
                     }
                 }
