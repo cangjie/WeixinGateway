@@ -11,7 +11,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        /*
+        
         string currentPageUrl = Request.Url.ToString();
         if (!Util.GetSafeRequestValue(Request, "cell", "").Trim().Equals("") && currentPageUrl.IndexOf("?cell") < 0 )
         {
@@ -33,7 +33,7 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
-        */
+        
     }
 </script>
 
