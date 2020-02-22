@@ -196,14 +196,14 @@ public class SkiMaintainTask
     }
 
     public static int CreateNewTask(string customerOpenId, string staffOpenId, int skiId, int edge, bool candle, bool fixBoard, 
-        string memo, DateTime scheduledFinishTime, string cardNo, string extendService)
+        string memo, DateTime scheduledFinishTime, string cardNo, string extendService, int amount, int deltaAmount)
     {
         int taskId = 0;
         int i = DBHelper.InsertData("skis_maintain_task", new string[,] { {"ski_id", "int", skiId.ToString() }, {"edge", "int", edge.ToString() }, 
             {"candle", "int", (candle? "1" : "0")}, {"fix_board", "int", (fixBoard? "1":"0") }, {"memo", "varchar", memo.Trim() },
             {"customer_open_id", "varchar", customerOpenId.Trim() }, {"staff_accept_open_id", "varchar", staffOpenId.Trim() },
             {"scheduled_finish_date_time", "datetime", scheduledFinishTime.ToString() }, {"associate_card_no", "varchar", cardNo.Trim() },
-            {"extend_service", "text", extendService.Trim() } });
+            {"extend_service", "text", extendService.Trim() }, {"amount", "int",  amount.ToString()}, {"delta_amount", "int", deltaAmount.ToString() } });
         if (i == 1)
         {
             try

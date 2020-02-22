@@ -25,9 +25,11 @@
         string cardNo = Util.GetSafeRequestValue(Request, "card_no", "");
         string payMethod = Util.GetSafeRequestValue(Request, "pay_method", "");
         int amount = int.Parse(Util.GetSafeRequestValue(Request, "amount", "0"));
+        int deltaAmount = int.Parse(Util.GetSafeRequestValue(Request, "delta", "0"));
         string postJson = new StreamReader(Request.InputStream).ReadToEnd();
         int taskId = SkiMaintainTask.CreateNewTask(customerOpenId, adminOpenId, int.Parse(skiId), edge,
-            (candle == 0 ? false : true), fixBoard == 0 ? false : true, memo.Trim(), finishDateTime, cardNo.Trim(), postJson.Trim());
+            (candle == 0 ? false : true), fixBoard == 0 ? false : true, memo.Trim(), finishDateTime, 
+            cardNo.Trim(), postJson.Trim(), amount, deltaAmount);
         
         
         if (taskId > 0)

@@ -1065,8 +1065,8 @@
             extend_serivice_json_str = '{"extend_service": [' + extend_serivice_json_str + ']}';
             $.ajax({
                 url: '/api/skis/ski_maintain_task_create.aspx?' + 'token=<%=token%>&customer=' + customer_open_id + '&ski_id=' + ski_id.toString().trim() + '&edge=' + edge.toString().trim()
-                    + '&candle=' + need_candle + '&fix=' + need_more + '&memo=' + memo + '&finish_date=' + finish_date.trim()
-                    + 'card_no=' + card_no.trim() + '&pay_method=' + pay_method.trim() + '&amount=' + amount,
+                    + '&candle=' + need_candle + '&fix=' + need_more + '&memo=' + memo + '&finish_date=' + finish_date.trim() + 'card_no=' + card_no.trim() 
+                    + '&pay_method=' + pay_method.trim() + '&amount=' + amount + '&delta=' + txt_delta_amount.value.trim(),
                 type: 'post',
                 data: extend_serivice_json_str,
                 success: function (msg, status) {
