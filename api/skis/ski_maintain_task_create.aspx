@@ -28,14 +28,14 @@
         int deltaAmount = int.Parse(Util.GetSafeRequestValue(Request, "delta", "0"));
         string postJson = new StreamReader(Request.InputStream).ReadToEnd();
         int taskId = SkiMaintainTask.CreateNewTask(customerOpenId, adminOpenId, int.Parse(skiId), edge,
-            (candle == 0 ? false : true), fixBoard == 0 ? false : true, memo.Trim(), finishDateTime, 
+            (candle == 0 ? false : true), fixBoard == 0 ? false : true, memo.Trim(), finishDateTime,
             cardNo.Trim(), postJson.Trim(), amount, deltaAmount);
-        
-        
-        if (taskId > 0)
+
+
+        if (taskId > 0 && amount + deltaAmount > 0)
         {
             SkiMaintainTask skiMaintainTask = new SkiMaintainTask(taskId);
-            int orderId = skiMaintainTask.PlaceOrder(amount+deltaAmount, memo);
+            int orderId = skiMaintainTask.PlaceOrder(amount + deltaAmount, memo);
             if (orderId > 0 || !cardNo.Trim().Equals(""))
             {
                 Response.Write("{\"status\": 0, \"task_id\": " + taskId.ToString() + ", \"order_id\": " + orderId.ToString() + "}");
@@ -49,7 +49,7 @@
         {
             Response.Write("{\"status\": 1, \"error_message\": \"Can't create task.\"}");
         }
-        
+
 
 
     }

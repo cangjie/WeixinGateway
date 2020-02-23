@@ -380,7 +380,9 @@ public class DealMessage
                     case "product_id":
                         repliedMessage = ScanToPayProduct(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
-                    
+                    case "maintain_task_id":
+                        repliedMessage = ScanToPayMaintask(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
                     default:
                         break;
                 }
@@ -462,6 +464,12 @@ public class DealMessage
         return repliedMessage;
     }
 
+    public static RepliedMessage ScanToPayMaintask(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int taskId)
+    {
+        repliedMessage.type = "text";
+        repliedMessage.content = "测试";
+        return repliedMessage;
+    }
     public static RepliedMessage ScanToPayProduct(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int productId) 
     {
         Product p = new Product(productId);

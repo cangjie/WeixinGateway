@@ -4,14 +4,14 @@
 
 <script runat="server">
 
-    string token = "1645531824d36c565bb3cbed6d7e87b6e2c963b86fabd623b7dd850c7536b8238e1a51c6";
+    string token = "4878a8bc6980030891bc5f110187dbe9e455b1afb37d364945fafe5c6a32abfa17a5eb48";
 
     public WeixinUser currentUser;
     public string openId = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        /*
         string currentPageUrl = Request.Url.ToString();
         if (!Util.GetSafeRequestValue(Request, "cell", "").Trim().Equals("") && currentPageUrl.IndexOf("?cell") < 0 )
         {
@@ -33,7 +33,7 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
-        
+        */
     }
 </script>
 
@@ -73,7 +73,7 @@
                     <table class="table" >
                         <tr>
                             <td style="text-align:right">手机:</td>
-                            <td><input type="tel" id="cell" value="13501177897" style="width:150px;height:30px"   oninput="check_cell_number()" /></td>
+                            <td><input type="tel" id="cell" value="18601197897" style="width:150px;height:30px"   oninput="check_cell_number()" /></td>
                         </tr>
                         <tr>
                             <td style="text-align:right">昵称:</td>
@@ -1065,7 +1065,7 @@
             extend_serivice_json_str = '{"extend_service": [' + extend_serivice_json_str + ']}';
             $.ajax({
                 url: '/api/skis/ski_maintain_task_create.aspx?' + 'token=<%=token%>&customer=' + customer_open_id + '&ski_id=' + ski_id.toString().trim() + '&edge=' + edge.toString().trim()
-                    + '&candle=' + need_candle + '&fix=' + need_more + '&memo=' + memo + '&finish_date=' + finish_date.trim() + 'card_no=' + card_no.trim() 
+                    + '&candle=' + need_candle + '&fix=' + need_more + '&memo=' + memo + '&finish_date=' + finish_date.trim() + '&card_no=' + card_no.trim() 
                     + '&pay_method=' + pay_method.trim() + '&amount=' + amount + '&delta=' + txt_delta_amount.value.trim(),
                 type: 'post',
                 data: extend_serivice_json_str,

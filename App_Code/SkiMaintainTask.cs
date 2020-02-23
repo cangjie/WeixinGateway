@@ -190,7 +190,6 @@ public class SkiMaintainTask
             DBHelper.UpdateData("skis_maintain_task",
                 new string[,] { { "associate_order_id", "int", orderId.ToString() }, { "update_date", "datetime", DateTime.Now.ToString() } },
                 new string[,] { {"id", "int", _fields["id"].ToString()} }, Util.conStr);
-
         }
         return orderId;
     }
