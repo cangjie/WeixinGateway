@@ -32,10 +32,10 @@
             cardNo.Trim(), postJson.Trim(), amount, deltaAmount);
 
 
-        if (taskId > 0 && amount + deltaAmount > 0)
+        if (taskId > 0)
         {
             SkiMaintainTask skiMaintainTask = new SkiMaintainTask(taskId);
-            int orderId = skiMaintainTask.PlaceOrder(amount + deltaAmount, memo);
+            int orderId = orderId = skiMaintainTask.PlaceOrder(amount + deltaAmount, memo);
             if (orderId > 0 || !cardNo.Trim().Equals(""))
             {
                 Response.Write("{\"status\": 0, \"task_id\": " + taskId.ToString() + ", \"order_id\": " + orderId.ToString() + "}");
