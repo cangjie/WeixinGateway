@@ -16,11 +16,13 @@
         s.Close();
         res.Close();
         req.Abort();
-
+        /*
         ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage qrBmp = new ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage(bmp);
         ThoughtWorks.QRCode.Codec.QRCodeDecoder decoder = new ThoughtWorks.QRCode.Codec.QRCodeDecoder();
         string qrUrl = decoder.decode(qrBmp);
+        */
 
+        string qrUrl = "http://anyUrl";
 
 
         //ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage qrCodeImage = new ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage(System.Drawing.Bitmap.FromStream())
