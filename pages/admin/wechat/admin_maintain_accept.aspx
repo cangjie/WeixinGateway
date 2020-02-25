@@ -4,14 +4,14 @@
 
 <script runat="server">
 
-    string token = "4878a8bc6980030891bc5f110187dbe9e455b1afb37d364945fafe5c6a32abfa17a5eb48";
+    string token = "f6b9efa7066c1b05f681fedbf5a90fff675e0beee3a79e5c7a5508158d3715df3b5b6e81";
 
     public WeixinUser currentUser;
     public string openId = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        /*
+        
         string currentPageUrl = Request.Url.ToString();
         if (!Util.GetSafeRequestValue(Request, "cell", "").Trim().Equals("") && currentPageUrl.IndexOf("?cell") < 0 )
         {
@@ -33,7 +33,7 @@
 
         if (!currentUser.IsAdmin)
             Response.End();
-        */
+        
     }
 </script>
 

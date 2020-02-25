@@ -61,6 +61,8 @@ public class Card
 
     public DataRow _fields;
 
+    public Ticket associateTicket;
+
     public Card()
     {
         //
@@ -107,6 +109,21 @@ public class Card
             else
                 return true;
 
+        }
+    }
+
+    public bool IsTicket
+    {
+        get 
+        {
+            DataTable dtTicket = DBHelper.GetDataTable("select * from ticket where code = '" + _fields["card_no"].ToString().Trim() + "' ");
+            bool ret = false;
+            if (dtTicket.Rows.Count > 0)
+            {
+                ret = true;
+                associateTicket = new Ticket(_fields["card_no"].ToString().Trim());
+            }
+            return ret;
         }
     }
 

@@ -194,6 +194,13 @@ public class SkiMaintainTask
         return orderId;
     }
 
+    public double TotalAmount
+    {
+        get
+        {
+            return double.Parse(_fields["amount"].ToString()) + double.Parse(_fields["delta_amount"].ToString());
+        }
+    }
     public static int CreateNewTask(string customerOpenId, string staffOpenId, int skiId, int edge, bool candle, bool fixBoard, 
         string memo, DateTime scheduledFinishTime, string cardNo, string extendService, int amount, int deltaAmount)
     {

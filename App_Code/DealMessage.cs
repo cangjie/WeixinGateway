@@ -466,8 +466,37 @@ public class DealMessage
 
     public static RepliedMessage ScanToPayMaintask(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int taskId)
     {
+        string messageText = "您将";
+        SkiMaintainTask task = new SkiMaintainTask(taskId);
+        if (task.TotalAmount > 0)
+        {
+            messageText = messageText + "支付" + task.TotalAmount.ToString() + "元 ";
+        }
+        if (task._fields["associate_card_no"].ToString().Length >= 9)
+        { 
+            Card card = new Card(task._fields["associate_card_no"].ToString().Substring(0, 9).Trim());
+            string cardName = "";
+            if (card.IsTicket)
+            {
+                cardName = card.associateTicket.Name.Trim();
+            }
+            else
+            {
+                if (!card._fields["product_id"].ToString().Trim().Equals("0"))
+                {
+                    Product p = new Product(int.Parse(card._fields["product_id"].ToString().Trim()));
+                    cardName = p._fields["name"].ToString().Trim();
+                }
+                else
+                {
+                    cardName = card._fields["type"].ToString();
+                }
+            }
+            messageText = messageText + " 将核销 " + cardName + "一张，编号：" + task._fields["associate_card_no"].ToString();
+        }
         repliedMessage.type = "text";
-        repliedMessage.content = "测试";
+        repliedMessage.content = messageText + "，<a href=\"http://" + Util.domainName.Trim() 
+            + "/pages/confirm_maintain_task.aspx?id=" + taskId.ToString() + "\" >请点击确认</a>。";
         return repliedMessage;
     }
     public static RepliedMessage ScanToPayProduct(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int productId) 
