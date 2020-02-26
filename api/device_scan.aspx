@@ -5,6 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        Response.End();
         int deviceId = int.Parse(Util.GetSafeRequestValue(Request, "deviceid", "1"));
         Device device = new Device(deviceId);
         string qrCodeUrl = device._lastScan["qrcode_url"].ToString().Trim();
@@ -16,17 +17,9 @@
         s.Close();
         res.Close();
         req.Abort();
-        /*
         ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage qrBmp = new ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage(bmp);
         ThoughtWorks.QRCode.Codec.QRCodeDecoder decoder = new ThoughtWorks.QRCode.Codec.QRCodeDecoder();
         string qrUrl = decoder.decode(qrBmp);
-        */
-
-        string qrUrl = "http://anyUrl";
-
-
-        //ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage qrCodeImage = new ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage(System.Drawing.Bitmap.FromStream())
-        //ThoughtWorks.QRCode.Codec.QRCodeDecoder decoder = new ThoughtWorks.QRCode.Codec.QRCodeDecoder();
         Response.Write("{\"device_id\": \"" + deviceId.ToString() + "\" , \"nick\": \"" + device._lastScan["nick"].ToString().Trim()
             + "\", \"head_image\":\"" + device._lastScan["head_image"].ToString()  + "\", \"scan_time\":\""
             + device._lastScan["timestamp"].ToString() + "\", \"next_qrcode\":\"" + qrCodeUrl.Trim() + "\", \"next_qrcode_url\": \"" + qrUrl.Trim() + "\", " 
