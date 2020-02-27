@@ -30,6 +30,16 @@ public class Card
             _fields = dt.Rows[0];
         }
 
+        public int Use(DateTime useDateTime, string memo)
+        {
+            int i = DBHelper.UpdateData("card_detail", new string[,] { { "used", "int", "1" }, 
+                { "memo", "varchar", memo.Trim() }, {"update_date", "datetime", useDateTime.ToString() } },
+                new string[,] { {"card_no", "varchar", _fields["card_no"].ToString().Trim() },
+                {"detail_no", "varchar", _fields["detail_no"].ToString().Trim() } }, Util.conStr);
+            return i;
+        }
+
+
         public string Name
         {
             get
