@@ -183,7 +183,16 @@ public class Card
                     return pass.owner;
                     break;
                 default:
-                    return new WeixinUser(_fields["owner_open_id"].ToString().Trim());
+                    string ownerOpenId = "";
+                    if (IsTicket)
+                    {
+                        ownerOpenId = associateTicket.Owner.OpenId.Trim();
+                    }
+                    else
+                    { 
+                        ownerOpenId = _fields["owner_open_id"].ToString().Trim();
+                    }
+                    return new WeixinUser(ownerOpenId);
                     break;
             }
             return null;
