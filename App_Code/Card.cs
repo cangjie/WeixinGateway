@@ -33,7 +33,7 @@ public class Card
         public int Use(DateTime useDateTime, string memo)
         {
             int i = DBHelper.UpdateData("card_detail", new string[,] { { "used", "int", "1" }, 
-                { "memo", "varchar", memo.Trim() }, {"update_date", "datetime", useDateTime.ToString() } },
+                { "use_memo", "varchar", memo.Trim() }, {"use_date", "datetime", useDateTime.ToString() } },
                 new string[,] { {"card_no", "varchar", _fields["card_no"].ToString().Trim() },
                 {"detail_no", "varchar", _fields["detail_no"].ToString().Trim() } }, Util.conStr);
             return i;
