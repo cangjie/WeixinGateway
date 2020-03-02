@@ -35,7 +35,7 @@
         if (taskId > 0)
         {
             SkiMaintainTask skiMaintainTask = new SkiMaintainTask(taskId);
-            int orderId = orderId = skiMaintainTask.PlaceOrder(amount + deltaAmount, memo);
+            int orderId = orderId = skiMaintainTask.PlaceOrder(amount + deltaAmount, memo, payMethod.Trim(), "万龙");
             if (orderId > 0 || !cardNo.Trim().Equals(""))
             {
                 Response.Write("{\"status\": 0, \"task_id\": " + taskId.ToString() + ", \"order_id\": " + orderId.ToString() + "}");

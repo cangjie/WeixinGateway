@@ -83,7 +83,7 @@ public class SkiMaintainTask
 
 
 
-    public int PlaceOrder(int amount, string memo)
+    public int PlaceOrder_bak(int amount, string memo)
     {
         int orderId = 0;
         int productId = 0;
@@ -194,6 +194,14 @@ public class SkiMaintainTask
         return orderId;
     }
 
+
+    public int PlaceOrder(int amount, string memo, string payMethod, string shop)
+    {
+        int chargeId = OrderTemp.AddNewOrderTemp(amount, amount, 0, memo, _fields["staff_accept_open_id"].ToString(), payMethod.Trim(), shop.Trim());
+        OrderTemp orderTemp = new OrderTemp(chargeId);
+        int orderId = orderTemp.PlaceOnlineOrder(_fields["customer_open_id"].ToString().Trim());
+        return orderId;
+    }
     public double TotalAmount
     {
         get
