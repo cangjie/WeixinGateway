@@ -242,4 +242,66 @@ public class SkiMaintainTask
         }
         return taskId;
     }
+
+
+    public bool Paid
+    {
+        get
+        {
+            int orderId = int.Parse(_fields["associate_order_id"].ToString().Trim());
+            if (orderId == 0)
+            {
+                return true;
+            }
+            else
+            {
+                try
+                {
+                    OnlineOrder order = new OnlineOrder(orderId);
+                    if (order._fields["pay_state"].ToString().Trim().Equals("1"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+    }
+
+    public bool CardUsed
+    {
+        get
+        {
+            string cardNo = _fields["associate_card_no"].ToString().Trim();
+            if (cardNo.Equals(""))
+            {
+                return true;
+            }
+            else
+            {
+                bool ret = false;
+                switch (cardNo.Length)
+                {
+                    case 9:
+                        Card card = new Card(cardNo.Trim());
+                        ret = card.Used;
+                        break;
+                    case 12:
+                        Card.CardDetail detail = new Card.CardDetail(cardNo);
+                        ret = detail.Used;
+                        break;
+                    default:
+                        break;
+                }
+                return ret;
+            }
+        }
+    }
 }

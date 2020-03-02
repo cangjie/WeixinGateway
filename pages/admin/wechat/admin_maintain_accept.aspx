@@ -250,7 +250,7 @@
         var drp_brand = document.getElementById('drp_brand');
         var txt_brand = document.getElementById('brand');
         var txt_memo = document.getElementById('memo');
-
+        var intervalId = 0;
         //var extend_service_json_str = '{"extend_service":[]}';
         var extend_serivice_json_str = '';
         set_finish_date();
@@ -1072,11 +1072,39 @@
                 success: function (msg, status) {
                     var msg_obj = eval('(' + msg + ')');
                     if (msg_obj.status == 0) {
+                        task_id = msg_obj.task_id;
                         var scene_text = 'pay_maintain_task_id_' + msg_obj.task_id.toString();
                         var img = document.getElementById('qrcode');
                         img.src = 'http://weixin.snowmeet.com/show_wechat_temp_qrcode.aspx?scene=' + scene_text.trim() + '&&expire=300';
                         img.style.display = '';
+                        var intervalId = setInterval('refresh_task_state()', 1000);
                     }
+                }
+            });
+        }
+
+
+
+        function refresh_task_state() {
+            $.ajax({
+                url: '/api/skis/ski_maintain_task_get_status.aspx?id=' + task_id.toString(),
+                type: 'get',
+                success: function (msg, status) {
+                    clearInterval(intervalId);
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.status == 0) {
+                        if (msg_obj.paid == 1 && msg_obj.card_used == 1) {
+                            alert('支付成功。');
+                        }
+                    }
+                    else {
+                        alert('系统错误。');
+                    }
+                    
+                },
+                error: function () {
+                    clearInterval(intervalId);
+                    alert('系统出错。');
                 }
             });
         }
