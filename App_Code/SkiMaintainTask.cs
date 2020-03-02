@@ -200,6 +200,12 @@ public class SkiMaintainTask
         int chargeId = OrderTemp.AddNewOrderTemp(amount, amount, 0, memo, _fields["staff_accept_open_id"].ToString(), payMethod.Trim(), shop.Trim());
         OrderTemp orderTemp = new OrderTemp(chargeId);
         int orderId = orderTemp.PlaceOnlineOrder(_fields["customer_open_id"].ToString().Trim());
+        if (orderId > 0)
+        {
+            DBHelper.UpdateData("skis_maintain_task",
+                new string[,] { { "associate_order_id", "int", orderId.ToString() }, { "update_date", "datetime", DateTime.Now.ToString() } },
+                new string[,] { { "id", "int", _fields["id"].ToString() } }, Util.conStr);
+        }
         return orderId;
     }
     public double TotalAmount
