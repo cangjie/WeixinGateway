@@ -1,20 +1,35 @@
 ﻿<%@ Page Language="C#" %>
 <script runat="server">
 
-        protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
+        OnlineOrder order = new OnlineOrder(orderId);
+
+        switch (order.Type.Trim())
         {
-            int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
-            OnlineOrder order = new OnlineOrder(orderId);
-            if (order.Type.Trim().Equals("雪票"))
-            {
-                //order.CreateSkiPass();
+            case "雪票":
                 Response.Redirect("../pages/ski_pass_list.aspx", true);
-            }
-            else
-            {
+                break;
+            case "服务卡":
+                string code = order._fields["code"].ToString();
+                Response.Redirect("../pages/service_card_detail.aspx?code=" + code.Trim(), true);
+                break;
+            default:
                 Response.Redirect("../pages/dragon_ball_list.aspx", true);
-            }
-        
+                break;
+        }
+
+        if (order.Type.Trim().Equals("雪票"))
+        {
+            //order.CreateSkiPass();
+            Response.Redirect("../pages/ski_pass_list.aspx", true);
+        }
+        else
+        {
+            Response.Redirect("../pages/dragon_ball_list.aspx", true);
+        }
+
         /*
 
         string token = Util.GetSafeRequestValue(Request, "token", "");
