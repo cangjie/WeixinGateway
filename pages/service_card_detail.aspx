@@ -23,7 +23,27 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        card = new Card(Util.GetSafeRequestValue(Request, "code", "345678923"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0"));
+        string code = Util.GetSafeRequestValue(Request, "code", "");
+        if (orderId != 0 && code.Trim().Equals(""))
+        {
+            int i = 0;
+            for (; i < 10 && code.Trim().Equals(""); i++)
+            {
+                OnlineOrder order = new OnlineOrder(orderId);
+                code = order._fields["code"].ToString().Trim();
+                if (code.Trim().Equals(""))
+                {
+                    System.Threading.Thread.Sleep(1000);
+                }
+            }
+        }
+
+
+
+
+
+        card = new Card(code);
 
         string currentPageUrl = Request.Url.ToString().Split('?')[0].Trim();
         if (!Request.QueryString.ToString().Trim().Equals(""))

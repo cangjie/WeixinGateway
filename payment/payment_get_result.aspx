@@ -12,8 +12,7 @@
                 Response.Redirect("../pages/ski_pass_list.aspx", true);
                 break;
             case "服务卡":
-                string code = order._fields["code"].ToString();
-                Response.Redirect("../pages/service_card_detail.aspx?code=" + code.Trim(), true);
+                Response.Redirect("../pages/service_card_detail.aspx?orderid=" + orderId.ToString(), true);
                 break;
             default:
                 Response.Redirect("../pages/dragon_ball_list.aspx", true);
