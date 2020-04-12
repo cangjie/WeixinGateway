@@ -65,7 +65,7 @@
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
-            Response.Redirect("register_cell_number.aspx?callback="+Server.UrlEncode(currentPageUrl), true);
+            Response.Redirect("register_cell_number.aspx?refurl="+Server.UrlEncode(currentPageUrl), true);
         /*
         if (!currentUser.IsBetaUser)
             Response.Redirect("beta_announce.aspx", true);
