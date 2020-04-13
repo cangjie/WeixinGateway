@@ -163,7 +163,7 @@
                 <div style="text-align:center" >
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-skis-info-modal">填写/修改 雪板信息</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-waybill-modal">填写快递单号</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-waybill-modal" disabled="disabled" >填写快递单号</button>
                 </div>
                 <%
                     }
@@ -195,7 +195,7 @@
             </button>
           </div>
           <div class="modal-body">
-            雪板类型：<input type="radio" id="equip_type_ski" name="equip_type" style="width:20px;height:20px" />双板 <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board" name="equip_type" />双板<br />
+            雪板类型：<input type="radio" id="equip_type_ski" name="equip_type" style="width:20px;height:20px" />双板 <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board" name="equip_type" />单板<br />
             雪板品牌：<input type="text" style="width:100px;height:20px" /><br />
             雪板规格：<input type="text" style="width:100px;height:20px" /><br />
             单板固定器品牌：<input type="text" style="width:100px;height:20px" /><br />
