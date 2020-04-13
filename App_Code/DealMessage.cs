@@ -383,6 +383,9 @@ public class DealMessage
                     case "maintain_task_id":
                         repliedMessage = ScanToPayMaintask(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
+                    case "channeled_product_id":
+                        repliedMessage = ScanToPayChanneledProduct(receivedMessage, repliedMessage, int.Parse(anyId.Split('-')[0].Trim()), anyId.Split('-')[1].Trim());
+                        break;
                     default:
                         break;
                 }
@@ -505,6 +508,15 @@ public class DealMessage
         repliedMessage.type = "text";
         repliedMessage.content = "您即将购买：" + p._fields["name"].ToString().Trim() + ", 价格：" + p.SalePrice.ToString() 
             + "。<a href=\"http://" + Util.domainName.Trim() +  "/pages/ski_pass_today.aspx?id=" + productId.ToString() + "\" >点击此处支付</a>";
+        return repliedMessage;
+    }
+
+    public static RepliedMessage ScanToPayChanneledProduct(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int productId, string channelId)
+    {
+        Product p = new Product(productId);
+        repliedMessage.type = "text";
+        repliedMessage.content = "您即将购买：" + p._fields["name"].ToString().Trim() + ", 价格：" + p.SalePrice.ToString()
+            + "。<a href=\"http://" + Util.domainName.Trim() + "/pages/ski_pass_today.aspx?id=" + productId.ToString() + "&source=" + channelId.Trim() + "\" >点击此处支付</a>";
         return repliedMessage;
     }
 

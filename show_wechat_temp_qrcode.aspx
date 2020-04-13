@@ -6,7 +6,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string scene = Util.GetSafeRequestValue(Request, "scene", "test_scene").Trim();
+        string scene = Util.GetSafeRequestValue(Request, "scene", "pay_channeled_product_id_144-0").Trim();
         int expireSeconds = int.Parse(Util.GetSafeRequestValue(Request, "expire", (30 * 24 * 3600).ToString()));
         string qrCodePath = QrCode.GetTempStaticQrCode(scene.Trim(), expireSeconds, "/images/qrcode");
         Response.Redirect(qrCodePath, true);

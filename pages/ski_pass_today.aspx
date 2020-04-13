@@ -8,12 +8,13 @@
     public WeixinUser currentUser;
     public string token = "";
     public int productId = 0;
-
+    public string source = "";
     public string productType = "雪票";
 
     protected void Page_Load(object sender, EventArgs e)
     {
         productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "5").Trim());
+        source = Util.GetSafeRequestValue(Request, "source", "").Trim();
         string currentPageUrl = Request.Url.ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -51,7 +52,7 @@
                 url: "/api/place_online_order.aspx",
                 async: false,
                 type: "GET",
-                data: { "cart": cart_json, "token": "<%=token%>" },
+                data: { "cart": cart_json, "token": "<%=token%>", "source": "<%=source.Trim()%>" },
                 success: function(msg, status) {
                     var msg_object = eval("(" + msg + ")");
                     window.location.href = "../payment/payment.aspx?product_id=" + msg_object.order_id+"&token=<%=token%>";
