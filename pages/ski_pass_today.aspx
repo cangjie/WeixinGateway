@@ -49,10 +49,10 @@
 <script type="text/javascript" >
     var cart_json = '{ "cart_array": [{ "product_id": "<%=productId.ToString()%>", "count": "1" }]  <% if (productType.Trim().Equals("雪票")) {%>, "memo": { "rent": "0", "use_date": "<%=DateTime.Now.ToShortDateString()%>" } <%}%> }';
     $.ajax({
-                url: "/api/place_online_order.aspx",
+                url: "/api/place_online_order.aspx?token=<%=token%>&source=<%=source.Trim()%>",
                 async: false,
                 type: "GET",
-                data: { "cart": cart_json, "token": "<%=token%>", "source": "<%=source.Trim()%>" },
+                data: { "cart": cart_json },
                 success: function(msg, status) {
                     var msg_object = eval("(" + msg + ")");
                     window.location.href = "../payment/payment.aspx?product_id=" + msg_object.order_id+"&token=<%=token%>";
