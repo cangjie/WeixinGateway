@@ -156,6 +156,16 @@
                                 <%
                         } %>
                 </div>
+                <%
+                    if (product._fields["id"].ToString().Equals("144"))
+                    {
+                    %>
+                <div style="text-align:center" >
+                    填写/修改 雪板信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;填写快递单号
+                </div>
+                <%
+                    }
+                    %>
             </div>
         </div>
     </div>
