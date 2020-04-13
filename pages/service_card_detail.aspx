@@ -194,14 +194,14 @@
             </button>
           </div>
           <div class="modal-body">
-            雪板类型：<input type="radio" id="equip_type_ski" name="equip_type" />双板 <input type="radio" id="equip_type_ski_board" name="equip_type" />双板<br />
-            雪板品牌：<input type="text" />
-            雪板规格：<input type="text" />
-            单板固定器品牌：<input type="text" />
-            单板固定器颜色：<input type="text" />
+            雪板类型：<input type="radio" id="equip_type_ski" name="equip_type" style="width:20px;height:20px" />双板 <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board" name="equip_type" />双板<br />
+            雪板品牌：<input type="text" style="width:100px" />
+            雪板规格：<input type="text" style="width:100px" />
+            单板固定器品牌：<input type="text" style="width:100px" />
+            单板固定器颜色：<input type="text" style="width:100px" />
             邮寄形式：<input type="radio" id="package_content_label" name="package_content" />万龙号牌 <input type="radio" id="package_content_equip" name="package_content" />快递雪板<br />
-            万龙号牌：<input type="text" />
-            其它物品：<input type="text" />
+            万龙号牌：<input type="text" style="width:100px" />
+            其它物品：<input type="text" style="width:100px" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
