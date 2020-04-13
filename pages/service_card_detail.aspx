@@ -200,9 +200,9 @@
             雪板规格：<input type="text" style="width:100px;height:20px" /><br />
             单板固定器品牌：<input type="text" style="width:100px;height:20px" /><br />
             单板固定器颜色：<input type="text" style="width:100px;height:20px" /><br />
-            邮寄形式：<input type="radio" id="package_content_label" name="package_content" style="width:20px;height:20px" />万龙号牌 <input type="radio" id="package_content_equip" name="package_content" style="width:20px;height:20px" />快递雪板<br />
-            万龙号牌：<input type="text" style="width:100px;height:20px" /><br />
-            其它物品：<input type="text" style="width:100px;height:20px" />
+            邮寄形式：<input type="radio" id="package_content_label" name="package_content" style="width:20px;height:20px" />万龙存板牌 <input type="radio" id="package_content_equip" name="package_content" style="width:20px;height:20px" />快递雪板<br />
+            万龙存板牌编号：<input type="text" style="width:100px;height:20px" /><br />
+            存板牌包含的雪板以外的其它物品：<input type="text" style="width:100px;height:20px" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
