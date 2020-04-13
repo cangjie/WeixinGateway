@@ -223,12 +223,13 @@
             </button>
           </div>
           <div class="modal-body">
+            保存后，已填写的雪板信息不可修改<br /><br />
             快递公司：<input type="text" style="width:100px;height:20px" /><br /><br />
             快递单号：<input type="text" style="width:100px;height:20px" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary">保存(保存后，已填写的雪板信息不可修改)</button>
+            <button type="button" class="btn btn-primary">保存</button>
           </div>
         </div>
       </div>
