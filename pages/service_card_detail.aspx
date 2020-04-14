@@ -297,7 +297,7 @@
                         ctl_equip_brand.value = msg_obj.covid19_service[0].equip_brand.trim();
                         ctl_equip_scale.value = msg_obj.covid19_service[0].equip_scale.trim();
                         ctl_board_binder_brand.value = msg_obj.covid19_service[0].board_binder_brand.trim();
-                        ctl_board_binder_color = msg_obj.covid19_service[0].board_binder_color.trim();
+                        ctl_board_binder_color.value = msg_obj.covid19_service[0].board_binder_color.trim();
                         if (msg_obj.covid19_service[0].send_item == '万龙存板牌') {
                             ctl_package_content_label.checked = true;
                             ctl_package_content_equip.checked = false;
