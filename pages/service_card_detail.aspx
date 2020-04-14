@@ -100,7 +100,7 @@
 </head>
 <body>
     <div style="margin-left: 5px" >
-        <div id="card-<%=card.Code.Trim()%>" name="card" class="panel panel-info" style="width:360px"  >
+        <div id="card-<%=card.Code.Trim()%>" name="card" class="panel panel-info" style="width:390px"  >
             <div class="panel-heading">
                 <h3 class="panel-title"><%=product._fields["name"].ToString().Trim()%></h3>
             </div>
