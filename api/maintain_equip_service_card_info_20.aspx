@@ -59,7 +59,7 @@
                 {"others_in_wanlong", "varchar", othersInWanlong.Trim() },
                 {"waybill_no", "varchar", waybillNo.Trim() },
                 {"express_company", "varchar", expressCompany.Trim() }
-            }, new string[,] { { "waybill_no", "varchar", waybillNo.Trim() } }, Util.conStr.Trim());
+            }, new string[,] { { "card_no", "varchar", card.Code.Trim() } }, Util.conStr.Trim());
         }
         dt.Dispose();
         if (i == 0)
