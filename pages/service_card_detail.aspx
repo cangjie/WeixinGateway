@@ -306,7 +306,7 @@
                             ctl_package_content_label.checked = false;
                             ctl_package_content_equip.checked = true;
                         }
-                        ctl_wanlong_no.value = msg_obj.covid19_service[0].ctl_wanlong_no.trim();
+                        ctl_wanlong_no.value = msg_obj.covid19_service[0].wanlong_no.trim();
                         ctl_others_in_wanlong.value = msg_obj.covid19_service[0].others_in_wanlong.trim();
                         ctl_express_company.value = msg_obj.covid19_service[0].express_company.trim();
                         ctl_waybill_no.value = msg_obj.covid19_service[0].waybill_no.trim();
