@@ -160,6 +160,27 @@
                     if (product._fields["id"].ToString().Equals("144"))
                     {
                     %>
+                <script type="text/javascript">
+
+                    var has_fill_info = false;
+                    var has_fill_waybill = false;
+                    $ajax({
+                        url: '/api/maintain_equip_service_card_info_20_get.aspx?cardno=<%=card.Code.Trim() %>',
+                        type: 'GET',
+                        success: function (msg, status) {
+                            var msg_object = eval("(" + msg + ")");
+                            if (msg_object.covid19_service.length > 0) {
+                                has_fill_info = true;
+                                if (msg_object.covid19_service[0].waybill_no != '') {
+                                    has_fill_waybill = true;
+                                }
+                            }
+                        }
+                    });
+                    if (!has_fill_info) {
+                        $('#fill-skis-info-modal').modal('show');
+                    }
+                </script>
                 <div style="text-align:center" >
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-skis-info-modal">填写/修改 雪板信息</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
