@@ -225,22 +225,56 @@
           </div>
           <div class="modal-body">
             雪板类型：<input type="radio" id="equip_type_ski" name="equip_type" style="width:20px;height:20px" />双板 <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board" name="equip_type" />单板<br />
-            雪板品牌：<input type="text" style="width:100px;height:20px" /><br />
-            雪板规格：<input type="text" style="width:100px;height:20px" /><br />
-            单板固定器品牌：<input type="text" style="width:100px;height:20px" /><br />
-            单板固定器颜色：<input type="text" style="width:100px;height:20px" /><br />
+            雪板品牌：<input type="text" id="equip_brand" style="width:100px;height:20px" /><br />
+            雪板规格：<input type="text" id="equip_scale" style="width:100px;height:20px" /><br />
+            单板固定器品牌：<input  id="board_binder_brand" type="text" style="width:100px;height:20px" /><br />
+            单板固定器颜色：<input id="board_binder_color" type="text" style="width:100px;height:20px" /><br />
             邮寄形式：<input type="radio" id="package_content_label" name="package_content" style="width:20px;height:20px" />万龙存板牌 <input type="radio" id="package_content_equip" name="package_content" style="width:20px;height:20px" />快递雪板<br />
-            万龙存板牌编号：<input type="text" style="width:100px;height:20px" /><br />
-            存板牌包含的雪板以外的其它物品：<input type="text" style="width:100px;height:20px" />
+            万龙存板牌编号：<input type="text" id="wanlong_no" style="width:100px;height:20px" /><br />
+            存板牌包含的雪板以外的其它物品：<input id="others_in_wanlong" type="text" style="width:100px;height:20px" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-primary" onclick="fill_info()" >保存</button>
           </div>
         </div>
       </div>
     </div>
-
+    <script type="text/javascript" >
+        var ctl_equip_type_ski = document.getElementById('equip_type_ski');
+        var ctl_equip_type_ski_board = document.getElementById('equip_type_ski_board');
+        var ctl_equip_brand = document.getElementById('equip_brand');
+        var ctl_equip_scale = document.getElementById('equip_scale');
+        var ctl_board_binder_brand = document.getElementById('board_binder_brand');
+        var ctl_board_binder_color = document.getElementById('board_binder_color');
+        var ctl_package_content_label = document.getElementById('package_content_label');
+        var ctl_package_content_equip = document.getElementById('package_content_equip');
+        var ctl_wanlong_no = document.getElementById('wanlong_no');
+        var ctl_others_in_wanlong = document.getElementById('others_in_wanlong');
+        var ctl_express_company = document.getElementById('express_company');
+        var ctl_waybill_no = document.getElementById('waybill_no');
+        function fill_info() {
+            var equip_type = (ctl_equip_type_ski.checked ? '双板' : '单板');
+            var send_item = (ctl_package_content_label.checked ? '万龙存板牌' : '雪板');
+            var post_json = '{"token": "<%=userToken%>", "card_no": "<%=card.Code.Trim()%>", "equip_type": "' + equip_type + '", '
+                + '"equipBrand": "' + ctl_equip_brand.value.trim() + '", "equip_scale": "' + ctl_equip_scale.value.trim() + '", '
+                + '"board_binder_brand": "' + ctl_board_binder_brand.value.trim() + '", "board_binder_color": "' + ctl_board_binder_color.value.trim() + '", '
+                + '"send_item": "' + send_item.value.trim() + '", "wanlong_no": "' + ctl_wanlong_no.value.trim() + '", "others_in_wanlong": "' + ctl_others_in_wanlong.value.trim() + '", '
+                + '"express_company": "' + ctl_express_company.value.trim() + '", "waybill_no": "' + ctl_waybill_no.value.trim() + '" }';
+            $.ajax({
+                url: '/api/maintain_equip_service_card_info_20.aspx',
+                type: 'POST',
+                data: post_json,
+                success: function (msg, status) {
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.status == 0) {
+                        alert('信息添加成功，请尽快于快递发出后填写快递单号。');
+                    }
+                }
+                    
+            });
+        }
+    </script>
     <!-- Modal -->
     <div class="modal fade" id="fill-waybill-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -253,8 +287,8 @@
           </div>
           <div class="modal-body">
             保存后，已填写的雪板信息不可修改<br /><br />
-            快递公司：<input type="text" style="width:100px;height:20px" /><br /><br />
-            快递单号：<input type="text" style="width:100px;height:20px" />
+            快递公司：<input type="text" id="express_company" style="width:100px;height:20px" /><br /><br />
+            快递单号：<input type="text" id="waybill_no" style="width:100px;height:20px" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
