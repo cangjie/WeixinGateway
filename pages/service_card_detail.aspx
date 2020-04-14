@@ -280,7 +280,7 @@
             var equip_type = (ctl_equip_type_ski.checked ? '双板' : '单板');
             var send_item = (ctl_package_content_label.checked ? '万龙存板牌' : '雪板');
             var post_json = '{"token": "<%=userToken%>", "card_no": "<%=card.Code.Trim()%>", "equip_type": "' + equip_type + '", '
-                + '"equipBrand": "' + ctl_equip_brand.value.trim() + '", "equip_scale": "' + ctl_equip_scale.value.trim() + '", '
+                + '"equip_brand": "' + ctl_equip_brand.value.trim() + '", "equip_scale": "' + ctl_equip_scale.value.trim() + '", '
                 + '"board_binder_brand": "' + ctl_board_binder_brand.value.trim() + '", "board_binder_color": "' + ctl_board_binder_color.value.trim() + '", '
                 + '"send_item": "' + send_item.trim() + '", "wanlong_no": "' + ctl_wanlong_no.value.trim() + '", "others_in_wanlong": "' + ctl_others_in_wanlong.value.trim() + '", '
                 + '"express_company": "' + ctl_express_company.value.trim() + '", "waybill_no": "' + ctl_waybill_no.value.trim() + '" }';
