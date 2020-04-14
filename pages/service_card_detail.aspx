@@ -240,6 +240,29 @@
         </div>
       </div>
     </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="fill-waybill-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel2">填写快递信息</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            保存后，已填写的雪板信息不可修改<br /><br />
+            快递公司：<input type="text" id="express_company" style="width:100px;height:20px" /><br /><br />
+            快递单号：<input type="text" id="waybill_no" style="width:100px;height:20px" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="text/javascript" >
         var ctl_equip_type_ski = document.getElementById('equip_type_ski');
         var ctl_equip_type_ski_board = document.getElementById('equip_type_ski_board');
@@ -271,32 +294,9 @@
                         alert('信息添加成功，请尽快于快递发出后填写快递单号。');
                     }
                 }
-                    
+
             });
         }
     </script>
-    <!-- Modal -->
-    <div class="modal fade" id="fill-waybill-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel2">填写快递信息</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            保存后，已填写的雪板信息不可修改<br /><br />
-            快递公司：<input type="text" id="express_company" style="width:100px;height:20px" /><br /><br />
-            快递单号：<input type="text" id="waybill_no" style="width:100px;height:20px" />
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary">保存</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
 </body>
 </html>
