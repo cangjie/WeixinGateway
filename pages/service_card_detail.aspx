@@ -185,6 +185,8 @@
                             if (has_fill_waybill) {
                                 document.getElementById('btn_fill_info').disabled = 'disabled';
                             }
+
+                            display_info();
                         }
                     });
                     
@@ -276,6 +278,42 @@
         var ctl_others_in_wanlong = document.getElementById('others_in_wanlong');
         var ctl_express_company = document.getElementById('express_company');
         var ctl_waybill_no = document.getElementById('waybill_no');
+
+        function display_info() {
+            $.ajax({
+                url: '/api/maintain_equip_service_card_info_20_get.aspx?cardno=<%=card.Code.Trim()%>',
+                type: 'GET',
+                success: function (msg, status) {
+                    var msg_obj = eval('(' + msg + ')');
+                    if (msg_obj.status == 0 && msg_obj.covid19_service.length > 0) {
+                        if (msg_obj.covid19_service[0].equip_type == '双板') {
+                            ctl_equip_type_ski.checked = true;
+                            ctl_equip_type_ski_board.checked = false;
+                        }
+                        else {
+                            ctl_equip_type_ski.checked = false;
+                            ctl_equip_type_ski_board.checked = true;
+                        }
+                        ctl_equip_brand.value = msg_obj.covid19_service[0].equip_brand.trim();
+                        ctl_equip_scale.value = msg_obj.covid19_service[0].equip_scale.trim();
+                        ctl_board_binder_brand.value = msg_obj.covid19_service[0].board_binder_brand.trim();
+                        ctl_board_binder_color = msg_obj.covid19_service[0].board_binder_color.trim();
+                        if (msg_obj.covid19_service[0].send_item == '万龙存板牌') {
+                            ctl_package_content_label.checked = true;
+                            ctl_package_content_equip.checked = false;
+                        }
+                        else {
+                            ctl_package_content_label.checked = false;
+                            ctl_package_content_equip.checked = true;
+                        }
+                        ctl_wanlong_no.value = msg_obj.covid19_service[0].ctl_wanlong_no.trim();
+                        ctl_others_in_wanlong.value = msg_obj.covid19_service[0].others_in_wanlong.trim();
+                        ctl_express_company.value = msg_obj.covid19_service[0].express_company.trim();
+                        ctl_waybill_no.value = msg_obj.covid19_service[0].waybill_no.trim();
+                    }
+                }
+            });
+        }
         function fill_info() {
             var equip_type = (ctl_equip_type_ski.checked ? '双板' : '单板');
             var send_item = (ctl_package_content_label.checked ? '万龙存板牌' : '雪板');
@@ -291,7 +329,8 @@
                 success: function (msg, status) {
                     var msg_obj = eval('(' + msg + ')');
                     if (msg_obj.status == 0) {
-                        alert('信息添加成功，请尽快于快递发出后填写快递单号。');
+                        alert('信息保存成功，请尽快于快递发出后填写快递单号。');
+                        window.location.reload();
                     }
                 }
 
