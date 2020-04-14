@@ -260,7 +260,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-primary" onclick="fill_info()" >保存</button>
           </div>
         </div>
       </div>
@@ -315,6 +315,18 @@
             });
         }
         function fill_info() {
+            if (ctl_equip_type_ski_board.checked) {
+                if (ctl_board_binder_brand.value == '' && ctl_board_binder_color.value == '') {
+                    alert('单板的固定器品牌和颜色必须告知其一。');
+                    ctl_board_binder_brand.focus();
+                    return;
+                }
+            }
+            if (ctl_package_content_label.checked && ctl_wanlong_no.value == '') {
+                alert('如果邮寄万龙存板牌，请填写编号。');
+                ctl_wanlong_no.focus();
+                return;
+            }
             var equip_type = (ctl_equip_type_ski.checked ? '双板' : '单板');
             var send_item = (ctl_package_content_label.checked ? '万龙存板牌' : '雪板');
             var post_json = '{"token": "<%=userToken%>", "card_no": "<%=card.Code.Trim()%>", "equip_type": "' + equip_type + '", '
