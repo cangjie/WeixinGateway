@@ -178,14 +178,22 @@
                             if (!has_fill_info) {
                                 $('#fill-skis-info-modal').modal('show');
                             }
+                            if (has_fill_info && !has_fill_waybill) {
+                                $('#fill-waybill-modal').modal('show');
+                                document.getElementById('btn_fill_waybill').disabled = '';
+                            }
+                            if (has_fill_waybill) {
+                                document.getElementById('btn_fill_info').disabled = 'disabled';
+                            }
+
                         }
                     });
                     
                 </script>
                 <div style="text-align:center" >
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-skis-info-modal">填写/修改 雪板信息</button>
+                    <button id="btn_fill_info" type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-skis-info-modal">填写/修改 雪板信息</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-waybill-modal" disabled="disabled" >填写快递单号</button>
+                    <button id="btn_fill_waybill" type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-waybill-modal" disabled="disabled" >填写快递单号</button>
                 </div>
                 <%
                     }
