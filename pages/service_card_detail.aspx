@@ -175,11 +175,12 @@
                                     has_fill_waybill = true;
                                 }
                             }
+                            if (!has_fill_info) {
+                                $('#fill-skis-info-modal').modal('show');
+                            }
                         }
                     });
-                    if (!has_fill_info) {
-                        $('#fill-skis-info-modal').modal('show');
-                    }
+                    
                 </script>
                 <div style="text-align:center" >
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-skis-info-modal">填写/修改 雪板信息</button>
