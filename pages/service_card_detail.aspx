@@ -185,7 +185,6 @@
                             if (has_fill_waybill) {
                                 document.getElementById('btn_fill_info').disabled = 'disabled';
                             }
-
                         }
                     });
                     

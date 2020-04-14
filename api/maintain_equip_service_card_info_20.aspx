@@ -20,6 +20,7 @@
         string sendItem = Util.GetSimpleJsonValueByKey(inputRawString, "send_item");
         string wanlongNo = Util.GetSimpleJsonValueByKey(inputRawString, "wanlong_no");
         string othersInWanlong = Util.GetSimpleJsonValueByKey(inputRawString, "others_in_wanlong");
+        string expressCompany = Util.GetSimpleJsonValueByKey(inputRawString, "express_company");
         string waybillNo = Util.GetSimpleJsonValueByKey(inputRawString, "waybill_no");
         string ownerOpenId = WeixinUser.CheckToken(token);
         Card card = new Card(cardNo);
@@ -41,7 +42,8 @@
                 {"send_item", "varchar", sendItem.Trim() },
                 {"wanlong_no", "varchar", wanlongNo.Trim() },
                 {"others_in_wanlong", "varchar", othersInWanlong.Trim() },
-                {"waybill_no", "varchar", waybillNo.Trim() }
+                {"waybill_no", "varchar", waybillNo.Trim() },
+                {"express_company", "varchar", expressCompany.Trim() }
             });
         }
         else
@@ -55,7 +57,8 @@
                 {"send_item", "varchar", sendItem.Trim() },
                 {"wanlong_no", "varchar", wanlongNo.Trim() },
                 {"others_in_wanlong", "varchar", othersInWanlong.Trim() },
-                {"waybill_no", "varchar", waybillNo.Trim() }
+                {"waybill_no", "varchar", waybillNo.Trim() },
+                {"express_company", "varchar", expressCompany.Trim() }
             }, new string[,] { { "waybill_no", "varchar", waybillNo.Trim() } }, Util.conStr.Trim());
         }
         dt.Dispose();
