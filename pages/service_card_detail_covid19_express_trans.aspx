@@ -378,7 +378,7 @@
         var ctl_receiver_name = document.getElementById('receiver_name');
         var ctl_receiver_cell = document.getElementById('receiver_cell');
         var ctl_address = document.getElementById('address');
-
+        var ctl_from_resort = document.getElementById('select_from_resort');
 
         function display_info() {
             $.ajax({
@@ -450,7 +450,7 @@
                 + ' "equip_brand": "' + ctl_equip_brand.value.trim() + '", "equip_scale": "' + ctl_equip_scale.value.trim() + '", '
                 + ' "voucher_no": "' + ctl_voucher_no.value.trim() + '", "associates": "' + ctl_associates.value.trim() + '", '
                 + ' "address": "' + ctl_address.value.trim() + '", "receiver_name": "' + ctl_receiver_name.value.trim() + '", '
-                + ' "receiver_cell": "' + ctl_receiver_cell.value.trim() + '", '
+                + ' "receiver_cell": "' + ctl_receiver_cell.value.trim() + '", "from_resort": "' + ctl_from_resort.value.trim() + "', "
                 + ' "express_company": "' + ctl_express_company.value.trim() + '", "waybill_no": "' + ctl_waybill_no.value.trim() + '" }';
             $.ajax({
                 url: '/api/express_equip_service_card_info_20.aspx',
