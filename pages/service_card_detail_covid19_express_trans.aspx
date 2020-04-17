@@ -415,7 +415,7 @@
         }
         function fill_info() {
             if (!ctl_equip_type_board.checked && !ctl_equip_type_board_boot.checked
-                && !ctl_equip.ctl_equip_type_ski.checked && !ctl_equip_type_ski_boot.checked) {
+                && !ctl_equip_type_ski.checked && !ctl_equip_type_ski_boot.checked) {
                 alert('请选择类型。');
                 ctl_equip_type_ski.focus();
                 return;
