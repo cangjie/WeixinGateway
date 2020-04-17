@@ -12,7 +12,7 @@
             subJson = Util.ConvertDataFieldsToJson(dt.Rows[0]);
         }
         dt.Dispose();
-        Response.Write("{\"status\": 0, \"covid19_service\":[" + subJson + "]}");
+        Response.Write("{\"status\": 0, \"covid19_express_trans\":[" + subJson + "]}");
         
         //string json = Util.ConvertDataFieldsToJson()
     }
