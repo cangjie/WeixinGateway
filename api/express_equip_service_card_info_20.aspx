@@ -22,7 +22,8 @@
         string address = Util.GetSimpleJsonValueByKey(inputRawString, "address");
         string receiverName = Util.GetSimpleJsonValueByKey(inputRawString, "receiver_name");
         string receiverCell = Util.GetSimpleJsonValueByKey(inputRawString, "receiver_cell");
-
+        string expressCompany = Util.GetSimpleJsonValueByKey(inputRawString, "express_company");
+        string waybillNo = Util.GetSimpleJsonValueByKey(inputRawString, "waybill_no");
 
 
 
@@ -46,7 +47,9 @@
                 {"associates", "varchar", associates.Trim() },
                 {"address", "varchar", address.Trim() },
                 {"receiver_name", "varchar", receiverName.Trim() },
-                {"receiver_cell", "varchar", receiverCell.Trim() }
+                {"receiver_cell", "varchar", receiverCell.Trim() },
+                {"waybill_no", "varchar", waybillNo.Trim() },
+                {"express_company", "varchar", expressCompany.Trim() }
             });
         }
         else
@@ -60,7 +63,9 @@
                 {"associates", "varchar", associates.Trim() },
                 {"address", "varchar", address.Trim() },
                 {"receiver_name", "varchar", receiverName.Trim() },
-                {"receiver_cell", "varchar", receiverCell.Trim() }
+                {"receiver_cell", "varchar", receiverCell.Trim() },
+                {"waybill_no", "varchar", waybillNo.Trim() },
+                {"express_company", "varchar", expressCompany.Trim() }
             }, new string[,] { { "card_no", "varchar", card.Code.Trim() } }, Util.conStr.Trim());
         }
         dt.Dispose();

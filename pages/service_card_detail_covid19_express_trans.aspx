@@ -168,16 +168,75 @@
                         url: '/api/maintain_equip_service_card_info_20_get.aspx?cardno=<%=card.Code.Trim() %>',
                         type: 'GET',
                         success: function (msg, status) {
-                            /*
+                            
                             var msg_object = eval("(" + msg + ")");
-                            if (msg_object.covid19_service.length > 0) {
+                            if (msg_object.covid19_express_trans.length > 0) {
                                 has_fill_info = true;
-                                if (msg_object.covid19_service[0].waybill_no != '') {
+                                if (msg_object.covid19_express_trans[0].waybill_no != '') {
                                     has_fill_waybill = true;
                                 }
                             }
                             if (!has_fill_info) {
                                 $('#fill-skis-info-modal').modal('show');
+                            }
+                            else {
+                                var from_resort = msg_object.covid19_express_trans[0].from_resort;
+                                for (var i = 0; i < ctl_select_from_resort.options.length; i++) {
+                                    if (ctl_select_from_resort.options[i].value.trim() == from_resort.trim()) {
+                                        ctl_select_from_resort.options[i].selected = true;
+                                        break;
+                                    }
+                                }
+                                switch (msg_object.covid19_express_trans[0].equip_type.trim()) {
+                                    case '双板':
+                                        ctl_equip_type_ski.checked = true;
+                                        ctl_equip_type_ski_boot.checked = false;
+                                        ctl_equip_type_board.checked = false;
+                                        ctl_equip_type_board_boot.checked = false;
+                                        break;
+                                    case '双板鞋':
+                                        ctl_equip_type_ski.checked = false;
+                                        ctl_equip_type_ski_boot.checked = true;
+                                        ctl_equip_type_board.checked = false;
+                                        ctl_equip_type_board_boot.checked = false;
+                                        break;
+                                    case '单板':
+                                        ctl_equip_type_ski.checked = false;
+                                        ctl_equip_type_ski_boot.checked = false;
+                                        ctl_equip_type_board.checked = true;
+                                        ctl_equip_type_board_boot.checked = false;
+                                        break;
+                                    case '单板鞋':
+                                        ctl_equip_type_ski.checked = false;
+                                        ctl_equip_type_ski_boot.checked = false;
+                                        ctl_equip_type_board.checked = false;
+                                        ctl_equip_type_board_boot.checked = true;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                ctl_equip_brand.value = msg_object.covid19_express_trans[0].equip_brand.trim();
+                                ctl_equip_scale.value = msg_object.covid19_express_trans[0].equip_scale.trim();
+                                ctl_voucher_no.value = msg_object.covid19_express_trans[0].voucher_no.trim();
+                                ctl_associates.value = msg_object.covid19_express_trans[0].associates.trim();
+                                if (msg_object.covid19_express_trans[0].address.trim() == '' && msg_object.covid19_express_trans[0].receiver_name.trim() == ''
+                                    && msg_object.covid19_express_trans[0].receiver_cell.trim() == '') {
+                                    ctl_save_yes.checked = true;
+                                    ctl_save_no.checked = false;
+                                    ctl_address.value = '';
+                                    ctl_receiver_cell.value = '';
+                                    ctl_receiver_name.value = '';
+                                }
+                                else {
+                                    ctl_save_yes.checked = false;
+                                    ctl_save_no.checked = true;
+                                    ctl_address.value = msg_object.covid19_express_trans[0].address.trim();
+                                    ctl_receiver_cell.value = msg_object.covid19_express_trans[0].receiver_cell.trim();
+                                    ctl_receiver_name.value = msg_object.covid19_express_trans[0].receiver_name.trim();
+                                }
+                                set_save();
+                                ctl_express_company.value = msg_object.covid19_express_trans[0].express_company.trim();
+                                ctl_waybill_no.value = msg_object.covid19_express_trans[0].waybill_no.trim();
                             }
                             if (has_fill_info && !has_fill_waybill) {
                                 $('#fill-waybill-modal').modal('show');
@@ -185,13 +244,31 @@
                             }
                             if (has_fill_waybill) {
                                 document.getElementById('btn_fill_info').disabled = 'disabled';
+                                ctl_express_company.value = msg_object.covid19_express_trans[0].express_company.trim();
+                                ctl_waybill_no.value = msg_object.covid19_express_trans[0].waybill_no.trim();
                             }
-                            */
-                            display_info();
+                            
+                            //display_info();
                             
                         }
                     });
-                    
+
+                    function set_save() {
+                        if (ctl_save_yes.checked) {
+                            ctl_receiver_cell.value = '';
+                            ctl_receiver_cell.disabled = true;
+                            ctl_receiver_name.value = '';
+                            ctl_receiver_name.disabled = true;
+                            ctl_address.value = '';
+                            ctl_address.disabled = true;
+                        }
+                        else {
+                            ctl_receiver_cell.disabled = false;
+                            ctl_receiver_name.disabled = false;
+                            ctl_address.disabled = false;
+                        }
+                    }
+
                 </script>
                 <div style="text-align:center" >
                     <button id="btn_fill_info" type="button" class="btn btn-primary" data-toggle="modal" data-target="#fill-skis-info-modal">填写/修改 雪板信息</button>
@@ -248,8 +325,8 @@
             规格描述：<input type="text" id="equip_scale" style="width:150px;height:20px" /><br />
             寄存牌编号：<input type="text" id="voucher_no" style="width:100px;height:20px" /><br />
             其它物品：<input id="associates" type="text" style="width:100px;height:20px" /><br />
-            是否寄存：<input type="radio" id="rdo_save_yes" name="rdo_save" checked="checked" style="width:20px;height:20px" />是 
-              <input type="radio" id="rdo_save_no" name="rdo_save" checked="checked" style="width:20px;height:20px" />否<br />
+            是否寄存：<input type="radio" id="save_yes" name="rdo_save" checked="checked" style="width:20px;height:20px" onchange="set_save()" />是 
+              <input type="radio" id="save_no" name="rdo_save" checked="checked" style="width:20px;height:20px"  onchange="set_save()" />否<br />
             快递收件人：<input type="text" id="receiver_name" style="width:100px;height:20px" /><br />
             联系电话：<input type="text" id="receiver_cell" style="width:100px;height:20px" /><br />
             地址：<input type="text" id="address" style="width:200px;height:20px" /><br />
@@ -285,18 +362,23 @@
       </div>
     </div>
     <script type="text/javascript" >
+        var ctl_select_from_resort = document.getElementById('select_from_resort');
         var ctl_equip_type_ski = document.getElementById('equip_type_ski');
-        var ctl_equip_type_ski_board = document.getElementById('equip_type_ski_board');
+        var ctl_equip_type_board = document.getElementById('equip_type_board');
+        var ctl_equip_type_ski_boot = document.getElementById('equip_type_ski_boot');
+        var ctl_equip_type_board_boot = document.getElementById('equip_type_board_boot');
         var ctl_equip_brand = document.getElementById('equip_brand');
         var ctl_equip_scale = document.getElementById('equip_scale');
-        var ctl_board_binder_brand = document.getElementById('board_binder_brand');
-        var ctl_board_binder_color = document.getElementById('board_binder_color');
-        var ctl_package_content_label = document.getElementById('package_content_label');
-        var ctl_package_content_equip = document.getElementById('package_content_equip');
-        var ctl_wanlong_no = document.getElementById('wanlong_no');
-        var ctl_others_in_wanlong = document.getElementById('others_in_wanlong');
+        var ctl_voucher_no = document.getElementById('voucher_no');
+        var ctl_associates = document.getElementById('associates');
         var ctl_express_company = document.getElementById('express_company');
         var ctl_waybill_no = document.getElementById('waybill_no');
+        var ctl_save_yes = document.getElementById('save_yes');
+        var ctl_save_no = document.getElementById('save_no')
+        var ctl_receiver_name = document.getElementById('receiver_name');
+        var ctl_receiver_cell = document.getElementById('receiver_cell');
+        var ctl_address = document.getElementById('address');
+
 
         function display_info() {
             $.ajax({
@@ -332,27 +414,46 @@
             });
         }
         function fill_info() {
-            if (ctl_equip_type_ski_board.checked) {
-                if (ctl_board_binder_brand.value == '' && ctl_board_binder_color.value == '') {
-                    alert('单板的固定器品牌和颜色必须告知其一。');
-                    ctl_board_binder_brand.focus();
-                    return;
-                }
-            }
-            if (ctl_package_content_label.checked && ctl_wanlong_no.value == '') {
-                alert('如果邮寄万龙存板牌，请填写编号。');
-                ctl_wanlong_no.focus();
+            if (!ctl_equip_type_board.checked && !ctl_equip_type_board_boot.checked
+                && !ctl_equip.ctl_equip_type_ski.checked && !ctl_equip_type_ski_boot.checked) {
+                alert('请选择类型。');
+                ctl_equip_type_ski.focus();
                 return;
             }
-            var equip_type = (ctl_equip_type_ski.checked ? '双板' : '单板');
-            var send_item = (ctl_package_content_label.checked ? '万龙存板牌' : '雪板');
+            if (ctl_equip_brand.value.trim() == '' && ctl_equip_scale.value.trim() == '') {
+                alert('品牌和描述必填其一。');
+                ctl_equip_brand.focus();
+                return;
+            }
+            if (ctl_voucher_no.value.trim() == '') {
+                alert('寄存牌编号必填。');
+                ctl_voucher_no.focus();
+                return;
+            }
+            if (ctl_save_no.checked && ctl_address.value.trim() == '' && ctl_receiver_cell.value.trim() == ''
+                && ctl_receiver_name.value.trim() == '') {
+                alert('如果不寄存在易龙雪聚，请填写快递信息。');
+                ctl_receiver_name.focus();
+                return;
+            }
+            var equip_type = '双板';//(ctl_equip_type_ski.checked ? '双板' : '单板');
+            if (ctl_equip_type_ski_boot.checked) {
+                equip_type = '双板鞋';
+            }
+            if (ctl_equip_type_ski_board.checked) {
+                equip_type = '单板';
+            }
+            if (ctl_equip_type_board_boot.checked) {
+                equip_type = '单板鞋';
+            }
             var post_json = '{"token": "<%=userToken%>", "card_no": "<%=card.Code.Trim()%>", "equip_type": "' + equip_type + '", '
-                + '"equip_brand": "' + ctl_equip_brand.value.trim() + '", "equip_scale": "' + ctl_equip_scale.value.trim() + '", '
-                + '"board_binder_brand": "' + ctl_board_binder_brand.value.trim() + '", "board_binder_color": "' + ctl_board_binder_color.value.trim() + '", '
-                + '"send_item": "' + send_item.trim() + '", "wanlong_no": "' + ctl_wanlong_no.value.trim() + '", "others_in_wanlong": "' + ctl_others_in_wanlong.value.trim() + '", '
-                + '"express_company": "' + ctl_express_company.value.trim() + '", "waybill_no": "' + ctl_waybill_no.value.trim() + '" }';
+                + ' "equip_brand": "' + ctl_equip_brand.value.trim() + '", "equip_scale": "' + ctl_equip_scale.value.trim() + '", '
+                + ' "voucher_no": "' + ctl_voucher_no.value.trim() + '", "associates": "' + ctl_associates.value.trim() + '", '
+                + ' "address": "' + ctl_address.value.trim() + '", "receiver_name": "' + ctl_receiver_name.value.trim() + '", '
+                + ' "receiver_cell": "' + ctl_receiver_cell.value.trim() + '", '
+                + ' "express_company": "' + ctl_express_company.value.trim() + '", "waybill_no": "' + ctl_waybill_no.value.trim() + '" }';
             $.ajax({
-                url: '/api/maintain_equip_service_card_info_20.aspx',
+                url: '/api/express_equip_service_card_info_20.aspx',
                 type: 'POST',
                 data: post_json,
                 success: function (msg, status) {
