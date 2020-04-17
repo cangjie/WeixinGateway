@@ -318,8 +318,8 @@
             类型：
               <input type="radio" id="equip_type_ski" name="equip_type" style="width:20px;height:20px" />双板
               <input type="radio" id="equip_type_ski_boot" name="equip_type" style="width:20px;height:20px" />双板鞋
-              <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board" name="equip_type" />单板 
-              <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board_boot" name="equip_type" />单板鞋
+              <input type="radio" style="width:20px;height:20px" id="equip_type_board" name="equip_type" />单板 
+              <input type="radio" style="width:20px;height:20px" id="equip_type_board_boot" name="equip_type" />单板鞋
               <br />
             品牌：<input type="text" id="equip_brand" style="width:100px;height:20px" /><br />
             规格描述：<input type="text" id="equip_scale" style="width:150px;height:20px" /><br />
