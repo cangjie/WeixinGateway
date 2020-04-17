@@ -165,7 +165,7 @@
                     var has_fill_info = false;
                     var has_fill_waybill = false;
                     $.ajax({
-                        url: '/api/maintain_equip_service_card_info_20_get.aspx?cardno=<%=card.Code.Trim() %>',
+                        url: '/api/express_equip_service_card_info_20_get.aspx?cardno=<%=card.Code.Trim() %>',
                         type: 'GET',
                         success: function (msg, status) {
                             
