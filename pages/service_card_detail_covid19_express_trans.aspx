@@ -430,8 +430,8 @@
                 ctl_voucher_no.focus();
                 return;
             }
-            if (ctl_save_no.checked && ctl_address.value.trim() == '' && ctl_receiver_cell.value.trim() == ''
-                && ctl_receiver_name.value.trim() == '') {
+            if (ctl_save_no.checked && (ctl_address.value.trim() == '' || ctl_receiver_cell.value.trim() == ''
+                || ctl_receiver_name.value.trim() == '')) {
                 alert('如果不寄存在易龙雪聚，请填写快递信息。');
                 ctl_receiver_name.focus();
                 return;
@@ -440,7 +440,7 @@
             if (ctl_equip_type_ski_boot.checked) {
                 equip_type = '双板鞋';
             }
-            if (ctl_equip_type_ski_board.checked) {
+            if (ctl_equip_type_board.checked) {
                 equip_type = '单板';
             }
             if (ctl_equip_type_board_boot.checked) {
