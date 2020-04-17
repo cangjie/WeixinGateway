@@ -76,10 +76,6 @@
             Response.End();
         }
         product = new Product(int.Parse(card._fields["product_id"].ToString()));
-        if (product._fields["id"].ToString().Equals("145"))
-        {
-            Response.Redirect("service_card_detail_covid19_express_trans.aspx?code=" + code.Trim(), true);
-        }
         cardInfo = product.cardInfo;
         packageList = card.CardPackageUsageList;
     }
@@ -161,7 +157,7 @@
                         } %>
                 </div>
                 <%
-                    if (product._fields["id"].ToString().Equals("144"))
+                    if (product._fields["id"].ToString().Equals("145"))
                     {
                     %>
                 <script type="text/javascript">
@@ -172,6 +168,7 @@
                         url: '/api/maintain_equip_service_card_info_20_get.aspx?cardno=<%=card.Code.Trim() %>',
                         type: 'GET',
                         success: function (msg, status) {
+                            /*
                             var msg_object = eval("(" + msg + ")");
                             if (msg_object.covid19_service.length > 0) {
                                 has_fill_info = true;
@@ -189,8 +186,9 @@
                             if (has_fill_waybill) {
                                 document.getElementById('btn_fill_info').disabled = 'disabled';
                             }
-
+                            */
                             display_info();
+                            
                         }
                     });
                     
@@ -230,14 +228,30 @@
             </button>
           </div>
           <div class="modal-body">
-            雪板类型：<input type="radio" id="equip_type_ski" name="equip_type" style="width:20px;height:20px" />双板 <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board" name="equip_type" />单板<br />
-            雪板品牌：<input type="text" id="equip_brand" style="width:100px;height:20px" /><br />
-            雪板规格：<input type="text" id="equip_scale" style="width:100px;height:20px" /><br />
-            单板固定器品牌：<input  id="board_binder_brand" type="text" style="width:100px;height:20px" /><br />
-            单板固定器颜色：<input id="board_binder_color" type="text" style="width:100px;height:20px" /><br />
-            邮寄形式：<input type="radio" id="package_content_label" name="package_content" style="width:20px;height:20px" />万龙存板牌 <input type="radio" id="package_content_equip" name="package_content" style="width:20px;height:20px" />快递雪板<br />
-            万龙存板牌编号：<input type="text" id="wanlong_no" style="width:100px;height:20px" /><br />
-            存板牌包含的雪板以外的其它物品：<input id="others_in_wanlong" type="text" style="width:100px;height:20px" />
+            雪场：
+              <select id="select_from_resort" >
+                <option>万龙</option>
+                <option>云顶</option>
+                  <option>太舞</option>
+                  <option>富龙</option>
+                  <option>银河</option>
+                  <option>多乐美地</option>
+                  <option>长城岭</option>
+              </select>
+            类型：
+              <input type="radio" id="equip_type_ski" name="equip_type" style="width:20px;height:20px" />双板
+              <input type="radio" id="equip_type_ski_boot" name="equip_type" style="width:20px;height:20px" />双板鞋
+              <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board" name="equip_type" />单板 
+              <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board_boot" name="equip_type" />单板鞋
+              <br />
+            品牌：<input type="text" id="equip_brand" style="width:100px;height:20px" /><br />
+            规格描述：<input type="text" id="equip_scale" style="width:100px;height:20px" /><br />
+            寄存牌编号：<input type="text" id="voucher_no" style="width:100px;height:20px" /><br />
+            其它物品：<input id="associates" type="text" style="width:100px;height:20px" /><br />
+            是否寄存：<input type="radio" id="rdo_save_yes" name="rdo_save" checked="checked" />是 <input type="radio" id="rdo_save_no" name="rdo_save" checked="checked" />否<br />
+            快递收件人：<input type="text" id="receiver_name" style="width:100px;height:20px" /><br />
+            联系电话：<input type="text" id="receiver_cell" style="width:100px;height:20px" /><br />
+            地址：<input type="text" id="address" style="width:100px;height:20px" /><br />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
@@ -285,7 +299,7 @@
 
         function display_info() {
             $.ajax({
-                url: '/api/maintain_equip_service_card_info_20_get.aspx?cardno=<%=card.Code.Trim()%>',
+                url: '/api/express_equip_service_card_info_20_get.aspx?cardno=<%=card.Code.Trim()%>',
                 type: 'GET',
                 success: function (msg, status) {
                     var msg_obj = eval('(' + msg + ')');
@@ -300,8 +314,6 @@
                         }
                         ctl_equip_brand.value = msg_obj.covid19_service[0].equip_brand.trim();
                         ctl_equip_scale.value = msg_obj.covid19_service[0].equip_scale.trim();
-                        ctl_board_binder_brand.value = msg_obj.covid19_service[0].board_binder_brand.trim();
-                        ctl_board_binder_color.value = msg_obj.covid19_service[0].board_binder_color.trim();
                         if (msg_obj.covid19_service[0].send_item == '万龙存板牌') {
                             ctl_package_content_label.checked = true;
                             ctl_package_content_equip.checked = false;
