@@ -326,7 +326,7 @@
             寄存牌编号：<input type="text" id="voucher_no" style="width:100px;height:20px" /><br />
             其它物品：<input id="associates" type="text" style="width:100px;height:20px" /><br />
             是否寄存：<input type="radio" id="save_yes" name="rdo_save" checked="checked" style="width:20px;height:20px" onchange="set_save()" />是 
-              <input type="radio" id="save_no" name="rdo_save" checked="checked" style="width:20px;height:20px"  onchange="set_save()" />否<br />
+              <input type="radio" id="save_no" name="rdo_save"  style="width:20px;height:20px"  onchange="set_save()" />否<br />
             快递收件人：<input type="text" id="receiver_name" style="width:100px;height:20px" /><br />
             联系电话：<input type="text" id="receiver_cell" style="width:100px;height:20px" /><br />
             地址：<input type="text" id="address" style="width:200px;height:20px" /><br />
