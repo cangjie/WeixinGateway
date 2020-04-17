@@ -33,7 +33,7 @@
         {
             Response.Write("{\"status\": 1, \"error_message\": \"Token is invalid.\"}");
         }
-        DataTable dt = DBHelper.GetDataTable(" select * from covid19_service where card_no = '" + cardNo.Trim() + "' ");
+        DataTable dt = DBHelper.GetDataTable(" select * from covid19_express_trans where card_no = '" + cardNo.Trim() + "' ");
         int i = 0;
         if (dt.Rows.Count == 0)
         {
