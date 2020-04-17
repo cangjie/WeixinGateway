@@ -237,7 +237,7 @@
                   <option>银河</option>
                   <option>多乐美地</option>
                   <option>长城岭</option>
-              </select>
+              </select><br />
             类型：
               <input type="radio" id="equip_type_ski" name="equip_type" style="width:20px;height:20px" />双板
               <input type="radio" id="equip_type_ski_boot" name="equip_type" style="width:20px;height:20px" />双板鞋
@@ -245,13 +245,14 @@
               <input type="radio" style="width:20px;height:20px" id="equip_type_ski_board_boot" name="equip_type" />单板鞋
               <br />
             品牌：<input type="text" id="equip_brand" style="width:100px;height:20px" /><br />
-            规格描述：<input type="text" id="equip_scale" style="width:100px;height:20px" /><br />
+            规格描述：<input type="text" id="equip_scale" style="width:150px;height:20px" /><br />
             寄存牌编号：<input type="text" id="voucher_no" style="width:100px;height:20px" /><br />
             其它物品：<input id="associates" type="text" style="width:100px;height:20px" /><br />
-            是否寄存：<input type="radio" id="rdo_save_yes" name="rdo_save" checked="checked" />是 <input type="radio" id="rdo_save_no" name="rdo_save" checked="checked" />否<br />
+            是否寄存：<input type="radio" id="rdo_save_yes" name="rdo_save" checked="checked" style="width:20px;height:20px" />是 
+              <input type="radio" id="rdo_save_no" name="rdo_save" checked="checked" style="width:20px;height:20px" />否<br />
             快递收件人：<input type="text" id="receiver_name" style="width:100px;height:20px" /><br />
             联系电话：<input type="text" id="receiver_cell" style="width:100px;height:20px" /><br />
-            地址：<input type="text" id="address" style="width:100px;height:20px" /><br />
+            地址：<input type="text" id="address" style="width:200px;height:20px" /><br />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
