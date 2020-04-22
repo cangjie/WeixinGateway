@@ -516,7 +516,7 @@ public class DealMessage
         Product p = new Product(productId);
         repliedMessage.type = "text";
         repliedMessage.content = "您即将购买：" + p._fields["name"].ToString().Trim() + ", 价格：" + p.SalePrice.ToString()
-            + "。<a href=\"http://" + Util.domainName.Trim() + "/pages/ski_pass_today.aspx?id=" + productId.ToString() + "&source=" + channelId.Trim() + "\" ><font color=\"red\" >点击此处支付</font></a>";
+            + "。<a href=\"http://" + Util.domainName.Trim() + "/pages/ski_pass_today.aspx?id=" + productId.ToString() + "&source=" + channelId.Trim() + "\" >点击此处支付</a>";
         return repliedMessage;
     }
 
@@ -526,7 +526,7 @@ public class DealMessage
         OrderTemp orderTemp = new OrderTemp(tempOrderId);
         repliedMessage.type = "text";
         repliedMessage.content = "您即将支付：" + orderTemp._fields["sale_price"].ToString() + "元。"
-            + "<a href=\"http://" + Util.domainName.Trim() + "/pages/pay_temp_order.aspx?temporderid=" + tempOrderId.ToString() + "\" >点击此处支付</a>";
+            + "<a href=\"http://" + Util.domainName.Trim() + "/pages/pay_temp_order.aspx?temporderid=" + tempOrderId.ToString() + "\" >💰点击此处支付💰</a>";
         return repliedMessage;
     }
 
