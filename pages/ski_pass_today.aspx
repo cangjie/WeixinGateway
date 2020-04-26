@@ -15,6 +15,21 @@
     {
         productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "5").Trim());
         source = Util.GetSafeRequestValue(Request, "source", "").Trim();
+        Session["channel_source"] = source.Trim();
+        if (source.Trim().Equals(""))
+        {
+            if (Session["channel_source"] != null)
+            {
+                try
+                {
+                    source = Session["channel_source"].ToString().Trim();
+                }
+                catch
+                { 
+                
+                }
+            }
+        }
         string currentPageUrl = Request.Url.ToString();
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
