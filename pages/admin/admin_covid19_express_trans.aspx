@@ -18,9 +18,12 @@
         DataTable dt = DBHelper.GetDataTable(" select users.nick as 昵称, users.cell_number as 手机号码, order_online.code as 卡号, equip_type as 类型, equip_brand as 品牌, equip_scale as 规格, "
             + " from_resort as 雪场, voucher_no as 凭证号,  case when ([address] =  '' and receiver_cell = '' and receiver_name = '') then '寄存' else '快递' end as 是否寄存 , "
             + " address as 快递地址, receiver_name as 收货人 , receiver_cell as 联系电话,  "
-            + " associates as 万龙除雪板外其他物品, express_company as 快递公司, waybill_no as 快递单号, order_online.pay_time as 支付时间 from order_online "
+            + " associates as 万龙除雪板外其他物品, express_company as 快递公司, waybill_no as 快递单号, order_online.pay_time as 支付时间, "
+            + " case when (card.used = 1) then '已核销' when (covid19_express_trans.equip_type is not null) then '已填信息' when (covid19_express_trans.waybill_no is null) then '已发快递' else '未开始' end as 状态"
+            + " from order_online "
             + " left join covid19_express_trans on code = covid19_express_trans.card_no left join users on users.open_id = order_online.open_id "
-            + " where [id] in (select order_online_id from order_online_detail where product_id = 145) and pay_state = 1 and [type] = '服务卡' "
+            + " left join card on card.card_no = order_online.code"
+            + " where [id] in (select order_online_id from order_online_detail where product_id = 145) and pay_state = 1 and order_online.[type] = '服务卡' "
             + " order by order_online.[id] desc");
         return dt;
     }
