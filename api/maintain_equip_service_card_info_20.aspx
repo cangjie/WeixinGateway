@@ -49,7 +49,7 @@
                 {"express_company", "varchar", expressCompany.Trim() },
                 {"address", "varchar", address.Trim() },
                 {"cell", "varchar", cell.Trim() },
-                {"contactName", "varchar", contactName.Trim() }
+                {"contact_name", "varchar", contactName.Trim() }
             });
         }
         else
@@ -67,7 +67,7 @@
                 {"express_company", "varchar", expressCompany.Trim() },
                 {"address", "varchar", address.Trim() },
                 {"cell", "varchar", cell.Trim() },
-                {"contactName", "varchar", contactName.Trim() }
+                {"contact_name", "varchar", contactName.Trim() }
             }, new string[,] { { "card_no", "varchar", card.Code.Trim() } }, Util.conStr.Trim());
         }
         dt.Dispose();
