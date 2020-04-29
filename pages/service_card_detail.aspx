@@ -238,6 +238,10 @@
             邮寄形式：<input type="radio" id="package_content_label" name="package_content" style="width:20px;height:20px" />万龙存板牌 <input type="radio" id="package_content_equip" name="package_content" style="width:20px;height:20px" />快递雪板<br />
             万龙存板牌编号：<input type="text" id="wanlong_no" style="width:100px;height:20px" /><br />
             存板牌包含的雪板以外的其它物品：<input id="others_in_wanlong" type="text" style="width:100px;height:20px" />
+            是否寄存：<input type="radio" id="keep" name="is_keep" style="width:20px;height:20px" />寄存 <input type="radio" style="width:20px;height:20px" id="unkeep" name="is_keep" />不寄存<br />
+            不寄存快递联系人：<input type="text" id="contact" style="width:100px;height:20px" /><br />
+            快递地址：<input type="text" id="address" style="width:200px;height:20px" /><br />
+            联系电话：<input type="text" id="contact_cell" style="width:150px;height:20px" /><br />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
@@ -282,6 +286,11 @@
         var ctl_others_in_wanlong = document.getElementById('others_in_wanlong');
         var ctl_express_company = document.getElementById('express_company');
         var ctl_waybill_no = document.getElementById('waybill_no');
+        var ctl_keep = document.getElementById('keep');
+        var ctl_unkeep = document.getElementById('unkeep');
+        var ctl_address = document.getElementById('address');
+        var ctl_contact = document.getElementById('contact');
+        var ctl_cell = document.getElementById('contact_cell');
 
         function display_info() {
             $.ajax({
@@ -314,6 +323,29 @@
                         ctl_others_in_wanlong.value = msg_obj.covid19_service[0].others_in_wanlong.trim();
                         ctl_express_company.value = msg_obj.covid19_service[0].express_company.trim();
                         ctl_waybill_no.value = msg_obj.covid19_service[0].waybill_no.trim();
+
+                        var keep = false;
+
+                        if (msg_obj.covid19_service[0].cell.trim() == ''
+                            && msg_obj.covid19_service[0].address.trim() == ''
+                            && msg_obj.covid19_service[0].contact_name.trim() == '') {
+                            keep = true;
+                        }
+                        if (keep) {
+                            ctl_keep.checked = true;
+                            ctl_unkeep.checked = false;
+                            ctl_contact.value = '';
+                            ctl_cell.value = '';
+                            ctl_address.value = '';
+                        }
+                        else {
+                            ctl_keep.checked = false;
+                            ctl_unkeep.checked = true;
+                            ctl_contact.value = msg_obj.covid19_service[0].contact_name.trim();
+                            ctl_cell.value = msg_obj.covid19_service[0].cell.trim();
+                            ctl_address.value = msg_obj.covid19_service[0].address.trim();
+                        }
+
                     }
                 }
             });
@@ -337,6 +369,7 @@
                 + '"equip_brand": "' + ctl_equip_brand.value.trim() + '", "equip_scale": "' + ctl_equip_scale.value.trim() + '", '
                 + '"board_binder_brand": "' + ctl_board_binder_brand.value.trim() + '", "board_binder_color": "' + ctl_board_binder_color.value.trim() + '", '
                 + '"send_item": "' + send_item.trim() + '", "wanlong_no": "' + ctl_wanlong_no.value.trim() + '", "others_in_wanlong": "' + ctl_others_in_wanlong.value.trim() + '", '
+                + '"contact_name": "' + ctl_contact.value.trim() + '", "address": "' + ctl_address.value.trim() + '", "cell": "' + ctl_cell.value.trim() + '", '
                 + '"express_company": "' + ctl_express_company.value.trim() + '", "waybill_no": "' + ctl_waybill_no.value.trim() + '" }';
             $.ajax({
                 url: '/api/maintain_equip_service_card_info_20.aspx',

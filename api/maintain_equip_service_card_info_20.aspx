@@ -23,6 +23,9 @@
         string expressCompany = Util.GetSimpleJsonValueByKey(inputRawString, "express_company");
         string waybillNo = Util.GetSimpleJsonValueByKey(inputRawString, "waybill_no");
         string ownerOpenId = WeixinUser.CheckToken(token);
+        string contactName = Util.GetSimpleJsonValueByKey(inputRawString, "contact_name");
+        string cell = Util.GetSimpleJsonValueByKey(inputRawString, "cell");
+        string address = Util.GetSimpleJsonValueByKey(inputRawString, "address");
         Card card = new Card(cardNo);
         if (!card.Owner.OpenId.Trim().Equals(ownerOpenId.Trim()))
         {
@@ -43,7 +46,10 @@
                 {"wanlong_no", "varchar", wanlongNo.Trim() },
                 {"others_in_wanlong", "varchar", othersInWanlong.Trim() },
                 {"waybill_no", "varchar", waybillNo.Trim() },
-                {"express_company", "varchar", expressCompany.Trim() }
+                {"express_company", "varchar", expressCompany.Trim() },
+                {"address", "varchar", address.Trim() },
+                {"cell", "varchar", cell.Trim() },
+                {"contactName", "varchar", contactName.Trim() }
             });
         }
         else
@@ -58,7 +64,10 @@
                 {"wanlong_no", "varchar", wanlongNo.Trim() },
                 {"others_in_wanlong", "varchar", othersInWanlong.Trim() },
                 {"waybill_no", "varchar", waybillNo.Trim() },
-                {"express_company", "varchar", expressCompany.Trim() }
+                {"express_company", "varchar", expressCompany.Trim() },
+                {"address", "varchar", address.Trim() },
+                {"cell", "varchar", cell.Trim() },
+                {"contactName", "varchar", contactName.Trim() }
             }, new string[,] { { "card_no", "varchar", card.Code.Trim() } }, Util.conStr.Trim());
         }
         dt.Dispose();
