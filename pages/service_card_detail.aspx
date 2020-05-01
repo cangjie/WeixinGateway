@@ -363,6 +363,12 @@
                 ctl_wanlong_no.focus();
                 return;
             }
+            if (ctl_unkeep.checked && (ctl_contact.value.trim() == ''
+                || ctl_cell.value.trim() == '' || ctl_address.value.trim())) {
+                alert('如果不寄存，请填写联系人，电话以及快递地址。');
+                ctl_cell.focus();
+                return;
+            }
             var equip_type = (ctl_equip_type_ski.checked ? '双板' : '单板');
             var send_item = (ctl_package_content_label.checked ? '万龙存板牌' : '雪板');
             var post_json = '{"token": "<%=userToken%>", "card_no": "<%=card.Code.Trim()%>", "equip_type": "' + equip_type + '", '
