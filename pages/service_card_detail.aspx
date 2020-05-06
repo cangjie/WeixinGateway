@@ -174,11 +174,12 @@
                         success: function (msg, status) {
                             var msg_object = eval("(" + msg + ")");
                             if (msg_object.covid19_service.length > 0) {
-                                if (msg_object.covid19_service[0].address.trim() != '' && msg_object.covid19_service[0].address.trim() != ''
-                                    && msg_object.covid19_service[0].contact_name != '')
-                                    has_fill_info = false;
-                                else
+                                if ((msg_object.covid19_service[0].address.trim() != '' && msg_object.covid19_service[0].address.trim() != ''
+                                    && msg_object.covid19_service[0].contact_name != '') || (msg_object.covid19_service[0].address.trim() == ''
+                                        && msg_object.covid19_service[0].address.trim() == '' && msg_object.covid19_service[0].contact_name == ''))
                                     has_fill_info = true;
+                                else
+                                    has_fill_info = false;
                                 if (msg_object.covid19_service[0].waybill_no != '') {
                                     has_fill_waybill = true;
                                 }
