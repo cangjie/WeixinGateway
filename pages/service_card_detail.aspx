@@ -367,6 +367,7 @@
                 || ctl_cell.value.trim() == '' || ctl_address.value.trim())) {
                 alert('如果不寄存，请填写联系人，电话以及快递地址。');
                 ctl_cell.focus();
+                $('#fill-skis-info-modal').modal('show');
                 return;
             }
             var equip_type = (ctl_equip_type_ski.checked ? '双板' : '单板');
