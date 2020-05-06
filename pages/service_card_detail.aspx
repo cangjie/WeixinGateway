@@ -174,7 +174,11 @@
                         success: function (msg, status) {
                             var msg_object = eval("(" + msg + ")");
                             if (msg_object.covid19_service.length > 0) {
-                                has_fill_info = true;
+                                if (msg_object.covid19_service[0].address.trim() != '' && msg_object.covid19_service[0].address.trim() != ''
+                                    && msg_object.covid19_service[0].contact_name != '')
+                                    has_fill_info = false;
+                                else
+                                    has_fill_info = true;
                                 if (msg_object.covid19_service[0].waybill_no != '') {
                                     has_fill_waybill = true;
                                 }
@@ -367,7 +371,7 @@
                 || ctl_cell.value.trim() == '' || ctl_address.value.trim())) {
                 alert('如果不寄存，请填写联系人，电话以及快递地址。');
                 ctl_cell.focus();
-                $('#fill-skis-info-modal').modal('show');
+                //$('#fill-skis-info-modal').modal('show');
                 return;
             }
             var equip_type = (ctl_equip_type_ski.checked ? '双板' : '单板');
