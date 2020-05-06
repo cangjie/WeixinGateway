@@ -72,8 +72,8 @@
             */
         if (!currentUser.OpenId.Trim().Equals(card._fields["owner_open_id"].ToString().Trim()))
         {
-            //Response.Write("error");
-            //Response.End();
+            Response.Write("error");
+            Response.End();
         }
         product = new Product(int.Parse(card._fields["product_id"].ToString()));
         if (product._fields["id"].ToString().Equals("145"))
