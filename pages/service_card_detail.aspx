@@ -369,7 +369,7 @@
                 return;
             }
             if (ctl_unkeep.checked && (ctl_contact.value.trim() == ''
-                || ctl_cell.value.trim() == '' || ctl_address.value.trim())) {
+                || ctl_cell.value.trim() == '' || ctl_address.value.trim() == '')) {
                 alert('如果不寄存，请填写联系人，电话以及快递地址。');
                 ctl_cell.focus();
                 //$('#fill-skis-info-modal').modal('show');
