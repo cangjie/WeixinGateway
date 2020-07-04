@@ -51,6 +51,13 @@
         n.InnerText = "JSAPI";
         rootXmlNode.AppendChild(n);
 
+        n = xmlD.CreateNode(XmlNodeType.Element, "out_trade_no", "");
+        string timeStamp = Util.GetTimeStamp();
+        
+        n.InnerText = timeStamp;
+        string out_trade_no = n.InnerText.Trim();
+        rootXmlNode.AppendChild(n);
+
         n = xmlD.CreateNode(XmlNodeType.Element, "body", "");
         n.InnerText = "test";
         rootXmlNode.AppendChild(n);
