@@ -67,7 +67,7 @@
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "total_fee", "");
-        n.InnerText = Util.GetSafeRequestValue(Request, "total_fee", "0.01");
+        n.InnerText = Util.GetSafeRequestValue(Request, "total_fee", "1");
         rootXmlNode.AppendChild(n);
         
         string s = Util.ConverXmlDocumentToStringPair(xmlD);
