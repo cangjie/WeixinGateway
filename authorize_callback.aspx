@@ -53,8 +53,8 @@
                     string url = "https://api.weixin.qq.com/sns/userinfo?access_token=" + userAccessToken.ToString().Trim()
                         + "&openid=" + openIdStr.Trim() + "&lang=zh_CN";
                     string jsonResult = Util.GetWebContent(url);
-                    Response.Write(code + "<br/>" + url + "<br/>" + jsonResult);
-                    Response.End();
+                    //Response.Write(code + "<br/>" + url + "<br/>" + jsonResult);
+                    //Response.End();
                     unionId = Util.GetSimpleJsonValueByKey(jsonStr, "unionid");
                     if (!unionId.Trim().Equals(""))
                     {
