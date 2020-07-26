@@ -2,6 +2,7 @@
 <%@ Import Namespace="System.Runtime.Serialization" %>
 <%@ Import Namespace="System.Runtime.Serialization.Json" %>
 <%@ Import Namespace="System.Web.Script.Serialization" %>
+<%@ Import Namespace="System.Data" %>
 <!DOCTYPE html>
 
 <script runat="server">
@@ -19,7 +20,7 @@
             return "";
         }
         tryGetOpenIdTimes++;
-        
+
         string openIdStr = "";
 
         try
@@ -34,13 +35,54 @@
             Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
             object openId;
             json.TryGetValue("openid", out openId);
-
             openIdStr = openId.ToString().Trim();
+
+            try
+            {
+                DataTable dt = DBHelper.GetDataTable(" select * from unionid where official_account_open_id = '" + openIdStr.Trim() + "' ");
+                string unionId = "";
+                if (dt.Rows.Count > 0)
+                {
+                    unionId = dt.Rows[0]["union_id"].ToString().Trim();
+                }
+                dt.Dispose();
+                if (unionId.Trim().Equals(""))
+                { 
+                    object userAccessToken;
+                    json.TryGetValue("access_token", out userAccessToken);
+                    string url = "https://api.weixin.qq.com/sns/userinfo?access_token=" + userAccessToken.ToString().Trim()
+                        + "&openid=" + openIdStr.Trim() + "&lang=zh_CN";
+                    string jsonResult = Util.GetWebContent(url);
+                    unionId = Util.GetSimpleJsonValueByKey(jsonStr, "unionid");
+                    if (!unionId.Trim().Equals(""))
+                    {
+                        dt = DBHelper.GetDataTable(" select * from unionid where union_id = '" + unionId.Trim() + "'  ");
+                        if (dt.Rows.Count > 0)
+                        {
+                            DBHelper.UpdateData("unionid", new string[,] { { "official_account_open_id", "varchar", openIdStr.Trim() } },
+                                new string[,] { { "union_id", "varchar", unionId.Trim() } }, Util.conStr.Trim());
+                        }
+                        else
+                        {
+                            DBHelper.InsertData("unionid", new string[,] { { "union_id", "varchar", unionId.Trim() }, 
+                                { "official_account_open_id", "varchar", openIdStr.Trim() } });
+                        }
+                    }
+            
+                }
+            }
+            catch
+            {
+
+            }
+
+
+
 
         }
         catch
-        { 
-        
+        {
+
         }
         if (openIdStr.Trim().Equals(""))
         {
@@ -50,7 +92,7 @@
         {
             return openIdStr.Trim();
         }
-        
+
     }
 
     protected void Page_Load(object sender, EventArgs e)
@@ -58,7 +100,7 @@
         string code = Util.GetSafeRequestValue(Request, "code", "011991e1f9087a38af2d965e8f7cfa3A");
         string state = Util.GetSafeRequestValue(Request, "state", "1000");
         string openId = GetOpenId(code);
-      
+
         if (!openId.Trim().Equals(""))
         {
             string callBack = Util.GetSafeRequestValue(Request, "callback", "pages/home_page.aspx");
