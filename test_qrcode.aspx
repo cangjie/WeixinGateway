@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string qrCodeText = Util.GetSafeRequestValue(Request, "txt", "a");
+        string qrCodeText = Util.GetSafeRequestValue(Request, "txt", "今天吃什么？");
         ThoughtWorks.QRCode.Codec.QRCodeEncoder qrCodeEncoder = new ThoughtWorks.QRCode.Codec.QRCodeEncoder();
         Bitmap bmp = qrCodeEncoder.Encode(qrCodeText);
         string qrCodeFileName = "temp_qrcode_" + Util.GetTimeStamp().ToString() + ".bmp";
