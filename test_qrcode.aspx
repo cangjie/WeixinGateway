@@ -6,8 +6,9 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string qrCodeText = Util.GetSafeRequestValue(Request, "txt", "今天吃什么？");
+        //qrCodeText = Encoding.Unicode.GetString(Encoding.UTF8.GetBytes(qrCodeText));
         ThoughtWorks.QRCode.Codec.QRCodeEncoder qrCodeEncoder = new ThoughtWorks.QRCode.Codec.QRCodeEncoder();
-        Bitmap bmp = qrCodeEncoder.Encode(qrCodeText);
+        Bitmap bmp = qrCodeEncoder.Encode(qrCodeText, Encoding.UTF8);
         string qrCodeFileName = "temp_qrcode_" + Util.GetTimeStamp().ToString() + ".bmp";
         bmp.Save(Server.MapPath("images/qrcode/" + qrCodeFileName.Trim()));
         bmp.Dispose();
@@ -20,6 +21,7 @@
         }
         Response.BinaryWrite(bArr);
         fs.Close();
+        
         try
         {
             File.Delete(Server.MapPath("images/qrcode/" + qrCodeFileName.Trim()));
@@ -28,5 +30,6 @@
         {
 
         }
+        
     }
 </script>
