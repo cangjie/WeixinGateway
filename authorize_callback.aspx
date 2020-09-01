@@ -39,15 +39,18 @@
 
             try
             {
-                DataTable dt = DBHelper.GetDataTable(" select * from unionid where official_account_open_id = '" + openIdStr.Trim() + "' ");
+
+                DataTable dt = DBHelper.GetDataTable(" select * from unionids  where open_id = '" + openIdStr.Trim()
+                    + "' and  source = 'snowmeet_offical_account'");
                 string unionId = "";
                 if (dt.Rows.Count > 0)
                 {
                     unionId = dt.Rows[0]["union_id"].ToString().Trim();
                 }
                 dt.Dispose();
+
                 if (unionId.Trim().Equals(""))
-                { 
+                {
                     object userAccessToken;
                     json.TryGetValue("access_token", out userAccessToken);
                     string url = "https://api.weixin.qq.com/sns/userinfo?access_token=" + userAccessToken.ToString().Trim()
@@ -58,19 +61,11 @@
                     unionId = Util.GetSimpleJsonValueByKey(jsonStr, "unionid");
                     if (!unionId.Trim().Equals(""))
                     {
-                        dt = DBHelper.GetDataTable(" select * from unionid where union_id = '" + unionId.Trim() + "'  ");
-                        if (dt.Rows.Count > 0)
-                        {
-                            DBHelper.UpdateData("unionid", new string[,] { { "official_account_open_id", "varchar", openIdStr.Trim() } },
-                                new string[,] { { "union_id", "varchar", unionId.Trim() } }, Util.conStr.Trim());
-                        }
-                        else
-                        {
-                            DBHelper.InsertData("unionid", new string[,] { { "union_id", "varchar", unionId.Trim() }, 
-                                { "official_account_open_id", "varchar", openIdStr.Trim() } });
-                        }
+                        DBHelper.InsertData("unionids", new string[,] { {"union_id", "varchar", unionId.Trim() },
+                            {"open_id", "varchar", openIdStr.Trim() }, {"source", "varchar", "snowmeet_offical_account" } });
+                       
                     }
-            
+
                 }
             }
             catch
