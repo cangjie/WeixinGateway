@@ -62,7 +62,7 @@
                     if (!unionId.Trim().Equals(""))
                     {
                         DBHelper.InsertData("unionids", new string[,] { {"union_id", "varchar", unionId.Trim() },
-                            {"open_id", "varchar", openIdStr.Trim() }, {"source", "varchar", "snowmeet_offical_account" } });
+                            {"open_id", "varchar", openIdStr.Trim() }, {"source", "varchar", "snowmeet_official_account" } });
                        
                     }
 
