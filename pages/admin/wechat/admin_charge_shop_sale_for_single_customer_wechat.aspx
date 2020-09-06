@@ -290,7 +290,7 @@
 
 
 
-                    qr_code_url = "http://weixin.snowmeet.com/show_wechat_temp_qrcode.aspx?scene=" + scene_text + "&expire=300";
+                    qr_code_url = "http://weixin.snowmeet.top/show_wechat_temp_qrcode.aspx?scene=" + scene_text + "&expire=300";
                     
                     
                     var td_cell = document.getElementById("qrcode_td");

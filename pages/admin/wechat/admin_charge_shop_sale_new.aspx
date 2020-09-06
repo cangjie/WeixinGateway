@@ -411,12 +411,12 @@
                     var pay_url = "";
                     var qr_code_url = "";
                     if (pay_method.trim() == '支付宝') {
-                        qr_code_url = "http://weixin.snowmeet.com/payment/haojin_qrcode_pay_ali.aspx?orderid=" + order_id.toString().trim();
+                        qr_code_url = "http://weixin.snowmeet.top/payment/haojin_qrcode_pay_ali.aspx?orderid=" + order_id.toString().trim();
                     }
                     if (pay_method.trim() == '微信') {
-                        pay_url = "http://weixin.snowmeet.com/payment/haojin_pay_online_order.aspx?orderid=" + order_id.toString();
+                        pay_url = "http://weixin.snowmeet.top/payment/haojin_pay_online_order.aspx?orderid=" + order_id.toString();
                         pay_url = encodeURI(pay_url);
-                        qr_code_url = "http://weixin.snowmeet.com/show_qrcode.aspx?qrcodetext=" + pay_url;
+                        qr_code_url = "http://weixin.snowmeet.top/show_qrcode.aspx?qrcodetext=" + pay_url;
                     }
 
                     var td_cell = document.getElementById("qrcode_td");
