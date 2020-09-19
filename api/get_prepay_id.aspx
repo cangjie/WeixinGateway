@@ -49,7 +49,7 @@
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "trade_type", "");
-        n.InnerText = "JSAPI";
+        n.InnerText = "MINIAPP";
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "out_trade_no", "");
