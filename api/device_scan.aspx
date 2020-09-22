@@ -7,7 +7,7 @@
     {
 
 
-        string testUrl = "http://weixin.snowmeet.com/show_qrcode.aspx?sceneid=1582092807";
+        string testUrl = "http://weixin.snowmeet.top/show_qrcode.aspx?sceneid=1582092807";
         HttpWebRequest reqt = (HttpWebRequest)WebRequest.Create(testUrl);
         HttpWebResponse rest = (HttpWebResponse)reqt.GetResponse();
         Stream st = rest.GetResponseStream();
