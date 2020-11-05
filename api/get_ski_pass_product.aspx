@@ -6,9 +6,9 @@
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        DateTime skiDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "skidate", DateTime.Now.ToShortDateString()));
+        DateTime skiDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "skidate", "2020-11-6"));
         int count = int.Parse(Util.GetSafeRequestValue(Request, "count", "1"));
-        int productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "65"));
+        int productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "86"));
 
         //Dictionary<SkiPass, int> skiPassPair = new Dictionary<SkiPass, int>(); ;
         KeyValuePair<SkiPass, int> skiPassPair;

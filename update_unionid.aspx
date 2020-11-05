@@ -7,8 +7,8 @@
         DataTable dt = DBHelper.GetDataTable(" select * from users where ISNUMERIC(open_id) = 0 and not exists(select 'a' from unionids where unionids.open_id = users.open_id and source = 'snowmeet_offical_account') ");
         foreach (DataRow dr in dt.Rows)
         {
-            string token = Util.GetToken().Trim();
-            //string token = "37_Bz8mYEqyJJlUqhWxc3E54UmIkGCO2Dic9pbaf8f2ezdqcN6u5WWfPL-Jj8sbm7MeVIr3QT01lv3lzGeu6_Mxhw0Ol3iHl7rA8nF0hx2a1gVqcASy-ixFzCMsyEgrptVOSzrLgoIUcJizOwiKLNXeAHATVF";
+            //string token = Util.GetToken().Trim();
+            string token = "37_fsPg9Wm44liPRZJjqiphi04siI6kCLMg6SIXv36h01xRIW2QCp3Y0BnE2lOILZvZ2rvjLQ1qU3X4tEWLKTm64JVC6tL2gVForrlxnH3gl1gG373v6M3pAmFANCUAa72Vo9Gev2G9OqHOR9MTXJPdAAALXD";
             string openId = dr["open_id"].ToString().Trim();
             bool isnumeric = false;
             try
