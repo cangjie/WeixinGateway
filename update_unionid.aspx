@@ -4,7 +4,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        DataTable dt = DBHelper.GetDataTable(" select * from users where ISNUMERIC(open_id) = 0 and not exists(select 'a' from unionids where unionids.open_id = users.open_id and source = 'snowmeet_offical_account') ");
+        DataTable dt = DBHelper.GetDataTable(" select * from users where ISNUMERIC(open_id) = 0 and not exists(select 'a' from unionids where unionids.open_id = users.open_id and source = 'snowmeet_official_account') ");
         foreach (DataRow dr in dt.Rows)
         {
             //string token = Util.GetToken().Trim();
@@ -44,9 +44,9 @@
                         {"union_id", "varchar", unionId.Trim() }, {"source", "varchar", "snowmeet_official_account" } },
                     Util.conStr.Trim());
                 }
-                catch
+                catch(Exception err)
                 {
-
+                    System.Diagnostics.Debug.WriteLine(err.ToString());
                 }
             }
         }
