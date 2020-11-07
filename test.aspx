@@ -9,7 +9,11 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+<<<<<<< HEAD
         string aa = "aa";
+=======
+        Response.Write(Request.Url.Scheme.Trim());
+>>>>>>> c8059635c0a2e7eab8ad5c8eae3bde5b45e8b376
     }
 </script>
 
