@@ -9,12 +9,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        string imageFile = @"C:\Users\cangj\Pictures\testqr.bmp";
-        System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(imageFile.Trim());
-        ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage qrImg = new ThoughtWorks.QRCode.Codec.Data.QRCodeBitmapImage(bmp);
-        ThoughtWorks.QRCode.Codec.QRCodeDecoder qrDe = new ThoughtWorks.QRCode.Codec.QRCodeDecoder();
-        string deString = qrDe.decode(qrImg);
-        Response.Write(deString.Trim());
+        string aa = "aa";
     }
 </script>
 

@@ -258,6 +258,7 @@
                     <option>微信</option>
                     <option>支付宝</option>
                     <option>现金</option>
+                    <option>刷卡</option>
                 </select>
             </td>
         </tr>
