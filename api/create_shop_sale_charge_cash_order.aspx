@@ -30,7 +30,7 @@
             Response.End();
         }
 
-        if (!payMethod.Trim().Equals("现金"))
+        if (!payMethod.Trim().Equals("现金") && !payMethod.Trim().Equals("刷卡"))
         {
             Response.Write("{\"status\": 1, \"err_msg\":\"Paymethod is not correct.\" }");
             Response.End();

@@ -9,7 +9,7 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(Request.Url.Scheme.Trim());
+
     }
 </script>
 
