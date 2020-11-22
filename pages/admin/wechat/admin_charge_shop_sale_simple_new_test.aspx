@@ -22,6 +22,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Session["user_token"] = "2dd1e4984314266f1785df291c0f20f7f170ca54f708e292e6abc4d79e4331e31ed7b5c2";
         customerOpenId = Util.GetSafeRequestValue(Request, "openid", "").Trim();
         try
         {

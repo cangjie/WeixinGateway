@@ -4,11 +4,11 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string key = "Snowmeetweixinpaymentsecretkey00";
+        string key = "jihuowangluoactivenetworkjarrodc";
         string nonceStr = GetNonceString(32);
-        string appId = "wxf91253fd1c38d24e";// System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
+        string appId = "wx905b45631b024b9c";// System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
         
-        string mch_id = "1604236346";//System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
+        string mch_id = "10035739";//System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
         XmlDocument xmlD = new XmlDocument();
         xmlD.LoadXml("<xml/>");
         XmlNode rootXmlNode = xmlD.SelectSingleNode("//xml");
@@ -39,7 +39,7 @@
         n = xmlD.CreateNode(XmlNodeType.Element, "openid", "");
         try
         {
-            n.InnerText = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM").Trim();
+            n.InnerText = Util.GetSafeRequestValue(Request, "openid", "oqrMvtySBUCd-r6-ZIivSwsmzr44").Trim();
         }
         catch
         {
