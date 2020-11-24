@@ -197,7 +197,14 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
-            return _fields["head_image"].ToString().Trim();
+            try
+            {
+                return _fields["head_image"].ToString().Trim();
+            }
+            catch
+            {
+                return "";
+            }
         }
     }
 
