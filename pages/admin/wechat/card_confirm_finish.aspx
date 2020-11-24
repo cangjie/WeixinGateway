@@ -1,7 +1,5 @@
 ﻿<%@ Page Language="C#" %>
-
 <!DOCTYPE html>
-
 <script runat="server">
     public WeixinUser currentUser;
     public string openId = "";
@@ -13,7 +11,6 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         code = Util.GetSafeRequestValue(Request, "code", "");
-
         string currentPageUrl = Server.UrlEncode("/pages/admin/wechat/card_confirm_finish.aspx?code=" + code);
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
@@ -26,9 +23,7 @@
             Response.Redirect("../../../authorize.aspx?callback=" + currentPageUrl, true);
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
-
         card = new Card(code);
-
         switch (card._fields["type"].ToString().Trim())
         {
             case "雪票":
@@ -40,10 +35,8 @@
             default:
                 break;
         }
-
         if (!currentUser.IsAdmin)
             Response.End();
-
         if (!card.Used)
             Response.Redirect("card_confirm.aspx?code=" + code.Trim(), true);
     }
@@ -89,6 +82,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
