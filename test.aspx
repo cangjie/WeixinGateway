@@ -9,7 +9,11 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
+<<<<<<< HEAD
         string aa = "aa";
+=======
+
+>>>>>>> 6464c3e8cc168d90309b650afaae20957f2157f7
     }
 </script>
 

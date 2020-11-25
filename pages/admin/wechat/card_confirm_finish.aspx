@@ -73,7 +73,12 @@
                     <%=body%>
                 <br />
                 <div style="text-align:center" >
+                    <%
+                        if (!card.Owner.HeadImage.Trim().Equals(""))
+                        {
+                        %>
                     <img src="<%=card.Owner.HeadImage.Trim() %>" style="width:200px; text-align:center"  />
+                    <%} %>
                     <br />
                     <b style="text-align:center" ><%=code.Substring(0,3) %>-<%=code.Substring(3,3) %>-<%=code.Substring(6,3) %></b>
                     <br />

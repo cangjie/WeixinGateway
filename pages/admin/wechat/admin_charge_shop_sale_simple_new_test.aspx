@@ -22,6 +22,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Session["user_token"] = "2dd1e4984314266f1785df291c0f20f7f170ca54f708e292e6abc4d79e4331e31ed7b5c2";
         customerOpenId = Util.GetSafeRequestValue(Request, "openid", "").Trim();
         try
         {
@@ -258,6 +259,7 @@
                     <option>微信</option>
                     <option>支付宝</option>
                     <option>现金</option>
+                    <option>刷卡</option>
                 </select>
             </td>
         </tr>
@@ -472,7 +474,7 @@
                 document.getElementById("txt_ticket_amout").value = "0";
             }
             compute_score();
-            if (pay_method == '现金') {
+            if (pay_method == '现金' || pay_method == '刷卡') {
                 set_cash_pay();
                 return;
             }

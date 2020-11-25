@@ -4,18 +4,17 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        string key = "jihuowangluoactivenetworkjarrodc";
         string nonceStr = GetNonceString(32);
-        //string appId = System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim();
-        string appId = "wxd1310896f2aa68bb";
-        string appSecret = System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"].Trim();
-        string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
+        string appId = "wx905b45631b024b9c";// System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
+        
+        string mch_id = "10035739";//System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
         XmlDocument xmlD = new XmlDocument();
         xmlD.LoadXml("<xml/>");
         XmlNode rootXmlNode = xmlD.SelectSingleNode("//xml");
         XmlNode n = xmlD.CreateNode(XmlNodeType.Element, "appid", "");
         n.InnerText = appId.Trim();
         rootXmlNode.AppendChild(n);
-
         n = xmlD.CreateNode(XmlNodeType.Element, "mch_id", "");
         n.InnerText = mch_id.Trim();
         rootXmlNode.AppendChild(n);
@@ -29,6 +28,10 @@
         n.InnerText = nonceStr;
         rootXmlNode.AppendChild(n);
 
+        n = xmlD.CreateNode(XmlNodeType.Element, "sign_type", "");
+        n.InnerText = "MD5";
+        rootXmlNode.AppendChild(n);
+
         n = xmlD.CreateNode(XmlNodeType.Element, "notify_url", "");
         n.InnerText = Request.Url.ToString().Trim().Replace("get_prepay_id.aspx", "payment_callback.aspx").Trim();
         rootXmlNode.AppendChild(n);
@@ -36,7 +39,7 @@
         n = xmlD.CreateNode(XmlNodeType.Element, "openid", "");
         try
         {
-            n.InnerText = Util.GetSafeRequestValue(Request, "openid", "oRY1ws3bQFILrsUJtR5mKy6e2kQI").Trim();
+            n.InnerText = Util.GetSafeRequestValue(Request, "openid", "oqrMvtySBUCd-r6-ZIivSwsmzr44").Trim();
         }
         catch
         {
@@ -49,12 +52,12 @@
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "trade_type", "");
-        n.InnerText = "MINIAPP";
+        n.InnerText = "JSAPI";
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "out_trade_no", "");
         string timeStamp = Util.GetTimeStamp();
-        
+
         n.InnerText = timeStamp;
         string out_trade_no = n.InnerText.Trim();
         rootXmlNode.AppendChild(n);
@@ -70,18 +73,21 @@
         n = xmlD.CreateNode(XmlNodeType.Element, "total_fee", "");
         n.InnerText = Util.GetSafeRequestValue(Request, "total_fee", "1");
         rootXmlNode.AppendChild(n);
-        
+
         string s = Util.ConverXmlDocumentToStringPair(xmlD);
         //s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
-        s = Util.GetMd5Sign(s, "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0");
+        s = Util.GetMd5Sign(s, key);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "sign", "");
         n.InnerText = s.Trim();
         rootXmlNode.AppendChild(n);
 
-        string prepayXml = Util.GetWebContent("https://payapi.mch.weixin.semoor.cn/4.0/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
+        //string prepayXml = Util.GetWebContent("https://payapi.mch.weixin.semoor.cn/4.0/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
+        string prepayXml = Util.GetWebContent("https://api.mch.weixin.qq.com/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
 
-        Response.Write(xmlD.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;") 
+
+
+        Response.Write(xmlD.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;")
             + "<br/>" + prepayXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
 
     }
