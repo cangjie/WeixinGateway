@@ -23,6 +23,7 @@ public class WeixinUser : ObjectHelper
 
 	public WeixinUser(string openId)
 	{
+        GetUnionId(openId);
         tableName = "users";
         primaryKeyName = "open_id";
         primaryKeyValue = openId.Trim();
@@ -78,7 +79,6 @@ public class WeixinUser : ObjectHelper
         {
             _fields = dt.Rows[0];
         }
-
 	}
 
     public string OpenId
@@ -337,6 +337,41 @@ public class WeixinUser : ObjectHelper
             dt.Dispose();
             return ret;
         }
+    }
+
+    public static string GetUnionId(string openId)
+    {
+        
+        string unionId = "";
+        DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account' and open_id = '" + openId.Trim() + "' ");
+        if (dt.Rows.Count == 0)
+        {
+            string accessToken = Util.GetToken().Trim();
+            accessToken = "39_waIk3uj1K5zPrxehZqH4Cj_FVuIyXYZmF1v5W66QczZzcAE0BmTgZTSnP-mu413GyQ5LznxRmueKqBRO7X5Cb8XF7ZgYtq1JCjVdW6smuKtGWuf-hG_e-9Xw6AMT3l5-1hI4AcMQ67SVDOGVTBFaADALTX";
+            string url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + accessToken.Trim()
+            + "&openid=" + openId.Trim() + "&lang=zh_CN";
+            string json = Util.GetWebContent(url);
+            try
+            {
+                unionId = Util.GetSimpleJsonValueByKey(json, "unionid");
+                if (!unionId.Trim().Equals(""))
+                {
+                    DBHelper.InsertData("unionids",
+                        new string[,] { {"union_id", "varchar", unionId.Trim() }, {"open_id", "varchar", openId.Trim() },
+                        {"source", "varchar", "snowmeet_official_account" } });
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        else
+        {
+            unionId = dt.Rows[0]["union_id"].ToString().Trim();
+        }
+        return unionId;
+        
     }
 
     public void TransferOrderAndPointsFromTempAccount()

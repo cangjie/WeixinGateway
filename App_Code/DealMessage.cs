@@ -99,6 +99,7 @@ public class DealMessage
         repliedMessage.from = receivedMessage.to;
         repliedMessage.to = receivedMessage.from;
         WeixinUser user = new WeixinUser(receivedMessage.from);
+
         switch (receivedMessage.userEvent.ToUpper())
         {
             case "SCAN":
