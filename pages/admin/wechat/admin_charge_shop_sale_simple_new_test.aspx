@@ -267,10 +267,13 @@
             <td>门店：</td>
             <td>
                 <select id="shop" >
-                    <option>乔波</option>
+                    <!--option>乔波</option-->
                     <option selected >南山</option>
                     <option>八易</option>
                     <option>万龙</option>
+                    <option>线上店</option>
+                    <option>崇礼旗舰店</option>
+                    <option>总店</option>
                 </select>
             </td>
         </tr>
