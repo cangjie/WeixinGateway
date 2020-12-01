@@ -418,7 +418,7 @@ public class WeixinUser : ObjectHelper
         if (dt.Rows.Count == 0)
         {
             string accessToken = Util.GetToken().Trim();
-            accessToken = "39_waIk3uj1K5zPrxehZqH4Cj_FVuIyXYZmF1v5W66QczZzcAE0BmTgZTSnP-mu413GyQ5LznxRmueKqBRO7X5Cb8XF7ZgYtq1JCjVdW6smuKtGWuf-hG_e-9Xw6AMT3l5-1hI4AcMQ67SVDOGVTBFaADALTX";
+            //accessToken = "39_waIk3uj1K5zPrxehZqH4Cj_FVuIyXYZmF1v5W66QczZzcAE0BmTgZTSnP-mu413GyQ5LznxRmueKqBRO7X5Cb8XF7ZgYtq1JCjVdW6smuKtGWuf-hG_e-9Xw6AMT3l5-1hI4AcMQ67SVDOGVTBFaADALTX";
             string url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + accessToken.Trim()
             + "&openid=" + openId.Trim() + "&lang=zh_CN";
             string json = Util.GetWebContent(url);
