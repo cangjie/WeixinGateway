@@ -193,13 +193,40 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public MiniUsers miniUser
+    {
+        get
+        {
+            string unionId = GetUnionId(OpenId.Trim());
+            DataTable dtMiniUser = DBHelper.GetDataTable(" select * from mini_users where union_id = '" + unionId.Trim() + "' ");
+            MiniUsers miniUser = new MiniUsers();
+            if (dtMiniUser.Rows.Count > 0)
+            {
+                miniUser._fields = dtMiniUser.Rows[0];
+            }
+            return miniUser;
+        }
+    }
+
     public string HeadImage
     {
         get
         {
             try
             {
-                return _fields["head_image"].ToString().Trim();
+                string headImage = _fields["head_image"].ToString().Trim();
+                if (headImage.Trim().Equals(""))
+                {
+                    try
+                    {
+                        headImage = miniUser._fields["head_image"].ToString().Trim();
+                    }
+                    catch
+                    { 
+                    
+                    }
+                }
+                return headImage.Trim();
             }
             catch
             {
@@ -224,18 +251,31 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
+            string cellNumber = "";
             if (_fields == null)
             {
-                return "";
+                cellNumber = "";
             }
             if (_fields["cell_number"] == null)
             {
-                return "";
+                cellNumber = "";
             }
             else
             {
-                return _fields["cell_number"].ToString().Trim();
+                cellNumber = _fields["cell_number"].ToString().Trim();
             }
+            if (cellNumber.Trim().Equals(""))
+            {
+                try
+                {
+                    cellNumber = miniUser.CellNumber;
+                }
+                catch
+                { 
+                
+                }
+            }
+            return cellNumber.Trim();
         }
         set
         {
