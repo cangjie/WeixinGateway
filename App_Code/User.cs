@@ -273,10 +273,6 @@ public class WeixinUser : ObjectHelper
             {
                 cellNumber = "";
             }
-            if (_fields["cell_number"] == null)
-            {
-                cellNumber = "";
-            }
             else
             {
                 cellNumber = _fields["cell_number"].ToString().Trim();
