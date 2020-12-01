@@ -198,7 +198,7 @@ public class WeixinUser : ObjectHelper
         get
         {
             string unionId = GetUnionId(OpenId.Trim());
-            DataTable dtMiniUser = DBHelper.GetDataTable(" select * from mini_users where union_id = '" + unionId.Trim() + "' ");
+            DataTable dtMiniUser = DBHelper.GetDataTable(" select * from mini_users where source = 'snowmeet_official_account' and union_id = '" + unionId.Trim() + "' ");
             MiniUsers miniUser = new MiniUsers();
             if (dtMiniUser.Rows.Count > 0)
             {
