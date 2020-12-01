@@ -23,60 +23,27 @@ public class WeixinUser : ObjectHelper
 
 	public WeixinUser(string openId)
 	{
-        GetUnionId(openId);
+        
         tableName = "users";
         primaryKeyName = "open_id";
         primaryKeyValue = openId.Trim();
         DataTable dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
         if (dt.Rows.Count == 0)
         {
-            //throw new Exception("not found");
-            string json = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/user/info?access_token="
-            + Util.GetToken() + "&openid=" + openId + "&lang=zh_CN");
-            if (json.IndexOf("errocde") >= 0)
+            MiniUsers tempMiniUser = new MiniUsers(openId.Trim());
+            if (tempMiniUser._fields != null)
             {
-                throw new Exception("not found");
-            }
-            else
-            {
-                try
+                openId = tempMiniUser.OfficialAccountOpenId.Trim();
+                dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
+                if (dt.Rows.Count > 0)
                 {
-                    JsonHelper jsonObject = new JsonHelper(json);
-                    string nick = jsonObject.GetValue("nickname");
-                    string headImageUrl = jsonObject.GetValue("headimgurl");
-
-                    KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[5];
-                    parameters[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "open_id", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)openId));
-                    parameters[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "nick", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)nick.Trim()));
-                    parameters[2] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "head_image", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)headImageUrl.Trim()));
-                    parameters[3] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "vip_level", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
-                    parameters[4] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "is_admin", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
-
-                    int i = DBHelper.InsertData(tableName, parameters);
-
-                    if (i == 0)
-                        throw new Exception("not inserted");
-                    else
-                    {
-                        dt.Dispose();
-                        dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
-                        _fields = dt.Rows[0];
-                    }
+                    _fields = dt.Rows[0];
                 }
-                catch
-                {
-
-                }
-
             }
         }
         else 
         {
+            GetUnionId(openId);
             _fields = dt.Rows[0];
         }
 	}
