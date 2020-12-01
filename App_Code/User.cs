@@ -239,11 +239,28 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
+            string nick = "";
             if (_fields == null)
             {
-                return "";
+                nick = "";
             }
-            return _fields["nick"].ToString().Trim();
+            else
+            { 
+                nick = _fields["nick"].ToString().Trim();
+            }
+            if (nick.Trim().Equals(""))
+            {
+                try
+                {
+                    nick = miniUser._fields["nick"].ToString().Trim();
+                }
+                catch
+                { 
+                
+                }
+
+            }
+            return nick;
         }
     }
 
