@@ -68,6 +68,7 @@ public class WeixinUser : ObjectHelper
                         dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
                         _fields = dt.Rows[0];
                     }
+                    GetUnionId(openId);
                 }
                 catch
                 {
@@ -82,6 +83,7 @@ public class WeixinUser : ObjectHelper
                 if (tempMiniUser._fields != null)
                 {
                     openId = tempMiniUser.OfficialAccountOpenId.Trim();
+                    GetUnionId(openId);
                     dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
                     if (dt.Rows.Count > 0)
                     {
