@@ -18,7 +18,7 @@
         Config.merchant_private_key = Server.MapPath("rsa_private_key.pem");
         Config.merchant_public_key = Server.MapPath("rsa_public_key.pem");
         nick = Util.GetSafeRequestValue(Request, "nick", "cangjie").Replace(" ", "").Trim();
-        orderId = Util.GetSafeRequestValue(Request, "orderid", "9113");
+        orderId = Util.GetSafeRequestValue(Request, "orderid", "9256");
 
         //Config.pid = nick;
         IAlipayTradeService serviceClient = F2FBiz.CreateClientInstance(Config.serverUrl, Config.appId, Config.merchant_private_key, Config.version,
