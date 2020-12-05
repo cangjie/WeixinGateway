@@ -20,9 +20,16 @@ public class JsonHelper
 
     public string GetValue(string key)
     {
-        object ret ;
-        json.TryGetValue(key,out ret);
-        return ret.ToString();
+        try
+        {
+            object ret;
+            json.TryGetValue(key, out ret);
+            return ret.ToString();
+        }
+        catch
+        {
+            return "";
+        }
     }
 
 

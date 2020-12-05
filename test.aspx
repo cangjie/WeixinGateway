@@ -9,8 +9,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        WeixinUser user = new WeixinUser("oHdTn5Wlwy37YA6kmJP6zE9AoTlI");
-        //Response.Write(user.UnionId.Trim());
+        WeixinUser user = new WeixinUser("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
+       
     }
 </script>
 

@@ -652,11 +652,18 @@ public class Util
 
     public static string GetSimpleJsonValueByKey(string jsonStr, string key)
     {
-        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
-        object v;
-        json.TryGetValue(key, out v);
-        return v.ToString();
+        try
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
+            object v;
+            json.TryGetValue(key, out v);
+            return v.ToString();
+        }
+        catch
+        {
+            return "";
+        }
     }
 
     public static Dictionary<string, object> GetObjectFromJsonByKey(string jsonStr, string key)
