@@ -11,6 +11,10 @@
 
     public DateTime mondayDate = DateTime.Now.Date;
 
+    public string shop = "全部";
+
+    public string type = "全部";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -83,7 +87,9 @@
         //dt.Columns.Add("商品概要");
         dt.Columns.Add("备注");
         dt.Columns.Add("销售");
-
+        double totalSale = 0;
+        double totalCharge = 0;
+        double totalScore = 0;
         foreach (DataRow drOri in dtOri.Rows)
         {
             DataRow dr = dt.NewRow();
@@ -102,9 +108,12 @@
                 dr["电话"] = drOri["cell_number"].ToString().Trim();
             }
             dr["零售总价"] = Math.Round(double.Parse(drOri["order_price"].ToString()),2);
+            totalSale = totalSale + Math.Round(double.Parse(drOri["order_price"].ToString()),2);
             dr["实付金额"] = Math.Round(double.Parse(drOri["order_real_pay_price"].ToString()),2);
+            totalCharge = totalCharge + Math.Round(double.Parse(drOri["order_real_pay_price"].ToString()),2);
             dr["龙珠系数"] = Math.Round(double.Parse(drOri["score_rate"].ToString()),2);
             dr["生成龙珠"] = Math.Round(double.Parse(drOri["generate_score"].ToString()),2);
+            totalScore = totalScore + Math.Round(double.Parse(drOri["generate_score"].ToString()),2);
             dr["支付方式"] = drOri["pay_method"].ToString().Trim();
             string detailStr = "";
             /*
@@ -137,7 +146,12 @@
 
             dt.Rows.Add(dr);
         }
-
+        DataRow drTotal = dt.NewRow();
+        drTotal["昵称"] = "总计";
+        drTotal["零售总价"] = Math.Round(totalSale, 2).ToString();
+        drTotal["实付金额"] = Math.Round(totalCharge, 2).ToString();
+        drTotal["生成龙珠"] = ((int)totalScore).ToString();
+        dt.Rows.Add(drTotal);
         return dt;
     }
 
@@ -168,8 +182,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>日期：&nbsp;<input type="text" id="start_date" value="<%=startDate.ToShortDateString() %>" /> 
-        - <input type="text" id="end_date" value="<%=endDate.ToShortDateString() %>" /> &nbsp;<input type="button" onclick="date_filter()" value=" 查 询 " />  
+    <div>日期：&nbsp;<input type="text" id="start_date" value="<%=startDate.Year.ToString() + "-" + startDate.Month.ToString() + "-" + startDate.Day.ToString()%>" /> 
+        - <input type="text" id="end_date" value="<%=endDate.Year.ToString() + "-" + endDate.Month.ToString() + "-" + endDate.Day.ToString() %>" /> &nbsp;<input type="button" onclick="date_filter()" value=" 查 询 " />  
         <a href="?start_date=<%=DateTime.Now.AddDays(-1).ToShortDateString() %>&end_date=<%=DateTime.Now.AddDays(-1).ToShortDateString() %>" >昨天</a> 
         <a href="?start_date=<%=mondayDate.ToShortDateString() %>&end_date=<%=DateTime.Now.Date.ToShortDateString() %>" >本周</a>&nbsp;&nbsp; 类型：<asp:DropDownList runat="server" ID="TypeList" OnSelectedIndexChanged="TypeList_SelectedIndexChanged" AutoPostBack="True">
         <asp:ListItem>全部</asp:ListItem>
