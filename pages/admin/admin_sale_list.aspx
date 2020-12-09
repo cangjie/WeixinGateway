@@ -15,6 +15,8 @@
 
     public string type = "全部";
 
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -23,6 +25,8 @@
             {
                 startDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "start_date", DateTime.Now.ToShortDateString()));
                 endDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "end_date", DateTime.Now.ToShortDateString()));
+                shop = Util.GetSafeRequestValue(Request, "shop", "全部");
+                type = Util.GetSafeRequestValue(Request, "type", "全部");
             }
             catch
             {
@@ -65,9 +69,9 @@
 
         DataTable dtOri = DBHelper.GetDataTable("select *, users.cell_number as user_number from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id] "
             + " where order_online.type in ('店销', '服务') and order_online.pay_state = 1  "
-            + (ShopList.SelectedValue.Trim().Equals("全部")? " " : " and order_online.shop = '" + ShopList.SelectedValue.Trim() + "' ")
+            + (shop.Equals("全部")? " " : " and order_online.shop = '" + shop + "' ")
             + " and pay_time >= '" + startDate.ToShortDateString() + "' and pay_time < '" + endDate.AddDays(1) + "' "
-            + (TypeList.SelectedValue.Trim().Equals("全部")? " " : " and order_online.[type] = '" + TypeList.SelectedValue.Trim() + "'  ")
+            + (type.Equals("全部")? " " : " and order_online.[type] = '" + type.Trim() + "'  ")
             + " order by order_online.[id]  desc");
 
         DataTable dt = new DataTable();
@@ -184,17 +188,21 @@
     <form id="form1" runat="server">
     <div>日期：&nbsp;<input type="text" id="start_date" value="<%=startDate.Year.ToString() + "-" + startDate.Month.ToString() + "-" + startDate.Day.ToString()%>" /> 
         - <input type="text" id="end_date" value="<%=endDate.Year.ToString() + "-" + endDate.Month.ToString() + "-" + endDate.Day.ToString() %>" /> &nbsp;<input type="button" onclick="date_filter()" value=" 查 询 " />  
-        <a href="?start_date=<%=DateTime.Now.AddDays(-1).ToShortDateString() %>&end_date=<%=DateTime.Now.AddDays(-1).ToShortDateString() %>" >昨天</a> 
-        <a href="?start_date=<%=mondayDate.ToShortDateString() %>&end_date=<%=DateTime.Now.Date.ToShortDateString() %>" >本周</a>&nbsp;&nbsp; 类型：<asp:DropDownList runat="server" ID="TypeList" OnSelectedIndexChanged="TypeList_SelectedIndexChanged" AutoPostBack="True">
-        <asp:ListItem>全部</asp:ListItem>
-        <asp:ListItem>店销</asp:ListItem>
-        <asp:ListItem>服务</asp:ListItem>
-        </asp:DropDownList>&nbsp; 店铺：<asp:DropDownList ID="ShopList" runat="server" OnSelectedIndexChanged="ShopList_SelectedIndexChanged" AutoPostBack="True" >
-            <asp:ListItem>全部</asp:ListItem>
-            <asp:ListItem>南山</asp:ListItem>
-            <asp:ListItem>八易</asp:ListItem>
-            <asp:ListItem>万龙</asp:ListItem>
-        </asp:DropDownList></div>
+        <a href="?start_date=<%=DateTime.Now.AddDays(-1).Year.ToString() + "-" + DateTime.Now.AddDays(-1).Month.ToString() + "-" + DateTime.Now.AddDays(-1).Day.ToString() %>&end_date=<%=DateTime.Now.AddDays(-1).Year.ToString() + "-" + DateTime.Now.AddDays(-1).Month.ToString() + "-" + DateTime.Now.AddDays(-1).Day.ToString() %>" >昨天</a> 
+        <a href="?start_date=<%=mondayDate.Year.ToString() + "-" + mondayDate.Month.ToString() + "-" + mondayDate.Day.ToString() %>&end_date=<%=DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString() %>" >本周</a>&nbsp;&nbsp; 类型：
+        <select id="type" onchange="date_filter()"  >
+            <option <%=((type.Trim().Equals("全部"))? "selected":"") %> >全部</option>
+            <option <%=((type.Trim().Equals("店销"))? "selected":"") %> >店销</option>
+            <option <%=((type.Trim().Equals("服务"))? "selected":"") %> >服务</option>
+        </select>
+        &nbsp; 店铺：<select id="shop" onchange="date_filter()" >
+            <option <%=((shop.Trim().Equals("全部"))? "selected":"") %> >全部</option>
+            <option <%=((shop.Trim().Equals("万龙"))? "selected":"") %> >万龙</option>
+            <option <%=((shop.Trim().Equals("南山"))? "selected":"") %> >南山</option>
+            <option <%=((shop.Trim().Equals("八易"))? "selected":"") %> >八易</option>
+            <option <%=((shop.Trim().Equals("总店"))? "selected":"") %> >总店</option>
+            <option <%=((shop.Trim().Equals("崇礼旗舰店"))? "selected":"") %> >崇礼旗舰店</option>
+                  </select></div>
     <div>
         <asp:DataGrid runat="server" ID="dg" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" Width="100%" >
             <AlternatingItemStyle BackColor="#DCDCDC" />
@@ -208,7 +216,8 @@
     </form>
     <script type="text/javascript" >
         function date_filter() {
-            window.location.href = '?start_date=' + document.getElementById("start_date").value + '&end_date=' + document.getElementById("end_date").value;
+            window.location.href = '?start_date=' + document.getElementById("start_date").value + '&end_date=' + document.getElementById("end_date").value
+                + '&type=' + document.getElementById("type").value + '&shop=' + document.getElementById("shop").value;
         }
     </script>
 </body>
