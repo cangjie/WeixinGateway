@@ -37,11 +37,12 @@
             <td>票号</td>
             <td>手机号</td>
             <td>昵称</td>
-            <td>雪场</td>
+            <td>商品</td>
             <td>单价</td>
             <td>张数</td>
             <td>租板</td>
             <td>支付金额</td>
+            <td>使用日期</td>
             <td>验票</td>
             <td>验票时间</td>
             <td>购买日期</td>
@@ -63,6 +64,7 @@
             <td><%=dtl.count.ToString() %></td>
             <td><%=(pass.Rent? "需要" : "不需要") %></td>
             <td><%=Math.Round(double.Parse(pass.AssociateOnlineOrder._fields["order_real_pay_price"].ToString()),2).ToString() %></td>
+            <td><%=pass.AppointDate.ToShortDateString() %></td>
             <td><%=(pass.Used? "已验":"未验") %></td>
             <td><%=(pass.Used? pass.useDate.ToString() : "---") %></td>
             <td><%=pass.AssociateOnlineOrder._fields["create_date"].ToString() %></td>

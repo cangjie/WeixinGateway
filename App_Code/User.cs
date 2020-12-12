@@ -23,62 +23,100 @@ public class WeixinUser : ObjectHelper
 
 	public WeixinUser(string openId)
 	{
+        
         tableName = "users";
         primaryKeyName = "open_id";
         primaryKeyValue = openId.Trim();
         DataTable dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
         if (dt.Rows.Count == 0)
         {
-            //throw new Exception("not found");
+            bool notExsits = false;
             string json = Util.GetWebContent("https://api.weixin.qq.com/cgi-bin/user/info?access_token="
             + Util.GetToken() + "&openid=" + openId + "&lang=zh_CN");
             if (json.IndexOf("errocde") >= 0)
             {
-                throw new Exception("not found");
+                //throw new Exception("not found");
+                notExsits = true;
             }
             else
             {
                 try
                 {
                     JsonHelper jsonObject = new JsonHelper(json);
-                    string nick = jsonObject.GetValue("nickname");
-                    string headImageUrl = jsonObject.GetValue("headimgurl");
 
-                    KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[5];
-                    parameters[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "open_id", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)openId));
-                    parameters[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "nick", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)nick.Trim()));
-                    parameters[2] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "head_image", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)headImageUrl.Trim()));
-                    parameters[3] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "vip_level", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
-                    parameters[4] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
-                        "is_admin", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
+                    string errCode = "";
 
-                    int i = DBHelper.InsertData(tableName, parameters);
+                    try
+                    {
+                        errCode = jsonObject.GetValue("errcode");
+                    }
+                    catch
+                    {
 
-                    if (i == 0)
-                        throw new Exception("not inserted");
+                    }
+
+                    if (errCode.Trim().Equals(""))
+                    {
+
+                        string nick = jsonObject.GetValue("nickname");
+                        string headImageUrl = jsonObject.GetValue("headimgurl");
+
+                        KeyValuePair<string, KeyValuePair<SqlDbType, object>>[] parameters = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>[5];
+                        parameters[0] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                            "open_id", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)openId));
+                        parameters[1] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                            "nick", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)nick.Trim()));
+                        parameters[2] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                            "head_image", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)headImageUrl.Trim()));
+                        parameters[3] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                            "vip_level", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
+                        parameters[4] = new KeyValuePair<string, KeyValuePair<SqlDbType, object>>(
+                            "is_admin", new KeyValuePair<SqlDbType, object>(SqlDbType.VarChar, (object)0));
+
+                        int i = DBHelper.InsertData(tableName, parameters);
+
+                        if (i == 0)
+                            throw new Exception("not inserted");
+                        else
+                        {
+                            dt.Dispose();
+                            dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
+                            _fields = dt.Rows[0];
+                        }
+                        GetUnionId(openId);
+                    }
                     else
                     {
-                        dt.Dispose();
-                        dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
-                        _fields = dt.Rows[0];
+                        notExsits = true;
                     }
                 }
                 catch
                 {
-
+                    notExsits = true;
                 }
 
+            }
+
+            if (notExsits)
+            {
+                MiniUsers tempMiniUser = new MiniUsers(openId.Trim());
+                if (tempMiniUser._fields != null)
+                {
+                    openId = tempMiniUser.OfficialAccountOpenId.Trim();
+                    GetUnionId(openId);
+                    dt = DBHelper.GetDataTable(" select * from users where open_id = '" + openId.Trim() + "' ");
+                    if (dt.Rows.Count > 0)
+                    {
+                        _fields = dt.Rows[0];
+                    }
+                }
             }
         }
         else 
         {
+            GetUnionId(openId);
             _fields = dt.Rows[0];
         }
-
 	}
 
     public string OpenId
@@ -193,13 +231,40 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+    public MiniUsers miniUser
+    {
+        get
+        {
+            string unionId = GetUnionId(OpenId.Trim());
+            DataTable dtMiniUser = DBHelper.GetDataTable(" select * from mini_users where  union_id = '" + unionId.Trim() + "' ");
+            MiniUsers miniUser = new MiniUsers();
+            if (dtMiniUser.Rows.Count > 0)
+            {
+                miniUser._fields = dtMiniUser.Rows[0];
+            }
+            return miniUser;
+        }
+    }
+
     public string HeadImage
     {
         get
         {
             try
             {
-                return _fields["head_image"].ToString().Trim();
+                string headImage = _fields["head_image"].ToString().Trim();
+                if (headImage.Trim().Equals(""))
+                {
+                    try
+                    {
+                        headImage = miniUser._fields["head_image"].ToString().Trim();
+                    }
+                    catch
+                    { 
+                    
+                    }
+                }
+                return headImage.Trim();
             }
             catch
             {
@@ -212,11 +277,28 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
+            string nick = "";
             if (_fields == null)
             {
-                return "";
+                nick = "";
             }
-            return _fields["nick"].ToString().Trim();
+            else
+            { 
+                nick = _fields["nick"].ToString().Trim();
+            }
+            if (nick.Trim().Equals(""))
+            {
+                try
+                {
+                    nick = miniUser._fields["nick"].ToString().Trim();
+                }
+                catch
+                { 
+                
+                }
+
+            }
+            return nick;
         }
     }
 
@@ -224,18 +306,27 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
+            string cellNumber = "";
             if (_fields == null)
             {
-                return "";
-            }
-            if (_fields["cell_number"] == null)
-            {
-                return "";
+                cellNumber = "";
             }
             else
             {
-                return _fields["cell_number"].ToString().Trim();
+                cellNumber = _fields["cell_number"].ToString().Trim();
             }
+            if (cellNumber.Trim().Equals(""))
+            {
+                try
+                {
+                    cellNumber = miniUser.CellNumber;
+                }
+                catch
+                { 
+                
+                }
+            }
+            return cellNumber.Trim();
         }
         set
         {
@@ -337,6 +428,41 @@ public class WeixinUser : ObjectHelper
             dt.Dispose();
             return ret;
         }
+    }
+
+    public static string GetUnionId(string openId)
+    {
+        
+        string unionId = "";
+        DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account' and open_id = '" + openId.Trim() + "' ");
+        if (dt.Rows.Count == 0)
+        {
+            string accessToken = Util.GetToken().Trim();
+            //accessToken = "39_waIk3uj1K5zPrxehZqH4Cj_FVuIyXYZmF1v5W66QczZzcAE0BmTgZTSnP-mu413GyQ5LznxRmueKqBRO7X5Cb8XF7ZgYtq1JCjVdW6smuKtGWuf-hG_e-9Xw6AMT3l5-1hI4AcMQ67SVDOGVTBFaADALTX";
+            string url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + accessToken.Trim()
+            + "&openid=" + openId.Trim() + "&lang=zh_CN";
+            string json = Util.GetWebContent(url);
+            try
+            {
+                unionId = Util.GetSimpleJsonValueByKey(json, "unionid");
+                if (!unionId.Trim().Equals(""))
+                {
+                    DBHelper.InsertData("unionids",
+                        new string[,] { {"union_id", "varchar", unionId.Trim() }, {"open_id", "varchar", openId.Trim() },
+                        {"source", "varchar", "snowmeet_official_account" } });
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        else
+        {
+            unionId = dt.Rows[0]["union_id"].ToString().Trim();
+        }
+        return unionId;
+        
     }
 
     public void TransferOrderAndPointsFromTempAccount()
