@@ -22,7 +22,7 @@
 
         int deviceId = int.Parse(Util.GetSafeRequestValue(Request, "deviceid", "1"));
         Device device = new Device(deviceId);
-        string qrCodeUrl = device._lastScan["qrcode_url"].ToString().Trim();
+        string qrCodeUrl = device._lastScan["qrcode_url"].ToString().Trim().Replace("snowmeet.com", "snowmeet.top");
 
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(qrCodeUrl);
         HttpWebResponse res = (HttpWebResponse)req.GetResponse();
