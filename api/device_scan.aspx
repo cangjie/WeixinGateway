@@ -6,7 +6,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
 
-
+        /*
         string testUrl = "http://weixin.snowmeet.top/show_qrcode.aspx?sceneid=1582092807";
         HttpWebRequest reqt = (HttpWebRequest)WebRequest.Create(testUrl);
         HttpWebResponse rest = (HttpWebResponse)reqt.GetResponse();
@@ -16,7 +16,7 @@
         rest.Close();
         reqt.Abort();
         Response.End();
-
+        */
 
 
 
