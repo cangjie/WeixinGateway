@@ -267,10 +267,13 @@
             <td>门店：</td>
             <td>
                 <select id="shop" >
-                    <option>乔波</option>
+                    <!--option>乔波</option-->
                     <option selected >南山</option>
                     <option>八易</option>
                     <option>万龙</option>
+                    <option>线上店</option>
+                    <option>崇礼旗舰店</option>
+                    <option>总店</option>
                 </select>
             </td>
         </tr>
@@ -327,12 +330,12 @@
                     if (longitude < 115.75 && latitude > 40) {
                         //alert("万龙" + " " + longitude + " " + latitude);
                         //done = true;
-                        shop.selectedIndex = 3;
+                        shop.selectedIndex = 2;
                     }
                     if (longitude > 115.75 && longitude < 116.25 && latitude < 40) {
                         //alert("八易" + " " + longitude + " " + latitude);
                         //done = true;
-                        shop.selectedIndex = 2;
+                        shop.selectedIndex = 1;
                     }
                     if (longitude > 116.5 && longitude < 116.75 && latitude > 40 && latitude < 40.25) {
                         //alert("乔波" + " " + longitude + " " + latitude);
@@ -342,7 +345,7 @@
                     if (longitude > 116.75 && latitude > 40.25) {
                         //alert("南山" + " " + longitude + " " + latitude);
                         //done = true;
-                        shop.selectedIndex = 1;
+                        shop.selectedIndex = 0;
                     }
                     if (!done) {
                         //alert(longitude + " " + latitude);

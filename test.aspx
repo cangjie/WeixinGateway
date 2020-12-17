@@ -10,7 +10,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         WeixinUser user = new WeixinUser("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
-        //Response.Write(user.UnionId.Trim());
+       
     }
 </script>
 

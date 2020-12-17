@@ -108,6 +108,7 @@
             <td>票号</td>
             <td>手机号</td>
             <td>昵称</td>
+            <td>商品</td>
             <td>单价</td>
             <td>张数</td>
             <td>验票</td>
@@ -133,6 +134,7 @@
             <td><%=pass.CardCode.Trim()%></td>
             <td><%=pass.Owner.CellNumber.Trim() %></td>
             <td><%=pass.Owner.Nick.Trim() %></td>
+            <td><%=dtl.productName.Trim() %></td>
             <td><%=pass.AssociateOnlineOrderDetail.price.ToString() %></td>
             <td><%=pass.AssociateOnlineOrderDetail.count.ToString() %></td>
             <td><%=(pass.Used ? "已验" : "未验") %></td>
