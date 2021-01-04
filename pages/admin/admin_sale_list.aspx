@@ -33,7 +33,7 @@
 
             }
 
-            
+
             switch (DateTime.Now.DayOfWeek)
             {
                 case DayOfWeek.Sunday:
@@ -65,9 +65,10 @@
     public DataTable GetData()
     {
 
-        DataTable dtAdmin = DBHelper.GetDataTable(" select * from users where is_admin = 1 ");
+        DataTable dtAdmin = DBHelper.GetDataTable(" select open_id, nick from users where is_admin = 1 union select open_id, nick from mini_users where is_admin = 1 ");
 
         DataTable dtOri = DBHelper.GetDataTable("select *, users.cell_number as user_number from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id] "
+            + " left join maintain_in_shop_request on order_online.[id] = maintain_in_shop_request.order_id "
             + " where order_online.type in ('店销', '服务') and order_online.pay_state = 1  "
             + (shop.Equals("全部")? " " : " and order_online.shop = '" + shop + "' ")
             + " and pay_time >= '" + startDate.ToShortDateString() + "' and pay_time < '" + endDate.AddDays(1) + "' "
@@ -97,6 +98,10 @@
         foreach (DataRow drOri in dtOri.Rows)
         {
             DataRow dr = dt.NewRow();
+            if (drOri["id"].ToString().Trim().Equals("10787"))
+            {
+                string aa = "aa";
+            }
             dr["订单号"] = int.Parse(drOri["id"].ToString().Trim());
             dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString());
             dr["店铺"] = drOri["shop"].ToString();
@@ -145,7 +150,22 @@
             }
             else
             {
-                dr["销售"] = "";
+                if (!drOri["service_open_id"].ToString().Trim().Equals(""))
+                {
+                    DataRow[] drArrAdmin = dtAdmin.Select(" open_id = '" + drOri["service_open_id"].ToString().Trim() + "' ");
+                    if (drArrAdmin.Length > 0)
+                    {
+                        dr["销售"] = drArrAdmin[0]["nick"].ToString().Trim();
+                    }
+                    else
+                    {
+                        dr["销售"] = "";
+                    }
+                }
+                else
+                { 
+                    dr["销售"] = "";
+                }
             }
 
             dt.Rows.Add(dr);
