@@ -30,6 +30,29 @@ public class RentItem
         }
     }
 
+    public static bool CanRent(string openId)
+    {
+        bool can = true;
+        DataTable dtRent = DBHelper.GetDataTable(" select top 1 * from rent_item where  borrow_open_id = '" + openId.Trim()
+            + "' where create_date >= '" + DateTime.Now.AddMonths(-1).ToShortDateString() + "' order by create_date desc ");
+        if (dtRent.Rows.Count > 0)
+        {
+            DataTable dtMessage = DBHelper.GetDataTable(" select top 2 * from wxreceivemsg where wxreceivemsg_from = '" 
+                + openId.Trim() + "' order by wxreceivemsg_crt desc");
+            if (dtMessage.Rows.Count > 1)
+            {
+                if (dtMessage.Rows[1]["wxreceivemsg_event"].ToString().Trim().ToLower().Equals("unsubscribe"))
+                {
+                    can = false;
+                }
+            }
+            dtMessage.Dispose();
+        }
+        dtRent.Dispose();
+        return can;
+    }
+
+
     public void Return(string openId)
     {
         if (_fields["status"].ToString().Trim().Equals("1"))

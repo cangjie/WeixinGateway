@@ -409,7 +409,8 @@ public class DealMessage
             case "verify":
                 break;
             case "rent":
-                repliedMessage = RentItem(receivedMessage, repliedMessage, int.Parse(anyId));
+                repliedMessage = RentItemMessage(receivedMessage, repliedMessage, int.Parse(anyId));
+
                 break;
             default:
                 break;
@@ -417,15 +418,41 @@ public class DealMessage
         return repliedMessage;
     }
 
-    public static RepliedMessage RentItem(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
+    public static RepliedMessage RentItemMessage(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
     {
+        WeixinUser borrower = new WeixinUser(receivedMessage.from.Trim());
         RentItem item = new RentItem(id);
-        item.Rent(receivedMessage.from.Trim());
-        DateTime returnDate = DateTime.Parse(item._fields["schedule_return_date_time"].ToString());
-        repliedMessage.type = "text";
-        repliedMessage.content = "您已确认租借：" + item._fields["item"].ToString().Trim() + "，归还时间：" + returnDate.Year.ToString()
-            + "年" + returnDate.Month.ToString().ToString()+"月"+returnDate.Day.ToString()+"日"+returnDate.Hour.ToString()+"时";
-        return repliedMessage;
+        if (RentItem.CanRent(receivedMessage.from.Trim()))
+        {
+            
+            
+            item.Rent(receivedMessage.from.Trim());
+            DateTime returnDate = DateTime.Parse(item._fields["schedule_return_date_time"].ToString());
+            repliedMessage.type = "text";
+            string msgTxt = "已确认租借：" + item._fields["item"].ToString().Trim() + "，归还时间：" + returnDate.Year.ToString()
+                + "年" + returnDate.Month.ToString().ToString() + "月" + returnDate.Day.ToString() + "日" + returnDate.Hour.ToString() + "时";
+            repliedMessage.content = "您" + msgTxt.Trim();
+            ServiceMessage msg = new ServiceMessage();
+            msg.from = "";
+            msg.to = item._fields["lend_open_id"].ToString();
+            msg.type = "text";
+            msg.content = borrower.Nick.Trim() + " " + msgTxt.Trim();
+            ServiceMessage.SendServiceMessage(msg);
+            return repliedMessage;
+        }
+        else
+        {
+            string msgTxt = "在上次租借后，取关了公众号，并且到现在才开始关注，所以您没有权限再行租借物品。";
+            repliedMessage.type = "text";
+            repliedMessage.content = "您" + msgTxt;
+            ServiceMessage msg = new ServiceMessage();
+            msg.from = "";
+            msg.to = item._fields["lend_open_id"].ToString();
+            msg.type = "text";
+            msg.content = borrower.Nick.Trim() + " " + msgTxt.Trim();
+            ServiceMessage.SendServiceMessage(msg);
+            return repliedMessage;
+        }
     }
 
     public static RepliedMessage UseServiceCard(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, string code)
