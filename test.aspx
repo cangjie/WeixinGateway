@@ -9,7 +9,9 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        WeixinUser user = new WeixinUser("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
+        //WeixinUser user = new WeixinUser("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
+        ReceivedMessage msg = new ReceivedMessage("event_20210109215431392");
+        DealMessage.DealCommonEventMessage(msg);
        
     }
 </script>

@@ -34,7 +34,7 @@ public class RentItem
     {
         bool can = true;
         DataTable dtRent = DBHelper.GetDataTable(" select top 1 * from rent_item where  borrow_open_id = '" + openId.Trim()
-            + "' where create_date >= '" + DateTime.Now.AddMonths(-1).ToShortDateString() + "' order by create_date desc ");
+            + "' and create_date >= '" + DateTime.Now.AddMonths(-1).ToShortDateString() + "' order by create_date desc ");
         if (dtRent.Rows.Count > 0)
         {
             DataTable dtMessage = DBHelper.GetDataTable(" select top 2 * from wxreceivemsg where wxreceivemsg_from = '" 
