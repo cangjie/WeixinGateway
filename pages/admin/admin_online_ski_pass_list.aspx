@@ -1,11 +1,20 @@
 ﻿<%@ Page Language="C#" %>
+<%@ Import Namespace="System.Data" %>
 <script runat="server">
 
     public OnlineSkiPass[] passArr;
+    public DataTable dtUser = new DataTable();
+    public DataTable dtMini = new DataTable();
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
         passArr = OnlineSkiPass.GetLastWeekOnlineSkiPass();
+
+        dtUser = DBHelper.GetDataTable("select * from users");
+        dtMini = DBHelper.GetDataTable(" select mini_users.open_id as open_id, mini_users.nick as mini_nick, mini_users.cell_number as mini_cell, users.nick as nick, users.cell_number as cell  from mini_users  "
+            + " left join unionids on unionids.union_id = mini_users.union_id  and unionids.source = 'snowmeet_official_account'   left join users on users.open_id = unionids.open_id  " );
+
     }
 </script>
 
@@ -50,12 +59,39 @@
         <%
             foreach(OnlineSkiPass pass in passArr)
             {
-                
+                string openId = pass._fields["open_id"].ToString().Trim();
+                string cell = "";
+                string nick = "";
+                DataRow[] drArr = dtMini.Select(" open_id = '" + openId.Trim() + "' ");
+                if (drArr.Length == 0)
+                {
+                    drArr = dtUser.Select(" open_id = '" + openId.Trim() + "' ");
+                    if (drArr.Length > 0)
+                    {
+                        cell = drArr[0]["cell_number"].ToString().Trim();
+                        nick = drArr[0]["nick"].ToString().Trim();
+                    }
+                }
+                else
+                {
+                    cell = drArr[0]["mini_cell"].ToString().Trim();
+                    if (cell.Trim().Equals("13910786009"))
+                    {
+                        string aa = "aa";
+                    }
+                    nick = drArr[0]["mini_nick"].ToString().Trim();
+                    if (nick.Trim().Equals(""))
+                    {
+
+                        nick = drArr[0]["nick"].ToString().Trim();
+                    }
+                }
+
                 %>
         <tr>
             <td><%=pass.CardCode.Trim()%></td>
-            <td><%=pass.Owner.CellNumber.Trim() %></td>
-            <td><%=pass.Owner.Nick.Trim() %></td>
+            <td><%=cell %></td>
+            <td><%=nick%></td>
             <%
                 OnlineOrderDetail dtl = pass.AssociateOnlineOrderDetail;
                  %>
