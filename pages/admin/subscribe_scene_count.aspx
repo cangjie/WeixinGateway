@@ -23,7 +23,29 @@
         DataTable dt = DBHelper.GetDataTable(" select dbo.func_GetSubscribeScene(wxreceivemsg_eventkey) as 场景, count(*) as 新增 from wxreceivemsg "
             + " where wxreceivemsg_crt >= '" + currentDate.ToShortDateString() + "' and wxreceivemsg_crt < '" + currentDate.AddDays(1).ToShortDateString() + "'  "
             + " and wxreceivemsg_event = 'subscribe' group by dbo.func_GetSubscribeScene(wxreceivemsg_eventkey)  ");
-        return dt;
+        DataTable dtNew = new DataTable();
+        dtNew.Columns.Add("场景");
+        dtNew.Columns.Add("新增");
+        int deviceCount = 0;
+        foreach (DataRow dr in dt.Rows)
+        {
+            if (dr["场景"].ToString().StartsWith("qrscene_161"))
+            {
+                deviceCount++;
+            }
+            else
+            {
+                DataRow drNew = dtNew.NewRow();
+                drNew["场景"] = dr["场景"].ToString().Trim();
+                drNew["新增"] = dr["新增"].ToString().Trim();
+                dtNew.Rows.Add(drNew);
+            }
+        }
+        DataRow drDevice = dtNew.NewRow();
+        drDevice["场景"] = "八易烘鞋";
+        drDevice["新增"] = deviceCount;
+        dtNew.Rows.Add(drDevice);
+        return dtNew;
     }
 
 
