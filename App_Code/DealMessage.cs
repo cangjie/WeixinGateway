@@ -590,8 +590,8 @@ public class DealMessage
 
         string messageText = "您的 " + brand.Trim() + " " + type + " " + type + " 的保养项目：" + product._fields["name"].ToString().Trim()
             + " " + (!more.Trim().Equals("") ? "附加项目：" + more : "")
-            + (addFee != 0 ? ((addFee > 0 ? "附加费用：" : "优惠金额：") + Math.Round(Math.Abs(addFee), 2).ToString()) : " ")
-            + " 需要支付： " + Math.Round(product.SalePrice + addFee, 2).ToString() + "。 <a href=\"http://" 
+            + (addFee != 0 ? ((addFee > 0 ? "附加费用：" : "优惠金额：") + Math.Round(Math.Abs(addFee), 2).ToString())+"元" : " ")
+            + " 需要支付： " + Math.Round(product.SalePrice + addFee, 2).ToString() + "元。 <a href=\"http://" 
             + Util.domainName.Trim() +  "/pages/confirm_in_shop_maintain_task.aspx?id=" + id.ToString() + "\" >" +
             "点击支付</a>";
         repliedMessage.type = "text";
