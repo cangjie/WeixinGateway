@@ -75,10 +75,6 @@
                 else
                 {
                     cell = drArr[0]["mini_cell"].ToString().Trim();
-                    if (cell.Trim().Equals("13910786009"))
-                    {
-                        string aa = "aa";
-                    }
                     nick = drArr[0]["mini_nick"].ToString().Trim();
                     if (nick.Trim().Equals(""))
                     {
