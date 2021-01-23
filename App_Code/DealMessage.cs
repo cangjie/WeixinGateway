@@ -584,9 +584,11 @@ public class DealMessage
             new string[,] { { "id", "int", id.ToString() } }, Util.conStr);
         int productId = int.Parse(dtMaintain.Rows[0]["confirmed_product_id"].ToString());
         Product product = new Product();
+        double productPrice = 0;
         if (productId > 0)
         {
-            product = new Product();
+            product = new Product(productId);
+            productPrice = product.SalePrice;
         }
         string brand = dtMaintain.Rows[0]["confirmed_brand"].ToString();
         string type = dtMaintain.Rows[0]["confirmed_equip_type"].ToString();
@@ -597,7 +599,7 @@ public class DealMessage
             + ((productId > 0)?" 的保养项目：" + product._fields["name"].ToString().Trim():"")
             + " " + (!more.Trim().Equals("") ? "附加项目：" + more : "")
             + (addFee != 0 ? ((addFee > 0 ? "附加费用：" : "优惠金额：") + Math.Round(Math.Abs(addFee), 2).ToString())+"元" : " ")
-            + " 需要支付： " + Math.Round(product.SalePrice + addFee, 2).ToString() + "元。 <a href=\"http://" 
+            + " 需要支付： " + Math.Round(productPrice + addFee, 2).ToString() + "元。 <a href=\"http://" 
             + Util.domainName.Trim() +  "/pages/confirm_in_shop_maintain_task.aspx?id=" + id.ToString() + "\" >" +
             "点击支付</a>";
         repliedMessage.type = "text";
