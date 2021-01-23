@@ -10,7 +10,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         //WeixinUser user = new WeixinUser("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
-        ReceivedMessage msg = new ReceivedMessage("event_20210123161546647");
+        ReceivedMessage msg = new ReceivedMessage("event_20210123170100121");
         DealMessage.DealCommonEventMessage(msg);
        
     }
