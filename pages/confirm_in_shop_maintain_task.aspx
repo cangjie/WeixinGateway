@@ -16,6 +16,7 @@
         openId = WeixinUser.CheckToken(userToken);
         int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "0"));
         int orderId = EquipMaintainRequestInshop.PlaceOrder(id);
+        WeixinUser.GetUnionId(openId);
         if (orderId > 0)
         {
             Response.Redirect("/payment/payment.aspx?product_id=" + orderId.ToString(), true);
