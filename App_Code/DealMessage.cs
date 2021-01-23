@@ -582,11 +582,11 @@ public class DealMessage
         }
         Product product = new Product(int.Parse(dtMaintain.Rows[0]["confirmed_product_id"].ToString()));
         string brand = dtMaintain.Rows[0]["confirmed_brand"].ToString();
-        string type = dtMaintain.Rows[0]["confirmed_type"].ToString();
+        string type = dtMaintain.Rows[0]["confirmed_equip_type"].ToString();
         double addFee = double.Parse(dtMaintain.Rows[0]["confirmed_additional_fee"].ToString().Trim());
         string more = dtMaintain.Rows[0]["confirmed_more"].ToString().Trim();
 
-        string messageText = "您的 " + brand.Trim() + " " + type + " 的保养项目：" + product._fields["name"].ToString().Trim()
+        string messageText = "您的 " + brand.Trim() + " " + type + " " + type + " 的保养项目：" + product._fields["name"].ToString().Trim()
             + " " + (!more.Trim().Equals("") ? "附加项目：" + more : "")
             + (addFee != 0 ? ((addFee > 0 ? "附加费用：" : "优惠金额：") + Math.Round(Math.Abs(addFee), 2).ToString()) : " ")
             + " 需要支付： " + Math.Round(product.SalePrice + addFee, 2).ToString() + "。 ";
