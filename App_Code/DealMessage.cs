@@ -387,6 +387,9 @@ public class DealMessage
                     case "channeled_product_id":
                         repliedMessage = ScanToPayChanneledProduct(receivedMessage, repliedMessage, int.Parse(anyId.Split('-')[0].Trim()), anyId.Split('-')[1].Trim());
                         break;
+                    case "in_shop_maintain_id":
+                        repliedMessage = ScanToPayInShopMaintainId(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
                     default:
                         break;
                 }
@@ -568,6 +571,29 @@ public class DealMessage
         return repliedMessage;
     }
 
+    public static RepliedMessage ScanToPayInShopMaintainId(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
+    {
+        DataTable dtMaintain = DBHelper.GetDataTable(" select * from maintain_in_shop_request where [id] = " + id.ToString());
+        if (dtMaintain.Rows.Count == 0)
+        {
+            repliedMessage.type = "text";
+            repliedMessage.content = "系统出错。";
+            return repliedMessage;
+        }
+        Product product = new Product(int.Parse(dtMaintain.Rows[0]["confirmed_product_id"].ToString()));
+        string brand = dtMaintain.Rows[0]["confirmed_brand"].ToString();
+        string type = dtMaintain.Rows[0]["confirmed_type"].ToString();
+        double addFee = double.Parse(dtMaintain.Rows[0]["confirmed_additional_fee"].ToString().Trim());
+        string more = dtMaintain.Rows[0]["confirmed_more"].ToString().Trim();
+
+        string messageText = "您的 " + brand.Trim() + " " + type + " 的保养项目：" + product._fields["name"].ToString().Trim()
+            + " " + (!more.Trim().Equals("") ? "附加项目：" + more : "")
+            + (addFee != 0 ? ((addFee > 0 ? "附加费用：" : "优惠金额：") + Math.Round(Math.Abs(addFee), 2).ToString()) : " ")
+            + " 需要支付： " + Math.Round(product.SalePrice + addFee, 2).ToString() + "。 ";
+        repliedMessage.type = "text";
+        repliedMessage.content = messageText.Trim();
+        return repliedMessage;
+    }
     public static RepliedMessage GenerateChargeMessage(ReceivedMessage receivedMessage)
     {
         RepliedMessage replyMessage = new RepliedMessage();
