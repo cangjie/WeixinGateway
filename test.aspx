@@ -9,9 +9,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        //WeixinUser user = new WeixinUser("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
-        ReceivedMessage msg = new ReceivedMessage("event_20210123170100121");
-        DealMessage.DealCommonEventMessage(msg);
+        Expierence exp = new Expierence(2);
+        int orderId = exp.PlaceOrder("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
        
     }
 </script>
