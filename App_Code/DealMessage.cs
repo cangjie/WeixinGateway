@@ -431,8 +431,8 @@ public class DealMessage
         repliedMessage.type = "text";
         repliedMessage.content = "您试滑 " + expierence.name.Trim() + " ，请在" + expierence.endTime.Month.ToString() + "月" 
             + expierence.endTime.Date.ToString() + "日" + expierence.endTime.Hour.ToString() + "点" + expierence.endTime.Minute.ToString() + "分前归还。"
-            + "<a href='http://" + Util.domainName.Trim() + "/pages/confirm_exierence_admit.aspx?id=" + expierence._fields["id"].ToString() 
-            +  "' >点击这里支付" + expierence._fields["guarantee_cash"].ToString().Trim() + "元押金</a>。";
+            + "<a href=\"http://" + Util.domainName.Trim() + "/pages/confirm_exierence_admit.aspx?id=" + expierence._fields["id"].ToString() 
+            +  "\" >点击这里支付" + expierence._fields["guarantee_cash"].ToString().Trim() + "元押金</a>。";
         return repliedMessage;
     }
 
