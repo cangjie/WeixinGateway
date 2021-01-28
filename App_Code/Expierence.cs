@@ -26,6 +26,22 @@ public class Expierence
         }
     }
 
+    public string name
+    {
+        get
+        {
+            return _fields["asset_name"].ToString().Trim();
+        }
+    }
+
+    public DateTime endTime
+    {
+        get
+        {
+            return DateTime.Parse(_fields["end_time"].ToString());
+        }
+    }
+
     public int PlaceOrder(string customerOpenId)
     {
         int productId = 147;

@@ -390,6 +390,9 @@ public class DealMessage
                     case "in_shop_maintain_id":
                         repliedMessage = ScanToPayInShopMaintainId(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
+                    case "expierence_guarantee_cash":
+                        repliedMessage = PayExpierenceCash(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
                     default:
                         break;
                 }
@@ -418,6 +421,18 @@ public class DealMessage
             default:
                 break;
         }
+        return repliedMessage;
+    }
+
+    public static RepliedMessage PayExpierenceCash(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
+    {
+        Expierence expierence = new Expierence(id);
+        int orderId = expierence.PlaceOrder(receivedMessage.from);
+        repliedMessage.type = "text";
+        repliedMessage.content = "您试滑 " + expierence.name.Trim() + " ，请在" + expierence.endTime.Month.ToString() + "月" 
+            + expierence.endTime.Date.ToString() + "日" + expierence.endTime.Hour.ToString() + "点" + expierence.endTime.Minute.ToString() + "分前归还。"
+            + "<a href='http://" + Util.domainName.Trim() + "/pages/confirm_exierence_admit.aspx?id=" + expierence._fields["id"].ToString() 
+            +  "' >点击这里支付" + expierence._fields["guarantee_cash"].ToString().Trim() + "元押金</a>。";
         return repliedMessage;
     }
 
