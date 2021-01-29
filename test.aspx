@@ -9,8 +9,8 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Expierence exp = new Expierence(2);
-        int orderId = exp.PlaceOrder("oZBHkjoXAYNrx5wKCWRCD5qSGrPM");
+        WeixinPaymentOrder odr = new WeixinPaymentOrder("1611925136012100");
+        odr.Refund(0.01);
        
     }
 </script>

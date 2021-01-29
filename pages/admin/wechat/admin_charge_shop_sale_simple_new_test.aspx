@@ -274,6 +274,7 @@
                     <option>线上店</option>
                     <option>崇礼旗舰店</option>
                     <option>总店</option>
+                    <option>试滑门店</option>
                 </select>
             </td>
         </tr>
