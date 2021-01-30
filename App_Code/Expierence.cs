@@ -66,8 +66,8 @@ public class Expierence
         { 
         
         }
-        DBHelper.UpdateData("expierence_list", new string[,] { { "guarantee_order_id", "int", orderId.ToString() } },
-            new string[,] { { "id", "int", _fields["id"].ToString() } }, Util.conStr);
+        DBHelper.UpdateData("expierence_list", new string[,] { { "guarantee_order_id", "int", orderId.ToString() }, 
+            {"open_id", "varchar", customerOpenId.Trim() } }, new string[,] { { "id", "int", _fields["id"].ToString() } }, Util.conStr);
         return orderId;
     }
 
