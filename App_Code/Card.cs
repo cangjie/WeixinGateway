@@ -86,6 +86,24 @@ public class Card
         _fields = dt.Rows[0];
     }
 
+    public string Name
+    {
+        get
+        {
+            int productId = int.Parse(_fields["product_id"].ToString());
+            Product p = new Product(productId);
+            string name = p._fields["name"].ToString();
+            if (productId == 144 || productId == 145)
+            {
+                if (DateTime.Parse(_fields["create_date"].ToString()).Year < 2021)
+                {
+                    name = name.Replace("2021", "2020");
+                }
+            }
+            return name;
+        }
+    }
+
     public void Use(DateTime useDateTime)
     {
         string[,] updateParam = { {"used", "int", "1" }, {"use_date", "datetime", useDateTime.ToString() } };
