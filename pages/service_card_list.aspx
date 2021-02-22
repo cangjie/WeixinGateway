@@ -80,7 +80,7 @@
                  %>
             <div id="ticket-<%=c.Code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px" onclick="go_to_ticket_detail('<%=c.Code.Trim() %>')" >
                 <div class="panel-heading">
-                    <h3 class="panel-title"><%=p._fields["name"].ToString().Trim()%></h3>
+                    <h3 class="panel-title"><%=c.Name.Trim()%></h3>
                 </div>
                 <div class="panel-body">
                     <%if (c.Name.IndexOf("2020") >= 0) %>
