@@ -23,7 +23,7 @@
             + " from order_online "
             + " left join covid19_service on code = covid19_service.card_no left join users on users.open_id = order_online.open_id "
             + " where [id] in (select order_online_id from order_online_detail where product_id = 144) and pay_state = 1 and [type] = '服务卡' "
-            + " order by order_online.[id] desc");
+            + " and order_online.create_date > '2021-1-1' order by order_online.[id] desc");
         return dt;
     }
 
