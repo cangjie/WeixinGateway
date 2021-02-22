@@ -83,7 +83,15 @@
                     <h3 class="panel-title"><%=p._fields["name"].ToString().Trim()%></h3>
                 </div>
                 <div class="panel-body">
+                    <%if (c.Name.IndexOf("2020") >= 0) %>
+                    <%
+                        {%>
+                    <%=p.cardInfo.rules.Trim().Replace("2021", "2020") %>
+                    <%}
+    else
+    {%>
                   <%=p.cardInfo.rules.Trim() %>
+                    <%} %>
                 </div>
             </div>
             <%}
