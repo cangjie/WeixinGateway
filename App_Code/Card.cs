@@ -97,7 +97,7 @@ public class Card
             {
                 if (DateTime.Parse(_fields["create_date"].ToString()).Year < 2021)
                 {
-                    name = name.Replace("2021", "2020");
+                    name = name.Replace("2021", "2020").Replace("20-21", "19-20");
                 }
             }
             return name;
