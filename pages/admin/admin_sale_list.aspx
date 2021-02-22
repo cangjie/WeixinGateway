@@ -215,7 +215,7 @@
             <option <%=((type.Trim().Equals("店销"))? "selected":"") %> >店销</option>
             <option <%=((type.Trim().Equals("服务"))? "selected":"") %> >服务</option>
         </select>
-        &nbsp; 店铺：<select id="shop" onchange="date_filter()" >
+        &nbsp; 店铺：<select id="shop" onchange="shop_change()" >
             <option <%=((shop.Trim().Equals("全部"))? "selected":"") %> >全部</option>
             <option <%=((shop.Trim().Equals("万龙"))? "selected":"") %> >万龙</option>
             <option <%=((shop.Trim().Equals("南山"))? "selected":"") %> >南山</option>
@@ -238,6 +238,15 @@
         function date_filter() {
             window.location.href = '?start_date=' + document.getElementById("start_date").value + '&end_date=' + document.getElementById("end_date").value
                 + '&type=' + document.getElementById("type").value + '&shop=' + document.getElementById("shop").value;
+        }
+        function shop_change() {
+            var shop = document.getElementById("shop").value;
+            var type = document.getElementById("type").value;
+            if (shop == '万龙') {
+                type = '服务';
+            }
+            window.location.href = '?start_date=' + document.getElementById("start_date").value + '&end_date=' + document.getElementById("end_date").value
+                + '&type=' + type + '&shop=' + shop;
         }
     </script>
 </body>
