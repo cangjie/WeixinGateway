@@ -332,6 +332,7 @@
                         //alert("万龙" + " " + longitude + " " + latitude);
                         //done = true;
                         shop.selectedIndex = 2;
+                        document.getElementById("order_type").selectedIndex = 1;
                     }
                     if (longitude > 115.75 && longitude < 116.25 && latitude < 40) {
                         //alert("八易" + " " + longitude + " " + latitude);
