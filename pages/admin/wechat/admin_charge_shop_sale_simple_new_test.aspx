@@ -328,7 +328,8 @@
                     var speed = res.speed; // 速度，以米/每秒计
                     var accuracy = res.accuracy; // 位置精度
                     var done = false;
-                    if (longitude < 115.75 && latitude > 40) {
+                    //if (longitude < 115.75 && latitude > 40) {
+                    if (true) {}
                         //alert("万龙" + " " + longitude + " " + latitude);
                         //done = true;
                         shop.selectedIndex = 2;
