@@ -243,7 +243,7 @@
             var shop = document.getElementById("shop").value;
             var type = document.getElementById("type").value;
             if (shop == '万龙') {
-                type = '服务';
+                type = '全部';
             }
             window.location.href = '?start_date=' + document.getElementById("start_date").value + '&end_date=' + document.getElementById("end_date").value
                 + '&type=' + type + '&shop=' + shop;
