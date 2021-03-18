@@ -651,10 +651,10 @@ public class DealMessage
                 product = new Product(productId);
                 productPrice = product.SalePrice;
             }
-            string brand = dtMaintain.Rows[0]["confirmed_brand"].ToString();
-            string type = dtMaintain.Rows[0]["confirmed_equip_type"].ToString();
-            double addFee = double.Parse(dtMaintain.Rows[0]["confirmed_additional_fee"].ToString().Trim());
-            string more = dtMaintain.Rows[0]["confirmed_more"].ToString().Trim();
+            string brand = dr["confirmed_brand"].ToString();
+            string type = dr["confirmed_equip_type"].ToString();
+            double addFee = double.Parse(dr["confirmed_additional_fee"].ToString().Trim());
+            string more = dr["confirmed_more"].ToString().Trim();
             string messageSubText =  brand.Trim() + " " + type + " " + type
             + ((productId > 0) ? " 的保养项目：" + product._fields["name"].ToString().Trim() : "")
             + " " + (!more.Trim().Equals("") ? "附加项目：" + more : "")
