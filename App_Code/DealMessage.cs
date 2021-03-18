@@ -390,6 +390,9 @@ public class DealMessage
                     case "in_shop_maintain_id":
                         repliedMessage = ScanToPayInShopMaintainId(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
+                    case "pay_in_shop_maintain_batch_id":
+                        repliedMessage = ScanToPayInShopMaintainBatchId(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
                     case "expierence_guarantee_cash":
                         repliedMessage = PayExpierenceCash(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
@@ -617,6 +620,52 @@ public class DealMessage
             + " 需要支付： " + Math.Round(productPrice + addFee, 2).ToString() + "元。 <a href=\"http://" 
             + Util.domainName.Trim() +  "/pages/confirm_in_shop_maintain_task.aspx?id=" + id.ToString() + "\" >" +
             "点击支付</a>";
+        repliedMessage.type = "text";
+        repliedMessage.content = messageText.Trim();
+        return repliedMessage;
+    }
+
+    public static RepliedMessage ScanToPayInShopMaintainBatchId(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int batchId)
+    {
+        DataTable dtMaintain = DBHelper.GetDataTable(" select * from maintain_in_shop_request where batch_id = " + batchId.ToString());
+        if (dtMaintain.Rows.Count == 0)
+        {
+            repliedMessage.type = "text";
+            repliedMessage.content = "系统出错。";
+            return repliedMessage;
+        }
+
+        DBHelper.UpdateData("maintain_in_shop_request", new string[,] { { "open_id", "varchar", receivedMessage.from.Trim() } },
+            new string[,] { { "batch_id", "int", batchId.ToString() } }, Util.conStr);
+
+
+        string messageText = "";
+        double totalFee = 0;
+        foreach (DataRow dr in dtMaintain.Rows)
+        {
+            int productId = int.Parse(dr["confirmed_product_id"].ToString());
+            Product product = new Product();
+            double productPrice = 0;
+            if (productId > 0)
+            {
+                product = new Product(productId);
+                productPrice = product.SalePrice;
+            }
+            string brand = dtMaintain.Rows[0]["confirmed_brand"].ToString();
+            string type = dtMaintain.Rows[0]["confirmed_equip_type"].ToString();
+            double addFee = double.Parse(dtMaintain.Rows[0]["confirmed_additional_fee"].ToString().Trim());
+            string more = dtMaintain.Rows[0]["confirmed_more"].ToString().Trim();
+            string messageSubText =  brand.Trim() + " " + type + " " + type
+            + ((productId > 0) ? " 的保养项目：" + product._fields["name"].ToString().Trim() : "")
+            + " " + (!more.Trim().Equals("") ? "附加项目：" + more : "")
+            + (addFee != 0 ? ((addFee > 0 ? "附加费用：" : "优惠金额：") + Math.Round(Math.Abs(addFee), 2).ToString()) + "元" : " ")
+            + " 需要支付： " + Math.Round(productPrice + addFee, 2).ToString() + "元。";
+            messageText = messageText + messageSubText;
+            totalFee = totalFee + Math.Round(productPrice + addFee, 2);
+        }
+        messageText = "您的" + dtMaintain.Rows.Count.ToString() + "套雪板: " + messageText + " 总计需要支付费用：" + Math.Round(totalFee, 2).ToString()
+            + "元，<a href=\"http://" + Util.domainName.Trim() + "/pages/confirm_in_shop_maintain_task_batch.aspx?batchid=" + batchId.ToString() + "\" >"
+            + "点击支付</a>";
         repliedMessage.type = "text";
         repliedMessage.content = messageText.Trim();
         return repliedMessage;
