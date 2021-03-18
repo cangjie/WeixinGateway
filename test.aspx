@@ -9,8 +9,9 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        WeixinPaymentOrder odr = new WeixinPaymentOrder("1611925136012100");
-        odr.Refund(0.01);
+        ReceivedMessage msg = new ReceivedMessage("event_20210318194042545");
+        RepliedMessage replied = new RepliedMessage();
+        DealMessage.ScanToPayInShopMaintainBatchId(msg, replied, 35);
        
     }
 </script>
