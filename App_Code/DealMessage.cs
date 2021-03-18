@@ -390,7 +390,7 @@ public class DealMessage
                     case "in_shop_maintain_id":
                         repliedMessage = ScanToPayInShopMaintainId(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
-                    case "pay_in_shop_maintain_batch_id":
+                    case "in_shop_maintain_batch_id":
                         repliedMessage = ScanToPayInShopMaintainBatchId(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
                     case "expierence_guarantee_cash":
