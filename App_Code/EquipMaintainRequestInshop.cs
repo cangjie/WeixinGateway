@@ -137,6 +137,51 @@ public class EquipMaintainRequestInshop
         return orderId;
     }
 
+    public static int PlaceOrderBatch(int batchId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from  maintain_in_shop_request where batch_id = " + batchId.ToString());
+        if (dt.Rows.Count == 0)
+        {
+            return 0;
+        }
+        OnlineOrder newOrder = new OnlineOrder();
+        string openId = "";
+        foreach (DataRow dr in dt.Rows)
+        {
+            EquipMaintainRequestInshop request = new EquipMaintainRequestInshop(int.Parse(dr["id"].ToString().Trim()));
+            openId = request.OwnerOpenId.Trim();
+            if (request.ProductId != 0)
+            {
+                OnlineOrderDetail detail = new OnlineOrderDetail();
+                Product p = new Product(request.ProductId);
+                detail.productId = int.Parse(p._fields["id"].ToString());
+                detail.productName = p._fields["name"].ToString();
+                detail.price = double.Parse(p._fields["sale_price"].ToString());
+                detail.count = 1;
+                newOrder.Type = p.Type.Trim();
+                newOrder.shop = request._fields["shop"].ToString().Trim();
+                newOrder.AddADetail(detail);
+            }
+            if (request.AddtionalFee != 0)
+            {
+                OnlineOrderDetail detail = new OnlineOrderDetail();
+                Product p = new Product(request.AddtionalFeeProductId);
+                detail.productId = int.Parse(p._fields["id"].ToString());
+                detail.productName = p._fields["name"].ToString();
+                detail.price = double.Parse(p._fields["sale_price"].ToString());
+                detail.count = (int)(request.AddtionalFee / p.SalePrice);
+                newOrder.Type = p.Type.Trim();
+                newOrder.shop = request._fields["shop"].ToString().Trim();
+                newOrder.AddADetail(detail);
+            }
+        }
+        int orderId = newOrder.Place(openId);
+        DBHelper.UpdateData("maintain_in_shop_request", new string[,] { { "order_id", "int", orderId.ToString() } },
+            new string[,] { { "batch_id", "int", batchId.ToString() } }, Util.conStr);
+        return orderId;
+
+    }
+
     public static int CreateNew(string openId, string shop, string equipType, string brand, string scale, bool edge, bool candle, bool repair, DateTime pickDate)
     {
         int i = DBHelper.InsertData("maintain_in_shop_request", new string[,] {
