@@ -15,7 +15,16 @@
         userToken = Session["user_token"].ToString();
         openId = WeixinUser.CheckToken(userToken);
         int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "0"));
-        int orderId = EquipMaintainRequestInshop.PlaceOrder(id);
+        int batchId = int.Parse(Util.GetSafeRequestValue(Request, "batchid", "0"));
+        int orderId = 0;
+        if (id > 0)
+        {
+            orderId = EquipMaintainRequestInshop.PlaceOrder(id);
+        }
+        else if (batchId > 0)
+        {
+            orderId = EquipMaintainRequestInshop.PlaceOrderBatch(batchId);
+        }
         WeixinUser.GetUnionId(openId);
         if (orderId > 0)
         {

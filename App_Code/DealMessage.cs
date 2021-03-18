@@ -664,7 +664,7 @@ public class DealMessage
             totalFee = totalFee + Math.Round(productPrice + addFee, 2);
         }
         messageText = "您的" + dtMaintain.Rows.Count.ToString() + "套雪板: " + messageText + " 总计需要支付费用：" + Math.Round(totalFee, 2).ToString()
-            + "元，<a href=\"http://" + Util.domainName.Trim() + "/pages/confirm_in_shop_maintain_task_batch.aspx?batchid=" + batchId.ToString() + "\" >"
+            + "元，<a href=\"http://" + Util.domainName.Trim() + "/pages/confirm_in_shop_maintain_task.aspx?batchid=" + batchId.ToString() + "\" >"
             + "点击支付</a>";
         repliedMessage.type = "text";
         repliedMessage.content = messageText.Trim();
