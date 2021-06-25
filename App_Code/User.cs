@@ -147,7 +147,14 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
-            return _fields["memo"].ToString().Trim();
+            if (_fields != null)
+            {
+                return _fields["memo"].ToString().Trim();
+            }
+            else
+            {
+                return "";
+            }
         }
         set
         {
