@@ -10,6 +10,10 @@ public class EquipMaintainRequestInshop
 {
     public DataRow _fields;
 
+    public EquipMaintainRequestInshop()
+    { 
+    
+    }
     public EquipMaintainRequestInshop(int id)
     {
         //

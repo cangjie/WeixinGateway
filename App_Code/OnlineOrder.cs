@@ -289,6 +289,20 @@ public class OnlineOrder
         }
     }
 
+    public string StaffOpenId
+    {
+        get
+        {
+            string openId = "";
+            DataTable dtTmp = DBHelper.GetDataTable("  select * from order_online_temp where online_order_id = " + ID.ToString());
+            if (dtTmp.Rows.Count > 0)
+            {
+                openId = dtTmp.Rows[dtTmp.Rows.Count - 1]["admin_open_id"].ToString();
+            }
+            return openId;
+        }
+    }
+
     public static void SetOutTrdeNo(int orderId, string outTradeNo)
     {
         DBHelper.UpdateData("order_online", new string[,] { { "out_trade_no", "varchar", outTradeNo.Trim() } }, 
