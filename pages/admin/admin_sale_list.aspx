@@ -136,7 +136,7 @@
             }
             */
             //dr["商品概要"] = detailStr.Trim();
-            dr["备注"] = drOri["memo"].ToString().Trim();
+            dr["备注"] = drOri["memo1"].ToString().Trim();
 
             if (!drOri["admin_open_id"].ToString().Trim().Equals(""))
             {
