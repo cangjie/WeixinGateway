@@ -27,7 +27,7 @@
         passArr = OnlineSkiPass.GetLastWeekOnlineSkiPass();
         dtUser = DBHelper.GetDataTable("select * from users");
         dtMini = DBHelper.GetDataTable(" select mini_users.open_id as open_id, mini_users.nick as mini_nick, mini_users.cell_number as mini_cell, users.nick as nick, users.cell_number as cell  from mini_users  "
-            + " left join unionids on unionids.union_id = mini_users.union_id  and unionids.source = 'snowmeet_official_account'   left join users on users.open_id = unionids.open_id  " );
+            + " left join unionids on unionids.union_id = mini_users.union_id  and unionids.source = 'snowmeet_official_account_new'   left join users on users.open_id = unionids.open_id  " );
 
     }
 
