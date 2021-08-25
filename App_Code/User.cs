@@ -441,7 +441,7 @@ public class WeixinUser : ObjectHelper
     {
         
         string unionId = "";
-        DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account' and open_id = '" + openId.Trim() + "' ");
+        DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account_new' and open_id = '" + openId.Trim() + "' ");
         if (dt.Rows.Count == 0)
         {
             string accessToken = Util.GetToken().Trim();
@@ -456,7 +456,7 @@ public class WeixinUser : ObjectHelper
                 {
                     DBHelper.InsertData("unionids",
                         new string[,] { {"union_id", "varchar", unionId.Trim() }, {"open_id", "varchar", openId.Trim() },
-                        {"source", "varchar", "snowmeet_official_account" } });
+                        {"source", "varchar", "snowmeet_official_account_new" } });
                 }
             }
             catch
