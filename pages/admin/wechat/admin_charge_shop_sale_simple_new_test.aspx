@@ -531,7 +531,7 @@
 
 
                         //qr_code_url = "http://weixin.snowmeet.top/show_qrcode.aspx?qrcodetext=" + pay_url;
-                        qr_code_url = "http://weixin.snowmeet.top/show_wechat_temp_qrcode.aspx?scene=" + scene_text + "&expire=300";
+                        qr_code_url = "http://weixin.snowmeet.top/show_wechat_temp_qrcode.aspx?scene=" + scene_text + "&expire=172800";
                     }
                     
                     var td_cell = document.getElementById("qrcode_td");
