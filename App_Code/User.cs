@@ -233,10 +233,28 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
-            if (_fields["is_admin"].ToString().Trim().Equals("1"))
-                return true;
-            else
+            int isAdmin = int.Parse(_fields["is_admin"].ToString().Trim());
+            if (isAdmin == 0)
+            {
+                WeixinUser oldUser = OldUser;
+                if (oldUser != null)
+                {
+                    isAdmin = int.Parse(oldUser._fields["is_admin"].ToString().Trim());
+                    if (isAdmin > 0)
+                    {
+                        DBHelper.UpdateData("users", new string[,] { { "is_admin", "int", isAdmin.ToString() } },
+                            new string[,] { { "open_id", "varchar", OpenId.Trim() } }, Util.conStr);
+                    }
+                }
+            }
+            if (isAdmin == 0)
+            {
                 return false;
+            }
+            else
+            {
+                return true;
+            }
             //return bool.Parse(_fields["is_admin"].ToString().Trim());
         }
     }
