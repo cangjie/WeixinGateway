@@ -175,11 +175,27 @@ public class WeixinUser : ObjectHelper
         }
     }
 
+
+
     public int VipLevel
     {
         get
         {
-            return int.Parse(_fields["vip_level"].ToString().Trim());
+            int vipLevel = int.Parse(_fields["vip_level"].ToString().Trim());
+            if (vipLevel == 0)
+            {
+                WeixinUser oldUser = OldUser;
+                if (oldUser != null)
+                {
+                    vipLevel = int.Parse(oldUser._fields["vip_level"].ToString());
+                    if (vipLevel != 0)
+                    {
+                        DBHelper.UpdateData("users", new string[,] { { "vip_level", "int", vipLevel.ToString() } },
+                            new string[,] { { "open_id", "varchar", OpenId.Trim()} }, Util.conStr);
+                    }
+                }
+            }
+            return vipLevel;
         }
         set
         {
@@ -250,6 +266,24 @@ public class WeixinUser : ObjectHelper
                 miniUser._fields = dtMiniUser.Rows[0];
             }
             return miniUser;
+        }
+    }
+
+
+    public WeixinUser OldUser
+    {
+        get
+        {
+            DataTable dtOldUser = DBHelper.GetDataTable("  select * from users where open_id in ( select open_id from  unionids where union_id in ( "
+                + " select union_id from unionids where open_id = '" + OpenId.Trim() + "' and source = 'snowmeet_official_account_new') "
+                + " and source = 'snowmeet_official_account') ");
+            if (dtOldUser.Rows.Count > 0)
+            {
+                WeixinUser user = new WeixinUser();
+                user._fields = dtOldUser.Rows[0];
+                return user;
+            }
+            return null;
         }
     }
 
@@ -471,6 +505,8 @@ public class WeixinUser : ObjectHelper
         return unionId;
         
     }
+
+
 
     public void TransferOrderAndPointsFromTempAccount()
     {
