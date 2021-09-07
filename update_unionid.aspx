@@ -4,7 +4,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        DataTable dt = DBHelper.GetDataTable(" select * from users where ISNUMERIC(open_id) = 0 and not exists(select 'a' from unionids where unionids.open_id = users.open_id and source = 'snowmeet_official_account') ");
+        DataTable dt = DBHelper.GetDataTable(" select * from users where ISNUMERIC(open_id) = 0 and not exists(select 'a' from unionids where unionids.open_id = users.open_id and source = 'snowmeet_official_account_new') ");
         foreach (DataRow dr in dt.Rows)
         {
             //string token = Util.GetToken().Trim();
@@ -41,7 +41,7 @@
                 try
                 {
                     DBHelper.InsertData("unionids", new string[,]{ {"open_id", "varchar", openId.Trim() },
-                        {"union_id", "varchar", unionId.Trim() }, {"source", "varchar", "snowmeet_official_account" } },
+                        {"union_id", "varchar", unionId.Trim() }, {"source", "varchar", "snowmeet_official_account_new" } },
                     Util.conStr.Trim());
                 }
                 catch(Exception err)
