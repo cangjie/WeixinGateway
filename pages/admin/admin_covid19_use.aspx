@@ -14,11 +14,16 @@
         string cardNo = TxtCardNo.Text.Trim();
         try
         {
-            
+
             if (cardNo.Length == 9)
             {
                 Card card = new Card(cardNo.Trim());
                 card.Use(DateTime.Now, "非现场手动核销");
+                if (card._fields["product_id"].ToString().Equals("144"))
+                { 
+                    Card.CardDetail cardDetail = new Card.CardDetail(cardNo+"000");
+                    cardDetail.Use(DateTime.Now, "非现场手动核销");
+                }
             }
             else
             {
@@ -28,7 +33,7 @@
             lb.Text = cardNo.Trim() + " 核销成功";
         }
         catch
-        { 
+        {
             lb.Text = cardNo.Trim() + " 核销失败";
         }
     }
