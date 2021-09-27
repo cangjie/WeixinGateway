@@ -599,8 +599,11 @@ public class DealMessage
             + "元。<p><a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/payment?orderid=" 
             + orderId.ToString() + "\" href=\"\" >点击此处支付</a></p>";
         */
+        /*
         repliedMessage.content = "<p><a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/payment?orderid="
                     + orderId.ToString() + "\" href=\"\" >点击此处支付</a></p>";
+        */
+        repliedMessage.content = "<p><a data-miniprogram-appid=wxd1310896f2aa68bb data-miniprogram-path=pages/index href='' >点击文字跳转小程序</a></p>";
         return repliedMessage;
     }
 
