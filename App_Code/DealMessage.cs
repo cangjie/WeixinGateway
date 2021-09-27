@@ -574,12 +574,14 @@ public class DealMessage
         //Product p = new Product(productId);
         OrderTemp orderTemp = new OrderTemp(tempOrderId);
         repliedMessage.type = "text";
-        /*
+        
         repliedMessage.content = "您即将支付：" + orderTemp._fields["sale_price"].ToString() + "元。"
             + "<a href=\"http://" + Util.domainName.Trim() + "/pages/pay_temp_order.aspx?temporderid=" + tempOrderId.ToString() + "\" >点击此处支付</a>";
+        
+        /*
+        repliedMessage.content = "您即将支付：" + orderTemp._fields["sale_price"].ToString() + "元。"
+            + "<a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/payment?tempid=" + tempOrderId.ToString() + "\" >点击此处支付</a>"; // + tempOrderId.ToString().Trim（）;// + "\"  >点击此处支付</a>";
         */
-        repliedMessage.content = "您将支付：" + orderTemp._fields["sale_price"].ToString() + "元。"
-            + "<a   data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/payment?tempid=" + tempOrderId.ToString() + "\" >点击此处支付</a"; // + tempOrderId.ToString().Trim（）;// + "\"  >点击此处支付</a>";
         return repliedMessage;
     }
 
@@ -588,8 +590,12 @@ public class DealMessage
         //Product p = new Product(productId);
         OnlineOrder order = new OnlineOrder(orderId);
         repliedMessage.type = "text";
+        /*
         repliedMessage.content = "您即将支付：" + order._fields["order_real_pay_price"].ToString()
             + "元。<a href=\"http://" + Util.domainName.Trim() + "/payment/payment.aspx?product_id=" + orderId.ToString() + "\" >点击此处支付</a>";
+        */
+        repliedMessage.content = "您即将支付：" + order._fields["order_real_pay_price"].ToString()
+            + "元。<a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/payment?orderid=" + orderId.ToString() + "\" >点击此处支付</a>";
         return repliedMessage;
     }
 
