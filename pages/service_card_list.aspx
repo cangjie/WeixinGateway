@@ -50,7 +50,7 @@
             }
             else
             {
-                cardArr[i] = cardArrOld[i - cardArrNew.Length];
+                cardArray[i] = cardArrOld[i - cardArrNew.Length];
             }
         }
 
