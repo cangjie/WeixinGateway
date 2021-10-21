@@ -23,7 +23,7 @@
         }
         userToken = Session["user_token"].ToString();
 
-        
+
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
@@ -37,9 +37,24 @@
             Response.Redirect("beta_announce.aspx", true);
             */
 
-        cardArray = Card.GetCardList(currentUser.OpenId.Trim());
-       
-        
+        Card[] cardArrNew = Card.GetCardList(currentUser.OpenId.Trim());
+        Card[] cardArrOld = Card.GetCardList(currentUser.OldUser.OpenId.Trim());
+
+        cardArray = new Card[cardArrNew.Length + cardArrOld.Length];
+
+        for (int i = 0; i < cardArray.Length; i++)
+        {
+            if (i < cardArrNew.Length)
+            {
+                cardArray[i] = cardArrNew[i];
+            }
+            else
+            {
+                cardArrNew[i] = cardArrOld[i - cardArrNew.Length];
+            }
+        }
+
+
 
     }
 </script>
