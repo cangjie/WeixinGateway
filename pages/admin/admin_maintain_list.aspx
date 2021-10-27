@@ -15,8 +15,8 @@
 
     public DataTable GetData()
     {
-        DateTime start = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2020-11-1"));
-        DateTime end = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2021-4-30"));
+        DateTime start = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2021-10-1"));
+        DateTime end = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2022-5-30"));
         DataTable dt = new DataTable();
         dt.Columns.Add("ID");
         dt.Columns.Add("店铺");
