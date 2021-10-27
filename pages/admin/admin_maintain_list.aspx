@@ -39,7 +39,9 @@
         dt.Columns.Add("订单备注");
         dt.Columns.Add("渠道");
         DataTable dtOrder = DBHelper.GetDataTable(" select * from order_online where type = '服务' and pay_state = 1 "
-            + " and create_date >= '" + start.ToShortDateString() + "' and create_date <= '" + end.ToShortDateString() + "' order by [id] desc ");
+            + " and create_date >= '" + start.ToShortDateString() + "' and create_date <= '" + end.ToShortDateString() + "' "
+            + " and exists ( select 'a' from maintain_in_shop_request where order_id = order_online.[id] )  "
+            + " order by [id] desc ");
         foreach (DataRow drOrder in dtOrder.Rows)
         {
 
