@@ -20,6 +20,7 @@
         DataTable dt = new DataTable();
         dt.Columns.Add("ID");
         dt.Columns.Add("店铺");
+        dt.Columns.Add("流水号");
         dt.Columns.Add("手机");
         dt.Columns.Add("姓名");
         dt.Columns.Add("昵称");
@@ -67,6 +68,7 @@
                 WeixinUser user = new WeixinUser(drOrder["open_id"].ToString());
                 dr["ID"] = drOrder["id"].ToString().Trim();
                 dr["店铺"] = drOrder["shop"].ToString().Trim();
+                dr["流水号"] = "";
                 dr["手机"] = drOrder["cell_number"].ToString().Trim();
                 dr["姓名"] = "";
                 dr["昵称"] = drOrder["name"].ToString().Trim();
@@ -100,6 +102,7 @@
                         DataRow dr = dt.NewRow();
                         dr["ID"] = drOrder["id"].ToString().Trim();
                         dr["店铺"] = drOrder["shop"].ToString().Trim();
+                        dr["流水号"] = task._fields["task_flow_num"].ToString().Trim();
                         dr["手机"] = task._fields["confirmed_cell"].ToString().Trim();
                         dr["姓名"] = task._fields["confirmed_name"].ToString().Trim() + " "
                             + (task._fields["confirmed_gender"].ToString().Trim().Equals("女") ? "女士" : "先生");
@@ -141,6 +144,7 @@
                     WeixinUser user = new WeixinUser(drOrder["open_id"].ToString());
                     dr["ID"] = drOrder["id"].ToString().Trim();
                     dr["店铺"] = drOrder["shop"].ToString().Trim();
+                    dr["流水号"] = "";
                     dr["手机"] = drOrder["cell_number"].ToString().Trim();
                     dr["姓名"] = "";
                     dr["昵称"] = drOrder["name"].ToString().Trim();
