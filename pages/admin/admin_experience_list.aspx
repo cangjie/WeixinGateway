@@ -38,7 +38,7 @@
         DataTable dtOrder = DBHelper.GetDataTable("select * from expierence_list "
             + " left join users on users.open_id = expierence_list.open_id  "
             + " where expierence_list.create_date > '2021-10-1' "
-            + " and exists ( select 'a' from order_online where order_online.[id] = guarantee_order_id and pay_state = 1  ) ");
+            + " and exists ( select 'a' from order_online where order_online.[id] = guarantee_order_id and pay_state = 1  ) order by [id] desc ");
         foreach (DataRow drOrder in dtOrder.Rows)
         {
 
