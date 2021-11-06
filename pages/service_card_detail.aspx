@@ -71,7 +71,7 @@
             Response.Redirect("beta_announce.aspx", true);
             */
         if (!currentUser.OpenId.Trim().Equals(card._fields["owner_open_id"].ToString().Trim())
-            && !currentUser.OldUser.OpenId.Trim().Equals(card._fields["owner_open_id"].ToString().Trim()))
+           && currentUser.OldUser != null && !currentUser.OldUser.OpenId.Trim().Equals(card._fields["owner_open_id"].ToString().Trim()))
         {
             Response.Write("error");
             Response.End();
