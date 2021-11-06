@@ -385,6 +385,17 @@ public class WeixinUser : ObjectHelper
                 
                 }
             }
+            if (cellNumber.Trim().Equals(""))
+            {
+                try
+                {
+                    cellNumber = OldUser.CellNumber.Trim();
+                }
+                catch
+                { 
+                
+                }
+            }
             return cellNumber.Trim();
         }
         set

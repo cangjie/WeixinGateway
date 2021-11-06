@@ -11,6 +11,8 @@
     public string userToken = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Session["user_token"] = "0eca20f0401c7cfd189f9f607f269dfe0b8d50b200bcf84ecce3f32e088662cf937e14f3";
+
         used = !Util.GetSafeRequestValue(Request, "used", "0").Trim().Equals("0");
         string currentPageUrl = Request.Url.ToString().Split('?')[0].Trim();
         if (!Request.QueryString.ToString().Trim().Equals(""))
@@ -38,7 +40,14 @@
             */
 
         Card[] cardArrNew = Card.GetCardList(currentUser.OpenId.Trim());
-        Card[] cardArrOld = Card.GetCardList(currentUser.OldUser.OpenId.Trim());
+
+        Card[] cardArrOld = new Card[0]; //Card.GetCardList(currentUser.OldUser.OpenId.Trim());
+        if (currentUser.OldUser != null)
+        { 
+            cardArrOld = Card.GetCardList(currentUser.OldUser.OpenId.Trim());
+        }
+
+
 
         cardArray = new Card[cardArrNew.Length + cardArrOld.Length];
 
