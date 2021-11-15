@@ -438,7 +438,7 @@ public class DealMessage
             +  "\" >点击这里支付" + expierence._fields["guarantee_cash"].ToString().Trim() + "元押金</a>。";
         repliedMessage.content = "您试滑 " + expierence.name.Trim() + " ，请在" + expierence.endTime.Month.ToString() + "月"
             + expierence.endTime.Date.ToString() + "日" + expierence.endTime.Hour.ToString() + "点" + expierence.endTime.Minute.ToString() + "分前归还。"
-            + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/pay_temp_order?id=" + id.ToString() 
+            + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/confirm_payment?controller=Experience&action=PlaceOrder&id=" + id.ToString() 
             + "\" href =\"http://" + Util.domainName.Trim() + "/pages/confirm_expierence_admit.aspx?id=" + expierence._fields["id"].ToString()
             + "\" >点击这里支付" + expierence._fields["guarantee_cash"].ToString().Trim() + "元押金</a>。";
         return repliedMessage;
