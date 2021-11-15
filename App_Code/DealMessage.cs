@@ -436,6 +436,11 @@ public class DealMessage
             + expierence.endTime.Date.ToString() + "日" + expierence.endTime.Hour.ToString() + "点" + expierence.endTime.Minute.ToString() + "分前归还。"
             + "<a href=\"http://" + Util.domainName.Trim() + "/pages/confirm_expierence_admit.aspx?id=" + expierence._fields["id"].ToString() 
             +  "\" >点击这里支付" + expierence._fields["guarantee_cash"].ToString().Trim() + "元押金</a>。";
+        repliedMessage.content = "您试滑 " + expierence.name.Trim() + " ，请在" + expierence.endTime.Month.ToString() + "月"
+            + expierence.endTime.Date.ToString() + "日" + expierence.endTime.Hour.ToString() + "点" + expierence.endTime.Minute.ToString() + "分前归还。"
+            + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/pay_temp_order?id=" + id.ToString() 
+            + "\" href =\"http://" + Util.domainName.Trim() + "/pages/confirm_expierence_admit.aspx?id=" + expierence._fields["id"].ToString()
+            + "\" >点击这里支付" + expierence._fields["guarantee_cash"].ToString().Trim() + "元押金</a>。";
         return repliedMessage;
     }
 
@@ -591,15 +596,16 @@ public class DealMessage
         //Product p = new Product(productId);
         OnlineOrder order = new OnlineOrder(orderId);
         repliedMessage.type = "text";
-        
+        /*
         repliedMessage.content = "您即将支付：" + order._fields["order_real_pay_price"].ToString()
             + "元。<a href=\"http://" + Util.domainName.Trim() + "/payment/payment.aspx?product_id=" + orderId.ToString() + "\" >点击此处支付</a>";
+        */
         
-        /*
+        
         repliedMessage.content = "您即将支付：" + order._fields["order_real_pay_price"].ToString()
             + "元。<a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/payment?orderid=" 
             + orderId.ToString() + "\" href=\"http://" + Util.domainName.Trim() + "/payment/payment.aspx?product_id=" + orderId.ToString() + "\" >点击此处支付</a>";
-        */
+        
         
         return repliedMessage;
     }
@@ -635,6 +641,18 @@ public class DealMessage
             + " 需要支付： " + Math.Round(productPrice + addFee, 2).ToString() + "元。 <a href=\"http://" 
             + Util.domainName.Trim() +  "/pages/confirm_in_shop_maintain_task.aspx?id=" + id.ToString() + "\" >" +
             "点击支付</a>";
+
+        /*
+        messageText = "您的 " + brand.Trim() + " " + type + " " + type
+            + ((productId > 0) ? " 的保养项目：" + product._fields["name"].ToString().Trim() : "")
+            + " " + (!more.Trim().Equals("") ? "附加项目：" + more : "")
+            + (addFee != 0 ? ((addFee > 0 ? "附加费用：" : "优惠金额：") + Math.Round(Math.Abs(addFee), 2).ToString()) + "元" : " ")
+            + " 需要支付： " + Math.Round(productPrice + addFee, 2).ToString() + "元。 <a data-miniprogram-appid=\"wxd1310896f2aa68bb\" "
+            + "  data-miniprogram-path=\"pages/payment/confirm_payment?controller="   href =\"http://"
+            + Util.domainName.Trim() + "/pages/confirm_in_shop_maintain_task.aspx?id=" + id.ToString() + "\" >" +
+            "点击支付</a>";
+        */
+
         repliedMessage.type = "text";
         repliedMessage.content = messageText.Trim();
         return repliedMessage;
@@ -679,7 +697,8 @@ public class DealMessage
             totalFee = totalFee + Math.Round(productPrice + addFee, 2);
         }
         messageText = "您的" + dtMaintain.Rows.Count.ToString() + "套雪板: " + messageText + " 总计需要支付费用：" + Math.Round(totalFee, 2).ToString()
-            + "元，<a href=\"http://" + Util.domainName.Trim() + "/pages/confirm_in_shop_maintain_task.aspx?batchid=" + batchId.ToString() + "\" >"
+            + "元，<a data-miniprogram-appid=\"wxd1310896f2aa68bb\"  data-miniprogram-path=\"pages/payment/confirm_payment?controller=MaintainLive&action=PlaceOrderBatch&id=" + batchId.ToString() 
+            + "\" href =\"http://" + Util.domainName.Trim() + "/pages/confirm_in_shop_maintain_task.aspx?batchid=" + batchId.ToString() + "\" >"
             + "点击支付</a>";
         repliedMessage.type = "text";
         repliedMessage.content = messageText.Trim();
