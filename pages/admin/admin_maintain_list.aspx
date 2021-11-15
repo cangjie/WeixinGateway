@@ -38,6 +38,7 @@
         dt.Columns.Add("提取");
         dt.Columns.Add("收板");
         dt.Columns.Add("订单备注");
+        dt.Columns.Add("照片");
         dt.Columns.Add("渠道");
         DataTable dtOrder = DBHelper.GetDataTable(" select * from order_online where type = '服务' and pay_state = 1 "
             + " and create_date >= '" + start.ToShortDateString() + "' and create_date <= '" + end.ToShortDateString() + "' "
@@ -135,6 +136,14 @@
                         dr["收板"] = staffUser._fields["nick"].ToString();
                         dr["订单备注"] = task._fields["confirmed_memo"].ToString();
                         dr["渠道"] = channel.Trim();
+                        dr["照片"] = "";
+                        string[] photoArr = task._fields["confirmed_images"].ToString().Split(',');
+                        int i = 1;
+                        foreach(string photo in photoArr)
+                        { 
+                            dr["照片"] = dr["照片"].ToString() + " <a href=\"" + photo.Trim() + "\" target=\"_blank\" >照片" + i.ToString() + "</a>";
+                            i++;
+                        }
                         dt.Rows.Add(dr);
                     }
                 }
@@ -185,6 +194,15 @@
                     }
                     dr["订单备注"] = drOrder["memo"].ToString();
                     dr["渠道"] = channel.Trim();
+                    /*
+                    string[] photoArr = dr["confirmed_images"].ToString().Split(',');
+                    int i = 1;
+                    foreach(string photo in photoArr)
+                    { 
+                        dr["照片"] = dr["照片"].ToString() + " <a href=\"" + photo.Trim() + "\" target=\"_blank\" >照片" + i.ToString() + "</a>";
+                        i++;
+                    }
+                    */
                     dt.Rows.Add(dr);
                 }
             }
