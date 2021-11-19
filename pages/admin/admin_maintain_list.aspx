@@ -86,8 +86,18 @@
                 dr["尺寸"] = "";
                 dr["年款"] = "";
                 dr["提取"] = "";
-                WeixinUser staffUser = new WeixinUser(order.StaffOpenId.Trim());
-                dr["收板"] = staffUser.Nick.Trim();
+                string staffNick = "";
+                try
+                {
+                    WeixinUser staffUser = new WeixinUser(order.StaffOpenId.Trim());
+                    staffNick = staffUser.Nick.Trim();
+                }
+                catch
+                { 
+                
+                }
+                
+                dr["收板"] = staffNick;
                 dr["订单备注"] = drOrder["memo"].ToString();
                 dr["渠道"] = channel.Trim();
                 dt.Rows.Add(dr);
@@ -140,7 +150,7 @@
                         string[] photoArr = task._fields["confirmed_images"].ToString().Split(',');
                         int i = 1;
                         foreach(string photo in photoArr)
-                        { 
+                        {
                             dr["照片"] = dr["照片"].ToString() + " <a href=\"" + photo.Trim() + "\" target=\"_blank\" >照片" + i.ToString() + "</a>";
                             i++;
                         }
