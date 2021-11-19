@@ -603,7 +603,7 @@ public class DealMessage
         
         
         repliedMessage.content = "您即将支付：" + order._fields["order_real_pay_price"].ToString()
-            + "元。<a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/payment?orderid=" 
+            + "元。<a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/payment?product_id="
             + orderId.ToString() + "\" href=\"http://" + Util.domainName.Trim() + "/payment/payment.aspx?product_id=" + orderId.ToString() + "\" >点击此处支付</a>。";
         
         
