@@ -463,6 +463,7 @@ public class DealMessage
                 content = "此券已经被其他用户添加至其个人账户。";
             }
         }
+        repliedMessage.type = "text";
         repliedMessage.content = content;
         return repliedMessage;
     }
