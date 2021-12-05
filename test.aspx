@@ -9,9 +9,9 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        ReceivedMessage msg = new ReceivedMessage("event_20210318194042545");
+        ReceivedMessage msg = new ReceivedMessage("event_20211205122059661");
         RepliedMessage replied = new RepliedMessage();
-        DealMessage.ScanToPayInShopMaintainBatchId(msg, replied, 35);
+        DealMessage.DealCommonEventMessageNew(msg, replied);
        
     }
 </script>
