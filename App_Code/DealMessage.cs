@@ -447,8 +447,15 @@ public class DealMessage
         if (ticket._fields["open_id"].ToString().Trim().Equals(""))
         {
             //绑定
+
             content = "绑定此券，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/mine/ticket/ticket_bind?ticketCode=" + ticket.Code.Trim() 
                 + "\" href=\"#\" >点击此处</a>进入小程序操作。";
+
+            if (user.IsAdmin)
+            {
+                content = "      如果是客人出示并要使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\""
+                    + ticket._fields["miniapp_recept_path"].ToString() + "?tickCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+            }
         }
         else
         {
