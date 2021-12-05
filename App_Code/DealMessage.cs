@@ -454,7 +454,7 @@ public class DealMessage
             if (user.IsAdmin)
             {
                 content = content + "      如果是客人出示并要使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\""
-                    + ticket._fields["miniapp_recept_path"].ToString() + "?tickCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+                    + ticket._fields["miniapp_recept_path"].ToString() + "?ticketCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
             }
         }
         else
@@ -462,7 +462,7 @@ public class DealMessage
             if (user.IsAdmin)
             {
                 content = "客人使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"" 
-                    + ticket._fields["miniapp_recept_path"].ToString() + "?tickCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+                    + ticket._fields["miniapp_recept_path"].ToString() + "?ticketCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
 
             }
             else
