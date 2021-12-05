@@ -421,6 +421,7 @@ public class DealMessage
                 repliedMessage = RentItemMessage(receivedMessage, repliedMessage, int.Parse(anyId));
                 break;
             case "oper":
+                subKey = eventKey.Replace("_" + anyId.Trim(), "").Replace(eventKeyArr[0].Trim() + "_", "").Trim();
                 switch (subKey.Trim())
                 {
                     case "ticket_code":
