@@ -419,11 +419,59 @@ public class DealMessage
                 break;
             case "rent":
                 repliedMessage = RentItemMessage(receivedMessage, repliedMessage, int.Parse(anyId));
-
+                break;
+            case "oper":
+                subKey = eventKey.Replace("_" + anyId.Trim(), "").Replace(eventKeyArr[0].Trim() + "_", "").Trim();
+                switch (subKey.Trim())
+                {
+                    case "ticket_code":
+                        ////////////////////////////////////////////////////////////////
+                        repliedMessage = ScanTicket(receivedMessage, repliedMessage, anyId);
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;
         }
+        return repliedMessage;
+    }
+
+    public static RepliedMessage ScanTicket(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, string code)
+    {
+        string openId = receivedMessage.from.Trim();
+        WeixinUser user = new WeixinUser(openId);
+        Ticket ticket = new Ticket(code.Trim());
+        string content = "";
+        if (ticket._fields["open_id"].ToString().Trim().Equals(""))
+        {
+            //绑定
+
+            content = "绑定此券，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/mine/ticket/ticket_bind?ticketCode=" + ticket.Code.Trim() 
+                + "\" href=\"#\" >点击此处</a>进入小程序操作。";
+
+            if (user.IsAdmin)
+            {
+                content = content + "      如果是客人出示并要使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\""
+                    + ticket._fields["miniapp_recept_path"].ToString() + "?ticketCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+            }
+        }
+        else
+        {
+            if (user.IsAdmin)
+            {
+                content = "客人使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"" 
+                    + ticket._fields["miniapp_recept_path"].ToString() + "?ticketCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+
+            }
+            else
+            {
+                content = "此券已经被其他用户添加至其个人账户。";
+            }
+        }
+        repliedMessage.type = "text";
+        repliedMessage.content = content;
         return repliedMessage;
     }
 
