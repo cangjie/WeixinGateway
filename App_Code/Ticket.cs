@@ -492,7 +492,7 @@ public class Ticket
         DataTable dt = DBHelper.GetDataTable(" select template_id, ticket.[name], ticket_template.memo, count(*) as [count] from ticket  "
             + "  left join ticket_template on template_id = ticket_template.[id] "
             + "  where open_id = '" + openId.Trim() + "'  and  used = " + (used ? "1" : "0")
-            + " group by  template_id, [name], ticket_template.memo ");
+            + " group by  template_id, ticket.[name], ticket_template.memo ");
         return dt;
     }
 
