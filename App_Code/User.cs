@@ -131,7 +131,9 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
-            DataTable dt = DBHelper.GetDataTable(" select sum(points) from user_point_balance where user_open_id = '" + OpenId.Trim() + "'  ");
+            
+
+            DataTable dt = DBHelper.GetDataTable(" select sum(points) from user_point_balance where user_open_id = '" + OpenId.Trim() + "' or user_open_id = '" + OldUser.OpenId.Trim() + "' ");
             int points = 0;
             if (dt.Rows.Count > 0)
             {
