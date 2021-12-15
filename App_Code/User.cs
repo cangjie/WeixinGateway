@@ -131,9 +131,26 @@ public class WeixinUser : ObjectHelper
     {
         get
         {
+            string oldOpenId = "";
+            try
+            {
+                oldOpenId = OldUser.OpenId;
+            }
+            catch
+            { 
             
+            }
+            string miniOpenId = "";
+            try
+            {
+                miniOpenId = miniUser.OpenId.Trim();
+            }
+            catch
+            {
 
-            DataTable dt = DBHelper.GetDataTable(" select sum(points) from user_point_balance where user_open_id = '" + OpenId.Trim() + "' or user_open_id = '" + OldUser.OpenId.Trim() + "' ");
+            }
+
+            DataTable dt = DBHelper.GetDataTable(" select sum(points) from user_point_balance where user_open_id in ( '" + OpenId.Trim() + "', '" + oldOpenId.Trim() + "'  , '" + miniOpenId + "' )");
             int points = 0;
             if (dt.Rows.Count > 0)
             {
