@@ -79,7 +79,7 @@
 
         DataTable dt = new DataTable();
         dt.Columns.Add("订单号", Type.GetType("System.Int32"));
-        dt.Columns.Add("日期", Type.GetType("System.DateTime"));
+        dt.Columns.Add("日期");
         dt.Columns.Add("店铺");
         dt.Columns.Add("类型");
         dt.Columns.Add("头像");
@@ -105,7 +105,7 @@
                 string aa = "aa";
             }
             dr["订单号"] = int.Parse(drOri["id"].ToString().Trim());
-            dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString());
+            dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString()).ToString("u");
             dr["店铺"] = drOri["shop"].ToString();
             dr["类型"] = drOri["type"].ToString().Trim();
             WeixinUser user = new WeixinUser();
