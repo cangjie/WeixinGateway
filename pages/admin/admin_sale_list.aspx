@@ -105,7 +105,7 @@
                 string aa = "aa";
             }
             dr["订单号"] = int.Parse(drOri["id"].ToString().Trim());
-            dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString()).ToString("u");
+            dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString()).ToString("u").Replace("Z", "");
             dr["店铺"] = drOri["shop"].ToString();
             dr["类型"] = drOri["type"].ToString().Trim();
             WeixinUser user = new WeixinUser();
