@@ -170,8 +170,8 @@
             <td><%=pass.AssociateOnlineOrderDetail.price.ToString() %></td>
             <td><%=pass.AssociateOnlineOrderDetail.count.ToString() %></td>
             <td><%=(pass.Used ? "已验" : "未验") %></td>
-            <td><%=(pass.Used ? pass.useDate.ToString() : "---") %></td>
-            <td><%=pass.AssociateOnlineOrder._fields["crt"].ToString() %></td>
+            <td><%=(pass.Used ? pass.useDate.ToString("u").Replace("Z", "") : "---") %></td>
+            <td><%=DateTime.Parse(pass.AssociateOnlineOrder._fields["crt"].ToString()).ToString("u").Replace("Z", "") %></td>
         </tr>
                     <%
                             }

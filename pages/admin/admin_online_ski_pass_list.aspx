@@ -98,8 +98,8 @@
             <td><%=Math.Round(double.Parse(pass.AssociateOnlineOrder._fields["order_real_pay_price"].ToString()),2).ToString() %></td>
             <td><%=pass.AppointDate.ToShortDateString() %></td>
             <td><%=(pass.Used? "已验":"未验") %></td>
-            <td><%=(pass.Used? pass.useDate.ToString() : "---") %></td>
-            <td><%=pass.AssociateOnlineOrder._fields["create_date"].ToString() %></td>
+            <td><%=(pass.Used? pass.useDate.ToString("u").Replace("Z", "") : "---") %></td>
+            <td><%=DateTime.Parse(pass.AssociateOnlineOrder._fields["create_date"].ToString()).ToString("u").Replace("Z", "") %></td>
         </tr>
                     <%
             }
