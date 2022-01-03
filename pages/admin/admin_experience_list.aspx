@@ -8,6 +8,8 @@
     {
         if (!IsPostBack)
         {
+            TxtStart.Text = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString();
+            TxtEnd.Text = TxtStart.Text.Trim();
             dg.DataSource = GetData();
             dg.DataBind();
         }
@@ -15,8 +17,7 @@
 
     public DataTable GetData()
     {
-        DateTime start = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2021-10-1"));
-        DateTime end = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2022-5-30"));
+        
         DataTable dt = new DataTable();
         dt.Columns.Add("ID");
         dt.Columns.Add("店铺");
@@ -38,7 +39,8 @@
         DataTable dtOrder = DBHelper.GetDataTable("select *, mini_users.nick as staff_nick from expierence_list "
             + " left join users on users.open_id = expierence_list.open_id  "
             + " left join mini_users on staff_open_id = mini_users.open_id "
-            + " where expierence_list.create_date > '2021-10-1' "
+            + " where expierence_list.create_date >= '" +  TxtStart.Text.Replace("'", "").Trim() + "'  and  expierence_list.create_date < '" + TxtEnd.Text.Replace("'", "").Trim() + " 23:59:59'  "
+            + (DrpShopList.SelectedIndex > 0 ? " and shop =  '" + DrpShopList.SelectedValue.Trim().Replace("'", "") + "'  " : "  ")
             + " and exists ( select 'a' from order_online where order_online.[id] = guarantee_order_id and pay_state = 1  ) order by [id] desc ");
         foreach (DataRow drOrder in dtOrder.Rows)
         {
@@ -109,6 +111,12 @@
         Response.Write(content.Trim());
         Response.End();
     }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        dg.DataSource = GetData();
+        dg.DataBind();
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -119,6 +127,19 @@
     <form id="form1" runat="server">
         <div>
             <asp:Button runat="server" ID="downloadSheet" Text="下载" OnClick="downloadSheet_Click" />
+        </div>
+        <div>
+            日期：
+         
+            <asp:TextBox ID="TxtStart" runat="server" Width="100px"></asp:TextBox>
+            -<asp:TextBox ID="TxtEnd" runat="server" Width="100px"></asp:TextBox>
+&nbsp;店铺：<asp:DropDownList ID="DrpShopList" runat="server">
+                <asp:ListItem Selected="True">全部</asp:ListItem>
+                <asp:ListItem>万龙</asp:ListItem>
+                <asp:ListItem>南山</asp:ListItem>
+                <asp:ListItem>渔阳</asp:ListItem>
+            </asp:DropDownList>
+        &nbsp;<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text=" 查 询 " />
         </div>
         <div>
             <asp:DataGrid runat="server" ID="dg" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical"  >
