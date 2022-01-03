@@ -33,10 +33,11 @@
         dt.Columns.Add("押金");
         dt.Columns.Add("退款");
         dt.Columns.Add("差价");
+        dt.Columns.Add("店员");
 
-
-        DataTable dtOrder = DBHelper.GetDataTable("select * from expierence_list "
+        DataTable dtOrder = DBHelper.GetDataTable("select *, mini_users.nick as staff_nick from expierence_list "
             + " left join users on users.open_id = expierence_list.open_id  "
+            + " left join mini_users on staff_open_id = mini_users.open_id "
             + " where expierence_list.create_date > '2021-10-1' "
             + " and exists ( select 'a' from order_online where order_online.[id] = guarantee_order_id and pay_state = 1  ) order by [id] desc ");
         foreach (DataRow drOrder in dtOrder.Rows)
@@ -67,6 +68,7 @@
             dr["押金"] = Math.Round(guarantee, 2).ToString();
             dr["退款"] = Math.Round(refund, 2).ToString();
             dr["差价"] = Math.Round((guarantee - refund), 2).ToString();
+            dr["店员"] = drOrder["staff_nick"].ToString().Trim();
             dt.Rows.Add(dr);
 
 
