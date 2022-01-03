@@ -4,6 +4,10 @@
 
 <script runat="server">
 
+    public double sumAmount = 0;
+    public double sumRefund = 0;
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -17,7 +21,7 @@
 
     public DataTable GetData()
     {
-        
+
         DataTable dt = new DataTable();
         dt.Columns.Add("ID");
         dt.Columns.Add("店铺");
@@ -72,12 +76,14 @@
             dr["差价"] = Math.Round((guarantee - refund), 2).ToString();
             dr["店员"] = drOrder["staff_nick"].ToString().Trim();
             dt.Rows.Add(dr);
-
+            sumAmount = sumAmount + Math.Round(guarantee, 2);
+            sumRefund = sumRefund + Math.Round(refund, 2);
 
 
 
         }
-
+        Label1.Text = "总计  押金:" + Math.Round(sumAmount, 2).ToString() + " 退款:"
+            + Math.Round(sumRefund, 2).ToString() + " 差价:" + Math.Round((sumAmount - sumRefund), 2).ToString();
         return dt;
     }
 
@@ -140,6 +146,8 @@
                 <asp:ListItem>渔阳</asp:ListItem>
             </asp:DropDownList>
         &nbsp;<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text=" 查 询 " />
+        &nbsp;&nbsp;
+            <asp:Label ID="Label1" runat="server" Width="300px" Text="Label"></asp:Label>
         </div>
         <div>
             <asp:DataGrid runat="server" ID="dg" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical"  >
