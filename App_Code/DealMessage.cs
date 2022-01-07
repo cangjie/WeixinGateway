@@ -461,7 +461,7 @@ public class DealMessage
                 else
                 {
                     content = "客人使用此" + ticket.Name.Trim() + "，具体内容：" + ticket._fields["memo"].ToString().Trim()
-                        + "请<a  href=\"http://weixin.snowmeet.top/pages/admin/use_ticket.aspx?code=" + ticket.Code.Trim() + "\"  >进入此处</a>为其核销。";
+                        + "请<a  href=\"http://weixin.snowmeet.top/pages/admin/wechat/use_ticket.aspx?code=" + ticket.Code.Trim() + "\"  >进入此处</a>为其核销。";
                 }
             }
         }
@@ -477,7 +477,7 @@ public class DealMessage
                 else
                 {
                     content = "客人使用此" + ticket.Name.Trim() + "，具体内容：" + ticket._fields["memo"].ToString().Trim() 
-                        + "请<a  href=\"http://weixin.snowmeet.top/pages/admin/use_ticket.aspx?code=" + ticket.Code.Trim() + "\"  >进入此处</a>为其核销。";
+                        + "请<a  href=\"http://weixin.snowmeet.top/pages/admin/wechat/use_ticket.aspx?code=" + ticket.Code.Trim() + "\"  >进入此处</a>为其核销。";
                 }
 
             }
