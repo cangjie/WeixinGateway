@@ -34,17 +34,6 @@
 
 
 
-
-        Card card = new Card(code);
-
-        switch (card._fields["type"].ToString().Trim())
-        {
-            case "雪票":
-                Response.Redirect("card_confirm.aspx?code=" + code.Trim(), true);
-                break;
-            default:
-                break;
-        }
         try
         {
 
