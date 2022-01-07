@@ -461,8 +461,16 @@ public class DealMessage
         {
             if (user.IsAdmin)
             {
-                content = "客人使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"" 
-                    + ticket._fields["miniapp_recept_path"].ToString() + "?ticketCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+                if (!ticket._fields["miniapp_recept_path"].ToString().Trim().Equals(""))
+                {
+                    content = "客人使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\""
+                        + ticket._fields["miniapp_recept_path"].ToString() + "?ticketCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+                }
+                else
+                {
+                    content = "客人使用此" + ticket.Name.Trim() + "，具体内容：" + ticket._fields["memo"].ToString().Trim() 
+                        + "请<a  href=\"http://weixin.snowmeet.top/pages/admin/use_ticket.aspx?code=" + ticket.Code.Trim() + "\"  >进入此处</a>为其核销。";
+                }
 
             }
             else
