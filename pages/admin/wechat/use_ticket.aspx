@@ -39,7 +39,7 @@
 
         switch (card._fields["type"].ToString().Trim())
         {
-            case "Ñ©Æ±":
+            case "é›ªç¥¨":
                 Response.Redirect("card_confirm.aspx?code=" + code.Trim(), true);
                 break;
             default:
@@ -66,14 +66,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <!-- ÐÂ Bootstrap ºËÐÄ CSS ÎÄ¼þ -->
+    <!-- æ–° Bootstrap æ ¸å¿ƒ CSS æ–‡ä»¶ -->
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="css/normalize.css" />
-    <!-- ¿ÉÑ¡µÄBootstrapÖ÷ÌâÎÄ¼þ£¨Ò»°ã²»ÓÃÒýÈë£© -->
+    <!-- å¯é€‰çš„Bootstrapä¸»é¢˜æ–‡ä»¶ï¼ˆä¸€èˆ¬ä¸ç”¨å¼•å…¥ï¼‰ -->
     <link rel="stylesheet" href="../../css/bootstrap-theme.min.css">
-    <!-- jQueryÎÄ¼þ¡£Îñ±ØÔÚbootstrap.min.js Ö®Ç°ÒýÈë -->
+    <!-- jQueryæ–‡ä»¶ã€‚åŠ¡å¿…åœ¨bootstrap.min.js ä¹‹å‰å¼•å…¥ -->
     <script src="../../js/jquery.min.js"></script>
-    <!-- ×îÐÂµÄ Bootstrap ºËÐÄ JavaScript ÎÄ¼þ -->
+    <!-- æœ€æ–°çš„ Bootstrap æ ¸å¿ƒ JavaScript æ–‡ä»¶ -->
     <script src="../../js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" >
@@ -103,16 +103,16 @@
     <div style="margin-left: 5px" >
         <div id="ticket-<%=ticket.Code.Trim()%>" name="ticket" class="panel panel-info" style="width:350px"  >
             <div class="panel-heading">
-                <h3 class="panel-title"><%=ticket.Name.Trim() %>ºËÏú</h3>
+                <h3 class="panel-title"><%=ticket.Name.Trim() %> æ ¸é”€</h3>
             </div>
             <div class="panel-body">
                     <%=ticket._fields["memo"].ToString().Trim() %>
                 <br />
                 <div style="text-align:center" >
                    
-                    <p style="text-align:left" >ÌîÐ´±¸×¢<br /></p>
+                    <p style="text-align:left" >å¡«å†™å¤‡æ³¨<br /></p>
                     <textarea id="word" rows="3" cols="38"  ></textarea>  <br />
-                    <button class="btn btn-default" onclick="use_ticket()" >È·ÈÏÊ¹ÓÃ</button>
+                    <button class="btn btn-default" onclick="use_ticket()" >ç¡®è®¤ä½¿ç”¨</button>
                 </div>
             </div>
         </div>
