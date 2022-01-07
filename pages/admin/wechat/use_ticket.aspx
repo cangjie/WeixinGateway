@@ -109,12 +109,7 @@
                     <%=ticket._fields["memo"].ToString().Trim() %>
                 <br />
                 <div style="text-align:center" >
-                    <img src="<%=ticket.Owner.HeadImage.Trim() %>" style="width:200px; text-align:center"  />
-                    <br />
-                    <b style="text-align:center" ><%=ticket.Code.Substring(0,3) %>-<%=ticket.Code.Substring(3,3) %>-<%=ticket.Code.Substring(6,3) %></b>
-                    <br />
-                    <%=ticket.Owner.CellNumber.Trim() %> <%=ticket.Owner.Nick.Trim() %>
-                    <br /><br />
+                   
                     <p style="text-align:left" >填写备注<br /></p>
                     <textarea id="word" rows="3" cols="38"  ></textarea>  <br />
                     <button class="btn btn-default" onclick="use_ticket()" >确认使用</button>
