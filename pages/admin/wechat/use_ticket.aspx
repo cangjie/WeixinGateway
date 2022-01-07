@@ -34,21 +34,16 @@
 
 
 
-        try
+      
+
+
+        ticket = new Ticket(code);
+
+        if (!currentUser.IsAdmin || ticket.Used)
         {
-
-
-            ticket = new Ticket(code);
-
-            if (!currentUser.IsAdmin || ticket.Used)
-            {
-                Response.End();
-            }
+            Response.End();
         }
-        catch
-        {
-            Response.Redirect("card_confirm.aspx?code=" + code, true);
-        }
+       
     }
 </script>
 
