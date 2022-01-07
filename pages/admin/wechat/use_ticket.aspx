@@ -20,7 +20,7 @@
         }
         if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+            Response.Redirect("../../authorize.aspx?callback=" + currentPageUrl, true);
         }
         userToken = Session["user_token"].ToString();
 
@@ -28,7 +28,7 @@
         openId = WeixinUser.CheckToken(userToken);
         if (openId.Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+            Response.Redirect("../../authorize.aspx?callback=" + currentPageUrl, true);
         }
         currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
 
@@ -82,7 +82,7 @@
             var token = "<%=Session["user_token"].ToString().Trim()%>";
             var word = document.getElementById("word").value;
             $.ajax({
-                url:        "../../../api/use_ticket.aspx",
+                url:        "../../../../api/use_ticket.aspx",
                 async:      false,
                 data:       { code: code, token: token, word: word },
                 success:    function (msg, status) {
