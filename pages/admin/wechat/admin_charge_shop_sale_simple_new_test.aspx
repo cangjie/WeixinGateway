@@ -271,6 +271,8 @@
                     <option selected >南山</option>
                     <option>八易</option>
                     <option>万龙</option>
+                    <option>怀北</option>
+                    <option>渔阳</option>
                     <option>线上店</option>
                     <option>崇礼旗舰店</option>
                     <option>总店</option>
