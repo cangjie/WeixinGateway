@@ -223,6 +223,9 @@
             <option <%=((shop.Trim().Equals("南山"))? "selected":"") %> >南山</option>
             <option <%=((shop.Trim().Equals("八易"))? "selected":"") %> >八易</option>
             <option <%=((shop.Trim().Equals("总店"))? "selected":"") %> >总店</option>
+            <option <%=((shop.Trim().Equals("线上店"))? "selected":"") %> >线上店</option>
+            <option <%=((shop.Trim().Equals("渔阳"))? "selected":"") %> >渔阳</option>
+            <option <%=((shop.Trim().Equals("怀北"))? "selected":"") %> >怀北</option>
             <option <%=((shop.Trim().Equals("崇礼旗舰店"))? "selected":"") %> >崇礼旗舰店</option>
                   </select></div>
     <div>
