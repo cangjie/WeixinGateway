@@ -52,7 +52,7 @@
             string channel = "H5";
             OnlineOrderDetail[] detailArr = order.OrderDetails;
             EquipMaintainRequestInshop[] taskArr = new EquipMaintainRequestInshop[0];
-            if (detailArr.Length > 0)
+            if (detailArr.Length > 0 || !drOrder["pay_method"].ToString().Trim().Equals("微信"))
             {
                 channel = "MAPP";
                 DataTable dtTask = DBHelper.GetDataTable("select * from maintain_in_shop_request where order_id = " + drOrder["id"].ToString() );
@@ -103,10 +103,10 @@
                     dr["订单备注"] = drOrder["pay_method"].ToString().Trim();// + " " + drOrder["pay_memo"].ToString().Trim();
                 }
                 else
-                { 
+                {
                     dr["订单备注"] = drOrder["memo"].ToString();
                 }
-                
+
                 dr["渠道"] = channel.Trim();
                 dt.Rows.Add(dr);
 
@@ -152,7 +152,14 @@
                         dr["提取"] = pickDate.Date == orderDate.Date ? "当日" : "次日";
                         MiniUsers staffUser = new MiniUsers(task._fields["service_open_id"].ToString());
                         dr["收板"] = staffUser._fields["nick"].ToString();
-                        dr["订单备注"] = task._fields["confirmed_memo"].ToString();
+                        if (task._fields["pay_method"].ToString().Trim().Equals("微信"))
+                        {
+                            dr["订单备注"] = task._fields["confirmed_memo"].ToString();
+                        }
+                        else
+                        {
+                            dr["订单备注"] = task._fields["pay_method"].ToString().Trim() + " " + task._fields["pay_memo"].ToString().Trim();
+                        }
                         dr["渠道"] = channel.Trim();
                         dr["照片"] = "";
                         string[] photoArr = task._fields["confirmed_images"].ToString().Split(',');
