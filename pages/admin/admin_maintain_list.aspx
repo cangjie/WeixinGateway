@@ -93,12 +93,20 @@
                     staffNick = staffUser.Nick.Trim();
                 }
                 catch
+                {
+
+                }
+
+                dr["收板"] = staffNick;
+                if (!drOrder["pay_method"].ToString().Trim().Equals("微信"))
+                {
+                    dr["订单备注"] = drOrder["pay_method"].ToString().Trim() + " " + drOrder["pay_memo"].ToString().Trim();
+                }
+                else
                 { 
-                
+                    dr["订单备注"] = drOrder["memo"].ToString();
                 }
                 
-                dr["收板"] = staffNick;
-                dr["订单备注"] = drOrder["memo"].ToString();
                 dr["渠道"] = channel.Trim();
                 dt.Rows.Add(dr);
 
