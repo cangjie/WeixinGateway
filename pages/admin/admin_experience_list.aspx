@@ -144,6 +144,7 @@
                 <asp:ListItem>万龙</asp:ListItem>
                 <asp:ListItem>南山</asp:ListItem>
                 <asp:ListItem>渔阳</asp:ListItem>
+                <asp:ListItem>怀北</asp:ListItem>
             </asp:DropDownList>
         &nbsp;<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text=" 查 询 " />
         &nbsp;&nbsp;
