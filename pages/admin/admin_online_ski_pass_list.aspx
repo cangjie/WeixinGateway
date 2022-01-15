@@ -55,6 +55,7 @@
             <td>验票</td>
             <td>验票时间</td>
             <td>购买日期</td>
+            <td>备注</td>
         </tr>
         <%
             foreach(OnlineSkiPass pass in passArr)
@@ -100,6 +101,7 @@
             <td><%=(pass.Used? "已验":"未验") %></td>
             <td><%=(pass.Used? pass.useDate.ToString("u").Replace("Z", "") : "---") %></td>
             <td><%=DateTime.Parse(pass.AssociateOnlineOrder._fields["create_date"].ToString()).ToString("u").Replace("Z", "") %></td>
+            <td><%=pass._fields["use_memo"].ToString().Trim() %></td>
         </tr>
                     <%
             }
