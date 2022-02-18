@@ -397,6 +397,7 @@ public class DealMessage
                         repliedMessage = PayExpierenceCash(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
                     default:
+                        repliedMessage = PayThroughMiniApp(receivedMessage, repliedMessage, int.Parse(anyId), subKey.Trim());
                         break;
                 }
                 break;
@@ -505,6 +506,22 @@ public class DealMessage
             + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/confirm_payment?controller=Experience&action=PlaceOrder&id=" + id.ToString() 
             + "\" href =\"http://" + Util.domainName.Trim() + "/pages/confirm_expierence_admit.aspx?id=" + expierence._fields["id"].ToString()
             + "\" >点击这里支付" + expierence._fields["guarantee_cash"].ToString().Trim() + "元押金</a>。";
+        return repliedMessage;
+    }
+
+    public static RepliedMessage PayThroughMiniApp(ReceivedMessage receiveMessage, RepliedMessage repliedMessage, int id, string item)
+    {
+        string message = "您有一笔费用需要支付。";
+        switch (item)
+        {
+            case "summermaintain":
+                message = "您有一张非雪季养护订单需要支付。";
+                break;
+            default:
+                break;
+        }
+        repliedMessage.content = message + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/confirm_payment?controller=Experience&action=PlaceOrder&id=" + id.ToString()
+            + "\" href =\"http://" + Util.domainName.Trim() + "/pages/payment/view_payment?id=" + id.ToString() + "&item=" + item.Trim() + "\" >点击这里查看</a>。";
         return repliedMessage;
     }
 
