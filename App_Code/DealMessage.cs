@@ -511,6 +511,7 @@ public class DealMessage
 
     public static RepliedMessage PayThroughMiniApp(ReceivedMessage receiveMessage, RepliedMessage repliedMessage, int id, string item)
     {
+        repliedMessage.type = "text";
         string message = "您有一笔费用需要支付。";
         switch (item)
         {
