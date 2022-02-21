@@ -521,7 +521,8 @@ public class DealMessage
             default:
                 break;
         }
-        repliedMessage.content = message + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/view_payment?item=" + item.Trim() + "&id=" + id.ToString()
+        repliedMessage.content = message + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"/pages/payment/view_payment?id=" + id.ToString().Trim() 
+            + "&item=" + item.ToString()
             + "\" href =\"http://" + Util.domainName.Trim() + "/pages/payment/view_payment?id=" + id.ToString() + "&item=" + item.Trim() + "\" >点击这里查看</a>。";
         return repliedMessage;
     }
