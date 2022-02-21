@@ -521,7 +521,7 @@ public class DealMessage
             default:
                 break;
         }
-        repliedMessage.content = message + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/confirm_payment?controller=Experience&action=PlaceOrder&id=" + id.ToString()
+        repliedMessage.content = message + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/view_payment?controller=" + item.Trim() + "&action=PlaceOrder&id=" + id.ToString()
             + "\" href =\"http://" + Util.domainName.Trim() + "/pages/payment/view_payment?id=" + id.ToString() + "&item=" + item.Trim() + "\" >点击这里查看</a>。";
         return repliedMessage;
     }
