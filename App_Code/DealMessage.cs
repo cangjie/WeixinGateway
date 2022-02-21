@@ -522,8 +522,7 @@ public class DealMessage
                 break;
         }
         string miniAppPath = "/pages/payment/view_payment?id=" + id.ToString() + "&item=" + item.Trim();
-        repliedMessage.content = message + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"" + miniAppPath + "\" >点击这里查看"
-            + miniAppPath.Trim() + "</a>。";
+        repliedMessage.content = message + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"" + miniAppPath + "\" >点击这里查看</a>。";
         return repliedMessage;
     }
 
