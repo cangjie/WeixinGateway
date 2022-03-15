@@ -223,3 +223,4 @@ payment/payment_result.txt
 /b2c_analyze/taobao/taobao_cookie.txt
 /b2c_analyze/taobao/tmall_cookie.txt
 /pages/kind_editor/attached/image/*
+/Web.config
