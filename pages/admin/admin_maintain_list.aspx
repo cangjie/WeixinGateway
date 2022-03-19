@@ -15,7 +15,7 @@
 
     public DataTable GetData()
     {
-        DateTime start = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2022-3-1"));
+        DateTime start = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2021-10-1"));
         DateTime end = DateTime.Parse(Util.GetSafeRequestValue(Request, "end", "2022-5-30"));
         DataTable dt = new DataTable();
         dt.Columns.Add("ID");
@@ -23,8 +23,8 @@
         dt.Columns.Add("流水号");
         dt.Columns.Add("手机");
         dt.Columns.Add("姓名");
-        dt.Columns.Add("昵称");
-        dt.Columns.Add("顾客备注");
+        //dt.Columns.Add("昵称");
+        //dt.Columns.Add("顾客备注");
         dt.Columns.Add("日期");
         dt.Columns.Add("时间");
         dt.Columns.Add("项目");
@@ -66,14 +66,14 @@
             if (channel.Trim().Equals("H5"))
             {
                 DataRow dr = dt.NewRow();
-                WeixinUser user = new WeixinUser(drOrder["open_id"].ToString());
+                //WeixinUser user = new WeixinUser(drOrder["open_id"].ToString());
                 dr["ID"] = drOrder["id"].ToString().Trim();
                 dr["店铺"] = drOrder["shop"].ToString().Trim();
                 dr["流水号"] = "";
                 dr["手机"] = drOrder["cell_number"].ToString().Trim();
                 dr["姓名"] = "";
-                dr["昵称"] = drOrder["name"].ToString().Trim();
-                dr["顾客备注"] = user.Memo.Trim();
+                //dr["昵称"] = drOrder["name"].ToString().Trim();
+                //dr["顾客备注"] = user.Memo.Trim();
                 DateTime orderDate = DateTime.Parse(drOrder["create_date"].ToString());
                 dr["日期"] = orderDate.ToShortDateString();
                 dr["时间"] = orderDate.Hour.ToString() + ":" + orderDate.Minute.ToString();
@@ -115,7 +115,7 @@
             {
                 if (taskArr.Length > 0)
                 {
-                    WeixinUser user = new WeixinUser(drOrder["open_id"].ToString());
+                    //WeixinUser user = new WeixinUser(drOrder["open_id"].ToString());
                     foreach (EquipMaintainRequestInshop task in taskArr)
                     {
                         DataRow dr = dt.NewRow();
@@ -125,8 +125,8 @@
                         dr["手机"] = task._fields["confirmed_cell"].ToString().Trim();
                         dr["姓名"] = task._fields["confirmed_name"].ToString().Trim() + " "
                             + (task._fields["confirmed_gender"].ToString().Trim().Equals("女") ? "女士" : "先生");
-                        dr["昵称"] = user.Nick;
-                        dr["顾客备注"] = "";
+                        //dr["昵称"] = user.Nick;
+                        //dr["顾客备注"] = "";
                         DateTime orderDate = DateTime.Parse(drOrder["create_date"].ToString());
                         dr["日期"] = orderDate.ToShortDateString();
                         dr["时间"] = orderDate.Hour.ToString() + ":" + orderDate.Minute.ToString();
@@ -181,14 +181,14 @@
                     dr["流水号"] = "";
                     dr["手机"] = drOrder["cell_number"].ToString().Trim();
                     dr["姓名"] = "";
-                    dr["昵称"] = drOrder["name"].ToString().Trim();
+                    //dr["昵称"] = drOrder["name"].ToString().Trim();
                     try
                     {
-                        dr["顾客备注"] = user.Memo.Trim();
+                        //dr["顾客备注"] = user.Memo.Trim();
                     }
                     catch
                     {
-                        dr["顾客备注"] = "";
+                        //dr["顾客备注"] = "";
                     }
                     DateTime orderDate = DateTime.Parse(drOrder["create_date"].ToString());
                     dr["日期"] = orderDate.ToShortDateString();
