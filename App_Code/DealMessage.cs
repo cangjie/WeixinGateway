@@ -676,8 +676,32 @@ public class DealMessage
     {
         DBHelper.UpdateData("shop_sale_interact", new string[,] { { "scan", "int", "1" }, { "scaner_oa_open_id", "varchar", receivedMessage.from } }, 
             new string[,] { { "id", "int", id.ToString()} }, Util.conStr);
-        repliedMessage.content = "测试";
-        repliedMessage.type = "text";
+
+        bool isMember = false;
+
+        DataTable dt = DBHelper.GetDataTable(" select * from mini_users users where exists ( "
+            + " select 'a' from unionids mini where source = 'snowmeet_mini'   "
+                + " and  exists ( select 'a' from unionids oa where open_id = '" + receivedMessage.from.Replace("'", "") + "' and mini.union_id = oa.union_id and source = 'snowmeet_official_account_new' ) "
+            + " and users.open_id = mini.open_id ) ");
+        if (dt.Rows.Count == 0)
+        {
+            if (!dt.Rows[0]["cell_number"].ToString().Trim().Equals(""))
+            {
+                isMember = true;
+            }
+        }
+        dt.Dispose();
+        if (isMember)
+        {
+            repliedMessage.content = "欢迎回来。";
+            repliedMessage.type = "text";
+        }
+        else
+        {
+            repliedMessage.content = "您尚未注册会员，<a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/shop_sale/shop_landing\" >请点击注册。</a>";
+            repliedMessage.type = "text";
+        }
+        
         return repliedMessage;
     }
 
