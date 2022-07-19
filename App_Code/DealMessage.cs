@@ -363,6 +363,21 @@ public class DealMessage
         }
         switch (eventKeyArr[0].Trim())
         {
+            case "shop":
+                for (int i = 1; i < eventKeyArr.Length - 1; i++)
+                {
+                    subKey = subKey.Trim() + ((i > 1) ? "_" : "") + eventKeyArr[i].Trim();
+                }
+                anyId = eventKeyArr[eventKeyArr.Length - 1].Trim();
+                switch (subKey.Trim())
+                {
+                    case "sale_interact_id":
+                        repliedMessage = ShopSaleInteract(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
+                    default:
+                        break;
+                }
+                break;
             case "pay":
                 
                 for (int i = 1; i < eventKeyArr.Length - 1; i++)
@@ -396,6 +411,7 @@ public class DealMessage
                     case "expierence_guarantee_cash":
                         repliedMessage = PayExpierenceCash(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
+
                     default:
                         repliedMessage = PayThroughMiniApp(receivedMessage, repliedMessage, int.Parse(anyId), subKey.Trim());
                         break;
@@ -653,6 +669,15 @@ public class DealMessage
         repliedMessage.type = "text";
         repliedMessage.content = "您即将购买：" + p._fields["name"].ToString().Trim() + ", 价格：" + p.SalePrice.ToString()
             + "。<a href=\"http://" + Util.domainName.Trim() + "/pages/ski_pass_today.aspx?id=" + productId.ToString() + "&source=" + channelId.Trim() + "\" >点击此处支付</a>";
+        return repliedMessage;
+    }
+
+    public static RepliedMessage ShopSaleInteract(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
+    {
+        DBHelper.UpdateData("shop_sale_interact", new string[,] { { "scan", "int", "1" }, { "scaner_oa_open_id", "varchar", repliedMessage.from.Trim() } }, 
+            new string[,] { { "id", "int", id.ToString()} }, Util.conStr);
+        repliedMessage.content = "测试";
+        repliedMessage.type = "text";
         return repliedMessage;
     }
 
