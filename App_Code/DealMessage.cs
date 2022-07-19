@@ -683,7 +683,7 @@ public class DealMessage
             + " select 'a' from unionids mini where source = 'snowmeet_mini'   "
                 + " and  exists ( select 'a' from unionids oa where open_id = '" + receivedMessage.from.Replace("'", "") + "' and mini.union_id = oa.union_id and source = 'snowmeet_official_account_new' ) "
             + " and users.open_id = mini.open_id ) ");
-        if (dt.Rows.Count == 0)
+        if (dt.Rows.Count > 0)
         {
             if (!dt.Rows[0]["cell_number"].ToString().Trim().Equals(""))
             {
