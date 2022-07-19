@@ -674,7 +674,7 @@ public class DealMessage
 
     public static RepliedMessage ShopSaleInteract(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
     {
-        DBHelper.UpdateData("shop_sale_interact", new string[,] { { "scan", "int", "1" }, { "scaner_oa_open_id", "varchar", repliedMessage.from.Trim() } }, 
+        DBHelper.UpdateData("shop_sale_interact", new string[,] { { "scan", "int", "1" }, { "scaner_oa_open_id", "varchar", receivedMessage.from } }, 
             new string[,] { { "id", "int", id.ToString()} }, Util.conStr);
         repliedMessage.content = "测试";
         repliedMessage.type = "text";
