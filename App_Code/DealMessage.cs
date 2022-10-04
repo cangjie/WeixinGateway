@@ -449,10 +449,35 @@ public class DealMessage
                         break;
                 }
                 break;
+            case "confirm":
+                for (int i = 1; i < eventKeyArr.Length - 1; i++)
+                {
+                    subKey = subKey.Trim() + ((i > 1) ? "_" : "") + eventKeyArr[i].Trim();
+                }
+                anyId = eventKeyArr[eventKeyArr.Length - 1].Trim();
+                switch (subKey.Trim())
+                {
+                    case "maintain":
+                        repliedMessage = ConfirmMaintainOrder(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
+                    default:
+                        break;
+                }
+                break;
             default:
                 break;
         }
         return repliedMessage;
+    }
+
+    public static RepliedMessage ConfirmMaintainOrder(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
+    {
+        string content = "请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/mine/maintain/bind_maintain_order?id=" + id.ToString()
+                + "\" href=\"#\" >点击此处</a>进入小程序绑定账号。";
+        repliedMessage.type = "text";
+        repliedMessage.content = content;
+        return repliedMessage;
+        
     }
 
     public static RepliedMessage ScanTicket(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, string code)
