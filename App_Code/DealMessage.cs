@@ -562,7 +562,7 @@ public class DealMessage
             default:
                 break;
         }
-        string miniAppPath = "/pages/payment/view_payment?id=" + id.ToString() + "&item=" + item.Trim();
+        string miniAppPath = "/pages/payment/pay_hub?paymentId=" + id.ToString();// + "&item=" + item.Trim();
         repliedMessage.content = message + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"" + miniAppPath + "\" >点击这里查看</a>。";
         return repliedMessage;
     }
