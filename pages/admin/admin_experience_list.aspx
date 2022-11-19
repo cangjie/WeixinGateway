@@ -45,6 +45,7 @@
             + " left join mini_users on staff_open_id = mini_users.open_id "
             + " where expierence_list.create_date >= '" +  TxtStart.Text.Replace("'", "").Trim() + "'  and  expierence_list.create_date < '" + TxtEnd.Text.Replace("'", "").Trim() + " 23:59:59'  "
             + (DrpShopList.SelectedIndex > 0 ? " and shop =  '" + DrpShopList.SelectedValue.Trim().Replace("'", "") + "'  " : "  ")
+            + " and start_time is not null and end_time is not null  "
             + " and exists ( select 'a' from order_online where order_online.[id] = guarantee_order_id and pay_state = 1  ) order by [id] desc ");
         foreach (DataRow drOrder in dtOrder.Rows)
         {
@@ -71,6 +72,18 @@
             dr["结束"] = endDate.Hour.ToString().PadLeft(2, '0') + ":" + endDate.Minute.ToString().PadLeft(2, '0');
             double guarantee = double.Parse(drOrder["guarantee_cash"].ToString());
             double refund = double.Parse(drOrder["refund_amount"].ToString());
+            if (refund == 0)
+            {
+                DataTable dtRefund = DBHelper.GetDataTable(" select sum(amount) from order_online_refund where state = 1 and refund_id <> '' and order_id = "
+                    + drOrder["guarantee_order_id"].ToString());
+                if (!dtRefund.Rows[0][0].ToString().Trim().Equals(""))
+                {
+                    refund = double.Parse(dtRefund.Rows[0][0].ToString().Trim());
+                    DBHelper.UpdateData("expierence_list", new string[,] { { "refund_amount", "float", refund.ToString() } },
+                        new string[,] { { "id", "int", drOrder["id"].ToString() } }, Util.conStr);
+                }
+
+            }
             dr["押金"] = Math.Round(guarantee, 2).ToString();
             dr["退款"] = Math.Round(refund, 2).ToString();
             dr["差价"] = Math.Round((guarantee - refund), 2).ToString();
