@@ -44,6 +44,8 @@
             + " and create_date >= '" + start.ToShortDateString() + "' and create_date <= '" + end.ToShortDateString() + "' "
             + " and exists ( select 'a' from maintain_in_shop_request where order_id = order_online.[id] )  "
             + " order by [id] desc ");
+        double neetToPay = 0;
+        double paid = 0;
         foreach (DataRow drOrder in dtOrder.Rows)
         {
 
@@ -79,7 +81,10 @@
                 dr["时间"] = orderDate.Hour.ToString() + ":" + orderDate.Minute.ToString();
                 dr["项目"] = "";
                 dr["应付金额"] = Math.Round(double.Parse(drOrder["order_price"].ToString()), 2).ToString();
+                neetToPay += Math.Round(double.Parse(drOrder["order_price"].ToString()), 2);
                 dr["实付金额"] = Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2).ToString();
+                paid += Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2);
+
                 dr["类型"] = "";
                 dr["品牌"] = "";
                 dr["系列"] = "";
@@ -141,7 +146,9 @@
                         }
                         serviceItem = serviceItem + " " + task._fields["confirmed_more"].ToString().Trim();
                         dr["项目"] = serviceItem.Trim();
+                        neetToPay += Math.Round(double.Parse(drOrder["order_price"].ToString()), 2);
                         dr["应付金额"] = Math.Round(double.Parse(drOrder["order_price"].ToString()), 2).ToString();
+                        paid += Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2);
                         dr["实付金额"] = Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2).ToString();
                         dr["类型"] = task._fields["confirmed_equip_type"].ToString().Trim();
                         dr["品牌"] = task._fields["confirmed_brand"].ToString().Trim();
@@ -199,7 +206,9 @@
                         serviceItem = serviceItem + " " + detail.productName.Trim();
                     }
                     dr["项目"] = serviceItem.Trim();
+                    neetToPay += Math.Round(double.Parse(drOrder["order_price"].ToString()), 2);
                     dr["应付金额"] = Math.Round(double.Parse(drOrder["order_price"].ToString()), 2).ToString();
+                    paid += Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2);
                     dr["实付金额"] = Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2).ToString();
                     dr["类型"] = "";
                     dr["品牌"] = "";
@@ -234,6 +243,10 @@
 
 
         }
+        DataRow drTotal = dt.NewRow();
+        drTotal[0] = "总计";
+        drTotal["应付金额"] = Math.Round(neetToPay, 2).ToString();
+        drTotal["实付金额"] = Math.Round(paid, 2).ToString();
 
         return dt;
     }
