@@ -247,7 +247,7 @@
         drTotal[0] = "总计";
         drTotal["应付金额"] = Math.Round(neetToPay, 2).ToString();
         drTotal["实付金额"] = Math.Round(paid, 2).ToString();
-
+        dt.Rows.Add(drTotal);
         return dt;
     }
 
