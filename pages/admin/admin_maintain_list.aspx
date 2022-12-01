@@ -82,8 +82,8 @@
                 dr["项目"] = "";
                 dr["应付金额"] = Math.Round(double.Parse(drOrder["order_price"].ToString()), 2).ToString();
                 neetToPay += Math.Round(double.Parse(drOrder["order_price"].ToString()), 2);
-                dr["实付金额"] = Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2).ToString();
-                paid += Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2);
+                dr["实付金额"] = Math.Round(double.Parse(drOrder["final_price"].ToString()), 2).ToString();
+                paid += Math.Round(double.Parse(drOrder["final_price"].ToString()), 2);
 
                 dr["类型"] = "";
                 dr["品牌"] = "";
@@ -148,8 +148,8 @@
                         dr["项目"] = serviceItem.Trim();
                         neetToPay += Math.Round(double.Parse(drOrder["order_price"].ToString()), 2);
                         dr["应付金额"] = Math.Round(double.Parse(drOrder["order_price"].ToString()), 2).ToString();
-                        paid += Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2);
-                        dr["实付金额"] = Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2).ToString();
+                        paid += Math.Round(double.Parse(drOrder["final_price"].ToString()), 2);
+                        dr["实付金额"] = Math.Round(double.Parse(drOrder["final_price"].ToString()), 2).ToString();
                         dr["类型"] = task._fields["confirmed_equip_type"].ToString().Trim();
                         dr["品牌"] = task._fields["confirmed_brand"].ToString().Trim();
                         dr["系列"] = task._fields["confirmed_serial"].ToString().Trim();
@@ -208,8 +208,8 @@
                     dr["项目"] = serviceItem.Trim();
                     neetToPay += Math.Round(double.Parse(drOrder["order_price"].ToString()), 2);
                     dr["应付金额"] = Math.Round(double.Parse(drOrder["order_price"].ToString()), 2).ToString();
-                    paid += Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2);
-                    dr["实付金额"] = Math.Round(double.Parse(drOrder["order_real_pay_price"].ToString()), 2).ToString();
+                    paid += Math.Round(double.Parse(drOrder["final_price"].ToString()), 2);
+                    dr["实付金额"] = Math.Round(double.Parse(drOrder["final_price"].ToString()), 2).ToString();
                     dr["类型"] = "";
                     dr["品牌"] = "";
                     dr["系列"] = "";
