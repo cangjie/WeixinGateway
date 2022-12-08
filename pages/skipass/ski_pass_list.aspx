@@ -14,6 +14,15 @@
 
     public OnlineSkiPass[] passArr;
 
+    public string skiPassDescNanashanCommon = "<ul><li>票前可申请免费退换</li><li>出票当日自动出票</li><li style=\"color:red\" >出票后不支持退换！</li><li>日场营业时间 9:00-17:00</li><li>夜场营业时间 18:00-22:00(除夕、初一仅开放日场）</li><li>上午场时间：当日13:00均前可使用</li><li>下午加夜场时间：限当日14:30后使用</li></ul>";
+
+
+    public string skiPassDescNanashanRent = "<ul><li>出票前可申请免费退换</li><li>出票当日自动出票</li><li style=\"color:red\" >出票后不支持退换！</li><li>日场营业时间 9:00-17:00</li><li>夜场营业时间18:00-22:00(除夕、初一仅开放日场）</li><li>上午场时间：当日13:00前可使用</li><li>下午加夜场时间：限当日14:30后使用</li><li>购买当日全天含装备 雪票则包含南山装备（一套雪服、头盔、雪镜、手套租费）</li></ul>";
+
+
+
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
         used = Util.GetSafeRequestValue(Request, "used", "0");
@@ -105,7 +114,7 @@
                 <h3 class="card-title"><%=p._fields["name"].ToString() %></h3>
             </div>
             <div class="card-body">
-                <p>张数：<%=pass.associateOnlineOrderDetail.count.ToString() %>张 <%=(pass.Rent? ",<font color='red' >租板</font>":"") %></p>
+                <p>张数：<%=pass.associateOnlineOrderDetail.count.ToString() %>张 <%=(pass.Rent? ",<font color='red' >租板</font>":"") %> 日期：<%=pass.AppointDate.ToShortDateString() %></p>
                         <%
     if (p._fields["intro"].ToString().Trim().Equals(""))
     {
@@ -114,16 +123,7 @@
 
 
                      %>
-                <p>如租板，押金200元。</p>
-                <p>价格包括：门票、滑雪、缆车、拖牵、魔毯费用、（如租板，则包含雪具使用）。</p>
-                <p>如需租用雪板、雪鞋、雪杖以外的物品，如头盔、雪镜、雪服等物品，请额外准备现金，押金 100元/件。</p>
-                <p>使用说明：</p>
-                <ul>
-                    <li><font color="red" >出票日：<%=pass.AppointDate.ToShortDateString() %>，将于该日自动出票。</font></li>
-                    <li>到达代理商入口请拨打：13521733301，将有工作人员接您入场。</li>
-                    <li>来店请出示二维码验票、取票。</li>
-                    <li>此票售出后不予退换。</li>
-                </ul>
+                <p><%=skiPassDescNanashanCommon %></p>
                 <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13521733301</p>
                 <%}
     else
