@@ -123,7 +123,7 @@
 
 
                      %>
-                <p><%=skiPassDescNanashanCommon %></p>
+                <p><%=(p._fields["name"].ToString().IndexOf("租") >= 0)?  skiPassDescNanashanRent: skiPassDescNanashanCommon %></p>
                 <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13521733301</p>
                 <%}
     else
