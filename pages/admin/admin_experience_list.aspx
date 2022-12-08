@@ -71,10 +71,14 @@
             dr["开始"] = startDate.Hour.ToString().PadLeft(2, '0') + ":" + startDate.Minute.ToString().PadLeft(2, '0');
             dr["结束"] = endDate.Hour.ToString().PadLeft(2, '0') + ":" + endDate.Minute.ToString().PadLeft(2, '0');
             double guarantee = double.Parse(drOrder["guarantee_cash"].ToString());
+
+            //DataTable dtRefund = DBHelper.GetDataTable(" select sum(amount) from order_online_refund where order_id = " + drOrder["guarantee_order_id"].ToString().Trim());
+
+
             double refund = double.Parse(drOrder["refund_amount"].ToString());
             if (refund == 0)
             {
-                DataTable dtRefund = DBHelper.GetDataTable(" select sum(amount) from order_online_refund where state = 1 and refund_id <> '' and order_id = "
+                DataTable dtRefund = DBHelper.GetDataTable(" select sum(amount) from order_online_refund where refund_id <> '' and order_id = "
                     + drOrder["guarantee_order_id"].ToString());
                 if (!dtRefund.Rows[0][0].ToString().Trim().Equals(""))
                 {
