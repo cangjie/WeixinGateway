@@ -41,8 +41,10 @@
         dt.Columns.Add("照片");
         dt.Columns.Add("渠道");
         DataTable dtOrder = DBHelper.GetDataTable(" select * from order_online where type = '服务' and pay_state = 1 "
+            + (shop.SelectedValue.Trim().Equals("全部") ? " " : " and shop like '%" + shop.SelectedValue.Replace("'", "").Trim() + "%' ")
             + " and create_date >= '" + start.ToShortDateString() + "' and create_date <= '" + end.ToShortDateString() + "' "
             + " and exists ( select 'a' from maintain_in_shop_request where order_id = order_online.[id] )  "
+            //+ " and [id] = 26408 "
             + " order by [id] desc ");
         double neetToPay = 0;
         double paid = 0;
@@ -50,6 +52,9 @@
         {
 
             OnlineOrder order = new OnlineOrder();
+
+           
+
             order._fields = drOrder;
             string channel = "H5";
             OnlineOrderDetail[] detailArr = order.OrderDetails;
@@ -281,6 +286,12 @@
         Response.Write(content.Trim());
         Response.End();
     }
+
+    protected void shop_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        dg.DataSource = GetData();
+        dg.DataBind();
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -290,7 +301,11 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Button runat="server" ID="downloadSheet" Text="下载" OnClick="downloadSheet_Click" />
+            <asp:DropDownList ID="shop" runat="server" OnSelectedIndexChanged="shop_SelectedIndexChanged" AutoPostBack="True" >
+                <asp:ListItem>全部</asp:ListItem>
+                <asp:ListItem>南山</asp:ListItem>
+                <asp:ListItem>万龙</asp:ListItem>
+            </asp:DropDownList><asp:Button runat="server" ID="downloadSheet" Text="下载" OnClick="downloadSheet_Click" />
         </div>
         <div>
             <asp:DataGrid runat="server" ID="dg" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical"  >
