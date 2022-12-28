@@ -449,6 +449,18 @@ public class DealMessage
                         break;
                 }
                 break;
+            case "accept":
+                subKey = eventKey.Replace("_" + anyId.Trim(), "").Replace(eventKeyArr[0].Trim() + "_", "").Trim();
+                switch (subKey.Trim())
+                {
+                    case "ticket_code":
+                        ////////////////////////////////////////////////////////////////
+                        repliedMessage = AcceptTicket(receivedMessage, repliedMessage, anyId);
+                        break;
+                    default:
+                        break;
+                }
+                break;
             case "confirm":
                 for (int i = 1; i < eventKeyArr.Length - 1; i++)
                 {
@@ -478,6 +490,26 @@ public class DealMessage
         repliedMessage.content = content;
         return repliedMessage;
         
+    }
+
+    public static RepliedMessage AcceptTicket(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, string code)
+    {
+        string openId = receivedMessage.from.Trim();
+        WeixinUser user = new WeixinUser(openId);
+        string miniOpenId = user.miniUser.OpenId.Trim();
+        Ticket ticket = new Ticket(code.Trim());
+
+        DBHelper.InsertData("ticket_log", new string[,] { { "code", "varchar", code.Trim() }, { "sender_open_id", "varchar", ticket._fields["open_id"].ToString().Trim() },
+            {"accepter_open_id", "varchar", miniOpenId.Trim() }, {"transact_time", "datetime", DateTime.Now.ToString() } });
+
+        DBHelper.UpdateData("ticket", new string[,] { { "open_id", "varchar", miniOpenId }, { "shared", "int", "0" }, { "accepted_time", "datetime", DateTime.Now.ToString() } },
+            new string[,] { { "code", "varchar", code.Trim() } }, Util.conStr);
+
+        string content = "您已经收到一张" + ticket._fields["name"].ToString() + "，请点击公众号菜单”优惠券“👇或者"
+            + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/mine/ticket/ticket_list\" href=\"#\" >点击此处</a>查看。";
+        repliedMessage.type = "text";
+        repliedMessage.content = content;
+        return repliedMessage;
     }
 
     public static RepliedMessage ScanTicket(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, string code)
