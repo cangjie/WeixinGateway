@@ -498,18 +498,27 @@ public class DealMessage
         WeixinUser user = new WeixinUser(openId);
         string miniOpenId = user.miniUser.OpenId.Trim();
         Ticket ticket = new Ticket(code.Trim());
-
-        DBHelper.InsertData("ticket_log", new string[,] { { "code", "varchar", code.Trim() }, { "sender_open_id", "varchar", ticket._fields["open_id"].ToString().Trim() },
+        string content = "";
+        if (ticket._fields["shared"].ToString().Equals("1"))
+        {
+            DBHelper.InsertData("ticket_log", new string[,] { { "code", "varchar", code.Trim() }, { "sender_open_id", "varchar", ticket._fields["open_id"].ToString().Trim() },
             {"accepter_open_id", "varchar", miniOpenId.Trim() }, {"transact_time", "datetime", DateTime.Now.ToString() } });
 
-        DBHelper.UpdateData("ticket", new string[,] { { "open_id", "varchar", miniOpenId }, { "shared", "int", "0" }, { "accepted_time", "datetime", DateTime.Now.ToString() } },
-            new string[,] { { "code", "varchar", code.Trim() } }, Util.conStr);
+            DBHelper.UpdateData("ticket", new string[,] { { "open_id", "varchar", miniOpenId }, { "shared", "int", "0" }, { "accepted_time", "datetime", DateTime.Now.ToString() } },
+                new string[,] { { "code", "varchar", code.Trim() } }, Util.conStr);
 
-        string content = "您已经收到一张" + ticket._fields["name"].ToString() + "，请点击公众号菜单”优惠券“或者"
-            + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/mine/ticket/ticket_list\" href=\"#\" >点击此处</a>查看。";
+            content = "您已经收到一张" + ticket._fields["name"].ToString() + "，请点击公众号菜单”优惠券“或者"
+                + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/mine/ticket/ticket_list\" href=\"#\" >点击此处</a>查看。";
+            
+        }
+        else
+        {
+            content = "此券已失效。";
+        }
         repliedMessage.type = "text";
         repliedMessage.content = content;
         return repliedMessage;
+
     }
 
     public static RepliedMessage ScanTicket(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, string code)
