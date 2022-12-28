@@ -505,7 +505,7 @@ public class DealMessage
         DBHelper.UpdateData("ticket", new string[,] { { "open_id", "varchar", miniOpenId }, { "shared", "int", "0" }, { "accepted_time", "datetime", DateTime.Now.ToString() } },
             new string[,] { { "code", "varchar", code.Trim() } }, Util.conStr);
 
-        string content = "您已经收到一张" + ticket._fields["name"].ToString() + "，请点击公众号菜单”优惠券“👇或者"
+        string content = "您已经收到一张" + ticket._fields["name"].ToString() + "，请点击公众号菜单”优惠券“或者"
             + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/mine/ticket/ticket_list\" href=\"#\" >点击此处</a>查看。";
         repliedMessage.type = "text";
         repliedMessage.content = content;
