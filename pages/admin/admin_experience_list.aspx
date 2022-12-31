@@ -44,7 +44,7 @@
             + " left join users on users.open_id = expierence_list.open_id  "
             + " left join mini_users on staff_open_id = mini_users.open_id "
             + " where expierence_list.create_date >= '" +  TxtStart.Text.Replace("'", "").Trim() + "'  and  expierence_list.create_date < '" + TxtEnd.Text.Replace("'", "").Trim() + " 23:59:59'  "
-            + (DrpShopList.SelectedIndex > 0 ? " and shop =  '" + DrpShopList.SelectedValue.Trim().Replace("'", "") + "'  " : "  ")
+            + (DrpShopList.SelectedIndex > 0 ? " and shop like  '%" + DrpShopList.SelectedValue.Trim().Replace("'", "") + "%'  " : "  ")
             + " and start_time is not null and end_time is not null  "
             + " and exists ( select 'a' from order_online where order_online.[id] = guarantee_order_id and pay_state = 1  ) order by [id] desc ");
         foreach (DataRow drOrder in dtOrder.Rows)
@@ -159,6 +159,7 @@
 &nbsp;店铺：<asp:DropDownList ID="DrpShopList" runat="server">
                 <asp:ListItem Selected="True">全部</asp:ListItem>
                 <asp:ListItem>万龙</asp:ListItem>
+                <asp:ListItem>崇礼</asp:ListItem>
                 <asp:ListItem>南山</asp:ListItem>
                 <asp:ListItem>渔阳</asp:ListItem>
                 <asp:ListItem>怀北</asp:ListItem>
