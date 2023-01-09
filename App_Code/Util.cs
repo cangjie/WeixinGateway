@@ -332,8 +332,14 @@ public class Util
         Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(ret);
         object v;
         json.TryGetValue("access_token", out v);
-        token = v.ToString();
-
+        try
+        {
+            token = v.ToString();
+        }
+        catch
+        { 
+        
+        }
         return token;
     }
 

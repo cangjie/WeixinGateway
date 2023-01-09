@@ -338,8 +338,13 @@
                         </div>
 			            <br/>
                         <div>
+<<<<<<< HEAD
                             人数：<span class="dropdown" >
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSelectNum" data-toggle="dropdown">
+=======
+                            人数(配合疫情防控，每人限购票一张)：<span class="dropdown" >
+                                <button class="btn btn-default dropdown-toggle" disabled="disabled" type="button" id="dropdownSelectNum" data-toggle="dropdown">
+>>>>>>> f56016f4041cb9f89f349871a4d86b862a2b31d2
                                     <span id="current_num" >1</span>
                                     <span class="caret"></span>
                                 </button>

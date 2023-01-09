@@ -4,10 +4,16 @@
 
 <script runat="server">
 
+    public double sumAmount = 0;
+    public double sumRefund = 0;
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
+            TxtStart.Text = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString();
+            TxtEnd.Text = TxtStart.Text.Trim();
             dg.DataSource = GetData();
             dg.DataBind();
         }
@@ -15,8 +21,7 @@
 
     public DataTable GetData()
     {
-        DateTime start = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2021-10-1"));
-        DateTime end = DateTime.Parse(Util.GetSafeRequestValue(Request, "start", "2022-5-30"));
+
         DataTable dt = new DataTable();
         dt.Columns.Add("ID");
         dt.Columns.Add("店铺");
@@ -33,11 +38,14 @@
         dt.Columns.Add("押金");
         dt.Columns.Add("退款");
         dt.Columns.Add("差价");
+        dt.Columns.Add("店员");
 
-
-        DataTable dtOrder = DBHelper.GetDataTable("select * from expierence_list "
+        DataTable dtOrder = DBHelper.GetDataTable("select *, mini_users.nick as staff_nick from expierence_list "
             + " left join users on users.open_id = expierence_list.open_id  "
-            + " where expierence_list.create_date > '2021-10-1' "
+            + " left join mini_users on staff_open_id = mini_users.open_id "
+            + " where expierence_list.create_date >= '" +  TxtStart.Text.Replace("'", "").Trim() + "'  and  expierence_list.create_date < '" + TxtEnd.Text.Replace("'", "").Trim() + " 23:59:59'  "
+            + (DrpShopList.SelectedIndex > 0 ? " and shop like  '%" + DrpShopList.SelectedValue.Trim().Replace("'", "") + "%'  " : "  ")
+            + " and start_time is not null and end_time is not null  "
             + " and exists ( select 'a' from order_online where order_online.[id] = guarantee_order_id and pay_state = 1  ) order by [id] desc ");
         foreach (DataRow drOrder in dtOrder.Rows)
         {
@@ -63,17 +71,36 @@
             dr["开始"] = startDate.Hour.ToString().PadLeft(2, '0') + ":" + startDate.Minute.ToString().PadLeft(2, '0');
             dr["结束"] = endDate.Hour.ToString().PadLeft(2, '0') + ":" + endDate.Minute.ToString().PadLeft(2, '0');
             double guarantee = double.Parse(drOrder["guarantee_cash"].ToString());
+
+            //DataTable dtRefund = DBHelper.GetDataTable(" select sum(amount) from order_online_refund where order_id = " + drOrder["guarantee_order_id"].ToString().Trim());
+
+
             double refund = double.Parse(drOrder["refund_amount"].ToString());
+            if (refund == 0)
+            {
+                DataTable dtRefund = DBHelper.GetDataTable(" select sum(amount) from order_online_refund where refund_id <> '' and order_id = "
+                    + drOrder["guarantee_order_id"].ToString());
+                if (!dtRefund.Rows[0][0].ToString().Trim().Equals(""))
+                {
+                    refund = double.Parse(dtRefund.Rows[0][0].ToString().Trim());
+                    DBHelper.UpdateData("expierence_list", new string[,] { { "refund_amount", "float", refund.ToString() } },
+                        new string[,] { { "id", "int", drOrder["id"].ToString() } }, Util.conStr);
+                }
+
+            }
             dr["押金"] = Math.Round(guarantee, 2).ToString();
             dr["退款"] = Math.Round(refund, 2).ToString();
             dr["差价"] = Math.Round((guarantee - refund), 2).ToString();
+            dr["店员"] = drOrder["staff_nick"].ToString().Trim();
             dt.Rows.Add(dr);
-
+            sumAmount = sumAmount + Math.Round(guarantee, 2);
+            sumRefund = sumRefund + Math.Round(refund, 2);
 
 
 
         }
-
+        Label1.Text = "总计  押金:" + Math.Round(sumAmount, 2).ToString() + " 退款:"
+            + Math.Round(sumRefund, 2).ToString() + " 差价:" + Math.Round((sumAmount - sumRefund), 2).ToString();
         return dt;
     }
 
@@ -107,6 +134,12 @@
         Response.Write(content.Trim());
         Response.End();
     }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        dg.DataSource = GetData();
+        dg.DataBind();
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -117,6 +150,23 @@
     <form id="form1" runat="server">
         <div>
             <asp:Button runat="server" ID="downloadSheet" Text="下载" OnClick="downloadSheet_Click" />
+        </div>
+        <div>
+            日期：
+         
+            <asp:TextBox ID="TxtStart" runat="server" Width="100px"></asp:TextBox>
+            -<asp:TextBox ID="TxtEnd" runat="server" Width="100px"></asp:TextBox>
+&nbsp;店铺：<asp:DropDownList ID="DrpShopList" runat="server">
+                <asp:ListItem Selected="True">全部</asp:ListItem>
+                <asp:ListItem>万龙</asp:ListItem>
+                <asp:ListItem>崇礼</asp:ListItem>
+                <asp:ListItem>南山</asp:ListItem>
+                <asp:ListItem>渔阳</asp:ListItem>
+                <asp:ListItem>怀北</asp:ListItem>
+            </asp:DropDownList>
+        &nbsp;<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text=" 查 询 " />
+        &nbsp;&nbsp;
+            <asp:Label ID="Label1" runat="server" Width="300px" Text="Label"></asp:Label>
         </div>
         <div>
             <asp:DataGrid runat="server" ID="dg" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical"  >

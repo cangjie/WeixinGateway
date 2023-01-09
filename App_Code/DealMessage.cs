@@ -363,6 +363,21 @@ public class DealMessage
         }
         switch (eventKeyArr[0].Trim())
         {
+            case "shop":
+                for (int i = 1; i < eventKeyArr.Length - 1; i++)
+                {
+                    subKey = subKey.Trim() + ((i > 1) ? "_" : "") + eventKeyArr[i].Trim();
+                }
+                anyId = eventKeyArr[eventKeyArr.Length - 1].Trim();
+                switch (subKey.Trim())
+                {
+                    case "sale_interact_id":
+                        repliedMessage = ShopSaleInteract(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
+                    default:
+                        break;
+                }
+                break;
             case "pay":
                 
                 for (int i = 1; i < eventKeyArr.Length - 1; i++)
@@ -396,7 +411,9 @@ public class DealMessage
                     case "expierence_guarantee_cash":
                         repliedMessage = PayExpierenceCash(receivedMessage, repliedMessage, int.Parse(anyId));
                         break;
+
                     default:
+                        repliedMessage = PayThroughMiniApp(receivedMessage, repliedMessage, int.Parse(anyId), subKey.Trim());
                         break;
                 }
                 break;
@@ -432,10 +449,76 @@ public class DealMessage
                         break;
                 }
                 break;
+            case "accept":
+                subKey = eventKey.Replace("_" + anyId.Trim(), "").Replace(eventKeyArr[0].Trim() + "_", "").Trim();
+                switch (subKey.Trim())
+                {
+                    case "ticket_code":
+                        ////////////////////////////////////////////////////////////////
+                        repliedMessage = AcceptTicket(receivedMessage, repliedMessage, anyId);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case "confirm":
+                for (int i = 1; i < eventKeyArr.Length - 1; i++)
+                {
+                    subKey = subKey.Trim() + ((i > 1) ? "_" : "") + eventKeyArr[i].Trim();
+                }
+                anyId = eventKeyArr[eventKeyArr.Length - 1].Trim();
+                switch (subKey.Trim())
+                {
+                    case "maintain":
+                        repliedMessage = ConfirmMaintainOrder(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
+                    default:
+                        break;
+                }
+                break;
             default:
                 break;
         }
         return repliedMessage;
+    }
+
+    public static RepliedMessage ConfirmMaintainOrder(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
+    {
+        string content = "请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/mine/maintain/bind_maintain_order?id=" + id.ToString()
+                + "\" href=\"#\" >点击此处</a>进入小程序绑定账号。";
+        repliedMessage.type = "text";
+        repliedMessage.content = content;
+        return repliedMessage;
+        
+    }
+
+    public static RepliedMessage AcceptTicket(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, string code)
+    {
+        string openId = receivedMessage.from.Trim();
+        WeixinUser user = new WeixinUser(openId);
+        string miniOpenId = user.miniUser.OpenId.Trim();
+        Ticket ticket = new Ticket(code.Trim());
+        string content = "";
+        if (ticket._fields["shared"].ToString().Equals("1"))
+        {
+            DBHelper.InsertData("ticket_log", new string[,] { { "code", "varchar", code.Trim() }, { "sender_open_id", "varchar", ticket._fields["open_id"].ToString().Trim() },
+            {"accepter_open_id", "varchar", miniOpenId.Trim() }, {"transact_time", "datetime", DateTime.Now.ToString() } });
+
+            DBHelper.UpdateData("ticket", new string[,] { { "open_id", "varchar", miniOpenId }, { "shared", "int", "0" }, { "accepted_time", "datetime", DateTime.Now.ToString() } },
+                new string[,] { { "code", "varchar", code.Trim() } }, Util.conStr);
+
+            content = "您已经收到一张" + ticket._fields["name"].ToString() + "，请点击公众号菜单”优惠券“或者"
+                + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/mine/ticket/ticket_list\" href=\"#\" >点击此处</a>查看。";
+            
+        }
+        else
+        {
+            content = "此券已失效。";
+        }
+        repliedMessage.type = "text";
+        repliedMessage.content = content;
+        return repliedMessage;
+
     }
 
     public static RepliedMessage ScanTicket(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, string code)
@@ -453,16 +536,32 @@ public class DealMessage
 
             if (user.IsAdmin)
             {
-                content = content + "      如果是客人出示并要使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\""
+                if (!ticket._fields["miniapp_recept_path"].ToString().Trim().Equals(""))
+                {
+                    content = content + "      如果是客人出示并要使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\""
                     + ticket._fields["miniapp_recept_path"].ToString() + "?ticketCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+                }
+                else
+                {
+                    content = "客人使用此" + ticket.Name.Trim() + "，具体内容：" + ticket._fields["memo"].ToString().Trim()
+                        + "请<a  href=\"http://weixin.snowmeet.top/pages/admin/wechat/use_ticket.aspx?code=" + ticket.Code.Trim() + "\"  >进入此处</a>为其核销。";
+                }
             }
         }
         else
         {
             if (user.IsAdmin)
             {
-                content = "客人使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"" 
-                    + ticket._fields["miniapp_recept_path"].ToString() + "?ticketCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+                if (!ticket._fields["miniapp_recept_path"].ToString().Trim().Equals(""))
+                {
+                    content = "客人使用此" + ticket.Name.Trim() + "，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\""
+                        + ticket._fields["miniapp_recept_path"].ToString() + "?ticketCode=" + ticket.Code.Trim() + "\" href=\"#\"  >进入此处</a>为其操作。";
+                }
+                else
+                {
+                    content = "客人使用此" + ticket.Name.Trim() + "，具体内容：" + ticket._fields["memo"].ToString().Trim() 
+                        + "请<a  href=\"http://weixin.snowmeet.top/pages/admin/wechat/use_ticket.aspx?code=" + ticket.Code.Trim() + "\"  >进入此处</a>为其核销。";
+                }
 
             }
             else
@@ -489,6 +588,23 @@ public class DealMessage
             + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/confirm_payment?controller=Experience&action=PlaceOrder&id=" + id.ToString() 
             + "\" href =\"http://" + Util.domainName.Trim() + "/pages/confirm_expierence_admit.aspx?id=" + expierence._fields["id"].ToString()
             + "\" >点击这里支付" + expierence._fields["guarantee_cash"].ToString().Trim() + "元押金</a>。";
+        return repliedMessage;
+    }
+
+    public static RepliedMessage PayThroughMiniApp(ReceivedMessage receiveMessage, RepliedMessage repliedMessage, int id, string item)
+    {
+        repliedMessage.type = "text";
+        string message = "您有一笔费用需要支付。";
+        switch (item)
+        {
+            case "summermaintain":
+                message = "您有一张非雪季养护订单需要支付。";
+                break;
+            default:
+                break;
+        }
+        string miniAppPath = "/pages/payment/pay_hub?paymentId=" + id.ToString();// + "&item=" + item.Trim();
+        repliedMessage.content = message + "<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"" + miniAppPath + "\" >点击这里查看</a>。";
         return repliedMessage;
     }
 
@@ -622,6 +738,39 @@ public class DealMessage
         return repliedMessage;
     }
 
+    public static RepliedMessage ShopSaleInteract(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
+    {
+        DBHelper.UpdateData("shop_sale_interact", new string[,] { { "scan", "int", "1" }, { "scaner_oa_open_id", "varchar", receivedMessage.from } }, 
+            new string[,] { { "id", "int", id.ToString()} }, Util.conStr);
+
+        bool isMember = false;
+
+        DataTable dt = DBHelper.GetDataTable(" select * from mini_users users where exists ( "
+            + " select 'a' from unionids mini where source = 'snowmeet_mini'   "
+                + " and  exists ( select 'a' from unionids oa where open_id = '" + receivedMessage.from.Replace("'", "") + "' and mini.union_id = oa.union_id and source = 'snowmeet_official_account_new' ) "
+            + " and users.open_id = mini.open_id ) ");
+        if (dt.Rows.Count > 0)
+        {
+            if (!dt.Rows[0]["cell_number"].ToString().Trim().Equals(""))
+            {
+                isMember = true;
+            }
+        }
+        dt.Dispose();
+        if (isMember)
+        {
+            repliedMessage.content = "欢迎回来。";
+            repliedMessage.type = "text";
+        }
+        else
+        {
+            repliedMessage.content = "您尚未注册会员，<a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/shop_sale/shop_landing\" >请点击注册。</a>";
+            repliedMessage.type = "text";
+        }
+        
+        return repliedMessage;
+    }
+
     public static RepliedMessage ScanToPayTempOrder(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int tempOrderId)
     {
         //Product p = new Product(productId);
@@ -652,7 +801,7 @@ public class DealMessage
         
         repliedMessage.content = "您即将支付：" + order._fields["order_real_pay_price"].ToString()
             + "元。<a  data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/payment/confirm_payment?controller=OrderOnlines&action=GetOrderOnline&id="
-            + orderId.ToString() + "\" href=\"http://" + Util.domainName.Trim() + "/payment/payment.aspx?product_id=" + orderId.ToString() + "\" >点击此处支付</a>。";
+            + orderId.ToString() + "\" href=\"http://" + Util.domainName.Trim() + "/payment/miniapp_payment_error.aspx?product_id=" + orderId.ToString() + "\" >点击此处支付</a>。";
         
         
         return repliedMessage;

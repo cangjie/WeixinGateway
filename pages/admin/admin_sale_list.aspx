@@ -65,21 +65,22 @@
     public DataTable GetData()
     {
 
-        DataTable dtAdmin = DBHelper.GetDataTable(" select open_id, nick from users where is_admin = 1 union select open_id, nick from mini_users where is_admin = 1 ");
+        DataTable dtAdmin = DBHelper.GetDataTable(" select open_id, real_name from users where is_admin = 1 union select open_id, nick from mini_users where is_admin = 1  "
+            + " union (select open_id, real_name from mini_users where is_admin = 1 )");
 
         DataTable dtOri = DBHelper.GetDataTable("select distinct ( case   when maintain_in_shop_request.confirmed_cell is null then order_online.cell_number   when maintain_in_shop_request.confirmed_cell = '' then order_online.cell_number else confirmed_cell end )   as user_number, "
             + " users.*, order_online.*, "
             + " order_online_temp.*, maintain_in_shop_request.service_open_id  from order_online left join users on order_online.open_id = users.open_id left join order_online_temp on online_order_id = order_online.[id] "
             + " left join maintain_in_shop_request on order_online.[id] = maintain_in_shop_request.order_id "
-            + " where order_online.type in ('店销', '服务') and order_online.pay_state = 1  "
+            + " where order_online.type in ('店销', '服务', '店销现货') and order_online.pay_state = 1  "
             + (shop.Equals("全部")? " " : " and order_online.shop = '" + shop + "' ")
-            + " and pay_time >= '" + startDate.ToShortDateString() + "' and pay_time < '" + endDate.AddDays(1) + "' "
-            + (type.Equals("全部")? " " : " and order_online.[type] = '" + type.Trim() + "'  ")
+            + " and order_online.create_date >= '" + startDate.ToShortDateString() + "' and order_online.create_date < '" + endDate.AddDays(1) + "' "
+            + (type.Equals("全部")? " " : " and order_online.[type] like '%" + type.Trim() + "%'  ")
             + " order by order_online.[id]  desc");
 
         DataTable dt = new DataTable();
         dt.Columns.Add("订单号", Type.GetType("System.Int32"));
-        dt.Columns.Add("日期", Type.GetType("System.DateTime"));
+        dt.Columns.Add("日期");
         dt.Columns.Add("店铺");
         dt.Columns.Add("类型");
         dt.Columns.Add("头像");
@@ -105,7 +106,7 @@
                 string aa = "aa";
             }
             dr["订单号"] = int.Parse(drOri["id"].ToString().Trim());
-            dr["日期"] = DateTime.Parse(drOri["pay_time"].ToString());
+            dr["日期"] = DateTime.Parse(drOri["create_date"].ToString()).ToString("u").Replace("Z", "");
             dr["店铺"] = drOri["shop"].ToString();
             dr["类型"] = drOri["type"].ToString().Trim();
             WeixinUser user = new WeixinUser();
@@ -143,7 +144,7 @@
                 DataRow[] drArrAdmin = dtAdmin.Select(" open_id = '" + drOri["admin_open_id"].ToString().Trim() + "' ");
                 if (drArrAdmin.Length > 0)
                 {
-                    dr["销售"] = drArrAdmin[0]["nick"].ToString().Trim();
+                    dr["销售"] = drArrAdmin[0]["real_name"].ToString().Trim();
                 }
                 else
                 {
@@ -157,7 +158,7 @@
                     DataRow[] drArrAdmin = dtAdmin.Select(" open_id = '" + drOri["service_open_id"].ToString().Trim() + "' ");
                     if (drArrAdmin.Length > 0)
                     {
-                        dr["销售"] = drArrAdmin[0]["nick"].ToString().Trim();
+                        dr["销售"] = drArrAdmin[0]["real_name"].ToString().Trim();
                     }
                     else
                     {
@@ -165,8 +166,24 @@
                     }
                 }
                 else
-                { 
-                    dr["销售"] = "";
+                {
+                    if (!drOri["staff_open_id"].ToString().Trim().Equals(""))
+                    {
+                        DataRow[] drArrAdmin = dtAdmin.Select(" open_id = '" + drOri["staff_open_id"].ToString().Trim() + "' ");
+                        if (drArrAdmin.Length > 0)
+                        {
+                            dr["销售"] = drArrAdmin[0]["real_name"].ToString().Trim();
+                        }
+                        else
+                        {
+                            dr["销售"] = "";
+                        }
+                    }
+                    else
+                    {
+                        dr["销售"] = "";
+                    }
+                    
                 }
             }
 
@@ -223,6 +240,9 @@
             <option <%=((shop.Trim().Equals("南山"))? "selected":"") %> >南山</option>
             <option <%=((shop.Trim().Equals("八易"))? "selected":"") %> >八易</option>
             <option <%=((shop.Trim().Equals("总店"))? "selected":"") %> >总店</option>
+            <option <%=((shop.Trim().Equals("线上店"))? "selected":"") %> >线上店</option>
+            <option <%=((shop.Trim().Equals("渔阳"))? "selected":"") %> >渔阳</option>
+            <option <%=((shop.Trim().Equals("怀北"))? "selected":"") %> >怀北</option>
             <option <%=((shop.Trim().Equals("崇礼旗舰店"))? "selected":"") %> >崇礼旗舰店</option>
                   </select></div>
     <div>
