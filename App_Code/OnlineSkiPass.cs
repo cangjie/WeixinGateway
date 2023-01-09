@@ -31,7 +31,8 @@ public class OnlineSkiPass
         count = associateOnlineOrderDetail.count;
         associateCard = new Card(code);
 
-        owner = new WeixinUser(associateOnlineOrder._fields["open_id"].ToString());
+        //owner = new WeixinUser(associateOnlineOrder._fields["open_id"].ToString());
+
 
         if (associateCard._fields["type"].Equals("雪票"))
         {
