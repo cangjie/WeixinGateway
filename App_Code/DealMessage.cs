@@ -476,9 +476,29 @@ public class DealMessage
                         break;
                 }
                 break;
+            case "bind":
+                string key = eventKey.Replace("bind_", "").Replace("_" + anyId, "");
+                switch (key)
+                {
+                    case "rent":
+                        repliedMessage = BindRent(receivedMessage, repliedMessage, int.Parse(anyId));
+                        break;
+                    default:
+                        break;
+                }
+                break;
             default:
                 break;
         }
+        return repliedMessage;
+    }
+
+    public static RepliedMessage BindRent(ReceivedMessage receivedMessage, RepliedMessage repliedMessage, int id)
+    {
+        string content = "您还不是会员，为了方便退还您的押金，请<a data-miniprogram-appid=\"wxd1310896f2aa68bb\" data-miniprogram-path=\"pages/rent/bind_rent_order?id=" + id.ToString()
+                + "\" href=\"#\" >点击此处</a>进入小程序注册成会员并且绑定账号。";
+        repliedMessage.type = "text";
+        repliedMessage.content = content;
         return repliedMessage;
     }
 
