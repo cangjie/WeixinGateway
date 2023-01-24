@@ -17,7 +17,7 @@
     public string skiPassDescNanashanCommon = "<ul><li>票前可申请免费退换</li><li>出票当日自动出票</li><li style=\"color:red\" >出票后不支持退换！</li><li>日场营业时间 9:00-17:00</li><li>夜场营业时间 18:00-22:00(除夕、初一仅开放日场）</li><li>上午场时间：当日13:00均前可使用</li><li>下午加夜场时间：限当日14:30后使用</li></ul>";
 
 
-    public string skiPassDescNanashanRent = "<ul><li>出票前可申请免费退换</li><li>出票当日自动出票</li><li style=\"color:red\" >出票后不支持退换！</li><li>日场营业时间 9:00-17:00</li><li>夜场营业时间18:00-22:00(除夕、初一仅开放日场）</li><li>上午场时间：当日13:00前可使用</li><li>下午加夜场时间：限当日14:30后使用</li><li>购买当日全天含装备 雪票则包含南山装备（一套雪服、头盔、雪镜、手套租费）</li></ul>";
+    public string skiPassDescNanashanRent = "<ul><li>出票前可申请免费退换</li><li>出票当日自动出票</li><li style=\"color:red\" >出票后不支持退换！</li><li>日场营业时间 9:00-17:00</li><li>夜场营业时间18:00-22:00(除夕、初一仅开放日场）</li><li>上午场时间：当日13:00前可使用</li><li>下午加夜场时间：限当日14:30后使用</li><!--li>购买当日全天含装备 雪票则包含南山装备（一套雪服、头盔、雪镜、手套租费）</li--></ul>";
 
 
 
@@ -124,7 +124,7 @@
 
                      %>
                 <p><%=(p._fields["name"].ToString().IndexOf("租") >= 0)?  skiPassDescNanashanRent: skiPassDescNanashanCommon %></p>
-                <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13521733301</p>
+                <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：18612472341</p>
                 <%}
     else
     {
